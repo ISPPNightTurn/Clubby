@@ -1,7 +1,7 @@
 ---
 name: Documentation enhancement
 about: Describe the documentation needed
-title: "[doc] Doc tittle"
+title: "Doc tittle"
 labels: documentation
 assignees: ''
 
