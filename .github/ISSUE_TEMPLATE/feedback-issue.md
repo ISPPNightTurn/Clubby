@@ -2,7 +2,7 @@
 name: Feedback Issue
 about: Revisar Feedback <Fecha de clase>
 title: Revisar Feedback <Fecha de clase>
-labels: ''
+labels: feedback
 assignees: Minuke
 
 ---
