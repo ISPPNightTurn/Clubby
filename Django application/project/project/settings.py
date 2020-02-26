@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'clubby.apps.ClubbyConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,10 +74,19 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+#clubby(db admin) password:
+#I$PP-C1ubby
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': 'djangodatabase',
+        'USER': 'clubby',
+        'PASSWORD': 'I$PP-C1ubby',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
