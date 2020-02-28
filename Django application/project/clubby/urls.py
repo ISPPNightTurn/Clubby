@@ -1,8 +1,19 @@
 from django.urls import path
 from . import views
 
+# we might wanna test this later on, this changes the views from custom written to django generic.
+# https://docs.djangoproject.com/en/3.0/intro/tutorial04/#amend-urlconf
+
+app_name = 'clubby'
 urlpatterns = [
+    # ex: /clubby/
     path('', views.index, name='index'),
+    # ex: /clubby/5/
+    path('<int:question_id>/', views.detail, name='detail'),
+    # ex: /clubby/5/results/
+    path('<int:question_id>/results/', views.results, name='results'),
+    # ex: /clubby/5/vote/
+    path('<int:question_id>/vote/', views.vote, name='vote'),
 ]
 
 
