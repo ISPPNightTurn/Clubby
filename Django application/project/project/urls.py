@@ -20,3 +20,10 @@ urlpatterns = [
     path('clubby/',include('clubby.urls')),
     path('admin/', admin.site.urls),
 ]
+
+#Add URL maps to redirect the base URL to our application
+from django.views.generic import RedirectView
+
+urlpatterns += [
+    path('', RedirectView.as_view(url='/clubby/', permanent=True)),
+]

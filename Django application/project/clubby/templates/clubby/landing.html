@@ -1,0 +1,14 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  <h1>Clubby Home!</h1>
+  <p>Welcome to Clubby, a website developed by <em>Me!</em>!</p>
+  <h2>Dynamic content</h2>
+  <p>clubby has the following record counts:</p>
+  <ul>
+    <li><strong>Clubs:</strong> {{ num_clubs }}</li>
+    <li><strong>Registered Events:</strong> {{ num_events }}</li>
+    <!--<li><strong>Planned Events:</strong> {{ num_events_future }}</li>-->
+    <li><strong>Users:</strong> {{ num_users }}</li>
+  </ul>
+{% endblock %}

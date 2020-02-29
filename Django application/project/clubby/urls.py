@@ -1,20 +1,30 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 # we might wanna test this later on, this changes the views from custom written to django generic.
 # https://docs.djangoproject.com/en/3.0/intro/tutorial04/#amend-urlconf
 
 app_name = 'clubby'
+#This is here as an example:
 urlpatterns = [
-    # ex: /clubby/
-    path('', views.index, name='index'),
-    # ex: /clubby/5/
-    path('<int:question_id>/', views.detail, name='detail'),
-    # ex: /clubby/5/results/
-    path('<int:question_id>/results/', views.results, name='results'),
-    # ex: /clubby/5/vote/
-    path('<int:question_id>/vote/', views.vote, name='vote'),
+    # ex: /clubby/polls
+    path('polls', views.index, name='polls-index'),
+    # ex: /clubby/polls/5/
+    path('polls/<int:question_id>/', views.detail, name='polls-detail'),
+    # ex: clubby/polls/5/results/
+    path('polls/<int:question_id>/results/', views.results, name='polls-results'),
+    # ex: /clubby/polls/5/vote/
+    path('polls/<int:question_id>/vote/', views.vote, name='polls-vote'),
 ]
+
+urlpatterns += [
+    path('', views.landing, name='landing'),
+]
+
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
+]
+
 
 
 '''

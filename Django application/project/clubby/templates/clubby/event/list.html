@@ -1,0 +1,16 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  <h1>Event List</h1>
+  {% if my_event_list %}
+  <ul>
+    {% for event in my_event_list %}
+      <li>
+        <a href="{{ event.get_absolute_url }}">{{ event.name }}</a> ({{event.price}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no events avaliable.</p>
+  {% endif %}       
+{% endblock %}
