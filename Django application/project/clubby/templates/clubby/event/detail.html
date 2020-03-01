@@ -1,0 +1,25 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  <h1>Name: {{ event.name }}</h1>
+
+  <p><strong>Club:</strong> <a href="">{{ event.club__name }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Starts:</strong> {{ event.start_date }}</p>
+  <p><strong>Type:</strong> {{ event.event_type }}</p>
+  <p><strong>Price:</strong> {{ event.price }}</p>
+
+  <p><strong>Atendee List:</strong></p><br>
+  {% if event.atendees %}
+  <ul>
+    {% for atendant in atendees %}
+      <li>
+        {{atendant.name}}
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no atendants yet.</p>
+  {% endif %}         
+{% endblock %}
+
+    

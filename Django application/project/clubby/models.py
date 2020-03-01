@@ -2,7 +2,7 @@ from django.db import models
 import datetime
 from datetime import timezone
 from django.contrib.auth.models import User
-import django.urls
+from django.urls import reverse
 
 # This is the models file, here we create the django objects we need for our application to work
 # these first two models are here as testing grounds and should be deleted later on.
@@ -45,7 +45,7 @@ class Profile(models.Model):
     
     def get_absolute_url(self):
         """Returns the url to access a detail record for this user."""
-        return reverse('user-detail', args=[str(self.id)])
+        return reverse('clubby:user-detail', args=[str(self.id)])
 
 # The order in django models matters, we cannot create the Event model without defining the Club model first
 class Club(models.Model):
@@ -66,7 +66,7 @@ class Club(models.Model):
     
     def get_absolute_url(self):
         """Returns the url to access a detail record for this club."""
-        return reverse('club-detail', args=[str(self.id)])
+        return reverse('clubby:club-detail', args=[str(self.id)])
 
 #for the get_absolute_url method to work we need to define some shit for it to work.
     
@@ -77,7 +77,7 @@ class Event(models.Model):
     name = models.CharField(max_length=200,)
     club = models.OneToOneField(Club, on_delete=models.CASCADE)
     start_date = models.DateTimeField()
-    
+
     EVENT_TYPE = (
         ('c', 'casual'),
         ('f', 'fancy'),
@@ -101,4 +101,4 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         """Returns the url to access a detail record for this event."""
-        return reverse('event-detail', args=[str(self.id)])
+        return reverse('clubby:event-detail', args=[str(self.id)])

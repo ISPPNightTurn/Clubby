@@ -4,7 +4,7 @@ from . import views
 # we might wanna test this later on, this changes the views from custom written to django generic.
 # https://docs.djangoproject.com/en/3.0/intro/tutorial04/#amend-urlconf
 
-app_name = 'clubby'
+app_name = 'clubby' #<-- this makes identifying the urls as clubby:urlname
 #This is here as an example:
 urlpatterns = [
     # ex: /clubby/polls
@@ -19,6 +19,10 @@ urlpatterns = [
 
 urlpatterns += [
     path('', views.landing, name='landing'),
+    path('clubs', views.ClubListView.as_view(), name='clubs'),
+    path('club/<int:pk>', views.ClubDetailView.as_view(), name='club-detail'),
+    path('events', views.EventListView.as_view(), name='events'),
+    path('event/<int:pk>', views.EventDetailView.as_view(), name='event-detail'),
 ]
 
 urlpatterns += [

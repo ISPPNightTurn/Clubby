@@ -1,0 +1,16 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  <h1>Club List</h1>
+  {% if object_list %}
+  <ul>
+    {% for club in object_list %}
+      <li>
+        <a href="{{ club.get_absolute_url }}">{{ club.name }}</a> ({{club.NIF}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no clubs avaliable.</p>
+  {% endif %}       
+{% endblock %}

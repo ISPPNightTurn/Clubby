@@ -44,17 +44,31 @@ def landing(request):
 # Generic views are the way that django makes easy the processing of simple requests:
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views
 # you can see more about them here
+
 from django.views import generic
+
+class ClubListView(generic.ListView):
+    model = Club
+    template_name = 'clubby/club/list.html'  # Specify your own template name/location
+
+class ClubDetailView(generic.DetailView):
+    model = Club
+    template_name = 'clubby/club/detail.html'  # Specify your own template name/location
+    #investigate how to add a list of all events that belong to the club.
 
 # Generic view for displaying all events.
 class EventListView(generic.ListView):
     model = Event
     context_object_name = 'my_event_list'   # your own name for the list as a template variable
     template_name = 'clubby/event/list.html'  # Specify your own template name/location
-    # we override the default to get events that have the year over 2020.
-    def get_queryset(self):
-        return Event.objects.filter(start_date__year >= 2020)[:5] # Get 5 events with year 2020 or more.
 
+    # we override the default to get events that have the year over 2020.
+    # def get_queryset(self):
+    #     return Event.objects.filter(start_date__year >= 2020)[:5] # Get 5 events with year 2020 or more.
+
+class EventDetailView(generic.DetailView):
+    model = Event
+    template_name = 'clubby/event/detail.html'  # Specify your own template name/location
 
 
 #################

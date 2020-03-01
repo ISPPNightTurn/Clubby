@@ -14,11 +14,10 @@
     <div class="row">
       <div class="col-sm-2">
       {% block sidebar %}
-        <ul class="sidebar-nav">
-            
+        <ul class="sidebar-nav"> 
           <li><a href="{% url 'clubby:landing' %}">Home</a></li>
-          <li><a href="">All clubs</a></li>
-          <li><a href="">All events</a></li>
+          <li><a href="{% url 'clubby:clubs' %}">All clubs</a></li>
+          <li><a href="{% url 'clubby:events' %}">All events</a></li>
         </ul>
      {% endblock %}
       </div>
