@@ -11,7 +11,7 @@
     {% if latest_question_list %}
         <ul>
         {% for question in latest_question_list %}
-            <li><a href="{% url 'clubby:polls-detail' question.id %}">{{ question.question_text }}</a></li>
+            <li><a href="{% url 'polls-detail' question.id %}">{{ question.question_text }}</a></li>
             <!-- 
               this is a way to remove hardcoded urls from code we jsut reference the name we gave them on urls.py
               this way if we want to change an url we just do it once on th urls file.

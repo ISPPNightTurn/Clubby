@@ -3,17 +3,27 @@
 {% block content %}
   <h1>Name: {{ event.name }}</h1>
 
-  <p><strong>Club:</strong> <a href="">{{ event.club__name }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Club:</strong> <a href="{{ event.club.get_absolute_url }}">{{ event.club.name}}</a></p> <!-- author detail link not yet defined -->
   <p><strong>Starts:</strong> {{ event.start_date }}</p>
-  <p><strong>Type:</strong> {{ event.event_type }}</p>
-  <p><strong>Price:</strong> {{ event.price }}</p>
+
+  {% if event.event_type == 'p'  %}
+    <p><strong>Type:</strong> Private</p>
+  {% elif event.event_type == 'd'  %}
+    <p><strong>Type:</strong> Dress Up</p>
+  {% elif event.event_type == 'f'  %}
+    <p><strong>Type:</strong> Fancy</p>
+  {% elif event.event_type == 'c'  %}
+    <p><strong>Type:</strong> Casual</p>
+  {%endif%}
+
+  <p><strong>Price:</strong> {{event.price }}</p>
 
   <p><strong>Atendee List:</strong></p><br>
   {% if event.atendees %}
   <ul>
-    {% for atendant in atendees %}
+    {% for atendant in event.atendees.all %}
       <li>
-        {{atendant.name}}
+        {{atendant}}
       </li>
     {% endfor %}
   </ul>

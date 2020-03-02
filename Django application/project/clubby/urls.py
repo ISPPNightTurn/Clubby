@@ -4,7 +4,7 @@ from . import views
 # we might wanna test this later on, this changes the views from custom written to django generic.
 # https://docs.djangoproject.com/en/3.0/intro/tutorial04/#amend-urlconf
 
-app_name = 'clubby' #<-- this makes identifying the urls as clubby:urlname
+#app_name = 'clubby' #<-- this makes identifying the urls as clubby:urlname but its useless for us.
 #This is here as an example:
 urlpatterns = [
     # ex: /clubby/polls
@@ -23,8 +23,17 @@ urlpatterns += [
     path('club/<int:pk>', views.ClubDetailView.as_view(), name='club-detail'),
     path('events', views.EventListView.as_view(), name='events'),
     path('event/<int:pk>', views.EventDetailView.as_view(), name='event-detail'),
+    path('myevents', views.EventsByUserListView.as_view(), name='my-events'),
 ]
 
+# accounts/ login/ [name='login']
+# accounts/ logout/ [name='logout']
+# accounts/ password_change/ [name='password_change']
+# accounts/ password_change/done/ [name='password_change_done']
+# accounts/ password_reset/ [name='password_reset']
+# accounts/ password_reset/done/ [name='password_reset_done']
+# accounts/ reset/<uidb64>/<token>/ [name='password_reset_confirm']
+# accounts/ reset/done/ [name='password_reset_complete']
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
 ]

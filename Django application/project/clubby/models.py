@@ -45,7 +45,7 @@ class Profile(models.Model):
     
     def get_absolute_url(self):
         """Returns the url to access a detail record for this user."""
-        return reverse('clubby:user-detail', args=[str(self.id)])
+        return reverse('user-detail', args=[str(self.id)])
 
 # The order in django models matters, we cannot create the Event model without defining the Club model first
 class Club(models.Model):
@@ -66,7 +66,7 @@ class Club(models.Model):
     
     def get_absolute_url(self):
         """Returns the url to access a detail record for this club."""
-        return reverse('clubby:club-detail', args=[str(self.id)])
+        return reverse('club-detail', args=[str(self.id)])
 
 #for the get_absolute_url method to work we need to define some shit for it to work.
     
@@ -74,8 +74,11 @@ class Event(models.Model):
     '''
     Model representing the events that will happen on a club
     '''
+    class Meta:
+        permissions = (("can_mark_assistance", "Set event to assist."),) 
+
     name = models.CharField(max_length=200,)
-    club = models.OneToOneField(Club, on_delete=models.CASCADE)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
     start_date = models.DateTimeField()
 
     EVENT_TYPE = (
@@ -92,7 +95,7 @@ class Event(models.Model):
         help_text='event type',
     ) 
     
-    atendees = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
+    atendees = models.ManyToManyField(User)
     price = models.IntegerField(default = 0, help_text= 'The ticket price for your event, 0 if free.')
 
     def __str__(self):
@@ -101,4 +104,4 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         """Returns the url to access a detail record for this event."""
-        return reverse('clubby:event-detail', args=[str(self.id)])
+        return reverse('event-detail', args=[str(self.id)])
