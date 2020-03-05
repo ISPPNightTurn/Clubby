@@ -41,11 +41,19 @@ class Profile(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.user
+        return str(self.user)+' profile'
     
     def get_absolute_url(self):
         """Returns the url to access a detail record for this user."""
         return reverse('user-detail', args=[str(self.id)])
+    
+    #this is a property it can return multiple stuff and can be called from a template.
+    @property
+    def is_premium(self):
+        for g in self.user__groups: # this might be user.groups idk.
+            if("premium" in str(g)):
+                return True
+        return False
 
 # The order in django models matters, we cannot create the Event model without defining the Club model first
 class Club(models.Model):
@@ -60,6 +68,9 @@ class Club(models.Model):
     # This represents the owners user.
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    class Meta:
+        permissions = (("can_add_event", "Set event to be had."),)
+    
     def __str__(self):
         """String for representing the Model object."""
         return self.name
@@ -91,7 +102,7 @@ class Event(models.Model):
         max_length=1,
         choices=EVENT_TYPE,
         blank=True,
-        default='m',
+        default='c',
         help_text='event type',
     ) 
     

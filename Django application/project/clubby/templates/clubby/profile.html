@@ -1,0 +1,23 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  <p><strong>Name:</strong>{{ logged_user.first_name }}</p>
+  <p><strong>Surname:</strong> {{ logged_user.last_name }}</p>
+  <p><strong>Email:</strong> {{ logged_user.email }}</p>
+
+  <p><strong>Bio:</strong>{{ user_profile.bio }}</p>
+  <p><strong>Location:</strong> {{ user_profile.location }}</p>
+  <p><strong>Email:</strong> {{ user_profile.birth_date }}</p>
+
+  <!-- add the club if the user is an owner and has a club. if not redirect to the club creation page: -->
+  {% if perms.clubby.can_add_event %}
+    {%if club == ''%}
+    no club registered man: register one <a href="{% url 'club-create' %}">here</a>
+    {%endif%}
+  {%else%}
+    {{club}}
+  {%endif%}
+  
+  <!-- add assisted events if the user is an user and has been to at least 1 event.-->
+    
+{% endblock %}

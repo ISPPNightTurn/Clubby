@@ -24,7 +24,19 @@ urlpatterns += [
     path('events', views.EventListView.as_view(), name='events'),
     path('event/<int:pk>', views.EventDetailView.as_view(), name='event-detail'),
     path('myevents', views.EventsByUserListView.as_view(), name='my-events'),
+    path('profile', views.profile, name='profile'),
 ]
+
+urlpatterns += [  
+    path('club/create/', views.ClubCreate.as_view(), name='club-create'),
+    path('club/<int:pk>/update/', views.ClubUpdate.as_view(), name='club-update'),
+    path('club/<int:pk>/delete/', views.ClubDelete.as_view(), name='club-delete'),
+]
+
+# urlpatterns += [   
+#     path('event/create', views.add_event, name='add-event'),
+# ]
+
 
 # accounts/ login/ [name='login']
 # accounts/ logout/ [name='logout']

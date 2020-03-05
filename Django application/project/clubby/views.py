@@ -1,13 +1,21 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.template import loader
+
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
 import datetime
+
+from django.views import generic
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+# from clubby.forms import EventAddForm
 
 from .models import Choice, Question
 from .models import Club, Event, Profile 
-from django.template import loader
+
 
 # Create your views here.
 
@@ -50,11 +58,67 @@ def landing(request):
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'clubby/landing.html', context=context)
 
+@login_required
+def profile(request):
+    me = request.user #this is the current user.
+    try:
+        profile = Profile.objects.filter(user=me)[0]
+    except:
+        profile = ''
+    try:
+        club = Club.objects.filter(owner=me)[0]
+    except:
+        club = ''
+    context = {'logged_user': me,'user_profile': profile, 'club':club}
+    return render(request,'clubby/profile.html',context)
+
+
+# this would be a custom view for form treatment. come back to it later on...
+
+# @permission_required('clubby.can_add_event') # <-- only owners
+# def add_event(request):
+#     """View function for adding an event to a club."""
+#     me = request.user
+#     club = get_object_or_404(Club, owner=me)
+#     event = Models
+#     # if owner doesnt have a club we should send him to the create club view. (this shouldn't happen?)
+
+#     # If this is a POST request then process the Form data (something went wrong)
+#     if request.method == 'POST':
+
+#         # Create a form instance and populate it with data from the request (binding):
+#         form = EventAddForm(request.POST)
+
+#         # Check if the form is valid:
+#         if form.is_valid():
+#             # process the data in form.cleaned_data as required
+#             event.start_date = form.cleaned_data['event_date']
+#             club.save()
+
+#             # redirect to a new URL:
+#             return HttpResponseRedirect(reverse('all-borrowed') )
+
+#     # If this is a GET (or any other method) create the default form.
+#     else:
+#         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+#         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
+
+#     context = {
+#         'form': form,
+#         'club': club,
+#     }
+
+#     return render(request, 'clubby/event/add.html', context)
+
+
 # Generic views are the way that django makes easy the processing of simple requests:
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views
 # you can see more about them here
 
-from django.views import generic
+
+###############
+#    CLUB     #
+###############
 
 class ClubListView(generic.ListView):
     paginate_by = 2 # add pagination to the view
@@ -66,11 +130,41 @@ class ClubDetailView(generic.DetailView):
     template_name = 'clubby/club/detail.html'  # Specify your own template name/location
     #investigate how to add a list of all events that belong to the club.
 
+# Generic views are the same as list vies but for editing the models:
+# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms
+# see more here
+
+class ClubCreate(CreateView):
+    model = Club
+    fields = ['name', 'address', 'max_capacity', 'NIF']
+    # you can't use the exclude here.
+
+    # we need to overide the default method for saving in this case because we need to
+    # add the logged user as the owner to the club.
+    def form_valid(self, form):  
+        obj = form.save(commit=False)
+        obj.owner = self.request.user
+        obj.save()
+        self.object = obj # this is neccesary as the url is pulled from self.object.
+        return HttpResponseRedirect(self.get_success_url())
+
+class ClubUpdate(UpdateView):
+    model = Club
+    fields = ['name', 'address', 'max_capacity', 'NIF']
+
+class ClubDelete(DeleteView):
+    model = Club
+    success_url = reverse_lazy('clubs')
+
+#################
+#     EVENT     #
+#################
+
 # Generic view for displaying all events.
 class EventListView(generic.ListView):
     paginate_by = 2
     model = Event
-    context_object_name = 'my_event_list'   # your own name for the list as a template variable
+    #context_object_name = 'my_event_list'   # your own name for the list as a template variable
     template_name = 'clubby/event/list.html'  # Specify your own template name/location
 
     # we override the default to get events that have the year over 2020.
@@ -81,19 +175,26 @@ class EventDetailView(generic.DetailView):
     model = Event
     template_name = 'clubby/event/detail.html'  # Specify your own template name/location
 
-# we should make a new view for this due to pagination bugs, but the filterint works.
+# we should make a new view for this due to pagination bugs, but the filtering works.
+# we can also call the required mixin to our own defined views but we need to declare them first, same as @login_required.
 class EventsByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing events the user has participated, or is going to participate in."""
     model = Event
     template_name ='clubby/event/list.html'
     paginate_by = 2
+
+    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
     def get_queryset(self):
-        return Event.objects.filter(atendees = self.request.user)#.filter(status__exact='o').order_by('due_back')
+        item = Event.objects.filter(atendees = self.request.user)#.filter(status__exact='o').order_by('due_back')
+        return item
 
-#################
-#   EXAMPLES    #
-#################
+
+
+##########################
+#    EXAMPLES (POLLS)    #
+##########################
+
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}

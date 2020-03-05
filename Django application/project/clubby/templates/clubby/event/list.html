@@ -2,9 +2,9 @@
 
 {% block content %}
   <h1>Event List</h1>
-  {% if my_event_list %}
+  {% if object_list %}
   <ul>
-    {% for event in my_event_list %}
+    {% for event in object_list %}
       <li>
         <a href="{{ event.get_absolute_url }}">{{ event.name }}</a> ({{event.price}})
       </li>
