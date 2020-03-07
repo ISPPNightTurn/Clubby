@@ -32,6 +32,7 @@ class Choice(models.Model):
 ####################
 #      CLUBBY      #
 ####################
+
 # We will be extending the default user model of django instead of creating a new model ourselves.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -45,7 +46,7 @@ class Profile(models.Model):
     
     def get_absolute_url(self):
         """Returns the url to access a detail record for this user."""
-        return reverse('user-detail', args=[str(self.id)])
+        return reverse('user-detail', args=[str(self.user.id)])
     
     #this is a property it can return multiple stuff and can be called from a template.
     @property

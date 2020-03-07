@@ -13,11 +13,28 @@
   {% if perms.clubby.can_add_event %}
     {%if club == ''%}
     no club registered man: register one <a href="{% url 'club-create' %}">here</a>
+    {%else%}
+    <h2>CLUB:</h2>
+
+    <p><strong>Name: </strong>{{ club.name }}</p>
+    <p><strong>Address: </strong>{{ club.address }}</p>
+    <p><strong>Capacity: </strong>{{ club.max_capacity }}</p>
+    <br>
+    
+    <a href="club/{{ club.pk }}/update/">edit club</a>
+    <a href="club/{{ club.pk }}/delete/"">delete club</a>
+    
+
     {%endif%}
-  {%else%}
-    {{club}}
   {%endif%}
-  
+
   <!-- add assisted events if the user is an user and has been to at least 1 event.-->
+  {% if perms.clubby.can_mark_assistance%}
+
+    <!-- include assisted events-->
+
+  {%endif%}
+ 
+  
     
 {% endblock %}

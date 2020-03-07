@@ -3,13 +3,46 @@ import datetime
 from django.test import TestCase
 from django.utils import timezone
 
-from .models import Question
+from ..models import Question
+
+
+
+# these tests are part of the following tutorial:
+# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing
+#it contains a lot of information about them so you dhould check it out if you have been assigned testing...
+# there is some info about coverage and selenium they are surely gonna ask us about so read upon it.
+
+#######################
+#    CLUBBY TESTS     #
+#######################
+
+#This type of tests are unit tests but you can also test views:
+#This is an example test
+class YourTestClass(TestCase):
+    def setUp(self):
+        # Setup run before every test method.
+        pass
+
+    def tearDown(self):
+        # Clean up run after every test method.
+        pass
+
+    def test_something_that_will_pass(self):
+        self.assertFalse(False)
+
+    def test_something_that_will_fail(self):
+        self.assertTrue(False)
+
+
+
 
 
 # these tests are part of the following tutorial:
 # https://docs.djangoproject.com/en/3.0/intro/tutorial05/#improving-our-view
 # to work they need a change to the views beforehand.
-
+#####################
+#    POLL TESTS     #
+#####################
 def create_question(question_text, days):
     """
     Create a question with the given `question_text` and published the

@@ -8,6 +8,9 @@ from django.forms import ModelForm
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 from clubby.models import Club, Event, Profile
 
 import re
@@ -22,13 +25,27 @@ class ClubModelForm(ModelForm):
 
 #you can add validation the same way as in a custom form: by adding def clean_field_name(): and raising ValidationError.
     def clean_NIF(self):
-        data = self.cleaned_data['NIF']
+        data = self.cleaned_data.get('NIF')
 
         #check if 8 numbers and a letter with re package
-        if(not re.match("[0-9]{8,8}[A-Za-z]",data):
+        if((re.match("^[0-9]{8,8}[A-Za-z]$"), data) == None):
             raise ValidationError(_('Invalid NIF - format is 8 numbers and a letter.'))
         return data
 
+class SignupForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+
+    def clean(self):
+       email = self.cleaned_data.get('email')
+       if User.objects.filter(email=email).exists():
+            raise ValidationError("Email exists")
+       return self.cleaned_data
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
 
 
 # Custom form we will come back to it later on.

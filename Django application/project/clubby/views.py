@@ -1,20 +1,26 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.template import loader
 
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
-import datetime
+
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+
 # from clubby.forms import EventAddForm
+from .forms import ClubModelForm, SignupForm
 
 from .models import Choice, Question
 from .models import Club, Event, Profile 
+
+import datetime
 
 
 # Create your views here.
@@ -65,13 +71,47 @@ def profile(request):
         profile = Profile.objects.filter(user=me)[0]
     except:
         profile = ''
+
     try:
         club = Club.objects.filter(owner=me)[0]
     except:
         club = ''
+    
     context = {'logged_user': me,'user_profile': profile, 'club':club}
     return render(request,'clubby/profile.html',context)
 
+# we not only register the user but also authenticate them.
+def signup_user(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            my_group = Group.objects.get(name='user') 
+            my_group.user_set.add(user)
+            return redirect('landing')
+    else:
+        form = SignupForm()
+    return render(request, 'clubby/signup.html', {'form': form, 'user':True, 'owner':False})
+
+def signup_owner(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            my_group = Group.objects.get(name='owner') 
+            my_group.user_set.add(user)
+            return redirect('landing')
+    else:
+        form = SignupForm()
+    return render(request, 'clubby/signup.html', {'form': form, 'owner':True, 'user':False})
 
 # this would be a custom view for form treatment. come back to it later on...
 
@@ -136,6 +176,7 @@ class ClubDetailView(generic.DetailView):
 
 class ClubCreate(CreateView):
     model = Club
+    form = ClubModelForm #<-- since the validation is here we need to specify the form we want to use.
     fields = ['name', 'address', 'max_capacity', 'NIF']
     # you can't use the exclude here.
 
@@ -144,8 +185,8 @@ class ClubCreate(CreateView):
     def form_valid(self, form):  
         obj = form.save(commit=False)
         obj.owner = self.request.user
-        obj.save()
         self.object = obj # this is neccesary as the url is pulled from self.object.
+        obj.save()
         return HttpResponseRedirect(self.get_success_url())
 
 class ClubUpdate(UpdateView):

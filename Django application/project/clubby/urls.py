@@ -1,5 +1,7 @@
 from django.urls import path, include
 from . import views
+from django.conf.urls import url
+
 
 # we might wanna test this later on, this changes the views from custom written to django generic.
 # https://docs.djangoproject.com/en/3.0/intro/tutorial04/#amend-urlconf
@@ -25,6 +27,11 @@ urlpatterns += [
     path('event/<int:pk>', views.EventDetailView.as_view(), name='event-detail'),
     path('myevents', views.EventsByUserListView.as_view(), name='my-events'),
     path('profile', views.profile, name='profile'),
+]
+
+urlpatterns += [
+    url('signup/user', views.signup_user, name='signup-user'),
+    url('signup/owner', views.signup_owner, name='signup-owner'),
 ]
 
 urlpatterns += [  
