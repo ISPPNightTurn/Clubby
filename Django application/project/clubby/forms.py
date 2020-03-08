@@ -18,19 +18,24 @@ import re
 #Model forms: these forms use the models to create themselves basically: (only a single model can't combine multiple.)
 
 class ClubModelForm(ModelForm):
+    def clean(self):
+        #you can add validation the same way as in a custom form: by adding def clean_field_name(): and raising ValidationError.
+        data = self.cleaned_data.get('NIF')
+        print(data)
+        z = re.match("^[0-9]{8,8}[A-Za-z]$", data)
+        print(z == None)
+        #check if 8 numbers and a letter with re package
+        if(z == None):
+            raise ValidationError(_('Invalid NIF - format is 8 numbers and a letter.'))
+        return self.cleaned_data
+    
     class Meta:
         model = Club
         fields = '__all__'# we can eithe specify the fields from the model we want to use or
         exclude = ['owner'] # select the ones we want to exclude.
 
-#you can add validation the same way as in a custom form: by adding def clean_field_name(): and raising ValidationError.
-    def clean_NIF(self):
-        data = self.cleaned_data.get('NIF')
 
-        #check if 8 numbers and a letter with re package
-        if((re.match("^[0-9]{8,8}[A-Za-z]$"), data) == None):
-            raise ValidationError(_('Invalid NIF - format is 8 numbers and a letter.'))
-        return data
+    
 
 class SignupForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )

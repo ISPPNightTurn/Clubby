@@ -176,8 +176,8 @@ class ClubDetailView(generic.DetailView):
 
 class ClubCreate(CreateView):
     model = Club
-    form = ClubModelForm #<-- since the validation is here we need to specify the form we want to use.
-    fields = ['name', 'address', 'max_capacity', 'NIF']
+    form_class = ClubModelForm #<-- since the validation is here we need to specify the form we want to use.
+    template_name = 'clubby/club/club_form.html'
     # you can't use the exclude here.
 
     # we need to overide the default method for saving in this case because we need to
@@ -191,10 +191,12 @@ class ClubCreate(CreateView):
 
 class ClubUpdate(UpdateView):
     model = Club
+    template_name = 'clubby/club/club_form.html'
     fields = ['name', 'address', 'max_capacity', 'NIF']
 
 class ClubDelete(DeleteView):
     model = Club
+    template_name = 'clubby/club/club_confirm_delete.html'
     success_url = reverse_lazy('clubs')
 
 #################
