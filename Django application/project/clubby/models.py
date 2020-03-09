@@ -23,6 +23,11 @@ class Profile(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a detail record for this user."""
         return reverse('user-detail', args=[str(self.user.id)])
+
+    class Meta:
+        permissions = (("is_user", "Is a user and can do everything an identified user can."),
+        ("is_owner", "Is an owner and can do everything an identified owner can."),
+        ("is_premium_owner", "Is a premium owner and can do everything an identified owner can and more.")) 
     
     #this is a property it can return multiple stuff and can be called from a template.
     @property
@@ -43,10 +48,7 @@ class Club(models.Model):
     NIF = models.CharField(max_length=10, help_text = 'Company number for the club')
     
     # This represents the owners user.
-    owner = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    class Meta:
-        permissions = (("can_add_event", "Set event to be had."),)
+    owner = models.OneToOneField(User, on_delete=models.CASCADE)        
     
     def __str__(self):
         """String for representing the Model object."""
@@ -63,8 +65,6 @@ class Event(models.Model):
     '''
     Model representing the events that will happen on a club
     '''
-    class Meta:
-        permissions = (("can_mark_assistance", "Set event to assist."),) 
 
     name = models.CharField(max_length=200,)
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
@@ -95,40 +95,52 @@ class Event(models.Model):
         return reverse('event-detail', args=[str(self.id)])
 
 class Ticket(models.Model):
-
-    price = models.DecimalField(decimal_places=2)
+    price = models.DecimalField(decimal_places=2,max_digits=5)#999,99 es el maximo
     date = models.DateTimeField()
-    ticket_id = models.CharField
+    # ticket_id = models.CharField()#<-- podemos usar a primary key para identificarlos, este tributo es redundante.
 
     event =  models.ForeignKey(Event, on_delete=models.CASCADE)
-    owner =  models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE)
+
     def __str__(self):
-        """String for representing the Model object."""
-        return self.name
+        return self.ticket_id
 
 class Product(models.Model):
     name = models.CharField(max_length=50)
-    price = models.DecimalField(decimal_places=2)
+    price = models.DecimalField(decimal_places=2,max_digits=5)
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
     
 
 class Reservation(models.Model):
     start_time = models.DateTimeField()
-    end_time = models.DateTimeField
-    price = models.DecimalField(decimal_places=2)
+    end_time = models.DateTimeField()
+    price = models.DecimalField(decimal_places=2,max_digits=5)
     event = models.ForeignKey(Event,on_delete=models.CASCADE)
 
+    def __str__(self):
+        return 'from '+ str(self.start_time) +' to '+ str(self.end_time)
+
 class Hookah(models.Model):
-    price = models.DecimalField(decimal_places=2)
+    price = models.DecimalField(decimal_places=2,max_digits=5)
     flavour = models.CharField(max_length=50)  
     club = models.ForeignKey(Club,on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.club)+' '+self.flavour
+
+
 class Rating(models.Model):
-    text = models.CharField(max_length=500)
-    stars = models.IntegerField(min=0,max=10)
-    recommended = models.BooleanField()
-    club = models.ForeignKey(Club,on_delete=models.CASCADE)
-    owner = models.ForeignKey(Profile,on_delete=models.CASCADES)
+    text = models.TextField(max_length=500)
+    stars = models.IntegerField(help_text='star rating 1-10')
+    recommended = models.BooleanField(help_text='would you recommend this club?')
+    club = models.ForeignKey(Club, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return str(self.club)+' '+str(self.stars)
 
 class Receipt(models.Model):
     date = models.DateTimeField()
@@ -136,10 +148,12 @@ class Receipt(models.Model):
     #Every kind of product is optional
     #Amount parameter refers to amount of product x
     #We take for granted that the user will only order a reservation or a hookah everytime
+    #^de eso nada que tenemos un onetoone field pa algo hombre^ 
+    #Solo les dejamos una hookah?
+    reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
     hookah = models.ForeignKey(Hookah,on_delete=models.CASCADE)
     owner = models.ForeignKey(Profile,on_delete=models.CASCADE)
 
-
-   
+    def __str__(self):
+        return str(self.product)+' '+str(self.amount)

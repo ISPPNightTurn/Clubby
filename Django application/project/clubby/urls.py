@@ -8,18 +8,18 @@ from django.conf.urls import url
 
 #app_name = 'clubby' #<-- this makes identifying the urls as clubby:urlname but its useless for us.
 #This is here as an example:
-urlpatterns = [
-    # ex: /clubby/polls
-    path('polls', views.index, name='polls-index'),
-    # ex: /clubby/polls/5/
-    path('polls/<int:question_id>/', views.detail, name='polls-detail'),
-    # ex: clubby/polls/5/results/
-    path('polls/<int:question_id>/results/', views.results, name='polls-results'),
-    # ex: /clubby/polls/5/vote/
-    path('polls/<int:question_id>/vote/', views.vote, name='polls-vote'),
-]
+# urlpatterns = [
+#     # ex: /clubby/polls
+#     path('polls', views.index, name='polls-index'),
+#     # ex: /clubby/polls/5/
+#     path('polls/<int:question_id>/', views.detail, name='polls-detail'),
+#     # ex: clubby/polls/5/results/
+#     path('polls/<int:question_id>/results/', views.results, name='polls-results'),
+#     # ex: /clubby/polls/5/vote/
+#     path('polls/<int:question_id>/vote/', views.vote, name='polls-vote'),
+# ]
 
-urlpatterns += [
+urlpatterns = [
     path('', views.landing, name='landing'),
     path('clubs', views.ClubListView.as_view(), name='clubs'),
     path('club/<int:pk>', views.ClubDetailView.as_view(), name='club-detail'),

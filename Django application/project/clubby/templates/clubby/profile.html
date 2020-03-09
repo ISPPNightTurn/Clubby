@@ -10,7 +10,7 @@
   <p><strong>Email:</strong> {{ user_profile.birth_date }}</p>
 
   <!-- add the club if the user is an owner and has a club. if not redirect to the club creation page: -->
-  {% if perms.clubby.can_add_event %}
+  {% if perms.clubby.is_owner %}
     {%if club == ''%}
     no club registered man: register one <a href="{% url 'club-create' %}">here</a>
     {%else%}
@@ -29,7 +29,7 @@
   {%endif%}
 
   <!-- add assisted events if the user is an user and has been to at least 1 event.-->
-  {% if perms.clubby.can_mark_assistance%}
+  {% if perms.clubby.is_user%}
 
     <!-- include assisted events-->
 

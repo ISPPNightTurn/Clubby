@@ -18,7 +18,7 @@ import re
 #Model forms: these forms use the models to create themselves basically: (only a single model can't combine multiple.)
 
 class ClubModelForm(ModelForm):
-    def clean(self):
+    def clean_NIF(self):
         #you can add validation the same way as in a custom form: by adding def clean_field_name(): and raising ValidationError.
         data = self.cleaned_data.get('NIF')
         print(data)
@@ -34,19 +34,23 @@ class ClubModelForm(ModelForm):
         fields = '__all__'# we can eithe specify the fields from the model we want to use or
         exclude = ['owner'] # select the ones we want to exclude.
 
-
-    
-
 class SignupForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
     last_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    username = forms.CharField(max_length=30, required=True, help_text='Required, 30 chars max, must be unique.')
 
     def clean(self):
        email = self.cleaned_data.get('email')
        if User.objects.filter(email=email).exists():
             raise ValidationError("Email exists")
        return self.cleaned_data
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise ValidationError("Sorry that username is already taken :(")
+        return self.cleaned_data
 
     class Meta:
         model = User

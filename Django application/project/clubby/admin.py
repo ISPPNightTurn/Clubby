@@ -5,13 +5,16 @@ from django.contrib import admin
 # this can be improved upon by following this tutorial:
 # https://docs.djangoproject.com/en/3.0/intro/tutorial07/
 
-# these models are here as an example:
-from .models import Question,Choice
-admin.site.register(Question)
-admin.site.register(Choice)
 
-from .models import Profile,Club,Event
+from .models import Profile,Club,Event,Rating,Receipt,Reservation,Ticket,Hookah,Product
 admin.site.register(Profile)
 admin.site.register(Club)
 admin.site.register(Event)
+admin.site.register(Rating)
+admin.site.register(Receipt)
+admin.site.register(Reservation)
+admin.site.register(Ticket)
+admin.site.register(Hookah)
+admin.site.register(Product)
+
 
