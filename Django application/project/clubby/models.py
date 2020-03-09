@@ -4,30 +4,6 @@ from datetime import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-# This is the models file, here we create the django objects we need for our application to work
-# these first two models are here as testing grounds and should be deleted later on.
-
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
-
-    def __str__(self):
-        return self.question_text
-
-    def was_published_recently(self):
-        now = timezone.now()
-        return now - datetime.timedelta(days=1) <= self.pub_date <= now
-
-class Choice(models.Model):
-    # this is a reference to the Question class as a many to one configuration
-    # if you are using VSCode you can see that by hovering on ForeignKey
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.choice_text
 
 ####################
 #      CLUBBY      #
@@ -81,6 +57,7 @@ class Club(models.Model):
         return reverse('club-detail', args=[str(self.id)])
 
 #for the get_absolute_url method to work we need to define some shit for it to work.
+
     
 class Event(models.Model):
     '''
@@ -108,8 +85,7 @@ class Event(models.Model):
     ) 
     
     atendees = models.ManyToManyField(User)
-    price = models.IntegerField(default = 0, help_text= 'The ticket price for your event, 0 if free.')
-
+    
     def __str__(self):
         """String for representing the Model object."""
         return self.name
@@ -117,3 +93,53 @@ class Event(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a detail record for this event."""
         return reverse('event-detail', args=[str(self.id)])
+
+class Ticket(models.Model):
+
+    price = models.DecimalField(decimal_places=2)
+    date = models.DateTimeField()
+    ticket_id = models.CharField
+
+    event =  models.ForeignKey(Event, on_delete=models.CASCADE)
+    owner =  models.ForeignKey(Profile, on_delete=models.CASCADE)
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
+
+class Product(models.Model):
+    name = models.CharField(max_length=50)
+    price = models.DecimalField(decimal_places=2)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    
+
+class Reservation(models.Model):
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField
+    price = models.DecimalField(decimal_places=2)
+    event = models.ForeignKey(Event,on_delete=models.CASCADE)
+
+class Hookah(models.Model):
+    price = models.DecimalField(decimal_places=2)
+    flavour = models.CharField(max_length=50)  
+    club = models.ForeignKey(Club,on_delete=models.CASCADE)
+
+class Rating(models.Model):
+    text = models.CharField(max_length=500)
+    stars = models.IntegerField(min=0,max=10)
+    recommended = models.BooleanField()
+    club = models.ForeignKey(Club,on_delete=models.CASCADE)
+    owner = models.ForeignKey(Profile,on_delete=models.CASCADES)
+
+class Receipt(models.Model):
+    date = models.DateTimeField()
+    amount = models.IntegerField(default=0)
+    #Every kind of product is optional
+    #Amount parameter refers to amount of product x
+    #We take for granted that the user will only order a reservation or a hookah everytime
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
+    hookah = models.ForeignKey(Hookah,on_delete=models.CASCADE)
+    owner = models.ForeignKey(Profile,on_delete=models.CASCADE)
+
+
+   
