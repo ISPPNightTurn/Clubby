@@ -23,13 +23,14 @@
           <li>User: {{ user.get_username }}</li>
           <li><a href="{% url 'logout'%}?next={% url 'landing'%}">Logout</a></li>   
           <li><a href="{% url 'profile' %}">Profile</a></li>
-          <!--{% if perms.clubby.is_user %}-->
-          <!-- We can list our events only if we are a user. -->
-    
-          <!--{%endif%}-->
+          {% if perms.clubby.is_user %}
+          <!-- We can list our events only if we are a user.  -->
           <li><a href="{% url 'my-events' %}">My Events</a></li>
+          {%endif%}
+          {% if perms.clubby.is_owner %}
           <li><a href="{% url 'my-published-events' %}">My Published Events</a></li>
           <li><a href="{% url 'my-products' %}">My Products</a></li>
+          {%endif%}
           
         {% else %}
           <li><a href="{% url 'login'%}?next={% url 'landing'%}">Login</a></li>   
