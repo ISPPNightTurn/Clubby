@@ -26,6 +26,7 @@ import datetime
 class ProductDetailView(LoginRequiredMixin,generic.DetailView):
     model = Product
     template_name = 'clubby/product/detail.html'  # Specify your own template name/location
+    
     #investigate how to add a list of all events that belong to the club.
 
 class ProductUpdate(PermissionRequiredMixin,UpdateView):

@@ -5,8 +5,10 @@
   <h1>Price: {{ product.price }}</h1>
   
   <!-- this should appear only if its the owner. -->
+  {% if product.club.owner == user%}
   <a href="{{ product.pk }}/update/">edit product</a><br>
   <a href="{{ product.pk }}/delete/">delete product</a>
+  {%endif%}
 {% endblock %}
 
     
