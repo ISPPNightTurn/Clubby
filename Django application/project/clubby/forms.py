@@ -69,7 +69,7 @@ class EventModelForm(ModelForm):
     class Meta:
         model = Event
         fields = '__all__'
-        exclude = ['atendees'] 
+        exclude = ['atendees','club'] 
 
 
 # Custom form we will come back to it later on.

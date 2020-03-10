@@ -3,6 +3,7 @@ from . import views
 from django.conf.urls import url
 
 
+
 # we might wanna test this later on, this changes the views from custom written to django generic.
 # https://docs.djangoproject.com/en/3.0/intro/tutorial04/#amend-urlconf
 
@@ -44,7 +45,7 @@ urlpatterns += [
 
 urlpatterns += [  
     path('product/create/', views.ProductCreateView.as_view(), name='product-create'),
-    path('myproducts', views.ProductsByUserListView.as_view(), name='my-products')
+    path('myproducts', views.ProductsByClubListView.as_view(), name='my-products')
 ]
 
 # urlpatterns += [   
