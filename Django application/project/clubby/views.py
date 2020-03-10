@@ -23,6 +23,8 @@ from .models import Club, Event, Profile, Product
 
 import datetime
 
+import views #<-- this is the import for the views folder
+
 
 # Create your views here.
 
