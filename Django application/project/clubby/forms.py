@@ -14,6 +14,8 @@ from django.contrib.auth.models import User
 from clubby.models import Club, Event, Profile,Product
 
 import re
+
+import models
     
 #Model forms: these forms use the models to create themselves basically: (only a single model can't combine multiple.)
 
