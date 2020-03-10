@@ -17,13 +17,10 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
-from .forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
-
-from .models import Club, Event, Profile, Product 
+from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
+from ..models import Club, Event, Profile, Product 
 
 import datetime
-
-from custom_views import views_miguel #<-- this is the import for the views folder
 
 
 # Create your views here.
@@ -228,10 +225,10 @@ class ClubDelete(PermissionRequiredMixin,DeleteView):
 #################
 #    PRODUCT    #
 #################
-class ProductCreateView(PermissionRequiredMixin,CreateView):
+class ProductCreate(PermissionRequiredMixin,CreateView):
     permission_required = 'clubby.is_owner'
     model = Product
-    form_class = ProductModelForm #<-- since the validation is here we need to specify the form we want to use.
+    fields = ['name','price']
     template_name = 'clubby/product/product_form.html'
     # you can't use the exclude here.
 
@@ -239,16 +236,16 @@ class ProductCreateView(PermissionRequiredMixin,CreateView):
     # add the logged user as the owner to the club.
     def form_valid(self, form):  
         obj = form.save(commit=False)
-        obj.owner = self.request.user
+        obj.club = self.request.user.club
         self.object = obj # this is neccesary as the url is pulled from self.object.
         obj.save()
-        return HttpResponseRedirect(reverse('my-products'))
+        return HttpResponseRedirect(self.object.get_absolute_url())
 
 class ProductsByClubListView(LoginRequiredMixin, generic.ListView):
         """Generic class-based view listing events the user has participated, or is going to participate in."""
         model = Product
         template_name ='clubby/product/list.html'
-        paginate_by = 2
+        paginate_by = 5
 
         login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
@@ -262,7 +259,7 @@ class ProductsByClubListView(LoginRequiredMixin, generic.ListView):
 
 # Generic view for displaying all events.
 class EventListView(generic.ListView):
-    paginate_by = 2
+    paginate_by = 5
     model = Event
     #context_object_name = 'my_event_list'   # your own name for the list as a template variable
     template_name = 'clubby/event/list.html'  # Specify your own template name/location

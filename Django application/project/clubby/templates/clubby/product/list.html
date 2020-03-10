@@ -6,12 +6,12 @@
   <ul>
     {% for product in object_list %}
       <li>
-        {{ product.name }} ({{product.price}}) - {{product.club}}
+        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a> ({{product.price}}) - {{product.club}}
       </li>
     {% endfor %}
   </ul>
-  <a href="{% url 'product-create' %}">Create new product</a>
   {% else %}
     <p>There are no products avaliable.</p>
-  {% endif %}       
+  {% endif %}
+  <a href="{% url 'product-create' %}">Create new product</a> 
 {% endblock %}

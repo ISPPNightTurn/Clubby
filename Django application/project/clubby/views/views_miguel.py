@@ -23,50 +23,37 @@ from ..models import Club, Event, Profile, Product
 
 import datetime
 
-class ProductCreate(PermissionRequiredMixin,CreateView):
+class ProductDetailView(LoginRequiredMixin,generic.DetailView):
+    model = Product
+    template_name = 'clubby/product/detail.html'  # Specify your own template name/location
+    #investigate how to add a list of all events that belong to the club.
+
+class ProductUpdate(PermissionRequiredMixin,UpdateView):
     permission_required = 'clubby.is_owner'
     model = Product
-    fields = ['name','price']
     template_name = 'clubby/product/product_form.html'
-    # you can't use the exclude here.
-
-    # we need to overide the default method for saving in this case because we need to
-    # add the logged user as the owner to the club.
-    def form_valid(self, form):  
-        obj = form.save(commit=False)
-        obj.club = self.request.user.club
-        self.object = obj # this is neccesary as the url is pulled from self.object.
-        obj.save()
-        return HttpResponseRedirect(self.get_success_url())
-
-class ClubUpdate(PermissionRequiredMixin,UpdateView):
-    permission_required = 'clubby.is_owner'
-    model = Club
-    template_name = 'clubby/club/club_form.html'
-    fields = ['name', 'address', 'max_capacity', 'NIF']
+    fields = ['name','price']
 
     def form_valid(self, form):  
         obj = form.save(commit=False)
         self.object = obj # this is neccesary as the url is pulled from self.object.
-        if(obj.owner == self.request.user):
+        if(obj.club.owner == self.request.user):
             obj.save()
             return HttpResponseRedirect(self.get_success_url())
         else:
             raise PermissionDenied("You don't own that >:(")
 
-
-
-class ClubDelete(PermissionRequiredMixin,DeleteView):
+class ProductDelete(PermissionRequiredMixin,DeleteView):
     permission_required = 'clubby.is_owner'
-    model = Club
-    template_name = 'clubby/club/club_confirm_delete.html'
-    success_url = reverse_lazy('clubs')
+    model = Product
+    template_name = 'clubby/product/product_confirm_delete.html'
+    success_url = reverse_lazy('my-products')
 
     def delete(self, request, *args, **kwargs): #to check for permissions we override the default delete method
         self.object = self.get_object()
-        can_delete = self.object.owner == self.request.user
+        can_delete = self.object.club.owner == self.request.user
 
         if can_delete:
-            return super(ClubDeleteView, self).delete(request, *args, **kwargs)
+            return super(ProductDelete, self).delete(request, *args, **kwargs)
         else:
             raise PermissionDenied("You don't own that >:(")
