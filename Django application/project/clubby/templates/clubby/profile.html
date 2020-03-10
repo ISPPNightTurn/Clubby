@@ -21,10 +21,11 @@
     <p><strong>Capacity: </strong>{{ club.max_capacity }}</p>
     <br>
     
-    <a href="club/{{ club.pk }}/update/">edit club</a>
-    <a href="club/{{ club.pk }}/delete/"">delete club</a>
+    <a href="club/{{ club.pk }}/update/">edit club</a><br>
+    <a href="club/{{ club.pk }}/delete/"">delete club</a><br>
     
-
+    <a href="{% url 'my-published-events' %}">My Published Events</a><br>
+    <a href="{% url 'my-products' %}">My Products</a><br>
     {%endif%}
   {%endif%}
 

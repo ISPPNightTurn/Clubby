@@ -28,8 +28,8 @@
           <li><a href="{% url 'my-events' %}">My Events</a></li>
           {%endif%}
           {% if perms.clubby.is_owner %}
-          <li><a href="{% url 'my-published-events' %}">My Published Events</a></li>
-          <li><a href="{% url 'my-products' %}">My Products</a></li>
+          <!-- We can add owner specific actions here (they need to not require a club.)-->
+          
           {%endif%}
           
         {% else %}

@@ -18,10 +18,9 @@ import re
 #Model forms: these forms use the models to create themselves basically: (only a single model can't combine multiple.)
 
 class ClubModelForm(ModelForm):
-    def clean_NIF(self):
+    def clean(self):
         #you can add validation the same way as in a custom form: by adding def clean_field_name(): and raising ValidationError.
         data = self.cleaned_data.get('NIF')
-        print(data)
         z = re.match("^[0-9]{8,8}[A-Za-z]$", data)
         print(z == None)
         #check if 8 numbers and a letter with re package
