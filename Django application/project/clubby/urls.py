@@ -26,6 +26,8 @@ urlpatterns = [
     path('events', views.EventListView.as_view(), name='events'),
     path('event/<int:pk>', views.EventDetailView.as_view(), name='event-detail'),
     path('myevents', views.EventsByUserListView.as_view(), name='my-events'),
+    path('mypublishedevents', views.EventsByClubListView.as_view(), name='my-published-events'),
+    path('event/create', views.EventCreateView.as_view(), name='event-create'),
     path('profile', views.profile, name='profile'),
 ]
 
@@ -38,6 +40,11 @@ urlpatterns += [
     path('club/create/', views.ClubCreate.as_view(), name='club-create'),
     path('club/<int:pk>/update/', views.ClubUpdate.as_view(), name='club-update'),
     path('club/<int:pk>/delete/', views.ClubDelete.as_view(), name='club-delete'),
+]
+
+urlpatterns += [  
+    path('product/create/', views.ProductCreateView.as_view(), name='product-create'),
+    path('myproducts', views.ProductsByUserListView.as_view(), name='my-products')
 ]
 
 # urlpatterns += [   

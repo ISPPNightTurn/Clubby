@@ -6,11 +6,12 @@
   <ul>
     {% for event in object_list %}
       <li>
-        <a href="{{ event.get_absolute_url }}">{{ event.name }}</a> ({{event.price}})
+        <a href="{{ event.get_absolute_url }}">{{ event.name }}</a> 
       </li>
     {% endfor %}
   </ul>
   {% else %}
     <p>There are no events avaliable.</p>
-  {% endif %}       
+  {% endif %}  
+  <a href="{% url 'event-create' %}">Create new event</a>     
 {% endblock %}

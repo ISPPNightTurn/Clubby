@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from clubby.models import Club, Event, Profile
+from clubby.models import Club, Event, Profile,Product
 
 import re
     
@@ -56,8 +56,26 @@ class SignupForm(UserCreationForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
 
+class ProductModelForm(ModelForm):
+    name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
+    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, help_text='Required. 5 digits max' )
+    class Meta:
+        model = Product
+        fields = '__all__'
+        exclude = ['owner'] 
+
+class EventModelForm(ModelForm):
+    name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
+    start_date = forms.DateField(initial=datetime.date.today)
+    
+    class Meta:
+        model = Event
+        fields = '__all__'
+        exclude = ['atendees'] 
+
 
 # Custom form we will come back to it later on.
+
 # class EventAddForm(forms.Form):
 #     event_date = forms.DateField(help_text="Enter a date between tomorrow and 4 weeks (default 3).")
 #     event_time = forms.TimeField(help_text="Your event start time.")

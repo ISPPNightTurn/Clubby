@@ -15,9 +15,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
-from .forms import ClubModelForm, SignupForm
+from .forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
 
-from .models import Club, Event, Profile 
+from .models import Club, Event, Profile, Product 
 
 import datetime
 
@@ -199,6 +199,36 @@ class ClubDelete(DeleteView):
     success_url = reverse_lazy('clubs')
 
 #################
+#     PRODUCT   #
+#################
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductModelForm #<-- since the validation is here we need to specify the form we want to use.
+    template_name = 'clubby/product/product_form.html'
+    # you can't use the exclude here.
+
+    # we need to overide the default method for saving in this case because we need to
+    # add the logged user as the owner to the club.
+    def form_valid(self, form):  
+        obj = form.save(commit=False)
+        obj.owner = self.request.user
+        self.object = obj # this is neccesary as the url is pulled from self.object.
+        obj.save()
+        return HttpResponseRedirect('/clubby/myproducts')
+
+class ProductsByUserListView(LoginRequiredMixin, generic.ListView):
+        """Generic class-based view listing events the user has participated, or is going to participate in."""
+        model = Product
+        template_name ='clubby/product/list.html'
+        paginate_by = 2
+
+        login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
+    
+        def get_queryset(self):
+            item = Product.objects.filter(club = self.request.user.club)#.filter(status__exact='o').order_by('due_back')
+            return item
+
+#################
 #     EVENT     #
 #################
 
@@ -208,6 +238,8 @@ class EventListView(generic.ListView):
     model = Event
     #context_object_name = 'my_event_list'   # your own name for the list as a template variable
     template_name = 'clubby/event/list.html'  # Specify your own template name/location
+
+    
 
     # we override the default to get events that have the year over 2020.
     # def get_queryset(self):
@@ -231,7 +263,32 @@ class EventsByUserListView(LoginRequiredMixin, generic.ListView):
         item = Event.objects.filter(atendees = self.request.user)#.filter(status__exact='o').order_by('due_back')
         return item
 
+class EventsByClubListView(LoginRequiredMixin, generic.ListView):
+    """Generic class-based view listing events the user has participated, or is going to participate in."""
+    model = Event
+    template_name ='clubby/event/list.html'
+    paginate_by = 2
 
+    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
+    
+    def get_queryset(self):
+        item = Event.objects.filter(club = self.request.user.club)#.filter(status__exact='o').order_by('due_back')
+        return item
+
+class EventCreateView(CreateView):
+    model = Event
+    form_class = EventModelForm #<-- since the validation is here we need to specify the form we want to use.
+    template_name = 'clubby/event/event_form.html'
+    # you can't use the exclude here.
+
+    # we need to overide the default method for saving in this case because we need to
+    # add the logged user as the owner to the club.
+    def form_valid(self, form):  
+        obj = form.save(commit=False)
+        obj.owner = self.request.user
+        self.object = obj # this is neccesary as the url is pulled from self.object.
+        obj.save()
+        return HttpResponseRedirect('/clubby/myevents')
 
 ##########################
 #    EXAMPLES (POLLS)    #
