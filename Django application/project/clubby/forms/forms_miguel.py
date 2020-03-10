@@ -12,4 +12,9 @@ from clubby.models import Club, Event, Profile,Product
 
 import re
 
-import models
+# class ClubModelForm(ModelForm):
+        
+#     class Meta:
+#         model = Club
+#         fields = '__all__'# we can eithe specify the fields from the model we want to use or
+#         exclude = ['club'] # select the ones we want to exclude.

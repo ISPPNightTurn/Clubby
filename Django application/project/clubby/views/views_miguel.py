@@ -17,7 +17,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
-from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
+#from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
 
 from ..models import Club, Event, Profile, Product 
 
@@ -26,15 +26,15 @@ import datetime
 class ProductCreate(PermissionRequiredMixin,CreateView):
     permission_required = 'clubby.is_owner'
     model = Product
-    form_class = ClubModelForm #<-- since the validation is here we need to specify the form we want to use.
-    template_name = 'clubby/club/club_form.html'
+    fields = ['name','price']
+    template_name = 'clubby/product/product_form.html'
     # you can't use the exclude here.
 
     # we need to overide the default method for saving in this case because we need to
     # add the logged user as the owner to the club.
     def form_valid(self, form):  
         obj = form.save(commit=False)
-        obj.owner = self.request.user
+        obj.club = self.request.user.club
         self.object = obj # this is neccesary as the url is pulled from self.object.
         obj.save()
         return HttpResponseRedirect(self.get_success_url())

@@ -113,6 +113,10 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for this product."""
+        return reverse('product-detail', args=[str(self.id)])
+    
 
 class Reservation(models.Model):
     start_time = models.DateTimeField()
