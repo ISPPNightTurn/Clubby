@@ -38,18 +38,17 @@ class SignupForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
     last_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
-    username = forms.CharField(max_length=30, required=True, help_text='Required, 30 chars max, must be unique.')
 
     def clean(self):
-       email = self.cleaned_data.get('email')
-       if User.objects.filter(email=email).exists():
-            raise ValidationError("Email exists")
-       return self.cleaned_data
-
-    def clean_username(self):
+        email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
+
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("Email exists")
+        
         if User.objects.filter(username=username).exists():
             raise ValidationError("Sorry that username is already taken :(")
+
         return self.cleaned_data
 
     class Meta:
