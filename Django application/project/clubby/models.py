@@ -127,13 +127,6 @@ class Reservation(models.Model):
     def __str__(self):
         return 'from '+ str(self.start_time) +' to '+ str(self.end_time)
 
-class Hookah(models.Model):
-    price = models.DecimalField(decimal_places=2,max_digits=5)
-    flavour = models.CharField(max_length=50)  
-    club = models.ForeignKey(Club,on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.club)+' '+self.flavour
 
 
 class Rating(models.Model):
@@ -146,18 +139,24 @@ class Rating(models.Model):
     def __str__(self):
         return str(self.club)+' '+str(self.stars)
 
-class Receipt(models.Model):
+class Basket(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    Product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
     date = models.DateTimeField()
-    amount = models.IntegerField(default=0)
-    #Every kind of product is optional
-    #Amount parameter refers to amount of product x
-    #We take for granted that the user will only order a reservation or a hookah everytime
-    #^de eso nada que tenemos un onetoone field pa algo hombre^ 
-    #Solo les dejamos una hookah?
-    reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    hookah = models.ForeignKey(Hookah,on_delete=models.CASCADE)
-    owner = models.ForeignKey(Profile,on_delete=models.CASCADE)
 
-    def __str__(self):
-        return str(self.product)+' '+str(self.amount)
+
+class Order(models.Model):
+     date = models.DateTimeField
+     user = models.ForeignKey(User, on_delete=models.CASCADE)
+     basket = models.ManyToManyField(Basket)
+
+class QR_Item(models.Model):
+    is_used = models.BooleanField(default=False)
+    #The order is used so we can find the user and give them all his QR items
+    #A QR_Item can be either a product, a reservation or a ticket
+    product = models.OneToOneField(Product,on_delete=models.CASCADE)
+    reservation = models.OneToOneField(Reservation,on_delete=models.CASCADE)
+    ticket = models.OneToOneField(Ticket,on_delete=models.CASCADE)
+    order = models.ForeignKey(Order,on_delete=models.CASCADE)
+    private_key = models.CharField(max_length=128)

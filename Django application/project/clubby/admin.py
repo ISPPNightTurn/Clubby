@@ -6,15 +6,16 @@ from django.contrib import admin
 # https://docs.djangoproject.com/en/3.0/intro/tutorial07/
 
 
-from .models import Profile,Club,Event,Rating,Receipt,Reservation,Ticket,Hookah,Product
+from .models import Profile,Club,Event,Rating,Reservation,Ticket,Product, QR_Item, Basket, Order
 admin.site.register(Profile)
 admin.site.register(Club)
 admin.site.register(Event)
 admin.site.register(Rating)
-admin.site.register(Receipt)
 admin.site.register(Reservation)
 admin.site.register(Ticket)
-admin.site.register(Hookah)
 admin.site.register(Product)
+admin.site.register(QR_Item)
+admin.site.register(Basket)
+admin.site.register(Order)
 
 
