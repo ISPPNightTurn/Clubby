@@ -14,6 +14,6 @@
     <p>There are no events avaliable.</p>
   {% endif %}
   {% if perms.clubby.is_owner %}
-  <a href="{% url 'event-create' %}">Create new event</a>  
+  <a href="{% url 'event-create' %}" class="btn-large waves-effect waves-light purple darken-4 lighten-1">Create new event</a>  
   {%endif%}   
 {% endblock %}

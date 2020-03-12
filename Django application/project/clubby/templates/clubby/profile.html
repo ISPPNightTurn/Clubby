@@ -19,13 +19,16 @@
     <p><strong>Name: </strong>{{ club.name }}</p>
     <p><strong>Address: </strong>{{ club.address }}</p>
     <p><strong>Capacity: </strong>{{ club.max_capacity }}</p>
-    <br>
+
+    <div class="center">
     
-    <a href="club/{{ club.pk }}/update/">edit club</a><br>
-    <a href="club/{{ club.pk }}/delete/">delete club</a><br>
+    <a href="club/{{ club.pk }}/update/" class="btn-large waves-effect waves-light purple darken-4 lighten-1">edit club</a>
+    <a href="club/{{ club.pk }}/delete/" class="btn-large waves-effect waves-light purple darken-4 lighten-1">delete club</a>
     
-    <a href="{% url 'my-events-future' %}">My Published Events</a><br>
-    <a href="{% url 'my-products' %}">My Products</a><br>
+    <a href="{% url 'my-events-future' %}" class="btn-large waves-effect waves-light purple darken-4 lighten-1">My Published Events</a>
+    <a href="{% url 'my-products' %}" class="btn-large waves-effect waves-light purple darken-4 lighten-1">My Products</a>
+
+    </div>
     {%endif%}
   {%endif%}
 
