@@ -16,8 +16,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-# from clubby.forms import EventAddForm
-# from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
+from ..forms import TicketPurchaseForm
 
 from ..models import Club, Event, Profile, Product, Ticket
 
@@ -65,48 +64,51 @@ class ProductDelete(PermissionRequiredMixin,DeleteView):
 
 @permission_required('clubby.is_user')
 def TicketsByEventList(request, event_id):
+    if (request.method == 'POST'): # ha elegido la cantidad de entradas del tipo que queria.
+        form = TicketPurchaseForm(request.POST)
+        if form.is_valid():
+            event_id = form.cleaned_data['event']
+            category = form.cleaned_data['category']
+            quantity = form.cleaned_data['quantity']
+            event = Event.objects.filter(pk=event_id)[0]
 
-    event = Event.objects.filter(pk=event_id)[0]
-    tickets_from_db = Ticket.objects.filter(event = event).filter(user = None)
+            print(str(event)+' '+str(category) +' '+str(quantity))
 
-    categories = []
-    tickets = []
-    for t in tickets_from_db:
-        if (t.category not in categories):
-            categories.append(t.category)
-            tickets.append(t)
+            tickets_from_db = Ticket.objects.filter(event = event).filter(user = None).filter(category=category)
+            missing_tickets = False
+            miss = 0
+            len(tickets_from_db)
+            for x in range(quantity):
+                try:
+                    tickets_from_db[x].user = request.user
+                    tickets_from_db[x].save()
+                except:
+                    missing_tickets = True
+                    miss += 1
 
-    ticket_ammount = dict()
-    for t in range(len(tickets)):
-        #returns the ammount of unsold tickets for an event and category
-        print(categories[t])
-        ammount = Ticket.objects.filter(event = event).filter(user = None).filter(category = categories[t]).count()
-        ticket_ammount[tickets[t]] = ammount
+            print(request.user)
+            print(event.atendees)
 
+            event.atendees.add(request.user)
+            # event.save()
 
-    context = {'ticket_ammount': ticket_ammount}
-    return render(request,'clubby/ticket/list.html',context)
+            return render(request,'clubby/event/detail.html',{'event':event,'missing_tickets':missing_tickets,'miss':miss})
+    else:
+        event = Event.objects.filter(pk=event_id)[0]
+        tickets_from_db = Ticket.objects.filter(event = event).filter(user = None)
 
-@permission_required('clubby.is_user')
-def PurchaseTicket(request, event_id, category, ammount):
+        categories = []
+        tickets = []
+        for t in tickets_from_db:
+            if (t.category not in categories):
+                categories.append(t.category)
+                tickets.append(t)
 
-    event = Event.objects.filter(pk=eventId)[0]
-    tickets_from_db = Ticket.objects.filter(event = event).filter(user = None)
+        ticket_ammount = dict()
+        for t in range(len(tickets)):
+            #returns the ammount of unsold tickets for an event and category
+            form = TicketPurchaseForm(initial={'event':event.pk,'category':categories[t]})
+            ticket_ammount[tickets[t]] = form
 
-    categories = []
-    tickets = []
-    for t in tickets_from_db:
-        if (t.category not in categories):
-            categories.append(t.category)
-            tickets.append(t)
-
-    ticket_ammount = dict()
-    for t in range(len(tickets)):
-        #returns the ammount of unsold tickets for an event and category
-        print(categories[t])
-        ammount = Ticket.objects.filter(event = event).filter(user = None).filter(category = categories[t]).count()
-        ticket_ammount[tickets[t]] = ammount
-
-
-    context = {'ticket_ammount': ticket_ammount}
-    return render(request,'clubby/ticket/list.html',context)
+        context = {'ticket_ammount': ticket_ammount}
+        return render(request,'clubby/ticket/list.html',context)

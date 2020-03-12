@@ -18,6 +18,10 @@
 
   <!-- if the owner of the club is the one looking at this page give him the option to edit the event if no atendees are in yet.-->
 
+  {% if missing_tickets %}
+    we coldn't process {{miss}} tickets, they ran out... sorry :(
+  {% endif %}
+
   <p><strong>Atendee List:</strong></p><br>
   {% if event.atendees %}
   <ul>
