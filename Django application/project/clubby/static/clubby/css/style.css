@@ -3,11 +3,19 @@ body{
 }
 
 body {
-    background: white url("../images/background.jpg") no-repeat;
+    /* background: white url("../images/background.jpg") no-repeat;
+    background-size: cover; */
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(26,1,64,1) 50%, rgba(0,0,0,1) 100%);
 }
 
 .sidebar-nav {
     margin-top: 20px;
     padding: 0;
     list-style: none;
+}
+
+.logo_img{
+    max-width: 15%;
+    max-width: 15%;
 }

@@ -1,15 +1,57 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-  <h1>Clubby Home!</h1>
-  <p>Welcome to Clubby, a website developed by <em>Me!</em>!</p>
-  <h2>Dynamic content</h2>
-  <p>clubby has the following record counts:</p>
-  <ul>
-    <li><strong>Clubs:</strong> {{ num_clubs }}</li>
-    <li><strong>Registered Events:</strong> {{ num_events }}</li>
-    <!--<li><strong>Planned Events:</strong> {{ num_events_future }}</li>-->
-    <li><strong>Users:</strong> {{ num_users }}</li>
-  </ul>
-  <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+<h1 class="header center white-text">Clubby Home!</h1>
+  <div class="row center">
+    <h5 class="header col s12 light">Welcome to Clubby, a website developed by <em>Me</em>!</h5>
+  </div>
+  <h2 class="header center white-text">Dynamic content</h2>
+  <div class="row center">
+    <h5 class="header col s12 light">Clubby has the following record counts:</h5>
+  </div>
+
+  <div class="container">
+    <div class="section">
+      <div class="row">
+        <div class="col s12 m4">
+
+          <div class="card">
+                <div class="card-image">
+                  <img src="../../../static/clubby/images/background.jpg">
+                  <span class="card-title">Registered Clubs: {{ num_clubs }}</span>
+                </div>
+                <div class="black card-content">
+                  <p>The number of clubs we have registered</p>
+                </div>
+          </div>
+        </div>
+  
+        <div class="col s12 m4">
+
+          <div class="card">
+                <div class="card-image">
+                  <img src="../../../static/clubby/images/background.jpg">
+                  <span class="card-title">Registered Users: {{ num_users }}</span>
+                </div>
+                <div class="black card-content">
+                  <p>The number of users we have registered</p>
+                </div>
+          </div>
+        </div><div class="col s12 m4">
+
+          <div class="card">
+                <div class="card-image">
+                  <img src="../../../static/clubby/images/background.jpg">
+                  <span class="card-title">Registered Events: {{ num_events }}</span>
+                </div>
+                <div class="black card-content">
+                  <p>The number of events we have registered</p>
+                </div>
+          </div>
+        </div>
+
+</div>
+<br/>
+<h5 class="center header col s12 light">You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</h5>
 {% endblock %}
+

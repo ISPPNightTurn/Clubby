@@ -8,18 +8,17 @@
   <!-- Add additional CSS in static file -->
   {% load static %}
   <link rel="stylesheet" href="{% static 'clubby/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'clubby/css/materialize.min.css' %}">
 </head>
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-2">
-      {% block sidebar %}
-        <ul class="sidebar-nav"> 
+  <nav class="purple darken-4" role="navigation">
+    <div class="nav-wrapper container"><a href="/"><img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png"/></a>
+      <ul class="right hide-on-med-and-down">
           <li><a href="{% url 'landing' %}">Home</a></li>
           <li><a href="{% url 'clubs' %}">All clubs</a></li>
           <li><a href="{% url 'events' %}">All events</a></li>
-        </ul>
-        {% if user.is_authenticated %}
+
+          {% if user.is_authenticated %}
           <li>User: {{ user.get_username }}</li>
           <li><a href="{% url 'logout'%}?next={% url 'landing'%}">Logout</a></li>   
           <li><a href="{% url 'profile' %}">Profile</a></li>
@@ -36,31 +35,35 @@
           <li><a href="{% url 'login'%}?next={% url 'landing'%}">Login</a></li>   
           <li><a href="{% url 'signup-user' %}">Sign Up!</a></li>
         {% endif %} 
-     </ul>
-     {% endblock %}
-      </div>
-      <div class="col-sm-10 ">
-        {% block content %}{% endblock %}
-        
-        {% block pagination %}
-        {% if is_paginated %}
-            <div class="pagination">
-                <span class="page-links">
-                    {% if page_obj.has_previous %}
-                        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
-                    {% endif %}
-                    <span class="page-current">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                    </span>
-                    {% if page_obj.has_next %}
-                        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-                    {% endif %}
-                </span>
-            </div>
-        {% endif %}
-      {% endblock %} 
-      </div>
+        </ul>
     </div>
+  </nav>
+
+
+  <div class="col-sm-10 ">
+    {% block content %}{% endblock %}
+    
+    {% block pagination %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+  {% endblock %} 
   </div>
+</div>
+</div>
+    <!--  Scripts-->
+    <script src="/project/clubby/static/clubby/js/materialize.min.js"></script>
 </body>
 </html>
