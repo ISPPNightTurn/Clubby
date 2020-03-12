@@ -52,6 +52,10 @@ urlpatterns += [
     path('myproducts', views.ProductsByClubListView.as_view(), name='my-products'),
 ]
 
+urlpatterns += [  
+    path('ticket/list/<int:event_id>', views.TicketsByEventList, name='ticket-list'),
+]
+
 # urlpatterns += [   
 #     path('event/create', views.add_event, name='add-event'),
 # ]

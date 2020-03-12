@@ -105,14 +105,14 @@ class Event(models.Model):
 
 class Ticket(models.Model):
     price = models.DecimalField(decimal_places=2,max_digits=5)#999,99 es el maximo
-    date = models.DateTimeField()
+    category = models.CharField(max_length = 40, help_text='The name of the type of ticket you are trying to sell.',default = 'Basic')
+    description = models.TextField(help_text='Decribe what this ticket entices.', default="this allows you to enter the party.")
     # ticket_id = models.CharField()#<-- podemos usar a primary key para identificarlos, este tributo es redundante.
-
     event =  models.ForeignKey(Event, on_delete=models.CASCADE)
-    user =  models.ForeignKey(User, on_delete=models.CASCADE)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return self.pk
+        return str(self.category) +' '+ str(self.event)
 
 class Product(models.Model):
     name = models.CharField(max_length=50)

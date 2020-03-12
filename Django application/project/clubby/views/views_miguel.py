@@ -19,7 +19,7 @@ from django.urls import reverse_lazy
 # from clubby.forms import EventAddForm
 # from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
 
-from ..models import Club, Event, Profile, Product 
+from ..models import Club, Event, Profile, Product, Ticket
 
 import datetime
 
@@ -58,3 +58,55 @@ class ProductDelete(PermissionRequiredMixin,DeleteView):
             return super(ProductDelete, self).delete(request, *args, **kwargs)
         else:
             raise PermissionDenied("You don't own that >:(")
+
+#################
+#    TICKETS    #
+#################
+
+@permission_required('clubby.is_user')
+def TicketsByEventList(request, event_id):
+
+    event = Event.objects.filter(pk=event_id)[0]
+    tickets_from_db = Ticket.objects.filter(event = event).filter(user = None)
+
+    categories = []
+    tickets = []
+    for t in tickets_from_db:
+        if (t.category not in categories):
+            categories.append(t.category)
+            tickets.append(t)
+
+    ticket_ammount = dict()
+    for t in range(len(tickets)):
+        #returns the ammount of unsold tickets for an event and category
+        print(categories[t])
+        ammount = Ticket.objects.filter(event = event).filter(user = None).filter(category = categories[t]).count()
+        ticket_ammount[tickets[t]] = ammount
+
+
+    context = {'ticket_ammount': ticket_ammount}
+    return render(request,'clubby/ticket/list.html',context)
+
+@permission_required('clubby.is_user')
+def PurchaseTicket(request, event_id, category, ammount):
+
+    event = Event.objects.filter(pk=eventId)[0]
+    tickets_from_db = Ticket.objects.filter(event = event).filter(user = None)
+
+    categories = []
+    tickets = []
+    for t in tickets_from_db:
+        if (t.category not in categories):
+            categories.append(t.category)
+            tickets.append(t)
+
+    ticket_ammount = dict()
+    for t in range(len(tickets)):
+        #returns the ammount of unsold tickets for an event and category
+        print(categories[t])
+        ammount = Ticket.objects.filter(event = event).filter(user = None).filter(category = categories[t]).count()
+        ticket_ammount[tickets[t]] = ammount
+
+
+    context = {'ticket_ammount': ticket_ammount}
+    return render(request,'clubby/ticket/list.html',context)

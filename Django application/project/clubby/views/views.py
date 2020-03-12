@@ -264,9 +264,14 @@ class EventListView(generic.ListView):
     #context_object_name = 'my_event_list'   # your own name for the list as a template variable
     template_name = 'clubby/event/list.html'  # Specify your own template name/location
 
-    # we override the default to get events that have the year over 2020.
-    # def get_queryset(self):
-    #     return Event.objects.filter(start_date__year >= 2020)[:5] # Get 5 events with year 2020 or more.
+    def get_queryset(self):
+        #gte = greater than or equal.
+        #gt = greater than
+        #lte = lesser than or equal
+        #lt = lesser than
+        item = Event.objects.filter(start_date__gte = datetime.datetime.now().date())
+        return item
+
 
 class EventDetailView(generic.DetailView):
     model = Event
@@ -307,8 +312,8 @@ class EventsByClubAndFutureListView(LoginRequiredMixin, generic.ListView):
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
 
     def get_queryset(self):
-        #the gte and lte indicate greater than and lesser than for filtering by dates. (doesnt work...)
-        items = Event.objects.filter(club = self.request.user.club)#.filter(start_date__gte(datetime.datetime.now().date))#.order_by('due_back')
+        #the gte and lte indicate greater than and lesser than for filtering by dates.
+        items = Event.objects.filter(club = self.request.user.club).filter(start_date__gte =datetime.datetime.now().date)#.order_by('due_back')
         item = []
         for i in items:
             curr_date = datetime.datetime.now().date()

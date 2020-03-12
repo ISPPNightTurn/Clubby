@@ -1,0 +1,15 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  <h1>Ticket List</h1>
+  <ul>
+    
+    {% for ticket, remaining in ticket_ammount.items %} 
+      
+    <li>{{ticket.category}} - {{remaining}}  ({{ticket.price}}) - ({{ticket.event}})</li>
+     
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+
