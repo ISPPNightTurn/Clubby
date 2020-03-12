@@ -1,6 +1,6 @@
 from django.db import models
 import datetime
-from datetime import timezone
+from datetime import timezone, timedelta
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -65,10 +65,12 @@ class Event(models.Model):
     '''
     Model representing the events that will happen on a club
     '''
-
     name = models.CharField(max_length=200,)
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
-    start_date = models.DateTimeField()
+    start_date = models.DateField()
+    start_time = models.IntegerField(max_length=2,help_text='event start time 24h format.', default=12)
+    duration = models.IntegerField(max_length=2,help_text='event duration in hours, max is 12 hours',default=12)
+    atendees = models.ManyToManyField(User)
 
     EVENT_TYPE = (
         ('c', 'casual'),
@@ -83,9 +85,16 @@ class Event(models.Model):
         default='c',
         help_text='event type',
     ) 
-    
-    atendees = models.ManyToManyField(User)
-    
+    @property
+    def start_datetime(self):
+        dur = datetime.timedelta(hours=self.start_time)
+        return self.start_date + dur
+
+    @property
+    def end_date(self):
+        dur = datetime.timedelta(hours=self.duration)
+        return self.start_datetime + dur
+
     def __str__(self):
         """String for representing the Model object."""
         return self.name
@@ -103,7 +112,7 @@ class Ticket(models.Model):
     user =  models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.ticket_id
+        return self.pk
 
 class Product(models.Model):
     name = models.CharField(max_length=50)
@@ -119,14 +128,12 @@ class Product(models.Model):
     
 
 class Reservation(models.Model):
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    max_time = models.IntegerField(help_text="max hours after the event starts people can arrive at.", max_length=2, default=4)
     price = models.DecimalField(decimal_places=2,max_digits=5)
     event = models.ForeignKey(Event,on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'from '+ str(self.start_time) +' to '+ str(self.end_time)
-
+        return str(self.event) + ' ' + str(self.price) + ' ' + str(self.max_time)
 
 
 class Rating(models.Model):
@@ -141,15 +148,26 @@ class Rating(models.Model):
 
 class Basket(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    Product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    products = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     date = models.DateTimeField()
 
+    def __str__(self):
+        to_print = ""
+        to_print += str(self.user) + "[ "
+        for x in self.products:
+            to_print += str(x+", ")
+        to_print += "]"
+        return to_print
+
 
 class Order(models.Model):
-     date = models.DateTimeField
-     user = models.ForeignKey(User, on_delete=models.CASCADE)
-     basket = models.ManyToManyField(Basket)
+    date = models.DateTimeField
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    basket = models.ManyToManyField(Basket)
+
+    def __str__(self):
+        return str(self.pk) +' '+str(self.user) +' '+str(self.date)
 
 class QR_Item(models.Model):
     is_used = models.BooleanField(default=False)
@@ -160,3 +178,7 @@ class QR_Item(models.Model):
     ticket = models.OneToOneField(Ticket,on_delete=models.CASCADE)
     order = models.ForeignKey(Order,on_delete=models.CASCADE)
     private_key = models.CharField(max_length=128)
+
+    def __str__(self):
+        return str(self.private_key)
+

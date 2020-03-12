@@ -13,6 +13,7 @@
   {% else %}
     <p>There are no events avaliable.</p>
   {% endif %}
-  
-  <a href="{% url 'event-create' %}">Create new event</a>     
+  {% if perms.clubby.is_owner %}
+  <a href="{% url 'event-create' %}">Create new event</a>  
+  {%endif%}   
 {% endblock %}

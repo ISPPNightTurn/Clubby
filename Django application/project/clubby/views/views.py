@@ -218,7 +218,7 @@ class ClubDelete(PermissionRequiredMixin,DeleteView):
         can_delete = self.object.owner == self.request.user
 
         if can_delete:
-            return super(ClubDeleteView, self).delete(request, *args, **kwargs)
+            return super(ClubDelete, self).delete(request, *args, **kwargs)
         else:
             raise PermissionDenied("You don't own that >:(")
 
@@ -286,16 +286,34 @@ class EventsByUserListView(LoginRequiredMixin, generic.ListView):
         item = Event.objects.filter(atendees = self.request.user)#.filter(status__exact='o').order_by('due_back')
         return item
 
-class EventsByClubListView(LoginRequiredMixin, generic.ListView):
+# class EventsByClubListView(LoginRequiredMixin, generic.ListView):
+#     """Generic class-based view listing events the user has participated, or is going to participate in."""
+#     model = Event
+#     template_name ='clubby/event/list.html'
+#     paginate_by = 5
+
+#     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
+    
+#     def get_queryset(self):
+#         item = Event.objects.filter(club = self.request.user.club)#.filter(status__exact='o').order_by('due_back')
+#         return item
+
+class EventsByClubAndFutureListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing events the user has participated, or is going to participate in."""
     model = Event
     template_name ='clubby/event/list.html'
     paginate_by = 5
 
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
-    
+
     def get_queryset(self):
-        item = Event.objects.filter(club = self.request.user.club)#.filter(status__exact='o').order_by('due_back')
+        #the gte and lte indicate greater than and lesser than for filtering by dates. (doesnt work...)
+        items = Event.objects.filter(club = self.request.user.club)#.filter(start_date__gte(datetime.datetime.now().date))#.order_by('due_back')
+        item = []
+        for i in items:
+            curr_date = datetime.datetime.now().date()
+            if(i.start_datetime > curr_date):
+                item.append(i)
         return item
 
 class EventCreateView(PermissionRequiredMixin,CreateView):

@@ -17,7 +17,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
-#from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
+# from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
 
 from ..models import Club, Event, Profile, Product 
 
