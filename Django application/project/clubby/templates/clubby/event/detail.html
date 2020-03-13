@@ -1,8 +1,9 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-  <h1>Name: {{ event.name }}</h1>
+  <h1>{{ event.name }}</h1>
 
+  <div class="indigo darken-2 toast rounded">
   <p><strong>Club:</strong> <a href="{{ event.club.get_absolute_url }}">{{ event.club.name}}</a></p> <!-- author detail link not yet defined -->
   <p><strong>Starts:</strong> {{ event.start_date }}</p>
 
@@ -29,7 +30,8 @@
   </ul>
   {% else %}
     <p>There are no atendants yet.</p>
-  {% endif %}         
+  {% endif %}       
 {% endblock %}
+</div>  
 
     

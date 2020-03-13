@@ -1,9 +1,10 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-  <h1>Name: {{ club.name }}</h1>
+  <h1>{{ club.name }}</h1>
 
-  <p><strong>Address:</strong>{{ club.address }}</p> <!-- author detail link not yet defined -->
+  <div class="indigo darken-2 toast rounded">
+  <p><strong>Address: </strong>{{ club.address }}</p> <!-- author detail link not yet defined -->
   <p><strong>Max Capacity:</strong> {{ club.max_capacity }}</p>
   <p><strong>NIF:</strong> {{ club.NIF }}</p> 
 
@@ -23,5 +24,6 @@
     {% endfor %}
   </div> -->
 {% endblock %}
+</div>
 
     

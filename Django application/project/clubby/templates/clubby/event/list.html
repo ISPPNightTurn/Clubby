@@ -3,6 +3,7 @@
 {% block content %}
   <div class="list">
   <h1>Event List</h1>
+  <div class="indigo darken-2 toast rounded">
   {% if object_list %}
   <ul>
     {% for event in object_list %}
@@ -19,3 +20,4 @@
   {%endif%}   
 </div>
 {% endblock %}
+</div>
