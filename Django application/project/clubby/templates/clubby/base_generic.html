@@ -4,19 +4,17 @@
   {% block title %}<title>CLUBBY!</title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <!-- Add additional CSS in static file -->
   {% load static %}
   <link rel="stylesheet" href="{% static 'clubby/css/style.css' %}">
   <link rel="stylesheet" href="{% static 'clubby/css/materialize.min.css' %}">
 </head>
 <body>
-  <nav class="purple darken-4" role="navigation">
-    <div class="nav-wrapper container">
-      <a href="/">
-        <img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png"/>
-      </a>
+  <nav class="purple darken-4 hide-on-med-and-down" role="navigation">
+    <div class="nav-wrapper container hide-on-med-and-down"><a href="/"><img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png"/></a>
       <ul class="right hide-on-med-and-down">
           <li><a href="{% url 'landing' %}">Home</a></li>
           <li><a href="{% url 'clubs' %}">All clubs</a></li>
@@ -42,7 +40,55 @@
         </ul>
     </div>
   </nav>
+  <nav class="purple darken-4 hide-on-large-only" role="navigation">
+    <div class="nav-wrapper container hide-on-large-only">  
+    <a href="#" data-target="slide-out" class="sidenav-trigger hide-on-large-only">
+      <i class = "small material-icons">menu</i>
+    </a>
 
+      <ul class="right hide-on-large-only">
+          {% if user.is_authenticated %}
+          <li>{{ user.get_username }}</li>
+        {% endif %} 
+        </ul>
+    </div>
+  </nav>
+  
+  <!-- Sidenavfor mobile devices-->
+  <ul id="slide-out" class="sidenav purple darken-4 ">
+    <li><div class="user-view">
+      <img class="logo_img_sidenav" src="../../../static/clubby/images/clubby_logo_white_no_bg.png"/>
+      <BR/>
+    </div></li>
+    <a class="subheader">User</a>
+
+      {% if user.is_authenticated %}
+      <li><a class="waves-effect" href="{% url 'profile' %}"><span class="white-text name">{{ user.get_username }}</span></a></li>
+      {% else %}
+      <li><a class="waves-effect" ><span class="white-text name">Not authenticated</span></a></li>
+
+      {% endif %} 
+    <li><div class="divider"></div></li>
+
+    <a class="subheader">Explore</a>
+
+    <li><a class="waves-effect" href="{% url 'landing' %}"><span class="white-text link">Home</span></a></li>
+    <li><a class="waves-effect" href="{% url 'clubs' %}"><span class="white-text link">All clubs</span></a></li>
+    <li><a class="waves-effect" href="{% url 'events' %}"><span class="white-text link">All events</span></a></li>
+    <li><div class="divider"></div></li>
+    <a class="subheader">Actions</a>
+
+    {% if user.is_authenticated %}
+    <li><a class="waves-effect" href="{% url 'profile' %}"><span class="white-text name">View your profile</span></a></li>
+    <li><a class="waves-effect" href="{% url 'logout'%}?next={% url 'landing'%}"><span class="white-text name">Logout</span></a></li>
+
+      {% else %}
+    <li><a class="waves-effect" href="{% url 'login'%}?next={% url 'landing'%}"><span class="white-text name">Login</span></a></li>
+    <li><a class="waves-effect" href="{% url 'signup-user' %}"><span class="white-text name">Sign Up!</span></a></li>
+    {% endif %}
+
+  </ul>
+   
 
   <div class="col-sm-10 ">
     {% block content %}{% endblock %}
@@ -67,7 +113,29 @@
   </div>
 </div>
 </div>
+
+
+<!-- Toolbar on the bottom of the screen for mobile devices-->
+<div class="purple darken-4 hide-on-large-only navbar bar-icon">
+  <a href="{% url 'landing' %}"><i class="medium material-icons">home</i></a>
+  <a href="{% url 'clubs' %}"><img class="icon_logo" src="../../../static/clubby/images/clubby_logo_white_icon.png"></a>
+
+  <a href="{% url 'events' %}"><i class="medium material-icons bar-icon">event</i></a>
+</div>
+
     <!--  Scripts-->
-    <script src="/project/clubby/static/clubby/js/materialize.min.js"></script>
+    <script src="{% static 'clubby/js/materialize.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+
+  var elem = document.querySelector('.sidenav');
+  var instance = new M.Sidenav(elem);
+
+
+  $(document).ready(function(){
+   $('.sidenav').sidenav();
+  });
+  
+  </script>
 </body>
 </html>

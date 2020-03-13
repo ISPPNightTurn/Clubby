@@ -14,6 +14,17 @@ body {
     background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(26,1,64,1) 50%, rgba(0,0,0,1) 100%);
 }
 
+input, select, textArea{
+    color: white;
+}
+
+.list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .sidebar-nav {
     margin-top: 20px;
     padding: 0;
@@ -25,14 +36,45 @@ body {
     max-width: 15%;
 }
 
+.logo_img_sidenav{
+    max-width: 50%;
+    max-height: 50%;
+}
 
-input, select, textArea{
+.icon_logo{
+    text-rendering: optimizeLegibility;
+    -webkit-font-feature-settings: 'liga';
+       -moz-font-feature-settings: 'liga';
+            font-feature-settings: 'liga';
+    width: 4rem;
+    height: 4rem;
+}
+
+.icon_logo_sidenav{
+    text-rendering: optimizeLegibility;
+    -webkit-font-feature-settings: 'liga';
+       -moz-font-feature-settings: 'liga';
+            font-feature-settings: 'liga';
+    width: 2rem;
+    height: 2rem;
+}
+
+
+.navbar {
+   overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .bar-icon{
+    text-align: center;
+}
+
+.bar-icon a{
     color: white;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
 }
 
-.list {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
