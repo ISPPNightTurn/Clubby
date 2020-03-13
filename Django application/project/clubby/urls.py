@@ -49,12 +49,15 @@ urlpatterns += [
     path('product/create/', views.ProductCreate.as_view(), name='product-create'),
     path('product/<int:pk>/update/', views.ProductUpdate.as_view(), name='product-update'),
     path('product/<int:pk>/delete/', views.ProductDelete.as_view(), name='product-delete'),
+    path('product/list/<int:club_id>', views.ProductsByClubList, name='product-list'),
     path('myproducts', views.ProductsByClubListView.as_view(), name='my-products'),
 ]
 
 urlpatterns += [  
     path('ticket/list/<int:event_id>', views.TicketsByEventList, name='ticket-list'),
 ]
+
+
 
 # urlpatterns += [   
 #     path('event/create', views.add_event, name='add-event'),

@@ -2,16 +2,16 @@
 
 {% block content %}
   <h1>Product List</h1>
-  {% if object_list %}
   <ul>
-    {% for product in object_list %}
-      <li>
-        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a> ({{product.price}}) - {{product.club}}
-      </li>
+    
+
+    {% for product, form in product_ammount.items %} 
+    <li>
+    {{product.name}} - ({{product.price}}) - ({{product.club}}) 
+    <form action="" method="post">{% csrf_token %} {{form}}  <input type="submit" value="Submit"></form> 
+    </li>
+    <br>
+     
     {% endfor %}
   </ul>
-  {% else %}
-    <p>There are no products avaliable.</p>
-  {% endif %}
-  <a href="{% url 'product-create' %}">Create new product</a> 
 {% endblock %}

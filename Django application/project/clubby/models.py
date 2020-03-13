@@ -15,6 +15,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
+    funds = models.DecimalField(decimal_places=2, max_digits=5,default=0.0)
 
     def __str__(self):
         """String for representing the Model object."""
@@ -146,39 +147,20 @@ class Rating(models.Model):
     def __str__(self):
         return str(self.club)+' '+str(self.stars)
 
-class Basket(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    products = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    date = models.DateTimeField()
-
-    def __str__(self):
-        to_print = ""
-        to_print += str(self.user) + "[ "
-        for x in self.products:
-            to_print += str(x+", ")
-        to_print += "]"
-        return to_print
 
 
-class Order(models.Model):
-    date = models.DateTimeField
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    basket = models.ManyToManyField(Basket)
 
-    def __str__(self):
-        return str(self.pk) +' '+str(self.user) +' '+str(self.date)
 
 class QR_Item(models.Model):
     is_used = models.BooleanField(default=False)
     #The order is used so we can find the user and give them all his QR items
     #A QR_Item can be either a product, a reservation or a ticket
-    product = models.OneToOneField(Product,on_delete=models.CASCADE)
-    reservation = models.OneToOneField(Reservation,on_delete=models.CASCADE)
-    ticket = models.OneToOneField(Ticket,on_delete=models.CASCADE)
-    order = models.ForeignKey(Order,on_delete=models.CASCADE)
-    private_key = models.CharField(max_length=128)
+    product = models.OneToOneField(Product,on_delete=models.CASCADE,null=True,blank=True)
+    reservation = models.OneToOneField(Reservation,on_delete=models.CASCADE,null=True,blank=True)
+    ticket = models.OneToOneField(Ticket,on_delete=models.CASCADE,null=True,blank=True)
+    user = models.ForeignKey(User,on_delete= models.CASCADE,null=True,blank=True)
+    priv_key = models.CharField(max_length=128)
 
     def __str__(self):
-        return str(self.private_key)
+        return str(self.priv_key)
 
