@@ -14,6 +14,5 @@ import re
 
 class ProductPurchaseForm(forms.Form):
     quantity = forms.IntegerField(max_value=4,min_value=1,help_text="quantity of product you want to buy, max 4.")
-    product = forms.IntegerField(widget=forms.HiddenInput())
     club = forms.IntegerField(widget=forms.HiddenInput())
-    
+    product = forms.IntegerField(widget=forms.HiddenInput())

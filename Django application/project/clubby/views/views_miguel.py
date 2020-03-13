@@ -64,7 +64,7 @@ class ProductDelete(PermissionRequiredMixin,DeleteView):
 
 @permission_required('clubby.is_user')
 def TicketsByEventList(request, event_id):
-    if (request.method == 'POST'): # ha elegido la cantidad de entradas del tipo que queria.
+    if (request.method == 'POST'): # ha elegido la cantidad de tickets tipo que queria.
         form = TicketPurchaseForm(request.POST)
         if form.is_valid():
             event_id = form.cleaned_data['event']

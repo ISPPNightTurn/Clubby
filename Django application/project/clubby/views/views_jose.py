@@ -30,22 +30,25 @@ import datetime
 
 
 def ProductsByClubList(request, club_id):
-    form = ProductPurchaseForm(request.POST)
-    if form.is_valid():
-        product_id = form.cleaned_data['product']
-        club_id = form.cleaned_data['club']
-        quantity = form.cleaned_data['quantity']
-        product_selected = Product.objects.filter(pk=product_id)[0]
-        club = Club.objects.filter(pk=club_id)[0]
+    if (request.method == 'POST'):
+        form = ProductPurchaseForm(request.POST)
+        print(form)
+        if form.is_valid():
+            print("Es válido")
+            product_id = form.cleaned_data['product']
+            club_id = form.cleaned_data['club']
+            quantity = form.cleaned_data['quantity']
+            product_selected = Product.objects.filter(pk=product_id)[0]
+            club = Club.objects.filter(pk=club_id)[0]
 
-        print(str(product_selected)+' '+str(club)+' '+str(quantity))
+            print(str(product_selected)+' '+str(club)+' '+str(quantity))
 
-        for x in range(quantity):
-            qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user)
-            qr.save()
+            for x in range(quantity):
+                qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user)
+                qr.save()
                 
 
-        return render(request,'clubby/purchases/list')
+            return render(request,'clubby/purchases/list')
     else:
         club = Club.objects.filter(pk=club_id)[0]
         products = Product.objects.filter(club = club)
