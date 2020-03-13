@@ -1,5 +1,10 @@
 body{
     color: white;
+    margin: 0;
+}
+
+a:active{
+    color: white;
 }
 
 body {
@@ -18,4 +23,16 @@ body {
 .logo_img{
     max-width: 15%;
     max-width: 15%;
+}
+
+
+input, select, textArea{
+    color: white;
+}
+
+.list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }

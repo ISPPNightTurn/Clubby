@@ -1,6 +1,7 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
+<div class="list"></div>
   <h1>Club List</h1>
   {% if object_list %}
   <ul>
@@ -13,6 +14,7 @@
   {% else %}
     <p>There are no clubs avaliable.</p>
   {% endif %} 
+</div>
 {% endblock %}
 
 

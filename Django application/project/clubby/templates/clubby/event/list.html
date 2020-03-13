@@ -1,6 +1,7 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
+  <div class="list">
   <h1>Event List</h1>
   {% if object_list %}
   <ul>
@@ -16,4 +17,5 @@
   {% if perms.clubby.is_owner %}
   <a href="{% url 'event-create' %}" class="btn-large waves-effect waves-light purple darken-4 lighten-1">Create new event</a>  
   {%endif%}   
+</div>
 {% endblock %}
