@@ -1,9 +1,15 @@
 body{
     color: white;
     margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
-a:active{
+a{
+    color: white;
+}
+
+a:hover {
     color: white;
 }
 
@@ -19,8 +25,9 @@ input, select, textArea{
 }
 
 .list {
+    margin-right: 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }

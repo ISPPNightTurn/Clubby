@@ -1,7 +1,8 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-<div class="indigo darken-2 toast rounded">
+
+<div class="list medium indigo darken-2 toast rounded" style="font-size: large;">
   <p><strong>Name:</strong>{{ logged_user.first_name }}</p>
   <p><strong>Surname:</strong> {{ logged_user.last_name }}</p>
   <p><strong>Email:</strong> {{ logged_user.email }}</p>
@@ -47,5 +48,5 @@
   {%endif%}
  
   
-    
+</div>
 {% endblock %}
