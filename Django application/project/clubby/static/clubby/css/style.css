@@ -13,6 +13,7 @@ a:hover {
     color: white;
 }
 
+
 body {
     /* background: white url("../images/background.jpg") no-repeat;
     background-size: cover; */
@@ -90,4 +91,8 @@ input, select, textArea{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-radius: 25px;
+    background-color: #333333;
+    width: 90%;
+    margin: 0 auto;
 }

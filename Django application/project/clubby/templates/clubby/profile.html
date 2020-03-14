@@ -1,32 +1,26 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-<<<<<<< HEAD
 
 <div class="list medium indigo darken-2 toast rounded" style="font-size: large;">
-=======
   <h4><p><strong>Funds: </strong>{{ user_profile.funds }}</p></h4>
 
->>>>>>> master
   <p><strong>Name:</strong>{{ logged_user.first_name }}</p>
   <p><strong>Surname:</strong> {{ logged_user.last_name }}</p>
   <p><strong>Email:</strong> {{ logged_user.email }}</p>
 
   <p><strong>Bio: </strong>{{ user_profile.bio }}</p>
   <p><strong>Location:</strong> {{ user_profile.location }}</p>
-<<<<<<< HEAD
   <p><strong>Email:</strong> {{ user_profile.birth_date }}</p>
 </div>
 <br>
 <br>
-=======
   <p><strong>Birth date: </strong>{{ user_profile.birth_date }}</p>
   
   <a href="">edit profile</a> ( Not implemented yet, sorry... )<br>
   <a href="{% url 'add-funds' %}?next={% url 'profile'%}">Add funds to your account!</a><br>
   
 
->>>>>>> master
   <!-- add the club if the user is an owner and has a club. if not redirect to the club creation page: -->
   {% if perms.clubby.is_owner %}
     {%if club == ''%}

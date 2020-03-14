@@ -7,7 +7,7 @@
     <p><strong>Address:</strong>{{ club.address }}</p> <!-- author detail link not yet defined -->
     <p><strong>Max Capacity:</strong> {{ club.max_capacity }}</p>
     <p><strong>NIF:</strong> {{ club.NIF }}</p> 
-  </div>
+  
 
   <!-- <div style="margin-left:20px;margin-top:20px">
     <h4>Events</h4>
@@ -26,9 +26,9 @@
   </div> -->
   
   {% if perms.clubby.is_user %}
-    <a href="{% url 'product-list' club_id=club.pk %}">Purchase products.</a>
+    <a class="waves-effect waves-light btn" href="{% url 'product-list' club_id=club.pk %}" style="margin-bottom: 50px;">Purchase products.</a>
   {%endif%}
-  
+</div>
 {% endblock %}
 </div>
 
