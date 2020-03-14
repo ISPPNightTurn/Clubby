@@ -61,6 +61,12 @@ urlpatterns += [
     path('addFunds', views.add_funds, name='add-funds'),
 ]
 
+urlpatterns += [  
+    path('purchase/list/', views.QRsByUserListView.as_view(), name='my-purchases'),
+    path('history/list/', views.QRsUsedByUserListView.as_view(), name='my-history'),
+   
+    
+]
 
 
 # urlpatterns += [   

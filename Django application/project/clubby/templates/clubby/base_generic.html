@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   {% block title %}<title>CLUBBY!</title>{% endblock %}
+  {% load qr_code %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -26,6 +27,8 @@
           {% if perms.clubby.is_user %}
           <!-- We can list our events only if we are a user.  -->
           <li><a href="{% url 'my-events' %}">My Events</a></li>
+          <li><a href="{% url 'my-purchases' %}">My Purchases</a></li>
+          <li><a href="{% url 'my-history' %}">My History</a></li>
           {%endif%}
           {% if perms.clubby.is_owner %}
           <!-- We can add owner specific actions here (they need to not require a club.)-->
