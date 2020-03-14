@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- Add additional CSS in static file -->
   {% load static %}
@@ -14,19 +15,18 @@
 </head>
 <body>
   <nav class="purple darken-4 hide-on-med-and-down" role="navigation">
-    <div class="nav-wrapper container hide-on-med-and-down"><a href="/"><img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png"/></a>
+    <div class="nav-wrapper container hide-on-med-and-down"><a href="{% url 'landing' %}"><img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png"/></a>
       <ul class="right hide-on-med-and-down">
-          <li><a href="{% url 'landing' %}">Home</a></li>
-          <li><a href="{% url 'clubs' %}">All clubs</a></li>
-          <li><a href="{% url 'events' %}">All events</a></li>
+          <li><a href="{% url 'clubs' %}"><p class="light">All clubs</p></a></li>
+          <li><a href="{% url 'events' %}"><p class="light">All events</p></a></li>
 
           {% if user.is_authenticated %}
-          <li>User: {{ user.get_username }}</li>
-          <li><a href="{% url 'logout'%}?next={% url 'landing'%}">Logout</a></li>   
-          <li><a href="{% url 'profile' %}">Profile</a></li>
+          <li><p class="light">User: {{ user.get_username }}</p></li>
+          <li><a href="{% url 'logout'%}?next={% url 'landing'%}"><p class="light">Logout</p></a></li>   
+          <li><a href="{% url 'profile' %}"><p class="light">Profile</p></a></li>
           {% if perms.clubby.is_user %}
           <!-- We can list our events only if we are a user.  -->
-          <li><a href="{% url 'my-events' %}">My Events</a></li>
+          <li><a href="{% url 'my-events' %}"><p class="light">My Events</p></a></li>
           {%endif%}
           {% if perms.clubby.is_owner %}
           <!-- We can add owner specific actions here (they need to not require a club.)-->
@@ -34,8 +34,8 @@
           {%endif%}
           
         {% else %}
-          <li><a href="{% url 'login'%}?next={% url 'landing'%}">Login</a></li>   
-          <li><a href="{% url 'signup-user' %}">Sign Up!</a></li>
+          <li><a href="{% url 'login'%}?next={% url 'landing'%}"><p class="light">Login</p></a></li>   
+          <li><a href="{% url 'signup-user' %}"><p class="light">Sign Up!</p></a></li>
         {% endif %} 
         </ul>
     </div>
@@ -115,6 +115,7 @@
 </div>
 
 
+<br/><br/><br/>
 <!-- Toolbar on the bottom of the screen for mobile devices-->
 <div class="purple darken-4 hide-on-large-only navbar bar-icon">
   <a href="{% url 'landing' %}"><i class="small material-icons">home</i></a>
