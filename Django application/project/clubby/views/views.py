@@ -85,13 +85,21 @@ def signup_user(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
+            user = form.save()
+            user.refresh_from_db()
+
+            user.profile.birth_date = form.cleaned_data.get('birth_date')
+            user.profile.bio = form.cleaned_data.get('bio')
+            user.profile.location = form.cleaned_data.get('location')
+            user.profile.funds = 0.0
+            user.save()
+            
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(username=user.username, password=raw_password)
             login(request, user)
             my_group = Group.objects.get(name='user') 
             my_group.user_set.add(user)
+
             return redirect('landing')
     else:
         form = SignupForm()
@@ -101,13 +109,21 @@ def signup_owner(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
+            user = form.save()
+            user.refresh_from_db()
+
+            user.profile.birth_date = form.cleaned_data.get('birth_date')
+            user.profile.bio = form.cleaned_data.get('bio')
+            user.profile.location = form.cleaned_data.get('location')
+            user.profile.funds = 0.0
+            user.save()
+
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(username=user.username, password=raw_password)
             login(request, user)
             my_group = Group.objects.get(name='owner') 
             my_group.user_set.add(user)
+
             return redirect('landing')
     else:
         form = SignupForm()

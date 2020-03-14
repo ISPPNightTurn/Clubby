@@ -57,6 +57,10 @@ urlpatterns += [
     path('ticket/list/<int:event_id>', views.TicketsByEventList, name='ticket-list'),
 ]
 
+urlpatterns += [
+    path('addFunds', views.add_funds, name='add-funds'),
+]
+
 
 
 # urlpatterns += [   

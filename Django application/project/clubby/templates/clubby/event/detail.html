@@ -21,6 +21,12 @@
   {% if missing_tickets %}
     we coldn't process {{miss}} tickets, they ran out... sorry :(
   {% endif %}
+  {% if max_tickets%}
+    you bought the max ammount of tickets sorry... :(
+  {%endif%}
+  {% if user_is_broke %}
+    Nigga you broke!, add some cash in <a href="{%url 'add-funds' %}">here</a>
+  {%endif%}
 
   <p><strong>Atendee List:</strong></p><br>
   {% if event.atendees %}

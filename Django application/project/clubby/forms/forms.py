@@ -38,6 +38,11 @@ class SignupForm(UserCreationForm):
     last_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
+    birth_date = forms.DateField(initial=datetime.date.today,required=True, help_text="Required, your birthday, format: YYYY-MM-DD")
+
+    bio = forms.CharField(max_length=500, required=False, help_text="Optional, tell us something about you.")
+    location = forms.CharField(max_length=30, required=False, help_text="Optional, where are you form?.")
+
     def clean(self):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
@@ -52,7 +57,7 @@ class SignupForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+        fields = ('username', 'first_name', 'last_name', 'email','bio','birth_date','location', 'password1', 'password2')
 
 class ProductModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )

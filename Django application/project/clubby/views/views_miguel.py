@@ -16,7 +16,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from ..forms import TicketPurchaseForm
+from ..forms import TicketPurchaseForm,FundsForm
 
 from ..models import Club, Event, Profile, Product, Ticket
 
@@ -70,29 +70,45 @@ def TicketsByEventList(request, event_id):
             event_id = form.cleaned_data['event']
             category = form.cleaned_data['category']
             quantity = form.cleaned_data['quantity']
+            if (quantity > 4):
+                quantity = 4 # max you can purchase
+
+            logged = request.user
             event = Event.objects.filter(pk=event_id)[0]
+            num_tickets_user_event = Ticket.objects.filter(event = event).filter(user=logged).count()
 
-            print(str(event)+' '+str(category) +' '+str(quantity))
+            max_purchasable = 4 - num_tickets_user_event
+            max_tickets = False
+            if(quantity > max_purchasable):
+                max_tickets = True
+                quantity = max_purchasable
 
-            tickets_from_db = Ticket.objects.filter(event = event).filter(user = None).filter(category=category)
             missing_tickets = False
             miss = 0
-            len(tickets_from_db)
-            for x in range(quantity):
-                try:
-                    tickets_from_db[x].user = request.user
-                    tickets_from_db[x].save()
-                except:
-                    missing_tickets = True
-                    miss += 1
+            user_is_broke = False
+            if(not max_tickets):
+                print(str(event)+' '+str(category) +' '+str(quantity))
+                tickets_from_db = Ticket.objects.filter(event = event).filter(user = None).filter(category=category)
+                to_buy = len(tickets_from_db) if (len(tickets_from_db) <= quantity) else quantity
 
-            print(request.user)
-            print(event.atendees)
+                if ((tickets_from_db[0].price * to_buy)>logged.funds):
+                    user_is_broke = True
+                else:
+                    for x in range(quantity):
+                        try:
+                            tick = tickets_from_db[x]
+                            tick.user = logged
+                            tick.save()
 
-            event.atendees.add(request.user)
-            # event.save()
+                            tick.price
+                        except:
+                            missing_tickets = True
+                            miss += 1
+                    event.atendees.add(request.user)
+                    # event.save()
 
-            return render(request,'clubby/event/detail.html',{'event':event,'missing_tickets':missing_tickets,'miss':miss})
+            context = {'event':event,'missing_tickets':missing_tickets,'miss':miss,'max_tickets':max_tickets,'user_is_broke':user_is_broke}
+            return render(request,'clubby/event/detail.html',context)
     else:
         event = Event.objects.filter(pk=event_id)[0]
         tickets_from_db = Ticket.objects.filter(event = event).filter(user = None)
@@ -112,3 +128,21 @@ def TicketsByEventList(request, event_id):
 
         context = {'ticket_ammount': ticket_ammount}
         return render(request,'clubby/ticket/list.html',context)
+
+###############
+#    FUNDS    #
+###############
+@login_required
+def add_funds(request):
+    if request.method == 'POST':
+        form = FundsForm(request.POST)
+        if form.is_valid():
+            ammount = form.cleaned_data['ammount']
+            profile = request.user.profile
+            profile.funds += ammount 
+            profile.save()
+
+            return redirect('landing')
+    else:
+        form = FundsForm()
+    return render(request, 'clubby/funds.html', {'form': form})

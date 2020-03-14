@@ -3,6 +3,9 @@ import datetime
 from datetime import timezone, timedelta
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 
 ####################
@@ -17,13 +20,16 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     funds = models.DecimalField(decimal_places=2, max_digits=5,default=0.0)
 
+    @receiver(post_save, sender=User)
+    def update_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+        instance.profile.save()
+
     def __str__(self):
         """String for representing the Model object."""
         return str(self.user)+' profile'
     
-    def get_absolute_url(self):
-        """Returns the url to access a detail record for this user."""
-        return reverse('user-detail', args=[str(self.user.id)])
 
     class Meta:
         permissions = (("is_user", "Is a user and can do everything an identified user can."),

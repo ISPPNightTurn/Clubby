@@ -17,6 +17,9 @@ class TicketPurchaseForm(forms.Form):
     event = forms.IntegerField(widget=forms.HiddenInput())
     category = forms.CharField(max_length=50,widget=forms.HiddenInput())
 
+class FundsForm(forms.Form):
+    ammount = forms.IntegerField(max_value=500,min_value=10,help_text="how much of your currency you want to add, max 500, min 10")
+
 # class ClubModelForm(ModelForm):
         
 #     class Meta:

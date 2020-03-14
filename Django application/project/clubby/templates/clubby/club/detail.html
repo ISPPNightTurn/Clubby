@@ -23,9 +23,9 @@
     {% endfor %}
   </div> -->
   
-
-  <a href="{% url 'product-list' club_id=club.pk %}">Purchase products.</a>
-
+  {% if perms.clubby.is_user %}
+    <a href="{% url 'product-list' club_id=club.pk %}">Purchase products.</a>
+  {%endif%}
   
 {% endblock %}
 
