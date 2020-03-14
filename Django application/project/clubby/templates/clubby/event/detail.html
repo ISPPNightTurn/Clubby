@@ -19,6 +19,16 @@
 
   <!-- if the owner of the club is the one looking at this page give him the option to edit the event if no atendees are in yet.-->
 
+  {% if missing_tickets %}
+    we coldn't process {{miss}} tickets, they ran out... sorry :(
+  {% endif %}
+  {% if max_tickets%}
+    you bought the max ammount of tickets sorry... :(
+  {%endif%}
+  {% if user_is_broke %}
+    Nigga you broke!, add some cash in <a href="{%url 'add-funds' %}">here</a>
+  {%endif%}
+
   <p><strong>Atendee List:</strong></p><br>
   {% if event.atendees %}
   <ul>
@@ -30,7 +40,17 @@
   </ul>
   {% else %}
     <p>There are no atendants yet.</p>
+<<<<<<< HEAD
   {% endif %}       
+=======
+  {% endif %}
+  
+  {% if perms.clubby.is_user%}
+
+  <a href="{% url 'ticket-list' event_id=event.pk %}">Purchase ticket.</a>
+
+  {%endif%}
+>>>>>>> master
 {% endblock %}
 </div>  
 

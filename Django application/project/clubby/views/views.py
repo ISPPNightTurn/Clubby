@@ -85,13 +85,21 @@ def signup_user(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
+            user = form.save()
+            user.refresh_from_db()
+
+            user.profile.birth_date = form.cleaned_data.get('birth_date')
+            user.profile.bio = form.cleaned_data.get('bio')
+            user.profile.location = form.cleaned_data.get('location')
+            user.profile.funds = 0.0
+            user.save()
+            
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(username=user.username, password=raw_password)
             login(request, user)
             my_group = Group.objects.get(name='user') 
             my_group.user_set.add(user)
+
             return redirect('landing')
     else:
         form = SignupForm()
@@ -101,54 +109,25 @@ def signup_owner(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
+            user = form.save()
+            user.refresh_from_db()
+
+            user.profile.birth_date = form.cleaned_data.get('birth_date')
+            user.profile.bio = form.cleaned_data.get('bio')
+            user.profile.location = form.cleaned_data.get('location')
+            user.profile.funds = 0.0
+            user.save()
+
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(username=user.username, password=raw_password)
             login(request, user)
             my_group = Group.objects.get(name='owner') 
             my_group.user_set.add(user)
+
             return redirect('landing')
     else:
         form = SignupForm()
     return render(request, 'clubby/signup.html', {'form': form, 'owner':True, 'user':False})
-
-# this would be a custom view for form treatment. come back to it later on...
-
-# @permission_required('clubby.can_add_event') # <-- only owners
-# def add_event(request):
-#     """View function for adding an event to a club."""
-#     me = request.user
-#     club = get_object_or_404(Club, owner=me)
-#     event = Models
-#     # if owner doesnt have a club we should send him to the create club view. (this shouldn't happen?)
-
-#     # If this is a POST request then process the Form data (something went wrong)
-#     if request.method == 'POST':
-
-#         # Create a form instance and populate it with data from the request (binding):
-#         form = EventAddForm(request.POST)
-
-#         # Check if the form is valid:
-#         if form.is_valid():
-#             # process the data in form.cleaned_data as required
-#             event.start_date = form.cleaned_data['event_date']
-#             club.save()
-
-#             # redirect to a new URL:
-#             return HttpResponseRedirect(reverse('all-borrowed') )
-
-#     # If this is a GET (or any other method) create the default form.
-#     else:
-#         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
-#         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
-
-#     context = {
-#         'form': form,
-#         'club': club,
-#     }
-
-#     return render(request, 'clubby/event/add.html', context)
 
 
 # Generic views are the way that django makes easy the processing of simple requests:
@@ -264,9 +243,14 @@ class EventListView(generic.ListView):
     #context_object_name = 'my_event_list'   # your own name for the list as a template variable
     template_name = 'clubby/event/list.html'  # Specify your own template name/location
 
-    # we override the default to get events that have the year over 2020.
-    # def get_queryset(self):
-    #     return Event.objects.filter(start_date__year >= 2020)[:5] # Get 5 events with year 2020 or more.
+    def get_queryset(self):
+        #gte = greater than or equal.
+        #gt = greater than
+        #lte = lesser than or equal
+        #lt = lesser than
+        item = Event.objects.filter(start_date__gte = datetime.datetime.now().date())
+        return item
+
 
 class EventDetailView(generic.DetailView):
     model = Event
@@ -298,8 +282,9 @@ class EventsByUserListView(LoginRequiredMixin, generic.ListView):
 #         item = Event.objects.filter(club = self.request.user.club)#.filter(status__exact='o').order_by('due_back')
 #         return item
 
-class EventsByClubAndFutureListView(LoginRequiredMixin, generic.ListView):
-    """Generic class-based view listing events the user has participated, or is going to participate in."""
+class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
+    """Generic class-based view listing events of the club, that haven't happened yet."""
+    permission_required = 'clubby.is_owner'
     model = Event
     template_name ='clubby/event/list.html'
     paginate_by = 5
@@ -307,14 +292,10 @@ class EventsByClubAndFutureListView(LoginRequiredMixin, generic.ListView):
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
 
     def get_queryset(self):
-        #the gte and lte indicate greater than and lesser than for filtering by dates. (doesnt work...)
-        items = Event.objects.filter(club = self.request.user.club)#.filter(start_date__gte(datetime.datetime.now().date))#.order_by('due_back')
-        item = []
-        for i in items:
-            curr_date = datetime.datetime.now().date()
-            if(i.start_datetime > curr_date):
-                item.append(i)
-        return item
+        #the gte and lte indicate greater than and lesser than for filtering by dates.
+        club = Club.objects.filter(owner = self.request.user)[0]
+        items = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club)#.filter(start_date__gte = datetime.datetime.now().date)#.order_by('due_back')
+        return items
 
 class EventCreateView(PermissionRequiredMixin,CreateView):
     permission_required = 'clubby.is_owner'
@@ -331,7 +312,7 @@ class EventCreateView(PermissionRequiredMixin,CreateView):
         obj.club = obj.owner.club
         self.object = obj # this is neccesary as the url is pulled from self.object.
         obj.save()
-        return HttpResponseRedirect(reverse('my-events'))
+        return HttpResponseRedirect(reverse('my-events-future'))
 
 ##########################
 #    EXAMPLES (POLLS)    #
