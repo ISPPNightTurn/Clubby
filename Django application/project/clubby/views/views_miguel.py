@@ -91,7 +91,7 @@ def TicketsByEventList(request, event_id):
                 tickets_from_db = Ticket.objects.filter(event = event).filter(user = None).filter(category=category)
                 to_buy = len(tickets_from_db) if (len(tickets_from_db) <= quantity) else quantity
 
-                if ((tickets_from_db[0].price * to_buy)>logged.funds):
+                if ((tickets_from_db[0].price * to_buy)>logged.profile.funds):
                     user_is_broke = True
                 else:
                     for x in range(quantity):

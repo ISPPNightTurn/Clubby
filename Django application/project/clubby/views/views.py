@@ -319,8 +319,9 @@ class EventsByUserListView(LoginRequiredMixin, generic.ListView):
 #         item = Event.objects.filter(club = self.request.user.club)#.filter(status__exact='o').order_by('due_back')
 #         return item
 
-class EventsByClubAndFutureListView(LoginRequiredMixin, generic.ListView):
-    """Generic class-based view listing events the user has participated, or is going to participate in."""
+class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
+    """Generic class-based view listing events of the club, that haven't happened yet."""
+    permission_required = 'clubby.is_owner'
     model = Event
     template_name ='clubby/event/list.html'
     paginate_by = 5
@@ -329,13 +330,9 @@ class EventsByClubAndFutureListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         #the gte and lte indicate greater than and lesser than for filtering by dates.
-        items = Event.objects.filter(club = self.request.user.club).filter(start_date__gte =datetime.datetime.now().date)#.order_by('due_back')
-        item = []
-        for i in items:
-            curr_date = datetime.datetime.now().date()
-            if(i.start_datetime > curr_date):
-                item.append(i)
-        return item
+        club = Club.objects.filter(owner = self.request.user)[0]
+        items = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club)#.filter(start_date__gte = datetime.datetime.now().date)#.order_by('due_back')
+        return items
 
 class EventCreateView(PermissionRequiredMixin,CreateView):
     permission_required = 'clubby.is_owner'

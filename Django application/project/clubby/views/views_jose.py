@@ -35,30 +35,32 @@ def ProductsByClubList(request, club_id):
         print(form)
         if form.is_valid():
             print("Es válido")
+
             product_id = form.cleaned_data['product']
-            club_id = form.cleaned_data['club']
             quantity = form.cleaned_data['quantity']
+
             product_selected = Product.objects.filter(pk=product_id)[0]
-            club = Club.objects.filter(pk=club_id)[0]
 
-            print(str(product_selected)+' '+str(club)+' '+str(quantity))
+            print(str(product_selected)+' '+str(quantity))
 
-            for x in range(quantity):
-                qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user)
-                qr.save()
-                
+            user_is_broke = False
+            if(product_selected.price * quantity > request.user.profile.funds):
+                user_is_broke = True
 
+            else:
+                for x in range(quantity):
+                    qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user)
+                    qr.save()
+            
             return render(request,'clubby/purchases/list')
     else:
         club = Club.objects.filter(pk=club_id)[0]
         products = Product.objects.filter(club = club)
 
-       
-
         product_ammount=dict()
         for t in range(len(products)):
             #returns the ammount of unsold tickets for an event and category
-            form = ProductPurchaseForm(initial={'club':club.pk})
+            form = ProductPurchaseForm(initial={'product':products[t].pk})
             product_ammount[products[t]] = form
 
         context = {'product_ammount': product_ammount}

@@ -98,7 +98,7 @@ class Event(models.Model):
         return self.start_date + dur
 
     @property
-    def end_date(self):
+    def end_datetime(self):
         dur = datetime.timedelta(hours=self.duration)
         return self.start_datetime + dur
 
@@ -154,16 +154,14 @@ class Rating(models.Model):
         return str(self.club)+' '+str(self.stars)
 
 
-
-
-
 class QR_Item(models.Model):
     is_used = models.BooleanField(default=False)
     #The order is used so we can find the user and give them all his QR items
     #A QR_Item can be either a product, a reservation or a ticket
-    product = models.OneToOneField(Product,on_delete=models.CASCADE,null=True,blank=True)
-    reservation = models.OneToOneField(Reservation,on_delete=models.CASCADE,null=True,blank=True)
-    ticket = models.OneToOneField(Ticket,on_delete=models.CASCADE,null=True,blank=True)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,null=True,blank=True)
+    reservation = models.ForeignKey(Reservation,on_delete=models.CASCADE,null=True,blank=True)
+    ticket = models.ForeignKey(Ticket,on_delete=models.CASCADE,null=True,blank=True)
+    
     user = models.ForeignKey(User,on_delete= models.CASCADE,null=True,blank=True)
     priv_key = models.CharField(max_length=128)
 
