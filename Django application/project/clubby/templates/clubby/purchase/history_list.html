@@ -1,0 +1,25 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  {% load qr_code %}
+  <h1>My History Of Purchases</h1>
+  {% if object_list %}
+  <ul>
+    {% for qr_item in object_list %}
+      {% if qr_item.product != blank %}
+      <li>
+        {{qr_item.product.name}}-<b>Product</b>
+      </br>
+      </li> 
+      </br>
+      {% elif qr_item.ticket != blank %}
+      <li>
+        {{qr_item.ticket.event.name}}-<b>Ticket</b>
+      </li> 
+      {% endif %}
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>You have no purchases used</p>
+  {% endif %}
+{% endblock %}
