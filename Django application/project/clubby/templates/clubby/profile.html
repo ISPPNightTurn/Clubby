@@ -1,7 +1,8 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-<div class="list medium" style="font-size: large;">
+
+<div class="list medium indigo darken-2 toast rounded" style="font-size: large;">
   <p><strong>Name:</strong>{{ logged_user.first_name }}</p>
   <p><strong>Surname:</strong> {{ logged_user.last_name }}</p>
   <p><strong>Email:</strong> {{ logged_user.email }}</p>
@@ -9,14 +10,19 @@
   <p><strong>Bio:</strong>{{ user_profile.bio }}</p>
   <p><strong>Location:</strong> {{ user_profile.location }}</p>
   <p><strong>Email:</strong> {{ user_profile.birth_date }}</p>
-
+</div>
+<br>
+<br>
   <!-- add the club if the user is an owner and has a club. if not redirect to the club creation page: -->
   {% if perms.clubby.is_owner %}
     {%if club == ''%}
-    no club registered man: register one <a href="{% url 'club-create' %}">here</a>
+    <p><strong>No club registered man:</strong></p>
+    <a href="{% url 'club-create' %}" class="btn-large waves-effect waves-light purple darken-4 lighten-1">Register one here</a>
     {%else%}
+    <br>
     <h2>CLUB:</h2>
 
+    <div class="indigo darken-2 toast rounded">
     <p><strong>Name: </strong>{{ club.name }}</p>
     <p><strong>Address: </strong>{{ club.address }}</p>
     <p><strong>Capacity: </strong>{{ club.max_capacity }}</p>
@@ -29,6 +35,7 @@
     <a href="{% url 'my-events-future' %}" class="btn-large waves-effect waves-light purple darken-4 lighten-1">My Published Events</a>
     <a href="{% url 'my-products' %}" class="btn-large waves-effect waves-light purple darken-4 lighten-1">My Products</a>
 
+    </div>
     </div>
     {%endif%}
   {%endif%}
