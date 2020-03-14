@@ -16,9 +16,11 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
+from django.utils.crypto import get_random_string
+
 from ..forms import TicketPurchaseForm,FundsForm
 
-from ..models import Club, Event, Profile, Product, Ticket
+from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 import datetime
 
@@ -87,25 +89,28 @@ def TicketsByEventList(request, event_id):
             miss = 0
             user_is_broke = False
             if(not max_tickets):
-                print(str(event)+' '+str(category) +' '+str(quantity))
                 tickets_from_db = Ticket.objects.filter(event = event).filter(user = None).filter(category=category)
                 to_buy = len(tickets_from_db) if (len(tickets_from_db) <= quantity) else quantity
+
+                print(str(to_buy) + str(tickets_from_db))
 
                 if ((tickets_from_db[0].price * to_buy)>logged.profile.funds):
                     user_is_broke = True
                 else:
-                    for x in range(quantity):
-                        try:
-                            tick = tickets_from_db[x]
-                            tick.user = logged
-                            tick.save()
+                    logged.profile.funds -= (tickets_from_db[0].price * to_buy)
+                    logged.profile.save()
+                    
+                    for x in range(to_buy):
+                        tick = tickets_from_db[x]
+                        tick.user = logged
+                        tick.save()
+                        tick.refresh_from_db()
 
-                            tick.price
-                        except:
-                            missing_tickets = True
-                            miss += 1
+                        qr = QR_Item(is_used=False,priv_key=get_random_string(length=128),user=logged,ticket=tick)
+                        qr.save()
+                        
                     event.atendees.add(request.user)
-                    # event.save()
+                    # event.save() no need to save as add saves it for us.
 
             context = {'event':event,'missing_tickets':missing_tickets,'miss':miss,'max_tickets':max_tickets,'user_is_broke':user_is_broke}
             return render(request,'clubby/event/detail.html',context)

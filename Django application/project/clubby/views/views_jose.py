@@ -46,13 +46,15 @@ def ProductsByClubList(request, club_id):
             user_is_broke = False
             if(product_selected.price * quantity > request.user.profile.funds):
                 user_is_broke = True
-
             else:
+                request.user.profile.funds -= product_selected.price * quantity
+                request.user.save()
+
                 for x in range(quantity):
                     qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user)
                     qr.save()
             
-            return render(request,'clubby/purchases/list')
+            return render(request,'clubby/purchases/list',{'user_is_broke':user_is_broke})
     else:
         club = Club.objects.filter(pk=club_id)[0]
         products = Product.objects.filter(club = club)
