@@ -1,11 +1,13 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-  <h1>Name: {{ club.name }}</h1>
+  <div class="clubDetail">  
+    <h1>Name: {{ club.name }}</h1>
 
-  <p><strong>Address:</strong>{{ club.address }}</p> <!-- author detail link not yet defined -->
-  <p><strong>Max Capacity:</strong> {{ club.max_capacity }}</p>
-  <p><strong>NIF:</strong> {{ club.NIF }}</p> 
+    <p><strong>Address:</strong>{{ club.address }}</p> <!-- author detail link not yet defined -->
+    <p><strong>Max Capacity:</strong> {{ club.max_capacity }}</p>
+    <p><strong>NIF:</strong> {{ club.NIF }}</p> 
+  </div>
 
   <!-- <div style="margin-left:20px;margin-top:20px">
     <h4>Events</h4>
