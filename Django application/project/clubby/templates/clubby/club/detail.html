@@ -26,7 +26,7 @@
   </div> -->
   
   {% if perms.clubby.is_user %}
-    <a class="waves-effect waves-light btn" href="{% url 'product-list' club_id=club.pk %}" style="margin-bottom: 50px;">Purchase products.</a>
+    <a class="waves-effect waves-light btn purple darken-4 lighten-1" href="{% url 'product-list' club_id=club.pk %}" style="margin-bottom: 50px;">Purchase products.</a>
   {%endif%}
 </div>
 {% endblock %}

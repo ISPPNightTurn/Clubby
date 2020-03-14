@@ -96,3 +96,16 @@ input, select, textArea{
     width: 90%;
     margin: 0 auto;
 }
+
+.desk{
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+@media only screen and (max-width: 768px){
+    .desk{
+        width: 100%;
+        margin: auto;
+    }
+}

@@ -1,14 +1,14 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-<div class="list"></div>
-  <h1>Club List</h1>
-  <div class="indigo darken-2 toast rounded">
+  <h1 style="text-align: center;">Club List</h1>
+  <div class="desk">
   {% if object_list %}
-  <ul>
+  <ul class="collection">
     {% for club in object_list %}
-      <li>
-        <a href="{{ club.get_absolute_url }}">{{ club.name }}</a> ({{club.NIF}})
+      <li class="collection-item purple darken-4">
+        <div>{{ club.name }} ({{club.NIF}})<a href="{{ club.get_absolute_url }}" class="secondary-content white-text"><i class="material-icons">send</i></a> </div>
+        
       </li>
     {% endfor %}
   </ul>
