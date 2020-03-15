@@ -48,11 +48,11 @@ def ProductsByClubList(request, club_id):
                 user_is_broke = True
             else:
                 total_cost = product_selected.price * quantity
-                request.user.profile.funds -= total_cost - (total_cost*0.05) #we take the 5% off the purchase.
+                request.user.profile.funds -= total_cost 
                 request.user.save()
 
                 owner = product_selected.club.owner
-                owner.profile.funds += total_cost
+                owner.profile.funds += total_cost - (total_cost*0.05) #we take the 5% off the purchase.
                 owner.save()
 
                 for x in range(quantity):

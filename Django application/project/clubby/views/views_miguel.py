@@ -93,12 +93,17 @@ def TicketsByEventList(request, event_id):
                 to_buy = len(tickets_from_db) if (len(tickets_from_db) <= quantity) else quantity
 
                 print(str(to_buy) + str(tickets_from_db))
-
-                if ((tickets_from_db[0].price * to_buy)>logged.profile.funds):
+                
+                total_cost = tickets_from_db[0].price * to_buy
+                if (total_cost>logged.profile.funds):
                     user_is_broke = True
                 else:
-                    logged.profile.funds -= (tickets_from_db[0].price * to_buy)
+                    logged.profile.funds -= (total_cost* to_buy)
                     logged.profile.save()
+
+                    owner = event.club.owner
+                    owner.profile.funds += total_cost - (total_cost*0.05) #we take the 5% off the purchase.
+                    owner.save()
                     
                     for x in range(to_buy):
                         tick = tickets_from_db[x]
