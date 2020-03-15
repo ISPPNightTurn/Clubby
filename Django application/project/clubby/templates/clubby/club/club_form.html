@@ -1,6 +1,8 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
+<h2 class="header center white-text">Create Club</h2>
+<div class="deep-purple darken-4 toast rounded">
   <form action="" method="post">
     {% csrf_token %}
     <table>
@@ -8,4 +10,5 @@
     </table>
     <input type="submit" value="Submit" class="btn-large waves-effect waves-light purple darken-4 lighten-1">
   </form>
+</div>
 {% endblock %}
