@@ -121,7 +121,7 @@ class Event(models.Model):
 
     def get_create_tickets_url(self):
         """Returns the url to access a detail record for this event."""
-        return reverse('create-tickets', args=[str(self.id)])
+        return reverse('create-tickets', args=[str(self.id)]) + '?id=' + str(self.id)
 
 class Ticket(models.Model):
     price = models.DecimalField(decimal_places=2,max_digits=5)#999,99 es el maximo
@@ -135,7 +135,7 @@ class Ticket(models.Model):
         return str(self.category) +' '+ str(self.event)
 
 class CreateTicket(models.Model):
-    price = models.DecimalField(decimal_places=2,max_digits=5)#999,99 es el maximo
+    price = models.DecimalField(decimal_places=2,max_digits=5,default=1)#999,99 es el maximo
     category = models.CharField(max_length = 40, help_text='The name of the type of ticket you are trying to sell.',default = 'Basic')
     description = models.TextField(help_text='Decribe what this ticket entices.', default="this allows you to enter the party.")
     size = IntegerRangeField(min_value=1, max_value=50, default = 1, help_text='Number of tickets. (Max)')
