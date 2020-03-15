@@ -130,6 +130,4 @@ class EventModelFormTest(TestCase):
         self.assertTrue(form.fields['start_date'].label == None or form.fields['start_date'].label == 'price')
 
 
-    def test_event_model_form_start_date_date_field_help_text(self):
-        form = EventModelForm()
-        self.assertTrue(form.fields['start_date'].help_text, 'Required. 5 digits max')
+   
