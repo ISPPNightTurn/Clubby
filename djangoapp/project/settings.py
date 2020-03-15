@@ -97,7 +97,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'clubbyapp',
         'USER': 'clubby',
-        'PASSWORD': 'I$PP-C1ubby',
+        'PASSWORD': 'clubby',
         'HOST': 'localhost',
         'PORT': '5432',
     }
