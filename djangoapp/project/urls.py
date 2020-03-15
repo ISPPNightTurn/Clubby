@@ -13,16 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.views.generic import RedirectView
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('clubby/',include('clubby.urls')),
+    path('clubby/', include('clubby.urls')),
     path('admin/', admin.site.urls),
 ]
 
-#Add URL maps to redirect the base URL to our application
-from django.views.generic import RedirectView
+# Add URL maps to redirect the base URL to our application
 
 urlpatterns += [
     path('', RedirectView.as_view(url='/clubby/', permanent=True)),

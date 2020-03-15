@@ -1,0 +1,17 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  <h1>Product List</h1>
+  <ul>
+    
+
+    {% for product, form in product_ammount.items %} 
+    <li>
+    {{product.name}} - ({{product.price}}) - ({{product.club}}) 
+    <form action="" method="post">{% csrf_token %} {{form}}  <input type="submit" value="Submit"></form> 
+    </li>
+    <br>
+     
+    {% endfor %}
+  </ul>
+{% endblock %}

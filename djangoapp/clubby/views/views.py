@@ -129,6 +129,43 @@ def signup_owner(request):
         form = SignupForm()
     return render(request, 'clubby/signup.html', {'form': form, 'owner':True, 'user':False})
 
+# this would be a custom view for form treatment. come back to it later on...
+
+# @permission_required('clubby.can_add_event') # <-- only owners
+# def add_event(request):
+#     """View function for adding an event to a club."""
+#     me = request.user
+#     club = get_object_or_404(Club, owner=me)
+#     event = Models
+#     # if owner doesnt have a club we should send him to the create club view. (this shouldn't happen?)
+
+#     # If this is a POST request then process the Form data (something went wrong)
+#     if request.method == 'POST':
+
+#         # Create a form instance and populate it with data from the request (binding):
+#         form = EventAddForm(request.POST)
+
+#         # Check if the form is valid:
+#         if form.is_valid():
+#             # process the data in form.cleaned_data as required
+#             event.start_date = form.cleaned_data['event_date']
+#             club.save()
+
+#             # redirect to a new URL:
+#             return HttpResponseRedirect(reverse('all-borrowed') )
+
+#     # If this is a GET (or any other method) create the default form.
+#     else:
+#         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+#         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
+
+#     context = {
+#         'form': form,
+#         'club': club,
+#     }
+
+#     return render(request, 'clubby/event/add.html', context)
+
 
 # Generic views are the way that django makes easy the processing of simple requests:
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views
@@ -282,9 +319,8 @@ class EventsByUserListView(LoginRequiredMixin, generic.ListView):
 #         item = Event.objects.filter(club = self.request.user.club)#.filter(status__exact='o').order_by('due_back')
 #         return item
 
-class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
-    """Generic class-based view listing events of the club, that haven't happened yet."""
-    permission_required = 'clubby.is_owner'
+class EventsByClubAndFutureListView(LoginRequiredMixin, generic.ListView):
+    """Generic class-based view listing events the user has participated, or is going to participate in."""
     model = Event
     template_name ='clubby/event/list.html'
     paginate_by = 5
@@ -293,9 +329,13 @@ class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         #the gte and lte indicate greater than and lesser than for filtering by dates.
-        club = Club.objects.filter(owner = self.request.user)[0]
-        items = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club)#.filter(start_date__gte = datetime.datetime.now().date)#.order_by('due_back')
-        return items
+        items = Event.objects.filter(club = self.request.user.club).filter(start_date__gte =datetime.datetime.now().date)#.order_by('due_back')
+        item = []
+        for i in items:
+            curr_date = datetime.datetime.now().date()
+            if(i.start_datetime > curr_date):
+                item.append(i)
+        return item
 
 class EventCreateView(PermissionRequiredMixin,CreateView):
     permission_required = 'clubby.is_owner'
@@ -312,7 +352,7 @@ class EventCreateView(PermissionRequiredMixin,CreateView):
         obj.club = obj.owner.club
         self.object = obj # this is neccesary as the url is pulled from self.object.
         obj.save()
-        return HttpResponseRedirect(reverse('my-events-future'))
+        return HttpResponseRedirect(reverse('my-events'))
 
 ##########################
 #    EXAMPLES (POLLS)    #
