@@ -22,6 +22,8 @@ from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 from django.utils.crypto import get_random_string
 
+from decimal import Decimal
+
 import datetime
 
 #################
@@ -52,7 +54,7 @@ def ProductsByClubList(request, club_id):
                 request.user.save()
 
                 owner = product_selected.club.owner
-                owner.profile.funds += total_cost - (total_cost*0.05) #we take the 5% off the purchase.
+                owner.profile.funds += total_cost - total_cost * Decimal("0.05") #we take the 5% off the purchase.
                 owner.save()
 
                 for x in range(quantity):
