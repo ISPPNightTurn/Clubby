@@ -1,14 +1,17 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
+<div class="card purple darken-2 ">
+  <div class="card-content">
+    <span class="card-title">Delete Club</span>
 
-<h1>Delete Club</h1>
-
-<p>Are you sure you want to delete the club: {{ club }}?</p>
-
-<form action="" method="POST">
-  {% csrf_token %}
-  <input type="submit" value="Yes, delete." class="btn-large waves-effect waves-light materialize-red darken-3 lighten-1">
-</form>
-
+    <p>Are you sure you want to delete the club: {{ club }}?</p>
+  </div>
+  <div class="card-action">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="Yes, delete." class="btn-large waves-effect waves-light materialize-red darken-3 lighten-1">
+    </form>
+  </div>
+</div>
 {% endblock %}

@@ -8,7 +8,7 @@
     {% for product, form in product_ammount.items %} 
     <li class="collection-item purple darken-4 avatar">
       <img alt="" class="circle" src="../../../static/clubby/images/bebidas.jpeg">
-      <a class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ({{product.price}}) 
+      <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ({{product.price}}) 
     <form action="" method="post">{% csrf_token %} {{form}} <input class="waves-effect waves-light btn purple darken-2" type="submit" value="Submit"></form> 
     </li>
     <br>
@@ -17,10 +17,11 @@
 
   {% if perms.clubby.is_owner %}
   {% if object_list %}
-  <ul>
+  <ul class="collection-item purple darken-2">
     {% for product in object_list %}
-      <li>
-        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a> 
+      <li class="collection-item purple darken-4 avatar">
+        <img alt="" class="circle" src="../../../static/clubby/images/bebidas.jpeg">
+        <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> 
       </li>
     {% endfor %}
   </ul>

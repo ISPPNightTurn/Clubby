@@ -2,27 +2,34 @@
 
 {% block content %}
   {% load qr_code %}
-  <h1>My Purchases</h1>
+  <h1 style="text-align: center;">My Purchases</h1>
   {% if object_list %}
-  <ul>
-    {% for qr_item in object_list %}
-      {% if qr_item.product != blank %}
-      <li>
-        {{qr_item.product.name}}-<b>Product</b>
-      </br>
-      <div style="background-color:white"></div>
-        {% qr_from_text "pornhub.com" border=10 size="M" %}
-      </div>
-      </li> 
-      </br>
-      {% elif qr_item.ticket != blank %}
-      <li>
-        {{qr_item.ticket.event.name}}-<b>Ticket</b>
-      </li> 
+  <div class="row">
+    <div style="margin: auto" class="center-align">
+      {% for qr_item in object_list %}
+        {% if qr_item.product != blank %}
+          <div class="card purple darken-2">
+            <div class="card-image white">
+              {% qr_from_text "pornhub.com" border=10 size="M" %}
+            </div>
+            <div class="card-content">
+              {{qr_item.product.name}}-<b>Product</b>
+              </br>
+            </div>
+          </div>
+        {% elif qr_item.ticket != blank %}
+
+          {{qr_item.ticket.event.name}}-<b>Ticket</b>
       {% endif %}
     {% endfor %}
-  </ul>
+    </div>
+  </div>
+
   {% else %}
-  <p>You have no purchases</p>
+  <div class="card purple darken-2">
+    <p>You have no purchases</p>
+  </div>
+    
   {% endif %}
+
 {% endblock %}
