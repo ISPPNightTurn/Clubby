@@ -2,13 +2,14 @@
 
 {% block content %}
   <h1>Product List</h1>
-  <ul>
+  <ul class="collection purple darken-2">
 
   {% if perms.clubby.is_user %}
     {% for product, form in product_ammount.items %} 
-    <li>
-      <a href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ({{product.price}}) 
-    <form action="" method="post">{% csrf_token %} {{form}} <input type="submit" value="Submit"></form> 
+    <li class="collection-item purple darken-4 avatar">
+      <img alt="" class="circle" src="../../../static/clubby/images/bebidas.jpeg">
+      <a class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ({{product.price}}) 
+    <form action="" method="post">{% csrf_token %} {{form}} <input class="waves-effect waves-light btn purple darken-2" type="submit" value="Submit"></form> 
     </li>
     <br>
     {% endfor %}
@@ -24,10 +25,13 @@
     {% endfor %}
   </ul>
   {% else %}
-    <p>There are no products avaliable.</p>
+    <li class="collection-item purple darken-2">
+      <p>There are no products avaliable.</p>
+    </li>
   {% endif %}
-
-    <a href="{% url 'product-create' %}">Create new product</a>  
+    <li class="collection-item purple darken-2">
+      <a class="btn-large waves-effect waves-light purple darken-4 " href="{% url 'product-create' %}">Create new product</a>  
+    </li>
   {%endif%}   
   </ul>
 {% endblock %}
