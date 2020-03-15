@@ -2,7 +2,7 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-
+<h2 class="header center white-text">Login</h2>
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
@@ -15,6 +15,7 @@
     <p>Please login to see this page.</p>
     {% endif %}
 {% endif %}
+<div class="deep-purple darken-4 toast rounded">
 
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
@@ -29,12 +30,17 @@
 </div>
 
 <div>
-  <input type="submit" value="login" />
+  <input type="submit" class="btn waves-effect waves-light" value="login" ></input>
   <input type="hidden" name="next" value="{{ next }}" />
+  <br/>
+  <br/>
+  <a class="waves-effect waves-light btn" href="{% url 'password_reset' %}">Lost password?</a>
+
 </div>
 </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-
+<div>
+</div>
+</div>
 {% endblock %}
