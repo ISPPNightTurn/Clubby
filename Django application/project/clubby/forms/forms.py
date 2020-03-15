@@ -67,12 +67,6 @@ class ProductModelForm(ModelForm):
         fields = '__all__'
         exclude = ['owner'] 
 
-class TicketCreateModelForm(ModelForm):
-    class Meta:
-        model = Ticket
-        fields = '__all__'
-        exclude = ['owner','event','user']
-
 class EventModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
     start_date = forms.DateField(initial=datetime.date.today)

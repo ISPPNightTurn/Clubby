@@ -2,3 +2,4 @@
 from .views import *
 from .views_miguel import *
 from .views_jose import *
+from .views_javi import *
