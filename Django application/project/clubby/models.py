@@ -6,7 +6,16 @@ from django.urls import reverse
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from django.db import models
 
+class IntegerRangeField(models.IntegerField):
+    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
+        self.min_value, self.max_value = min_value, max_value
+        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+    def formfield(self, **kwargs):
+        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
+        defaults.update(kwargs)
+        return super(IntegerRangeField, self).formfield(**defaults)
 
 ####################
 #      CLUBBY      #
@@ -110,11 +119,26 @@ class Event(models.Model):
         """Returns the url to access a detail record for this event."""
         return reverse('event-detail', args=[str(self.id)])
 
+    def get_create_tickets_url(self):
+        """Returns the url to access a detail record for this event."""
+        return reverse('create-tickets', args=[str(self.id)])
+
 class Ticket(models.Model):
     price = models.DecimalField(decimal_places=2,max_digits=5)#999,99 es el maximo
     category = models.CharField(max_length = 40, help_text='The name of the type of ticket you are trying to sell.',default = 'Basic')
     description = models.TextField(help_text='Decribe what this ticket entices.', default="this allows you to enter the party.")
     # ticket_id = models.CharField()#<-- podemos usar a primary key para identificarlos, este tributo es redundante.
+    event =  models.ForeignKey(Event, on_delete=models.CASCADE)
+    user =  models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.category) +' '+ str(self.event)
+
+class CreateTicket(models.Model):
+    price = models.DecimalField(decimal_places=2,max_digits=5)#999,99 es el maximo
+    category = models.CharField(max_length = 40, help_text='The name of the type of ticket you are trying to sell.',default = 'Basic')
+    description = models.TextField(help_text='Decribe what this ticket entices.', default="this allows you to enter the party.")
+    size = IntegerRangeField(min_value=1, max_value=50, default = 1, help_text='Number of tickets. (Max)')
     event =  models.ForeignKey(Event, on_delete=models.CASCADE)
     user =  models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
@@ -167,4 +191,3 @@ class QR_Item(models.Model):
 
     def __str__(self):
         return str(self.priv_key)
-

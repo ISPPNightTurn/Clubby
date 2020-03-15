@@ -17,8 +17,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
-from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
-from ..models import Club, Event, Profile, Product 
+from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm,TicketCreateModelForm
+from ..models import Club, Event, Profile, Product, Ticket
 
 import datetime
 
@@ -256,6 +256,28 @@ class EventDetailView(generic.DetailView):
     model = Event
     template_name = 'clubby/event/detail.html'  # Specify your own template name/location
 
+#################
+#    TICKETS    #
+#################
+
+class EventCreateTicketsView(PermissionRequiredMixin,CreateView):
+    permission_required = 'clubby.is_owner'
+    model = Ticket
+    form_class = TicketCreateModelForm #<-- since the validation is here we need to specify the form we want to use.
+    template_name = 'clubby/event/event_form.html'
+    # you can't use the exclude here.
+
+    # we need to overide the default method for saving in this case because we need to
+    # add the logged user as the owner to the club.
+    def form_valid(self, form):
+        form.user_id = ''
+        form.event_id = 1
+        obj = form.save(commit=False)  
+        obj.event = 1      
+        self.object = obj # this is neccesary as the url is pulled from self.object.
+        obj.save()
+        return HttpResponseRedirect(reverse('my-events-future'))
+
 # we should make a new view for this due to pagination bugs, but the filtering works.
 # we can also call the required mixin to our own defined views but we need to declare them first, same as @login_required.
 class EventsByUserListView(LoginRequiredMixin, generic.ListView):
@@ -312,7 +334,7 @@ class EventCreateView(PermissionRequiredMixin,CreateView):
         obj.club = obj.owner.club
         self.object = obj # this is neccesary as the url is pulled from self.object.
         obj.save()
-        return HttpResponseRedirect(reverse('my-events-future'))
+        return HttpResponseRedirect(self.object.get_create_tickets_url())
 
 ##########################
 #    EXAMPLES (POLLS)    #
