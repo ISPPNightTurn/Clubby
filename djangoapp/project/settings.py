@@ -39,13 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'project',
 ]
 
 SITE_ID = 1  # Cuidado con el id, viene de la bd
 
 MODULES = [
-    'clubby',
+    # 'clubby',
 ]
 
 BASEURL = 'https://clubbyapp.herokuapp.com'
