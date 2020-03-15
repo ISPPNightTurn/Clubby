@@ -54,7 +54,7 @@ def ProductsByClubList(request, club_id):
                     qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user)
                     qr.save()
             
-            return render(request,'clubby/purchases/list',{'user_is_broke':user_is_broke})
+            return render(request,'clubby/purchase/list.html',{'user_is_broke':user_is_broke})
     else:
         club = Club.objects.filter(pk=club_id)[0]
         products = Product.objects.filter(club = club)
@@ -68,3 +68,40 @@ def ProductsByClubList(request, club_id):
         context = {'product_ammount': product_ammount}
         return render(request,'clubby/product/list.html',context)
     
+    
+#################
+#    QR         #
+#################
+
+
+class QRsByUserListView(LoginRequiredMixin, generic.ListView):
+    
+    permission_required = 'clubby.is_user'
+    model = QR_Item
+    template_name ='clubby/purchase/list.html'
+    paginate_by = 5
+
+    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
+    
+    def get_queryset(self):
+        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=False)
+        return item
+
+
+class QRsUsedByUserListView(LoginRequiredMixin, generic.ListView):
+    
+    permission_required = 'clubby.is_user'
+    model = QR_Item
+    template_name ='clubby/purchase/history_list.html'
+    paginate_by = 5
+
+    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
+    
+    def get_queryset(self):
+        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=True)
+        return item
+
+
+class DisplayQRItemView(generic.DetailView):
+    model = QR_Item
+    template_name = 'clubby/purchase/display.html'  # Specify your own template name/location
