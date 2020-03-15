@@ -1,14 +1,17 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-  <div class="clubDetail">  
-    <h1>Name: {{ club.name }}</h1>
-
-    <p><strong>Address:</strong>{{ club.address }}</p> <!-- author detail link not yet defined -->
-    <p><strong>Max Capacity:</strong> {{ club.max_capacity }}</p>
-    <p><strong>NIF:</strong> {{ club.NIF }}</p> 
+    <div class="card purple ">  
+      <div class="card-image">
+        <img src="../../../static/clubby/images/background.jpg">
+        <span class="card-title">Name: {{ club.name }}</span>
+      </div>
+    <div class="card-content">
+      <p><strong>Address:</strong>{{ club.address }}</p> <!-- author detail link not yet defined -->
+      <p><strong>Max Capacity:</strong> {{ club.max_capacity }}</p>
+      <p><strong>NIF:</strong> {{ club.NIF }}</p> 
   
-
+    </div>
   <!-- <div style="margin-left:20px;margin-top:20px">
     <h4>Events</h4>
 
@@ -26,10 +29,12 @@
   </div> -->
   
   {% if perms.clubby.is_user %}
-    <a class="waves-effect waves-light btn purple darken-4 lighten-1" href="{% url 'product-list' club_id=club.pk %}" style="margin-bottom: 50px;">Purchase products.</a>
-  {%endif%}
-</div>
+    <div class="card-action">
+      <a class="waves-effect btn purple darken-4 waves-light white-text" href="{% url 'product-list' club_id=club.pk %}" style="margin-bottom: 50px;">Purchase products.</a>
+    </div>
+    {%endif%}
+  </div>
 {% endblock %}
-</div>
+
 
     

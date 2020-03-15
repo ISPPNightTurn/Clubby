@@ -27,13 +27,9 @@
           <li><a href="{% url 'profile' %}"><p class="light">Profile</p></a></li>
           {% if perms.clubby.is_user %}
           <!-- We can list our events only if we are a user.  -->
-<<<<<<< HEAD
-          <li><a href="{% url 'my-events' %}"><p class="light">My Events</p></a></li>
-=======
           <li><a href="{% url 'my-events' %}">My Events</a></li>
           <li><a href="{% url 'my-purchases' %}">My Purchases</a></li>
           <li><a href="{% url 'my-history' %}">My History</a></li>
->>>>>>> master
           {%endif%}
           {% if perms.clubby.is_owner %}
           <!-- We can add owner specific actions here (they need to not require a club.)-->
