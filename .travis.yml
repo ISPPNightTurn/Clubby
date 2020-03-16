@@ -9,7 +9,7 @@ services:
 install:
 - pip install -r requirements.txt
 before_install:
-- mysql -u root -e "ALTER USER clubby CREATEDB;"
+- mysql -u root -e "GRANT ALL ON *.* TO 'clubby'@'%' WITH GRANT OPTION;"
 #- mysql -p -u root
 #- ALTER USER clubby CREATEDB;
 #- sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('123123') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
