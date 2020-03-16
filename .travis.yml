@@ -17,4 +17,4 @@ script:
 - ls
 - cd "Django application"
 - cd "project"
-- python manage.py test
+- python manage.py test 
