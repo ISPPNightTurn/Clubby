@@ -14,7 +14,7 @@
         {{qr_item.product.name}}-<b>Product</b>
       </br>
       <div style="background-color:white">    
-        {% qr_from_text qr_item.get_absolute_url size="M" %}
+        {% qr_from_text "http://localhost:8000"|add:qr_item.get_absolute_url size="M" %}
         <p>{{qr_item.priv_key}}</p>
       </div>
       </li> 

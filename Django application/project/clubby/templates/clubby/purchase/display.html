@@ -18,9 +18,11 @@
       {% if qr_item.is_used %}
         <p>The QR has already been used</p>
       {% else %}
-        <form action="" method="post">{% csrf_token %} {{form}} Are you sure you want to redeem the QR Code?
+        <form action="" method="post">
+        {% csrf_token %} 
+        {{form}} Are you sure you want to redeem the QR Code?
         </br>
-        <input type="submit" value="redeem">
+        <input type="submit" value="Redeem!">
         </form> 
       {% endif %}
 {% endblock %}

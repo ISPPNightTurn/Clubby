@@ -17,5 +17,5 @@ class ProductPurchaseForm(forms.Form):
     product = forms.IntegerField(widget=forms.HiddenInput())
 
 class RedeemQRCodeForm(forms.Form):
-    redeem = forms.BooleanField()
+    qr_item_id = forms.IntegerField(widget=forms.HiddenInput())
     
