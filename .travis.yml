@@ -7,5 +7,5 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-- cd clubby
+- cd Django application
 - python ./manage.py test --keepdb
