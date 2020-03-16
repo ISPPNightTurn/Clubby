@@ -8,8 +8,6 @@ services:
   -mysql
 install:
   - pip install -r requirements.txt
-before_script:
-  -mysql -e 'create database test;' -u root
 script:
 - ls
 - cd "Django application"
