@@ -16,7 +16,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from ..forms import ProductPurchaseForm
+from ..forms import ProductPurchaseForm, RedeemQRCodeForm
 
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
@@ -32,9 +32,8 @@ import datetime
 def ProductsByClubList(request, club_id):
     if (request.method == 'POST'):
         form = ProductPurchaseForm(request.POST)
-        print(form)
         if form.is_valid():
-            print("Es válido")
+            
 
             product_id = form.cleaned_data['product']
             quantity = form.cleaned_data['quantity']
@@ -102,6 +101,26 @@ class QRsUsedByUserListView(LoginRequiredMixin, generic.ListView):
         return item
 
 
-class DisplayQRItemView(generic.DetailView):
-    model = QR_Item
-    template_name = 'clubby/purchase/display.html'  # Specify your own template name/location
+#class DisplayQRItemView(generic.DetailView):
+   # model = QR_Item
+   # template_name = 'clubby/purchase/display.html'  # Specify your own template name/location
+
+def DisplayQRItemView(request, qr_item_id,priv_key):
+    if (request.method == 'POST'):
+        form = RedeemQRCodeForm(request.POST)
+        if form.is_valid():
+            
+
+            qr_selected = QR_Item.objects.filter(pk=qr_item_id)
+            qr_selected.is_used = form.cleaned_data['redeem']
+            if(qr_selected.priv_key==priv_key):
+                qr_selected.save()
+            
+            return render(request,'clubby/purchase/list.html')
+    else:
+            
+            qr = QR_Item.objects.filter(pk=qr_item_id)
+            form = RedeemQRCodeForm(qr)
+            context = {'qr_item':qr,'form':form,'qr_item_id':qr_item_id,"priv_key":priv_key}
+
+            return render(request,'clubby/purchase/display.html',context)

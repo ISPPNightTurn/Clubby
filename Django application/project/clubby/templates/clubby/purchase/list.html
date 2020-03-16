@@ -10,14 +10,18 @@
       <li>
         {{qr_item.product.name}}-<b>Product</b>
       </br>
-      <div style="background-color:white"></div>
-        {% qr_from_text "pornhub.com" border=10 size="M" %}
+      <div style="background-color:white">    
+        {% qr_from_text qr_item.get_absolute_url size="M" %}
+        <p>{{qr_item.priv_key}}</p>
       </div>
       </li> 
       </br>
       {% elif qr_item.ticket != blank %}
       <li>
         {{qr_item.ticket.event.name}}-<b>Ticket</b>
+        <div style="background-color:white">    
+        {% qr_from_text qr_item.get_absolute_url size="M" %}
+        </div>
       </li> 
       {% endif %}
     {% endfor %}

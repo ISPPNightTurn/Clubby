@@ -14,10 +14,13 @@
     <h1>Category: {{ qr_item.ticket.event.category }}</h1>
     <h1>Description: {{ qr_item.ticket.event.description }}</h1>
 
-  {%endif%}
-  {% if qr_item.is_used = True %}
-    <form action="" method="post">{% csrf_token %} {{form}}  <input type="submit" value="Submit"></form> 
-  {% elif %}
-    <p>The QR has already been used</p>
   {% endif %}
+      {% if qr_item.is_used %}
+        <p>The QR has already been used</p>
+      {% else %}
+        <form action="" method="post">{% csrf_token %} {{form}} Are you sure you want to redeem the QR Code?
+        </br>
+        <input type="submit" value="redeem">
+        </form> 
+      {% endif %}
 {% endblock %}

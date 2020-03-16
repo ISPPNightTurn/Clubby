@@ -168,3 +168,7 @@ class QR_Item(models.Model):
     def __str__(self):
         return str(self.priv_key)
 
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for this product."""
+        return reverse('purchase-display', args=[str(self.id),str(self.priv_key)])
+
