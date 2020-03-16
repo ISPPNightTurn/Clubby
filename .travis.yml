@@ -10,6 +10,7 @@ install:
 - pip install -r requirements.txt
 before_script:
 - mysql -u root -e "GRANT ALL ON *.* TO 'clubby'@'%' WITH GRANT OPTION;"
+- mysql -e 'CREATE USER 'clubby'@'localhost';GRANT ALL PRIVILEGES ON *.* TO 'clubby'@'localhost';GRANT FILE ON *.* TO 'clubby'@'localhost';'
 #- mysql -p -u root
 #- ALTER USER clubby CREATEDB;
 #- sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('123123') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
