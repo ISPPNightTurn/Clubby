@@ -8,5 +8,5 @@ install:
   - pip install -r requirements.txt
 script:
 - ls
-- cd Django application
+- cd "Django application"
 - python ./manage.py test --keepdb
