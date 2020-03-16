@@ -9,4 +9,5 @@ install:
 script:
 - ls
 - cd "Django application"
-- python ./manage.py test --keepdb
+- cd "project"
+- python manage.py test
