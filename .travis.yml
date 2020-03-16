@@ -8,7 +8,9 @@ services:
 - mysql
 install:
 - pip install -r requirements.txt
-before_install:
+before_:
+- mysql -u root -e "create user clubby password 'clubby'"
+- mysql -u root -e "create database test_clubby owner clubby"
 - mysql -u root -e "GRANT ALL ON *.* TO 'clubby'@'%' WITH GRANT OPTION;"
 #- mysql -p -u root
 #- ALTER USER clubby CREATEDB;
