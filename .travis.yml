@@ -9,8 +9,10 @@ services:
 install:
 - pip install -r requirements.txt
 before_install:
-- mysql -p -u root
-- ALTER USER clubby CREATEDB;
+- mysql -u root -e "CREATE DATABASE mydb;"
+- mysql -u root -e "GRANT ALL PRIVILEGES ON mydb.* TO 'clubby'@'%';";
+#- mysql -p -u root
+#- ALTER USER clubby CREATEDB;
 #- sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('123123') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
 #- sudo mysql_upgrade -u root -p123123
 #- sudo service mysql restart
