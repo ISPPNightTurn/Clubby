@@ -25,13 +25,7 @@ input, select, textArea{
     color: white;
 }
 
-.list {
-    margin-right: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .sidebar-nav {
     margin-top: 20px;
@@ -103,9 +97,26 @@ input, select, textArea{
     text-align: center;
 }
 
+.list {
+    margin-right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-width: 300px;
+}
+
 @media only screen and (max-width: 768px){
     .desk{
         width: 100%;
         margin: auto;
+    }
+    .list {
+        margin-right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: 300px;
     }
 }

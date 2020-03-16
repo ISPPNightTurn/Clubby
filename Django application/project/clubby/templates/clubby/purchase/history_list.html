@@ -2,24 +2,29 @@
 
 {% block content %}
   {% load qr_code %}
-  <h1>My History Of Purchases</h1>
-  {% if object_list %}
-  <ul>
+  <div style="margin:auto; width: 100%;">
+  <div class="card purple darken-2">
+    <span class="card-title">My History Of Purchases</span>
+    {% if object_list %}
+  <ul class="card-content collection purple darken-2">
     {% for qr_item in object_list %}
       {% if qr_item.product != blank %}
-      <li>
+      <li class="collection-item purple darken-2">
         {{qr_item.product.name}}-<b>Product</b>
       </br>
       </li> 
       </br>
       {% elif qr_item.ticket != blank %}
-      <li>
+      <li class="collection-item purple darken-2">
         {{qr_item.ticket.event.name}}-<b>Ticket</b>
       </li> 
       {% endif %}
     {% endfor %}
   </ul>
   {% else %}
-  <p>You have no purchases used</p>
+  <p class="card-content">You have no purchases used</p>
   {% endif %}
+  </div>
+</div>
+  
 {% endblock %}
