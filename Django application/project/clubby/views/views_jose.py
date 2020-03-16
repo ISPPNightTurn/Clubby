@@ -22,6 +22,8 @@ from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 from django.utils.crypto import get_random_string
 
+from decimal import Decimal
+
 import datetime
 
 #################
@@ -47,8 +49,13 @@ def ProductsByClubList(request, club_id):
             if(product_selected.price * quantity > request.user.profile.funds):
                 user_is_broke = True
             else:
-                request.user.profile.funds -= product_selected.price * quantity
+                total_cost = product_selected.price * quantity
+                request.user.profile.funds -= total_cost 
                 request.user.save()
+
+                owner = product_selected.club.owner
+                owner.profile.funds += total_cost - total_cost * Decimal("0.05") #we take the 5% off the purchase.
+                owner.save()
 
                 for x in range(quantity):
                     qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user)
