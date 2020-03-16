@@ -112,22 +112,27 @@ class QRsUsedByUserListView(LoginRequiredMixin, generic.ListView):
    # model = QR_Item
    # template_name = 'clubby/purchase/display.html'  # Specify your own template name/location
 
-def DisplayQRItemView(request, qr_item_id,priv_key):
+def DisplayQRItemView(request, qr_item_id, priv_key):
     if (request.method == 'POST'):
         form = RedeemQRCodeForm(request.POST)
-        if form.is_valid():
-            
 
-            qr_selected = QR_Item.objects.filter(pk=qr_item_id)
-            qr_selected.is_used = form.cleaned_data['redeem']
-            if(qr_selected.priv_key==priv_key):
-                qr_selected.save()
-            
+        if form.is_valid():
+            form.cleaned_data['qr_item_id']
+            qr_selected = QR_Item.objects.filter(pk=qr_item_id)[0]
+
+            qr_selected.is_used = True
+            qr_selected.save()
+
             return render(request,'clubby/purchase/list.html')
     else:
-            
-            qr = QR_Item.objects.filter(pk=qr_item_id)
-            form = RedeemQRCodeForm(qr)
-            context = {'qr_item':qr,'form':form,'qr_item_id':qr_item_id,"priv_key":priv_key}
+            qr = QR_Item.objects.filter(pk=qr_item_id)[0]
 
-            return render(request,'clubby/purchase/display.html',context)
+            if(priv_key == qr.priv_key):
+
+                form = RedeemQRCodeForm()
+                form.initial['qr_item_id'] = qr.pk
+                context = {'qr_item':qr,'form':form}
+
+                return render(request,'clubby/purchase/display.html',context)
+            else:
+                raise PermissionDenied('the security key did not match, trying to screw people over huh? Naughty >:(')
