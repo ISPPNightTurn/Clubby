@@ -58,7 +58,8 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('addFunds', views.add_funds, name='add-funds'),
+    path('addFunds/<int:ammount>', views.add_funds, name='add-funds'),
+    path('charge/<int:ammount>', views.charge, name='charge'), 
 ]
 
 urlpatterns += [

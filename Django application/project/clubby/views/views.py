@@ -17,7 +17,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
-from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
+from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm, FundsForm
 from ..models import Club, Event, Profile, Product, Ticket
 
 import datetime
@@ -66,19 +66,26 @@ def landing(request):
 
 @login_required
 def profile(request):
-    me = request.user #this is the current user.
-    try:
-        profile = Profile.objects.filter(user=me)[0]
-    except:
-        profile = ''
+    if request.method == 'POST':
+        form = FundsForm(request.POST)
 
-    try:
-        club = Club.objects.filter(owner=me)[0]
-    except:
-        club = ''
-    
-    context = {'logged_user': me,'user_profile': profile, 'club':club}
-    return render(request,'clubby/profile.html',context)
+        if form.is_valid():
+            to_recharge = form.cleaned_data.get('ammount')
+            return redirect('add-funds', ammount=to_recharge)
+    else:
+
+        me = request.user #this is the current user.
+        try:
+            profile = Profile.objects.filter(user=me)[0]
+        except:
+            profile = ''
+        try:
+            club = Club.objects.filter(owner=me)[0]
+        except:
+            club = ''
+        form = FundsForm()
+        context = {'logged_user': me,'user_profile': profile, 'club':club,'form':form}
+        return render(request,'clubby/profile.html',context)
 
 # we not only register the user but also authenticate them.
 def signup_user(request):

@@ -12,8 +12,12 @@
   <p><strong>Birth date: </strong>{{ user_profile.birth_date }}</p>
   
   <a href="">edit profile</a> ( Not implemented yet, sorry... )<br>
-  <a href="{% url 'add-funds' %}?next={% url 'profile'%}">Add funds to your account!</a><br>
   
+  <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Add funds to your account!</button>
+  </form>
 
   <!-- add the club if the user is an owner and has a club. if not redirect to the club creation page: -->
   {% if perms.clubby.is_owner %}

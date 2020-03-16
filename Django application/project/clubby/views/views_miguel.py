@@ -15,11 +15,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django import forms
 
 from django.utils.crypto import get_random_string
 
 from ..forms import TicketPurchaseForm,FundsForm
-
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 from django.conf import settings
@@ -147,25 +147,38 @@ def TicketsByEventList(request, event_id):
 ###############
 #    FUNDS    #
 ###############
+
 @login_required
-def add_funds(request):
+def add_funds(request, ammount):
+    form = FundsForm()
+    form.initial['ammount'] = int(ammount * 100)
+    form.fields['ammount'].widget = forms.HiddenInput()
+    return render(request, 'clubby/funds.html', {'form': form, 'key': settings.STRIPE_PUBLISHABLE_KEY,'ammount':int(ammount * 100)})
+
+@login_required
+def charge(request, ammount): # new
     if request.method == 'POST':
         form = FundsForm(request.POST)
-        
-        if form.is_valid():
-            ammount = form.cleaned_data['ammount']
+        ammount = form['ammount'].value()
 
-            charge = stripe.Charge.create(
-            amount=int(ammount*Decimal("100")),
-            currency='usd', #subject to change.
-            description='Recharged on clubby',
-            source=request.POST['stripeToken'])
+        # form.is_valid()
+        # print (form)
 
-            profile = request.user.profile
-            profile.funds += ammount 
-            profile.save()
+        # ammount = form.cleaned_data['ammount']
+        # print('I get here.')
 
-            return redirect('landing')
-    else:
-        form = FundsForm()
-    return render(request, 'clubby/funds.html', {'form': form, 'key': settings.STRIPE_PUBLISHABLE_KEY})
+        charge = stripe.Charge.create(
+        amount=int(ammount),
+        currency='usd',
+        description='A Django charge',
+        source=request.POST['stripeToken']
+    )
+
+        profile = request.user.profile
+        profile.funds += Decimal(str(int(ammount)/100))
+        profile.save()
+
+        return render(request,'clubby/charge.html')
+        # else:
+        #     print(form)
+        #     return render(request,'clubby/charge.html')
