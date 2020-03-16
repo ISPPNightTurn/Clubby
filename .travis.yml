@@ -1,4 +1,13 @@
+dist: xenial
+
 language: python 
  
 python: 
   - 3.6 
+install:
+  - pip install -r requirements.txt
+script:
+- ls
+- cd "Django application"
+- cd "project"
+- python ./manage.py test --keepdb
