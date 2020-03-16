@@ -18,7 +18,7 @@ from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
 from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm
-from ..models import Club, Event, Profile, Product 
+from ..models import Club, Event, Profile, Product, Ticket
 
 import datetime
 
@@ -312,7 +312,7 @@ class EventCreateView(PermissionRequiredMixin,CreateView):
         obj.club = obj.owner.club
         self.object = obj # this is neccesary as the url is pulled from self.object.
         obj.save()
-        return HttpResponseRedirect(reverse('my-events-future'))
+        return HttpResponseRedirect(self.object.get_create_tickets_url())
 
 ##########################
 #    EXAMPLES (POLLS)    #

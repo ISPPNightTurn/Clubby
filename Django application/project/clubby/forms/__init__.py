@@ -2,3 +2,4 @@
 from .forms import *
 from .forms_miguel import *
 from .forms_jose import *
+from .forms_javi import *

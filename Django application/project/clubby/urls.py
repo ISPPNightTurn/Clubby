@@ -61,6 +61,10 @@ urlpatterns += [
     path('addFunds', views.add_funds, name='add-funds'),
 ]
 
+urlpatterns += [
+    path('event/<int:pk>/create_tickets', views.EventCreateTicketsView.as_view(), name='create-tickets'),
+]
+
 urlpatterns += [  
     path('purchase/list/', views.QRsByUserListView.as_view(), name='my-purchases'),
     path('history/list/', views.QRsUsedByUserListView.as_view(), name='my-history'),

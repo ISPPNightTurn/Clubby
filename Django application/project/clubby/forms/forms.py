@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from clubby.models import Club, Event, Profile,Product
+from clubby.models import Club, Event, Profile, Product, Ticket
 
 import re
     

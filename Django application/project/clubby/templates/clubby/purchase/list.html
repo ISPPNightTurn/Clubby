@@ -3,6 +3,9 @@
 {% block content %}
   {% load qr_code %}
   <h1>My Purchases</h1>
+  {% if user_is_broke%}
+  You dont have enough to buy that, get some moolah in <a href="{%url 'add-funds' %}">here</a>
+  {% endif %}
   {% if object_list %}
   <ul>
     {% for qr_item in object_list %}

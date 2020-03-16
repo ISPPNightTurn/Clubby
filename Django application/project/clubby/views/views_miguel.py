@@ -22,7 +22,12 @@ from ..forms import TicketPurchaseForm,FundsForm
 
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
+from django.conf import settings
 import datetime
+from decimal import Decimal
+import stripe # new
+stripe.api_key = settings.STRIPE_SECRET_KEY # new
+
 
 class ProductDetailView(LoginRequiredMixin,generic.DetailView):
     model = Product
@@ -93,12 +98,17 @@ def TicketsByEventList(request, event_id):
                 to_buy = len(tickets_from_db) if (len(tickets_from_db) <= quantity) else quantity
 
                 print(str(to_buy) + str(tickets_from_db))
-
-                if ((tickets_from_db[0].price * to_buy)>logged.profile.funds):
+                
+                total_cost = tickets_from_db[0].price * to_buy
+                if (total_cost>logged.profile.funds):
                     user_is_broke = True
                 else:
-                    logged.profile.funds -= (tickets_from_db[0].price * to_buy)
+                    logged.profile.funds -= (total_cost* to_buy)
                     logged.profile.save()
+
+                    owner = event.club.owner
+                    owner.profile.funds += total_cost - total_cost*Decimal("0.05") #we take the 5% off the purchase.
+                    owner.save()
                     
                     for x in range(to_buy):
                         tick = tickets_from_db[x]
@@ -141,8 +151,16 @@ def TicketsByEventList(request, event_id):
 def add_funds(request):
     if request.method == 'POST':
         form = FundsForm(request.POST)
+        
         if form.is_valid():
             ammount = form.cleaned_data['ammount']
+
+            charge = stripe.Charge.create(
+            amount=int(ammount*Decimal("100")),
+            currency='usd', #subject to change.
+            description='Recharged on clubby',
+            source=request.POST['stripeToken'])
+
             profile = request.user.profile
             profile.funds += ammount 
             profile.save()
@@ -150,4 +168,4 @@ def add_funds(request):
             return redirect('landing')
     else:
         form = FundsForm()
-    return render(request, 'clubby/funds.html', {'form': form})
+    return render(request, 'clubby/funds.html', {'form': form, 'key': settings.STRIPE_PUBLISHABLE_KEY})
