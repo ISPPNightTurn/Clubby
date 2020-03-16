@@ -112,7 +112,6 @@ input, select, textArea{
         margin: auto;
     }
     .list {
-        margin-right: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;

@@ -21,8 +21,15 @@
             </div>
           </div>
         {% elif qr_item.ticket != blank %}
-
-          {{qr_item.ticket.event.name}}-<b>Ticket</b>
+          <div class="card purple darken-2">
+            <div class="card-image white">
+              {% qr_from_text "pornhub.com" border=10 size="M" %}
+            </div>
+            <div class="card-content">
+              {{qr_item.ticket.event.name}}-<b>Ticket</b>
+            </div>
+          </div>
+          
       {% endif %}
     {% endfor %}
     </div>

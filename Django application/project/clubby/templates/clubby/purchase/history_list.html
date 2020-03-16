@@ -2,9 +2,10 @@
 
 {% block content %}
   {% load qr_code %}
+  <h1 style="text-align: center;">My History Of Purchases</h1>
   <div style="margin:auto; width: 100%;">
   <div class="card purple darken-2">
-    <span class="card-title">My History Of Purchases</span>
+    
     {% if object_list %}
   <ul class="card-content collection purple darken-2">
     {% for qr_item in object_list %}
