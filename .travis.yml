@@ -3,18 +3,26 @@ dist: precise
 language: python 
  
 python: 
-  - 3.6 
+- 3.6 
 services:
-  -mysql
+  - postgresql
+addons:
+  postgresql: "9.4"
 install:
-  - pip install -r requirements.txt
-before_install:
-  - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('123123') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
- - sudo mysql_upgrade -u root -p123123
- - sudo service mysql restart
+- pip install -r requirements.txt
+before_script:
+- psql -U postgres -c "create user clubby password 'clubby'"
+- psql -U postgres -c "create database test_clubby owner clubby"
+- psql -U postgres -c "ALTER USER clubby CREATEDB"
+#- mysql -u root -e "GRANT ALL ON *.* TO 'clubby'@'%' WITH GRANT OPTION;"
+#- mysql -p -u root
+#- ALTER USER clubby CREATEDB;
+#- sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('123123') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
+#- sudo mysql_upgrade -u root -p123123
+#- sudo service mysql restart
 
 script:
 - ls
 - cd "Django application"
 - cd "project"
-- python manage.py test
+- python manage.py test 
