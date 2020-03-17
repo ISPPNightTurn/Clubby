@@ -48,7 +48,7 @@ MODULES = [
     # 'clubby',
 ]
 
-BASEURL = 'https://clubbyapp.herokuapp.com'
+BASEURL = 'https://clubby-sprint1.herokuapp.com'
 
 APIS = {
     'clubby': BASEURL,
