@@ -15,16 +15,27 @@
   <link rel="stylesheet" href="{% static 'clubby/css/materialize.min.css' %}">
 </head>
 <body>
-  <nav class="purple darken-4 hide-on-med-and-down" role="navigation">
-    <div class="nav-wrapper container hide-on-med-and-down"><a href="{% url 'landing' %}"><img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png"/></a>
-      <ul class="right hide-on-med-and-down">
+  
+<!--Dropdown for user actions-->
+<ul id="dropdown1" class="dropdown-content purple darken-4">
+  <li><a href="{% url 'logout'%}?next={% url 'landing'%}"><p class="white-text">Logout</p></a></li>   
+  <li><a href="{% url 'profile' %}"><p class="white-text light">Profile</p></a></li>
+</ul>
+
+  <div class="navbar-fixed hide-on-med-and-down" role="navigation">
+    <nav>
+      <div class=" purple darken-4 nav-wrapper">
+        <div class="large-logo">
+          <a href="{% url 'landing' %}">
+           <img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png"/>
+          </a>
+        </div>
+        <ul class="right hide-on-med-and-down">
           <li><a href="{% url 'clubs' %}"><p class="light">All clubs</p></a></li>
           <li><a href="{% url 'events' %}"><p class="light">All events</p></a></li>
 
           {% if user.is_authenticated %}
-          <li><p class="light">User: {{ user.get_username }}</p></li>
-          <li><a href="{% url 'logout'%}?next={% url 'landing'%}"><p class="light">Logout</p></a></li>   
-          <li><a href="{% url 'profile' %}"><p class="light">Profile</p></a></li>
+          <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">User: {{ user.get_username }}<i class="material-icons right">arrow_drop_down</i></a></li>
           {% if perms.clubby.is_user %}
           <!-- We can list our events only if we are a user.  -->
           <li><a href="{% url 'my-events' %}">My Events</a></li>
@@ -41,8 +52,11 @@
           <li><a href="{% url 'signup-user' %}"><p class="light">Sign Up!</p></a></li>
         {% endif %} 
         </ul>
-    </div>
-  </nav>
+      </div>
+    </nav>
+  </div>
+
+
   <nav class="purple darken-4 hide-on-large-only" role="navigation">
     <div class="nav-wrapper container hide-on-large-only">  
     <a href="#" data-target="slide-out" class="sidenav-trigger hide-on-large-only">
@@ -138,9 +152,15 @@
   var elem = document.querySelector('.sidenav');
   var instance = new M.Sidenav(elem);
 
+  var dropdowns = document.querySelectorAll('.dropdown-trigger')
+    for (var i = 0; i < dropdowns.length; i++){
+    M.Dropdown.init(dropdowns[i]);
+  }
+
 
   $(document).ready(function(){
    $('.sidenav').sidenav();
+   $(".dropdown-trigger").dropdown();
   });
   </script>
 </body>

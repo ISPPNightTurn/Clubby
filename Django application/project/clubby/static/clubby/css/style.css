@@ -34,9 +34,31 @@ input, select, textArea{
 }
 
 .logo_img{
-    max-width: 15%;
-    max-width: 15%;
+    max-width: 100%;
 }
+
+.large-logo{
+    width: 180px;
+    min-height: 180px;
+    max-height: auto;
+    float: left;
+    padding: 3px;
+}
+
+.dropdown-content{
+    width: max-content !important;
+    height:auto !important;
+ }
+
+ .dropdown-content a:hover{
+        background-color: rgb(66, 18, 126);
+        color: white;
+ }
+
+ .dropdown-content a{
+     background-color: rgb(74, 20, 140);
+     color: white;
+ }
 
 .logo_img_sidenav{
     max-width: 50%;
