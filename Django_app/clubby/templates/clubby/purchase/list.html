@@ -24,7 +24,7 @@
         {% elif qr_item.ticket != blank %}
           <div class="card purple darken-2">
             <div class="card-image white">
-              {% qr_from_text qr_item.get_absolute_url size="M" %}
+              {% qr_from_text qr_item.get_real_absolute_url size="M" %}
             </div>
             <div class="card-content">
               {{qr_item.ticket.event.name}}-<b>Ticket</b>

@@ -1,17 +1,17 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-    <div class="card purple ">  
-      <div class="card-image">
-        <img src="../../../static/clubby/images/background.jpg">
-        <span class="card-title">Name: {{ club.name }}</span>
-      </div>
-    <div class="card-content">
-      <p><strong>Address:</strong>{{ club.address }}</p> <!-- author detail link not yet defined -->
-      <p><strong>Max Capacity:</strong> {{ club.max_capacity }}</p>
-      <p><strong>NIF:</strong> {{ club.NIF }}</p> 
-  
-    </div>
+<div style="max-width: 700px;" class="card purple ">
+  <div class="card-image">
+    <img src="../../../static/clubby/images/background.jpg">
+    <span class="card-title">Name: {{ club.name }}</span>
+  </div>
+  <div class="card-content">
+    <p><strong>Address:</strong>{{ club.address }}</p> <!-- author detail link not yet defined -->
+    <p><strong>Max Capacity:</strong> {{ club.max_capacity }}</p>
+    <p><strong>NIF:</strong> {{ club.NIF }}</p>
+
+  </div>
   <!-- <div style="margin-left:20px;margin-top:20px">
     <h4>Events</h4>
 
@@ -27,14 +27,12 @@
       <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
     {% endfor %}
   </div> -->
-  
+
   {% if perms.clubby.is_user %}
-    <div class="card-action">
-      <a class="waves-effect btn purple darken-4 waves-light white-text" href="{% url 'product-list' club_id=club.pk %}" style="margin-bottom: 50px;">Purchase products.</a>
-    </div>
-    {%endif%}
+  <div class="card-action">
+    <a class="btn purple darken-4 white-text" href="{% url 'product-list' club_id=club.pk %}"
+      style="margin-bottom: 50px;">Purchase products.</a>
   </div>
+  {%endif%}
+</div>
 {% endblock %}
-
-
-    

@@ -6,36 +6,41 @@
 <div class="center">
   <div class="deep-purple darken-4  rounded grid-container">
     <div class="col s12 m7">
-      <div class="card rounded">
+      <div style="max-width: 700px; margin: auto;" class="card rounded">
         <div class="card-content black">
           <i class="small material-icons white-text">attach_money</i>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Funds: </span>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.funds}} €</span>
-          <br/>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.funds}}
+            €</span>
+          <br />
           <i class="small material-icons white-text">emoji_people</i>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Name: </span>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.first_name}}</span>
-          <br/>
+          <span class="light white-text"
+            style="display: inline-block; vertical-align:top;">{{logged_user.first_name}}</span>
+          <br />
           <i class="small material-icons white-text"></i>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Surname: </span>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.last_name}}</span>
-          <br/>
+          <span class="light white-text"
+            style="display: inline-block; vertical-align:top;">{{logged_user.last_name}}</span>
+          <br />
           <i class="small material-icons white-text">alternate_email</i>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Email: </span>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.email}}</span>
-          <br/>
+          <br />
           <i class="small material-icons white-text">comment</i>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Bio: </span>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.bio}}</span>
-          <br/>
+          <br />
           <i class="small material-icons white-text">location_on</i>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Location: </span>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.location}}</span>
-          <br/>
+          <span class="light white-text"
+            style="display: inline-block; vertical-align:top;">{{user_profile.location}}</span>
+          <br />
           <i class="small material-icons white-text">cake</i>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Birth Date: </span>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.birth_date}}</span>
-          <br/>
+          <span class="light white-text"
+            style="display: inline-block; vertical-align:top;">{{user_profile.birth_date}}</span>
+          <br />
         </div>
         <div class="card-action black">
           <a href="">Edit profile</a>
@@ -50,14 +55,17 @@
       </div>
     </div>
 
-  {% if perms.clubby.is_owner%}
+    {% if perms.clubby.is_owner %}
+    {%if club == ''%}
+    No club registered: register one <a href="{% url 'club-create' %}" class="btn purple darken-4">HERE</a>
+    {%else%}
 
     <h2 class="header center white-text">Club</h2>
 
     <div class="center">
       <div class="deep-purple darken-4 toast rounded grid-container">
         <div class="col s12 m7">
-          <div class="card rounded">
+          <div style="max-width: 700px; margin: auto;" class="card rounded">
             <div class="card-image">
               <img src="../../../static/clubby/images/background.jpg">
               <span class="card-title">{{ club.name }}</span>
@@ -66,11 +74,12 @@
               <i class="small material-icons white-text">map</i>
               <span class="light white-text" style="display: inline-block; vertical-align:top;">Address: </span>
               <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.address}}</span>
-              <br/>
+              <br />
               <i class="small material-icons white-text">people</i>
               <span class="light white-text" style="display: inline-block; vertical-align:top;">Capacity: </span>
-              <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}} people</span>
-              <br/>
+              <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}}
+                people</span>
+              <br />
             </div>
             <div class="card-action black">
               <a href="club/{{ club.pk }}/update/">Edit club</a>
@@ -83,13 +92,13 @@
       </div>
     </div>
 
-  {% endif %}
-    
+    {%endif%}
+    {%endif%}
 
-  <!-- add assisted events if the user is an user and has been to at least 1 event.-->
-  {% if perms.clubby.is_user%}
+    <!-- add assisted events if the user is an user and has been to at least 1 event.-->
+    {% if perms.clubby.is_user%}
 
     <!-- include assisted events-->
 
-  {%endif%}
-{% endblock %}
+    {%endif%}
+    {% endblock %}

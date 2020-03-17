@@ -1,11 +1,11 @@
-body{
+body {
     color: white;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
 }
 
-a{
+a {
     color: white;
 }
 
@@ -17,11 +17,13 @@ a:hover {
 body {
     /* background: white url("../images/background.jpg") no-repeat;
     background-size: cover; */
-    background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(26,1,64,1) 50%, rgba(0,0,0,1) 100%);
+    background: rgb(0, 0, 0);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(26, 1, 64, 1) 50%, rgba(0, 0, 0, 1) 100%);
 }
 
-input, select, textArea{
+input,
+select,
+textArea {
     color: white;
 }
 
@@ -33,54 +35,76 @@ input, select, textArea{
     list-style: none;
 }
 
-.logo_img{
-    max-width: 15%;
-    max-width: 15%;
+.logo_img {
+    max-width: 100%;
 }
 
-.logo_img_sidenav{
+.large-logo {
+    width: 180px;
+    min-height: 180px;
+    max-height: auto;
+    float: left;
+    padding: 3px;
+}
+
+.dropdown-content {
+    width: max-content !important;
+    height: auto !important;
+}
+
+.dropdown-content a:hover {
+    background-color: rgb(66, 18, 126);
+    color: white;
+}
+
+.dropdown-content a {
+    background-color: rgb(74, 20, 140);
+    color: white;
+}
+
+.logo_img_sidenav {
     max-width: 50%;
     max-height: 50%;
 }
 
-.icon_logo{
+.icon_logo {
     text-rendering: optimizeLegibility;
     -webkit-font-feature-settings: 'liga';
-       -moz-font-feature-settings: 'liga';
-            font-feature-settings: 'liga';
+    -moz-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
     width: 4rem;
     height: 4rem;
 }
 
-.icon_logo_sidenav{
+.icon_logo_sidenav {
     text-rendering: optimizeLegibility;
     -webkit-font-feature-settings: 'liga';
-       -moz-font-feature-settings: 'liga';
-            font-feature-settings: 'liga';
+    -moz-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
     width: 2rem;
     height: 2rem;
 }
 
 
 .navbar {
-   overflow: hidden;
+    overflow: hidden;
     position: fixed;
     bottom: 0;
     width: 100%;
-  }
+}
 
-  .bar-icon{
+.bar-icon {
     text-align: center;
 }
 
-.bar-icon a{
+.bar-icon a {
     color: white;
     display: table-cell;
     vertical-align: middle;
     text-align: center;
 }
 
-.clubDetail{
+.clubDetail {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,7 +115,7 @@ input, select, textArea{
     margin: 0 auto;
 }
 
-.desk{
+.desk {
     width: 50%;
     margin: auto;
     text-align: center;
@@ -106,11 +130,12 @@ input, select, textArea{
     min-width: 300px;
 }
 
-@media only screen and (max-width: 768px){
-    .desk{
+@media only screen and (max-width: 768px) {
+    .desk {
         width: 100%;
         margin: auto;
     }
+
     .list {
         display: flex;
         flex-direction: column;

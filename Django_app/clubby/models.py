@@ -94,9 +94,9 @@ class Event(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     start_date = models.DateField()
     start_time = models.IntegerField(
-        help_text='event start time 24h format.', default=12)
+        max_length=2, help_text='event start time 24h format.', default=12)
     duration = models.IntegerField(
-        help_text='event duration in hours, max is 12 hours', default=12)
+        max_length=2, help_text='event duration in hours, max is 12 hours', default=12)
     atendees = models.ManyToManyField(User)
 
     EVENT_TYPE = (
@@ -183,7 +183,7 @@ class Product(models.Model):
 
 class Reservation(models.Model):
     max_time = models.IntegerField(
-        help_text="max hours after the event starts people can arrive at.", default=4)
+        help_text="max hours after the event starts people can arrive at.", max_length=2, default=4)
     price = models.DecimalField(decimal_places=2, max_digits=5)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
@@ -224,3 +224,7 @@ class QR_Item(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a detail record for this product."""
         return reverse('purchase-display', args=[str(self.id), str(self.priv_key)])
+
+    def get_real_absolute_url(self):
+        str1 = QR_Item.get_absolute_url(self)
+        return str("https://clubby-sprint1.herokuapp.com")+str(str1)

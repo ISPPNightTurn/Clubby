@@ -1,30 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   {% block title %}<title>CLUBBY!</title>{% endblock %}
   {% load qr_code %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="shortcut icon" type="image/png" href="../../../static/clubby/images/favicon/favicon.ico"/>
+  <link rel="shortcut icon" type="image/png" href="../../../static/clubby/images/favicon/favicon.ico" />
   <!-- Add additional CSS in static file -->
   {% load static %}
   <link rel="stylesheet" href="{% static 'clubby/css/style.css' %}">
   <link rel="stylesheet" href="{% static 'clubby/css/materialize.min.css' %}">
 </head>
+
 <body>
-  <nav class="purple darken-4 hide-on-med-and-down" role="navigation">
-    <div class="nav-wrapper container hide-on-med-and-down"><a href="{% url 'landing' %}"><img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png"/></a>
-      <ul class="right hide-on-med-and-down">
-          <li><a href="{% url 'clubs' %}"><p class="light">All clubs</p></a></li>
-          <li><a href="{% url 'events' %}"><p class="light">All events</p></a></li>
+
+  <!--Dropdown for user actions-->
+  <ul id="dropdown1" class="dropdown-content purple darken-4">
+    <li><a href="{% url 'logout'%}?next={% url 'landing'%}">
+        <p class="white-text">Logout</p>
+      </a></li>
+    <li><a href="{% url 'profile' %}">
+        <p class="white-text light">Profile</p>
+      </a></li>
+  </ul>
+
+  <div class="navbar-fixed hide-on-med-and-down" role="navigation">
+    <nav>
+      <div class=" purple darken-4 nav-wrapper">
+        <div class="large-logo">
+          <a href="{% url 'landing' %}">
+            <img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png" />
+          </a>
+        </div>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="{% url 'clubs' %}">
+              <p class="light">All clubs</p>
+            </a></li>
+          <li><a href="{% url 'events' %}">
+              <p class="light">All events</p>
+            </a></li>
 
           {% if user.is_authenticated %}
-          <li><p class="light">User: {{ user.get_username }}</p></li>
-          <li><a href="{% url 'logout'%}?next={% url 'landing'%}"><p class="light">Logout</p></a></li>   
-          <li><a href="{% url 'profile' %}"><p class="light">Profile</p></a></li>
+          <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">User: {{ user.get_username }}<i
+                class="material-icons right">arrow_drop_down</i></a></li>
           {% if perms.clubby.is_user %}
           <!-- We can list our events only if we are a user.  -->
           <li><a href="{% url 'my-events' %}">My Events</a></li>
@@ -33,115 +56,139 @@
           {%endif%}
           {% if perms.clubby.is_owner %}
           <!-- We can add owner specific actions here (they need to not require a club.)-->
-          
+
           {%endif%}
-          
-        {% else %}
-          <li><a href="{% url 'login'%}?next={% url 'landing'%}"><p class="light">Login</p></a></li>   
-          <li><a href="{% url 'signup-user' %}"><p class="light">Sign Up!</p></a></li>
-        {% endif %} 
+
+          {% else %}
+          <li><a href="{% url 'login'%}?next={% url 'landing'%}">
+              <p class="light">Login</p>
+            </a></li>
+          <li><a href="{% url 'signup-user' %}">
+              <p class="light">Sign Up!</p>
+            </a></li>
+          {% endif %}
         </ul>
-    </div>
-  </nav>
+      </div>
+    </nav>
+  </div>
+
+
   <nav class="purple darken-4 hide-on-large-only" role="navigation">
-    <div class="nav-wrapper container hide-on-large-only">  
-    <a href="#" data-target="slide-out" class="sidenav-trigger hide-on-large-only">
-      <i class = "small material-icons">menu</i>
-    </a>
+    <div class="nav-wrapper container hide-on-large-only">
+      <a href="#" data-target="slide-out" class="sidenav-trigger hide-on-large-only">
+        <i class="small material-icons">menu</i>
+      </a>
 
       <ul class="right hide-on-large-only">
-          {% if user.is_authenticated %}
-          <li>{{ user.get_username }}</li>
-        {% endif %} 
-        </ul>
+        {% if user.is_authenticated %}
+        <li>{{ user.get_username }}</li>
+        {% endif %}
+      </ul>
     </div>
   </nav>
-  
+
   <!-- Sidenavfor mobile devices-->
   <ul id="slide-out" class="sidenav purple darken-4 ">
-    <li><div class="user-view">
-      <img class="logo_img_sidenav" src="../../static/clubby/images/clubby_logo_white_no_bg.png"/>
-      <BR/>
-    </div></li>
+    <li>
+      <div class="user-view">
+        <img class="logo_img_sidenav" src="../../static/clubby/images/clubby_logo_white_no_bg.png" />
+        <BR />
+      </div>
+    </li>
     <a class="subheader">User</a>
 
-      {% if user.is_authenticated %}
-      <li><a class="waves-effect" href="{% url 'profile' %}"><span class="white-text name">{{ user.get_username }}</span></a></li>
-      {% else %}
-      <li><a class="waves-effect" ><span class="white-text name">Not authenticated</span></a></li>
+    {% if user.is_authenticated %}
+    <li><a class="waves-effect" href="{% url 'profile' %}"><span
+          class="white-text name">{{ user.get_username }}</span></a></li>
+    {% else %}
+    <li><a class="waves-effect"><span class="white-text name">Not authenticated</span></a></li>
 
-      {% endif %} 
-    <li><div class="divider"></div></li>
+    {% endif %}
+    <li>
+      <div class="divider"></div>
+    </li>
 
     <a class="subheader">Explore</a>
 
     <li><a class="waves-effect" href="{% url 'landing' %}"><span class="white-text link">Home</span></a></li>
     <li><a class="waves-effect" href="{% url 'clubs' %}"><span class="white-text link">All clubs</span></a></li>
     <li><a class="waves-effect" href="{% url 'events' %}"><span class="white-text link">All events</span></a></li>
-    <li><div class="divider"></div></li>
+    <li>
+      <div class="divider"></div>
+    </li>
     <a class="subheader">Actions</a>
 
     {% if user.is_authenticated %}
-    <li><a class="waves-effect" href="{% url 'profile' %}"><span class="white-text name">View your profile</span></a></li>
-    <li><a class="waves-effect" href="{% url 'logout'%}?next={% url 'landing'%}"><span class="white-text name">Logout</span></a></li>
+    <li><a class="waves-effect" href="{% url 'profile' %}"><span class="white-text name">View your profile</span></a>
+    </li>
+    <li><a class="waves-effect" href="{% url 'logout'%}?next={% url 'landing'%}"><span
+          class="white-text name">Logout</span></a></li>
 
-      {% else %}
-    <li><a class="waves-effect" href="{% url 'login'%}?next={% url 'landing'%}"><span class="white-text name">Login</span></a></li>
+    {% else %}
+    <li><a class="waves-effect" href="{% url 'login'%}?next={% url 'landing'%}"><span
+          class="white-text name">Login</span></a></li>
     <li><a class="waves-effect" href="{% url 'signup-user' %}"><span class="white-text name">Sign Up!</span></a></li>
     {% endif %}
 
   </ul>
-   
 
-  <div class="col-sm-10 ">
+
+  <div style="margin: 2%;">
     {% block content %}{% endblock %}
-    
+
     {% block pagination %}
     {% if is_paginated %}
-        <ul class="pagination">
-          {% if page_obj.has_previous %}
-            <li class="waves-effect"><a  href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a></li>
-          {% endif %}
-          <li>
-            <span class="page-current">
-              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-          </li>
-          {% if page_obj.has_next %}
-          <li class="waves-effect white-text">
-            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-          </li>
-          {% endif %}
-        </ul>
-        
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+      <li class="waves-effect"><a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a></li>
+      {% endif %}
+      <li>
+        <span class="page-current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+      </li>
+      {% if page_obj.has_next %}
+      <li class="waves-effect white-text">
+        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+      </li>
+      {% endif %}
+    </ul>
+
     {% endif %}
-  {% endblock %} 
+    {% endblock %}
   </div>
-</div>
-</div>
+  </div>
+  </div>
 
 
-<br/><br/><br/>
-<!-- Toolbar on the bottom of the screen for mobile devices-->
-<div class="purple darken-4 hide-on-large-only navbar bar-icon">
-  <a href="{% url 'landing' %}"><i class="small material-icons">home</i></a>
-  <a href="{% url 'clubs' %}"><img class="icon_logo" src="../../../static/clubby/images/clubby_logo_white_icon.png"></a>
+  <br /><br /><br />
+  <!-- Toolbar on the bottom of the screen for mobile devices-->
+  <div class="purple darken-4 hide-on-large-only navbar bar-icon">
+    <a href="{% url 'landing' %}"><i class="small material-icons">home</i></a>
+    <a href="{% url 'clubs' %}"><img class="icon_logo"
+        src="../../../static/clubby/images/clubby_logo_white_icon.png"></a>
 
-  <a href="{% url 'events' %}"><i class="small material-icons bar-icon">event</i></a>
-</div>
+    <a href="{% url 'events' %}"><i class="small material-icons bar-icon">event</i></a>
+  </div>
 
-    <!--  Scripts-->
-    <script src="{% static 'clubby/js/materialize.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript">
+  <!--  Scripts-->
+  <script src="{% static 'clubby/js/materialize.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript">
+    var elem = document.querySelector('.sidenav');
+    var instance = new M.Sidenav(elem);
 
-  var elem = document.querySelector('.sidenav');
-  var instance = new M.Sidenav(elem);
+    var dropdowns = document.querySelectorAll('.dropdown-trigger')
+    for (var i = 0; i < dropdowns.length; i++) {
+      M.Dropdown.init(dropdowns[i]);
+    }
 
 
-  $(document).ready(function(){
-   $('.sidenav').sidenav();
-  });
+    $(document).ready(function () {
+      $('.sidenav').sidenav();
+      $(".dropdown-trigger").dropdown();
+    });
   </script>
 </body>
+
 </html>

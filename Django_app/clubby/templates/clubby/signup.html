@@ -1,26 +1,27 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-  {% if user %}
-  <h2 class="header center white-text">Sign up as user</h2>
+{% if user %}
+<h2 class="header center white-text">Sign up as user</h2>
 
-    <p class="center white-text">if you are a club owner sign up <a href="{% url 'signup-owner' %}">here!</a></p>
-  {%endif%}
+<p class="center white-text">if you are a club owner sign up <a href="{% url 'signup-owner' %}" class="btn">here!</a>
+</p>
+{%endif%}
 
-  {% if owner %}
-  <h2 class="header center white-text">Sign up as owner</h2>    
-  <p class="center white-text">back to user signup <a href="{% url 'signup-user' %}">here.</a></p>
-  {% endif %}
-  <div class="deep-purple darken-4 toast rounded">
+{% if owner %}
+<h2 class="header center white-text">Sign up as owner</h2>
+<p class="center white-text">back to user signup <a href="{% url 'signup-user' %}">here.</a></p>
+{% endif %}
+<div class="deep-purple darken-4 toast rounded">
 
   <form method="post">
     <div class="formSignUp">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="waves-effect waves-light btn">Sign up</button>
-  </div>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn">Sign up</button>
+    </div>
   </form>
-  </div>
-  <br/>
-  <br/>
+</div>
+<br />
+<br />
 {% endblock %}

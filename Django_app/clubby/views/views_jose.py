@@ -35,7 +35,6 @@ def ProductsByClubList(request, club_id):
     if (request.method == 'POST'):
         form = ProductPurchaseForm(request.POST)
         if form.is_valid():
-            
 
             product_id = form.cleaned_data['product']
             quantity = form.cleaned_data['quantity']
@@ -49,66 +48,73 @@ def ProductsByClubList(request, club_id):
                 user_is_broke = True
             else:
                 total_cost = product_selected.price * quantity
-                request.user.profile.funds -= total_cost 
+                request.user.profile.funds -= total_cost
                 request.user.save()
 
                 owner = product_selected.club.owner
-                owner.profile.funds += total_cost - total_cost * Decimal("0.05") #we take the 5% off the purchase.
+                # we take the 5% off the purchase.
+                owner.profile.funds += total_cost - \
+                    total_cost * Decimal("0.05")
                 owner.save()
 
                 for x in range(quantity):
-                    qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user)
+                    qr = QR_Item(is_used=False, product=product_selected, priv_key=get_random_string(
+                        length=128), user=request.user)
                     qr.save()
-            
-            return render(request,'clubby/purchase/list.html',{'user_is_broke':user_is_broke})
+
+            return render(request, 'clubby/purchase/list.html', {'user_is_broke': user_is_broke})
     else:
         club = Club.objects.filter(pk=club_id)[0]
-        products = Product.objects.filter(club = club)
+        products = Product.objects.filter(club=club)
 
-        product_ammount=dict()
+        product_ammount = dict()
         for t in range(len(products)):
-            #returns the ammount of unsold tickets for an event and category
-            form = ProductPurchaseForm(initial={'product':products[t].pk})
+            # returns the ammount of unsold tickets for an event and category
+            form = ProductPurchaseForm(initial={'product': products[t].pk})
             product_ammount[products[t]] = form
 
         context = {'product_ammount': product_ammount}
-        return render(request,'clubby/product/list.html',context)
-    
-    
+        return render(request, 'clubby/product/list.html', context)
+
+
 #################
 #    QR         #
 #################
 
 
 class QRsByUserListView(LoginRequiredMixin, generic.ListView):
-    
+
     permission_required = 'clubby.is_user'
     model = QR_Item
-    template_name ='clubby/purchase/list.html'
+    template_name = 'clubby/purchase/list.html'
     paginate_by = 5
 
-    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
-    
+    # <-- as this requires identification, we specify the redirection url if an anon tries to go here.
+    login_url = '/login/'
+
     def get_queryset(self):
-        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=False)
+        item = QR_Item.objects.filter(
+            user=self.request.user).filter(is_used=False)
         return item
 
 
 class QRsUsedByUserListView(LoginRequiredMixin, generic.ListView):
-    
+
     permission_required = 'clubby.is_user'
     model = QR_Item
-    template_name ='clubby/purchase/history_list.html'
+    template_name = 'clubby/purchase/history_list.html'
     paginate_by = 5
 
-    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
-    
+    # <-- as this requires identification, we specify the redirection url if an anon tries to go here.
+    login_url = '/login/'
+
     def get_queryset(self):
-        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=True)
+        item = QR_Item.objects.filter(
+            user=self.request.user).filter(is_used=True)
         return item
 
 
-#class DisplayQRItemView(generic.DetailView):
+# class DisplayQRItemView(generic.DetailView):
    # model = QR_Item
    # template_name = 'clubby/purchase/display.html'  # Specify your own template name/location
 
@@ -123,16 +129,17 @@ def DisplayQRItemView(request, qr_item_id, priv_key):
             qr_selected.is_used = True
             qr_selected.save()
 
-            return render(request,'clubby/purchase/list.html')
+            return render(request, 'clubby/landing.html')
     else:
-            qr = QR_Item.objects.filter(pk=qr_item_id)[0]
+        qr = QR_Item.objects.filter(pk=qr_item_id)[0]
 
-            if(priv_key == qr.priv_key):
+        if(priv_key == qr.priv_key):
 
-                form = RedeemQRCodeForm()
-                form.initial['qr_item_id'] = qr.pk
-                context = {'qr_item':qr,'form':form}
+            form = RedeemQRCodeForm()
+            form.initial['qr_item_id'] = qr.pk
+            context = {'qr_item': qr, 'form': form}
 
-                return render(request,'clubby/purchase/display.html',context)
-            else:
-                raise PermissionDenied('the security key did not match, trying to screw people over huh? Naughty >:(')
+            return render(request, 'clubby/purchase/display.html', context)
+        else:
+            raise PermissionDenied(
+                'the security key did not match, trying to screw people over huh? Naughty >:(')
