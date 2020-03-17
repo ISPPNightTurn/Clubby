@@ -179,6 +179,7 @@ except ImportError:
 INSTALLED_APPS = INSTALLED_APPS + MODULES
 django_heroku.settings(locals())
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 STRIPE_SECRET_KEY = 'sk_test_9IhxLsCMrm68wEsLukTks8o600GjKW4X7v'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_O3189kQJ1kig0wQ6NGrgQACW00Zy8MA8xI'
