@@ -1,10 +1,11 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-  
-  <h2>Adding {% widthratio ammount 100 1 %} $ to account</h2>
+<div class="col s12 m7">
+<div class="card center purple darken-2">
+  <span class="card-title">Adding {% widthratio ammount 100 1 %} $ to account</span>
 
-  
+  <div class="card-content">
   <form action="{% url 'charge' ammount=ammount%}" method="post">
     {% csrf_token %}
     {{ form }}
@@ -16,7 +17,8 @@
     data-locale="auto">
     </script>
   </form>
-
-
+  </div>
+</div>
+</div>
 {% endblock %}
 
