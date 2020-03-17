@@ -20,7 +20,7 @@ before_install:
   - sudo cp chromedriver /usr/bin
 before_script:
   - psql -U postgres -c "create user clubby password 'clubby'"
-  - psql -U postgres -c "create database clubby owner clubby"
+  - psql -U postgres -c "create database clubby_test owner clubby"
   - psql -U postgres -c "ALTER USER clubby CREATEDB"
 language: python
 python:
