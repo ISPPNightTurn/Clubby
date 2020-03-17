@@ -70,6 +70,13 @@ class ProductModelForm(ModelForm):
 class EventModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
     start_date = forms.DateField(initial=datetime.date.today)
+    event_type = forms.CharField(
+        max_length=124,
+        widget=forms.Select(
+            choices=Event.EVENT_TYPE,
+            attrs={'class': 'browser-default deep-purple darken-4'}
+        ),
+    )
     
     class Meta:
         model = Event

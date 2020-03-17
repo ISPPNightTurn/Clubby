@@ -1,14 +1,23 @@
 {% extends "clubby/base_generic.html" %}
-
 {% block content %}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('select').material_select();
+});
+</script>
 <h2 class="header center white-text">Create new event</h2>
 <div class="deep-purple darken-4 toast rounded">
+  
   <form action="" method="post">
     {% csrf_token %}
-    <table>
-    {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit" class="btn-large purple darken-4">
+    <div class="input-field">
+    {{ form.as_p}}
+      </div>
+    
+      <input type="submit" value="Submit" class="btn-large purple darken-4">
   </form>
+  
 </div>
+
+
 {% endblock %}
