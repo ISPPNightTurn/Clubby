@@ -63,7 +63,7 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('event/<int:pk>/create_tickets', views.EventCreateTicketsView.as_view(), name='create-tickets'),
+    path('event/<int:event_id>/create_tickets', views.EventCreateTickets, name='create-tickets'),
 ]
 
 urlpatterns += [  

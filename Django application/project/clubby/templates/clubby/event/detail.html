@@ -40,6 +40,12 @@
   {% else %}
     <p>There are no atendants yet.</p>
   {% endif %}
+
+  {% if perms.clubby.is_owner%}
+
+  <a href="{% url 'create-tickets' event_id=event.pk %}">Create ticket.</a>
+
+  {%endif%}
   
   {% if perms.clubby.is_user%}
 

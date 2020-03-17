@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from clubby.models import Club, Event, Profile, Product, CreateTicket
+from clubby.models import Club, Event, Profile, Product, Ticket
 
 import re
 
@@ -23,11 +23,21 @@ class IntegerRangeField(models.IntegerField):
         defaults.update(kwargs)
         return super(IntegerRangeField, self).formfield(**defaults)
 
-class TicketCreateModelForm(ModelForm):
-    class Meta:
-        model = CreateTicket
-        fields = '__all__'
-        exclude = ['owner','event','user']
+# class TicketCreateModelForm(ModelForm):
+#     class Meta:
+#         model = CreateTicket
+#         fields = '__all__'
+#         exclude = ['owner','event','user']
+
+class TicketCreateModelForm(forms.Form):
+    def __init__(self, max, *args, **kwargs):
+        super(TicketCreateModelForm, self).__init__(*args, **kwargs)
+        self.fields['size'] = forms.IntegerField(max_value=max,min_value=1)
+
+    price = forms.DecimalField(decimal_places=2,max_digits=5)#999,99 es el maximo
+    category = forms.CharField(max_length = 40, help_text='The name of the type of ticket you are trying to sell.')
+    description = forms.CharField(help_text='Decribe what this ticket entices.', widget=forms.Textarea)
+    size = forms.IntegerField(max_value=99999,min_value=1,help_text="'Number of tickets. (Max)")
 
 
 #class ProductForm(ModelForm):
