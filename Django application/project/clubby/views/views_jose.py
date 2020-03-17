@@ -16,7 +16,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from ..forms import ProductPurchaseForm
+from ..forms import ProductPurchaseForm, RedeemQRCodeForm
 
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
@@ -34,9 +34,8 @@ import datetime
 def ProductsByClubList(request, club_id):
     if (request.method == 'POST'):
         form = ProductPurchaseForm(request.POST)
-        print(form)
         if form.is_valid():
-            print("Es válido")
+            
 
             product_id = form.cleaned_data['product']
             quantity = form.cleaned_data['quantity']
@@ -109,6 +108,31 @@ class QRsUsedByUserListView(LoginRequiredMixin, generic.ListView):
         return item
 
 
-class DisplayQRItemView(generic.DetailView):
-    model = QR_Item
-    template_name = 'clubby/purchase/display.html'  # Specify your own template name/location
+#class DisplayQRItemView(generic.DetailView):
+   # model = QR_Item
+   # template_name = 'clubby/purchase/display.html'  # Specify your own template name/location
+
+def DisplayQRItemView(request, qr_item_id, priv_key):
+    if (request.method == 'POST'):
+        form = RedeemQRCodeForm(request.POST)
+
+        if form.is_valid():
+            form.cleaned_data['qr_item_id']
+            qr_selected = QR_Item.objects.filter(pk=qr_item_id)[0]
+
+            qr_selected.is_used = True
+            qr_selected.save()
+
+            return render(request,'clubby/purchase/list.html')
+    else:
+            qr = QR_Item.objects.filter(pk=qr_item_id)[0]
+
+            if(priv_key == qr.priv_key):
+
+                form = RedeemQRCodeForm()
+                form.initial['qr_item_id'] = qr.pk
+                context = {'qr_item':qr,'form':form}
+
+                return render(request,'clubby/purchase/display.html',context)
+            else:
+                raise PermissionDenied('the security key did not match, trying to screw people over huh? Naughty >:(')

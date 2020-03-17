@@ -2,20 +2,19 @@
 
 {% block content %}
   
-  <h2>Add funds to account</h2>
-  
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+  <h2>Adding {% widthratio ammount 100 1 %} $ to account</h2>
 
+  
+  <form action="{% url 'charge' ammount=ammount%}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
     data-key="{{ key }}"
     data-description="A Django Charge"
-    data-amount="500"
+    data-amount="{{ammount}}"
     data-locale="auto">
     </script>
-
-    <!-- <button type="submit">Recharge!</button> -->
   </form>
 
 

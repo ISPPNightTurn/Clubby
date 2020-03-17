@@ -58,17 +58,18 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('addFunds', views.add_funds, name='add-funds'),
+    path('addFunds/<int:ammount>', views.add_funds, name='add-funds'),
+    path('charge/<int:ammount>', views.charge, name='charge'), 
 ]
 
 urlpatterns += [
-    path('event/<int:pk>/create_tickets', views.EventCreateTicketsView.as_view(), name='create-tickets'),
+    path('event/<int:event_id>/create_tickets', views.EventCreateTickets, name='create-tickets'),
 ]
 
 urlpatterns += [  
     path('purchase/list/', views.QRsByUserListView.as_view(), name='my-purchases'),
     path('history/list/', views.QRsUsedByUserListView.as_view(), name='my-history'),
-   
+    path('purchase/<int:qr_item_id>/<slug:priv_key>', views.DisplayQRItemView, name='purchase-display'),
     
 ]
 
