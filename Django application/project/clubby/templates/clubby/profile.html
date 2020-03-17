@@ -50,6 +50,8 @@
       </div>
     </div>
 
+  {% if perms.clubby.is_owner%}
+
     <h2 class="header center white-text">Club</h2>
 
     <div class="center">
@@ -81,6 +83,7 @@
       </div>
     </div>
 
+  {% endif %}
     
 
   <!-- add assisted events if the user is an user and has been to at least 1 event.-->

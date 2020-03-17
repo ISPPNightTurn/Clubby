@@ -27,7 +27,7 @@
     you bought the max ammount of tickets sorry... :(
   {%endif%}
   {% if user_is_broke %}
-    Nigga you broke!, add some cash in your profile page
+    Man you broke!, add some cash in your profile page
   {%endif%}
 
   <p><strong>Atendee List:</strong></p><br>
@@ -44,8 +44,10 @@
   {% endif %}
 
   {% if perms.clubby.is_owner%}
+    {% if request.user.club.id == event.club.id %}
 
-  <a href="{% url 'create-tickets' event_id=event.pk %}">Create ticket.</a>
+    <a href="{% url 'create-tickets' event_id=event.pk %}">Create ticket.</a>
+    {% endif %}
 
   {%endif%}
   
