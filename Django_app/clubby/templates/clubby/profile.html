@@ -1,0 +1,98 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+
+<h1 class="header center white-text">Profile</h1>
+<div class="center">
+  <div class="deep-purple darken-4  rounded grid-container">
+    <div class="col s12 m7">
+      <div style="max-width: 700px; margin: auto;" class="card rounded">
+        <div class="card-content black">
+          <i class="small material-icons white-text">attach_money</i>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">Funds: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.funds}} €</span>
+          <br/>
+          <i class="small material-icons white-text">emoji_people</i>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">Name: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.first_name}}</span>
+          <br/>
+          <i class="small material-icons white-text"></i>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">Surname: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.last_name}}</span>
+          <br/>
+          <i class="small material-icons white-text">alternate_email</i>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">Email: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.email}}</span>
+          <br/>
+          <i class="small material-icons white-text">comment</i>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">Bio: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.bio}}</span>
+          <br/>
+          <i class="small material-icons white-text">location_on</i>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">Location: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.location}}</span>
+          <br/>
+          <i class="small material-icons white-text">cake</i>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">Birth Date: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.birth_date}}</span>
+          <br/>
+        </div>
+        <div class="card-action black">
+          <a href="">Edit profile</a>
+          <p>(Not implement yet, sorry)</p>
+
+          <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button class="btn purple darken-4" type="submit">Add funds to your account!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    {% if perms.clubby.is_owner %}
+    {%if club == ''%}
+    No club registered: register one <a href="{% url 'club-create' %}" class="btn purple darken-4">HERE</a>
+    {%else%}
+
+    <h2 class="header center white-text">Club</h2>
+
+    <div class="center">
+      <div class="deep-purple darken-4 toast rounded grid-container">
+        <div class="col s12 m7">
+          <div style="max-width: 700px; margin: auto;" class="card rounded">
+            <div class="card-image">
+              <img src="../../../static/clubby/images/background.jpg">
+              <span class="card-title">{{ club.name }}</span>
+            </div>
+            <div class="card-content black">
+              <i class="small material-icons white-text">map</i>
+              <span class="light white-text" style="display: inline-block; vertical-align:top;">Address: </span>
+              <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.address}}</span>
+              <br/>
+              <i class="small material-icons white-text">people</i>
+              <span class="light white-text" style="display: inline-block; vertical-align:top;">Capacity: </span>
+              <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}} people</span>
+              <br/>
+            </div>
+            <div class="card-action black">
+              <a href="club/{{ club.pk }}/update/">Edit club</a>
+              <a href="club/{{ club.pk }}/delete/">Delete club</a>
+              <a href="{% url 'my-events-future' %}">My published events</a>
+              <a href="{% url 'my-products' %}">My products</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%endif%}
+    {%endif%}
+
+  <!-- add assisted events if the user is an user and has been to at least 1 event.-->
+  {% if perms.clubby.is_user%}
+
+    <!-- include assisted events-->
+
+  {%endif%}
+{% endblock %}

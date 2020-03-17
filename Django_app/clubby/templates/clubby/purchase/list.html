@@ -1,0 +1,45 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  {% load qr_code %}
+  <h1 style="text-align: center;">My Purchases</h1>
+  {% if user_is_broke%}
+  You dont have enough to buy that, get some moolah in your profile page
+  {% endif %}
+  {% if object_list %}
+  <div class="row">
+    <div style="margin: auto" class="center-align">
+      {% for qr_item in object_list %}
+        {% if qr_item.product != blank %}
+          <div class="card purple darken-2">
+            <div class="card-image white">
+              {% qr_from_text "http://localhost:8000"|add:qr_item.get_absolute_url size="M" %}
+              
+            </div>
+            <div class="card-content">
+              {{qr_item.product.name}}-<b>Product</b>
+              </br>
+            </div>
+          </div>
+        {% elif qr_item.ticket != blank %}
+          <div class="card purple darken-2">
+            <div class="card-image white">
+              {% qr_from_text qr_item.get_real_absolute_url size="M" %}
+            </div>
+            <div class="card-content">
+              {{qr_item.ticket.event.name}}-<b>Ticket</b>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {% else %}
+  <div class="card purple darken-2">
+    <p>You have no purchases</p>
+  </div>
+    
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+<h1 class="header center white-text">Club list</h1>
+
+<div class="list center">
+  <div class="deep-purple darken-4 toast rounded grid-container">
+  {% if object_list %}
+  <div class="row">
+
+    {% for club in object_list %}
+          <div class="col s12 m7">
+            <div class="card rounded">
+              <div class="card-image">
+                <img src="../../../static/clubby/images/background.jpg">
+                <span class="card-title">{{ club.name }}</span>
+              </div>
+              <div class="card-content black">
+                <i class="small material-icons white-text">people</i><span class="light white-text" style="display: inline-block; vertical-align:top;">Capacity: </span>
+                <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}} people  </span>
+                <br/>
+                <i class="small material-icons white-text">map</i><span class="light white-text" style="display: inline-block; vertical-align:top;"> Address: </span>
+                <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.address}}</span>
+              </div>
+              <div class="card-action black">
+                <a href="{{ club.get_absolute_url }}">Navigate to the club</a>
+              </div>
+            </div>
+          </div>
+                
+    {% endfor %}
+  </div>
+  {% else %}
+    <p>There are no clubs avaliable.</p>
+  {% endif %} 
+</div>
+</div>
+{% endblock %}
+
+
+
