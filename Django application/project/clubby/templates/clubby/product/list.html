@@ -9,7 +9,7 @@
     <li class="collection-item purple darken-4 avatar">
       <img alt="" class="circle" src="../../../static/clubby/images/bebidas.jpeg">
       <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ({{product.price}}) 
-    <form action="" method="post">{% csrf_token %} {{form}} <input class="waves-effect waves-light btn purple darken-2" type="submit" value="Submit"></form> 
+    <form action="" method="post">{% csrf_token %} {{form}} <input class="btn purple darken-2" type="submit" value="Submit"></form> 
     </li>
     <br>
     {% endfor %}
@@ -31,7 +31,7 @@
     </li>
   {% endif %}
     <li class="collection-item purple darken-2">
-      <a class="btn-large waves-effect waves-light purple darken-4 " href="{% url 'product-create' %}">Create new product</a>  
+      <a class="btn-large purple darken-4" href="{% url 'product-create' %}">Create new product</a>  
     </li>
   {%endif%}   
   </ul>

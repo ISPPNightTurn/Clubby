@@ -50,6 +50,11 @@
       </div>
     </div>
 
+    {% if perms.clubby.is_owner %}
+    {%if club == ''%}
+    No club registered: register one <a href="{% url 'club-create' %}" class="btn purple darken-4">HERE</a>
+    {%else%}
+
     <h2 class="header center white-text">Club</h2>
 
     <div class="center">
@@ -81,7 +86,8 @@
       </div>
     </div>
 
-    
+    {%endif%}
+    {%endif%}
 
   <!-- add assisted events if the user is an user and has been to at least 1 event.-->
   {% if perms.clubby.is_user%}

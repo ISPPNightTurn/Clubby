@@ -30,7 +30,7 @@
   
   {% if perms.clubby.is_user %}
     <div class="card-action">
-      <a class="waves-effect btn purple darken-4 waves-light white-text" href="{% url 'product-list' club_id=club.pk %}" style="margin-bottom: 50px;">Purchase products.</a>
+      <a class="btn purple darken-4 white-text" href="{% url 'product-list' club_id=club.pk %}" style="margin-bottom: 50px;">Purchase products.</a>
     </div>
     {%endif%}
   </div>

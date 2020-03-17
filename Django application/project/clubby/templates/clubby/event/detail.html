@@ -27,7 +27,7 @@
     you bought the max ammount of tickets sorry... :(
   {%endif%}
   {% if user_is_broke %}
-    Nigga you broke!, add some cash in your profile page
+    <p class="strong materialize-red">Man you broke!, add some cash in your profile page</p>
   {%endif%}
 
   <p><strong>Atendee List:</strong></p><br>
@@ -51,7 +51,7 @@
   
   {% if perms.clubby.is_user%}
   <div class="card-action">
-    <a class="waves-effect btn purple darken-4 waves-light white-text" href="{% url 'ticket-list' event_id=event.pk %}" >Purchase ticket.</a>
+    <a class="btn purple darken-4 white-text" href="{% url 'ticket-list' event_id=event.pk %}" >Purchase ticket.</a>
   </div>
   {%endif%}
 {% endblock %}

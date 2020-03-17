@@ -4,7 +4,7 @@
   {% if user %}
   <h2 class="header center white-text">Sign up as user</h2>
 
-    <p class="center white-text">if you are a club owner sign up <a href="{% url 'signup-owner' %}">here!</a></p>
+    <p class="center white-text">if you are a club owner sign up <a href="{% url 'signup-owner' %}" class="btn">here!</a></p>
   {%endif%}
 
   {% if owner %}
@@ -17,7 +17,7 @@
     <div class="formSignUp">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="waves-effect waves-light btn">Sign up</button>
+    <button type="submit" class="btn">Sign up</button>
   </div>
   </form>
   </div>
