@@ -195,3 +195,7 @@ class QR_Item(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a detail record for this product."""
         return reverse('purchase-display', args=[str(self.id),str(self.priv_key)])
+
+    def get_real_absolute_url(self):
+        str1 = QR_Item.get_absolute_url(self)
+        return str("https://clubby-sprint1.herokuapp.com")+str(str1)

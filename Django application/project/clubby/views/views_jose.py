@@ -123,7 +123,7 @@ def DisplayQRItemView(request, qr_item_id, priv_key):
             qr_selected.is_used = True
             qr_selected.save()
 
-            return render(request,'clubby/purchase/list.html')
+            return render(request,'clubby/landing.html')
     else:
             qr = QR_Item.objects.filter(pk=qr_item_id)[0]
 
