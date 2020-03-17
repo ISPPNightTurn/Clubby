@@ -1,0 +1,14 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  <h1 style="text-align: center;">Create new product</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="card deep-purple darken-4">
+      <table>
+        {{ form.as_table }}
+      </table>
+      <input type="submit" value="Submit" class="btn-large waves-effect waves-light purple darken-4 lighten-1">
+    </div>
+  </form>
+{% endblock %}

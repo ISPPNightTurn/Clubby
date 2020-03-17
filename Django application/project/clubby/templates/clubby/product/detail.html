@@ -1,0 +1,22 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+<div class="card purple">
+  <div class="card-image">
+    <img src="../../../static/clubby/images/bebidas.jpeg">
+    <span class="card-title">Name: {{ product.name }}</span>
+  </div>
+  <div class="card-content">
+    <p>Price: {{ product.price }}</p>
+  </div>
+  
+  
+  <!-- this should appear only if its the owner. -->
+  {% if product.club.owner == user%}
+  <a href="{{ product.pk }}/update/" class="btn-large waves-effect waves-light purple darken-4 lighten-1">edit product</a><br>
+  <a href="{{ product.pk }}/delete/" class="btn-large waves-effect waves-light materialize-red darken-3 lighten-1">delete product</a>
+  {%endif%}
+</div>
+{% endblock %}
+
+    

@@ -1,2 +1,2 @@
-release: sh -c 'cd djangoapp && python manage.py migrate'
-web: sh -c 'cd djangoapp && gunicorn project.wsgi --log-file -'
+release: sh -c 'cd Django\ application/project/ && python manage.py migrate'
+web: sh -c 'cd Django\ application/project/ && gunicorn project.wsgi --log-file -'

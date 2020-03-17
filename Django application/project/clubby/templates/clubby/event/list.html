@@ -1,0 +1,56 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+<h1 class="header center white-text">Event List</h1>
+  
+<div class="center">
+  <div class="deep-purple darken-4 rounded grid-container">
+  {% if object_list %}
+  <div class="row">
+
+    {% for event in object_list %}
+    <!--
+      <li>
+        <a href="{{ event.get_absolute_url }}">{{ event.name }}</a> 
+      </li>
+    -->
+
+    <div class="list col s12 m7">
+      <div class="card rounded">
+        <div class="card-image">
+          <img src="../../../static/clubby/images/event_image.jpeg">
+          <span class="card-title">{{ event.name }}</span>
+        </div>
+        <div class="card-content black">
+          <i class="small material-icons white-text">domain</i><span class="light white-text" style="display: inline-block; vertical-align:top;">Club: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.club}}</span>
+          <br/>
+          <i class="small material-icons white-text">calendar_today</i><span class="light white-text" style="display: inline-block; vertical-align:top;"> Start Date: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.start_date}}</span>
+          </br>
+          <i class="small material-icons white-text">access_time</i><span class="light white-text" style="display: inline-block; vertical-align:top;">Start Time: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.start_time}}h</span>
+          <br/>
+          <i class="small material-icons white-text">av_timer</i><span class="light white-text" style="display: inline-block; vertical-align:top;">Duration: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.duration}} hours</span>
+        </div>
+        <div class="card-action black">
+          <a href="{{ event.get_absolute_url }}">Navigate to the event</a>
+        </div>
+      </div>
+    </div>
+  
+    {% endfor %}
+  </div>
+  {% else %}
+    <p>There are no events avaliable.</p>
+  {% endif %}
+  {% if perms.clubby.is_owner %}
+  {% if request.user.club != ''%}
+      <a href="{% url 'event-create' %}" class="btn-large waves-effect waves-light purple darken-4 lighten-1">Create new event</a>  
+  {%endif%}   
+  {%endif%}
+</div>
+</div>
+{% endblock %}
+</div>

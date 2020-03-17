@@ -15,5 +15,3 @@ six==1.14.0
 sqlparse==0.3.0
 wincertstore==0.2
 wrapt==1.11.2
-django_heroku
-gunicorn

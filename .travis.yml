@@ -1,0 +1,39 @@
+dist: xenial
+sudo: required
+services:
+  - postgresql
+  - xvfb
+env:
+  - DJANGO_SETTINGS_MODULE="project.settings"
+addons:
+  postgresql: "9.4"
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install dbus-x11
+  - export DISPLAY=:99.0
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - sudo apt-get install -y libappindicator1 fonts-liberation
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - sudo dpkg -i google-chrome*.deb
+  - wget https://chromedriver.storage.googleapis.com/2.38/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - sudo cp chromedriver /usr/bin
+before_script:
+  - psql -U postgres -c "create user clubby password 'clubby'"
+  - psql -U postgres -c "create database clubby owner clubby"
+  - psql -U postgres -c "ALTER USER clubby CREATEDB"
+language: python
+python:
+  - "3.6"
+install:
+  - pip install -r requirements.txt
+script:
+  - cd Django\ application/project/
+  - cp travis_local_settings.py local_settings.py
+  - python ./manage.py test --keepdb
+deploy:
+  provider: heroku
+  app: clubby-sprint1
+  strategy: git
+  api_key:
+    secure: AOCaXtLYepiOBEdAjdJRQRwUzMCxOmXpZ9yQWeixcwueGJaJY7U2tDmTjXj2wxBt6+u701D9+Q5g/jDQBqatjgXb+1phwxPW+o+5H9eCHnVy7mjRoByU0vdAq4twIFg88RrSOUCNghsyiaPkD9uuBfZ7mndV56/mWOHrD4oYJbbEO0M4XbrDTe10o2nNZz0I+oaMS6nvhxoRn7yfwMo7KOna6+RDrLLR0l5EfcchdYPw/RBbtwrROqJv2ybxExaN5DwpadE1Y0mUjZVqAXa//PqN21qb8J4l5l5nQcPT8fNJDtPdpFVu//IUlxJZSKye1g4AxsSy0X5vKIc8DhyqcqxxhmwZrmZbXA14PXgyztsoLq7TJbROgGjsUz9dHSQbbiGOYL6jaas8NEjQavk9wzornAYhgKp0HzNJDjJ03rw0ZI0/zdKRVzFq4NDg604iM6fmB7N+CxyUZEfjFXDkvWbo8OOp14gD332YWMK7idkzugdJSO2TjyJqHyDpPcT5F46L8Pb4BkcJT+QLdrwgrlrPWwmtMt3DFieDoVrhHXhCBo1xaIkd4hXqHZ4mQk/+WFGw3SwvUVboqFDiumNTZr8gwm1hEki/MpYZdUhrhhpvv/PUHBwnInlcujZccmeKAyEJMo0MUYDyRVF18NJRHSi1QJcULiBN5/xX9N1CAYQ=
