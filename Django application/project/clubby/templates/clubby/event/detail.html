@@ -21,13 +21,13 @@
     <!-- if the owner of the club is the one looking at this page give him the option to edit the event if no atendees are in yet.-->
 
   {% if missing_tickets %}
-    we coldn't process {{miss}} tickets, they ran out... sorry :(
+  <p class="strong materialize-red" style="font-size: 1.64rem">"We couldn't process {{miss}} tickets, they ran out... sorry :(</p>
   {% endif %}
   {% if max_tickets%}
-    you bought the max ammount of tickets sorry... :(
+  <p class="strong materialize-red" style="font-size: 1.64rem">You bought the max ammount of tickets, sorry... :(</p>
   {%endif%}
   {% if user_is_broke %}
-    <p class="strong materialize-red">Man you broke!, add some cash in your profile page</p>
+    <p class="strong materialize-red" style="font-size: 1.64rem">Man you broke!, add some cash in your profile page</p>
   {%endif%}
 
   <p><strong>Atendee List:</strong></p><br>
