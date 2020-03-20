@@ -59,7 +59,8 @@ urlpatterns += [
 
 urlpatterns += [
     path('addFunds/<int:ammount>', views.add_funds, name='add-funds'),
-    path('charge/<int:ammount>', views.charge, name='charge'), 
+    path('charge/<int:ammount>', views.charge, name='charge'),
+    path('getPremium', views.get_premium, name='get-premium'), 
 ]
 
 urlpatterns += [
@@ -69,8 +70,7 @@ urlpatterns += [
 urlpatterns += [  
     path('purchase/list/', views.QRsByUserListView.as_view(), name='my-purchases'),
     path('history/list/', views.QRsUsedByUserListView.as_view(), name='my-history'),
-    path('purchase/<int:qr_item_id>/<slug:priv_key>', views.DisplayQRItemView, name='purchase-display'),
-    
+    path('purchase/<int:qr_item_id>/<slug:priv_key>', views.DisplayQRItemView, name='purchase-display'),   
 ]
 
 

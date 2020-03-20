@@ -3,16 +3,16 @@
 {% block content %}
 <div class="col s12 m7">
 <div class="card center purple darken-2">
-  <span class="card-title">Adding {% widthratio ammount 100 1 %} $ to account</span>
+  <span class="card-title">Setup your monthly subscription.</span>
 
   <div class="card-content">
-  <form action="{% url 'charge' ammount=ammount%}" method="post">
+  <form action="{% url 'charge' ammount=ammount %}" method="post">
     {% csrf_token %}
     {{ form }}
     
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
     data-key="{{ key }}"
-    data-description="Recharged on Clubby"
+    data-description="A Django Charge"
     data-amount="{{ammount}}"
     data-locale="auto">
     </script>
@@ -21,4 +21,3 @@
 </div>
 </div>
 {% endblock %}
-

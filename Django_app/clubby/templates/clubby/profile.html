@@ -51,6 +51,12 @@
     </div>
     
     {% if perms.clubby.is_owner %}
+
+    {% if over_event_limit%}
+      Sorry your event publication limit has been reached (2 per month), if you wish to have unlimited events and more <br>
+      consider becoming <a href=>Premium</a>!(not yet implemented sorry again :P)
+    {% endif %}
+
     {%if club == ''%}
     No club registered: register one <a href="{% url 'club-create' %}" class="btn purple darken-4">HERE</a>
     {%else%}
@@ -93,6 +99,7 @@
   {% if perms.clubby.is_user%}
 
     <!-- include assisted events-->
+    <!-- link spotify?-->
 
   {%endif%}
 {% endblock %}

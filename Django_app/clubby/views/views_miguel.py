@@ -182,3 +182,11 @@ def charge(request, ammount): # new
         # else:
         #     print(form)
         #     return render(request,'clubby/charge.html')
+
+#################
+#    PREMIUM    #
+#################
+@permission_required('clubby.is_owner')
+def get_premium(request): # new
+    stripe.Plan.retrieve("plan_GwQAw0cGXBjWLQ")
+    return ('nigga')

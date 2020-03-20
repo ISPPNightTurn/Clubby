@@ -44,7 +44,10 @@
           {%endif%}
           {% if perms.clubby.is_owner %}
           <!-- We can add owner specific actions here (they need to not require a club.)-->
-          
+
+          {% if not perms.clubby.is_premium_owner %}
+          <li><a href = "{% url 'get-premium'%}">Become Premium!</a></li>
+          {% endif %}
           {%endif%}
           
         {% else %}

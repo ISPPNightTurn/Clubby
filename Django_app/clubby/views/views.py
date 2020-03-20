@@ -21,6 +21,7 @@ from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm, F
 from ..models import Club, Event, Profile, Product, Ticket
 
 import datetime
+import calendar
 
 
 # Create your views here.
@@ -72,6 +73,8 @@ def profile(request):
         if form.is_valid():
             to_recharge = form.cleaned_data.get('ammount')
             return redirect('add-funds', ammount=to_recharge)
+        else:
+            return redirect('profile')
     else:
 
         me = request.user #this is the current user.
@@ -314,11 +317,28 @@ class EventCreateView(PermissionRequiredMixin,CreateView):
     # we need to overide the default method for saving in this case because we need to
     # add the logged user as the owner to the club.
     def form_valid(self, form):  
-        obj = form.save(commit=False)
-        obj.owner = self.request.user
+        owner = self.request.user
+        
+        now = datetime.datetime.now()
+        lastday = calendar.monthrange(now.year,now.month)[1]
+        first = datetime.datetime(now.year,now.month,1)
+        last = datetime.datetime(now.year,now.month,lastday)
+
+        events_in_month = Event.objects.filter(club=owner.club).filter(start_date__gte = first).filter(start_date__lte = last).count()
+        obj = form.save(commit=False) #commit false avoids the object being saved to the database directly:
+        obj.owner = owner
         obj.club = obj.owner.club
         self.object = obj # this is neccesary as the url is pulled from self.object.
-        obj.save()
+        if(events_in_month < 2):
+            obj.save()
+        else:
+            if(owner.groups.filter(name='premium owner').exists()):
+                obj.save()
+            else:
+                form = FundsForm()
+                context = {'logged_user': owner,'user_profile': owner.profile, 'club':owner.club,'form':form,'over_event_limit':True}
+                return render(self.request,'clubby/profile.html',context)
+        
         return HttpResponseRedirect(self.object.get_create_tickets_url())
 
 ##########################

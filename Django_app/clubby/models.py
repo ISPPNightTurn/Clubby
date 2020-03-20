@@ -32,7 +32,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     funds = models.DecimalField(decimal_places=2, max_digits=5,default=0.0)
-    picture = models.ImageField(upload_to= user_directory_path,null=True,blank=True, default='clubby/static/clubby/images/user_img.jpg')
+    picture = models.ImageField(upload_to= user_directory_path,null=True,blank=True, default='static/clubby/images/user_img.jpg')
 
     @receiver(post_save, sender=User)
     def update_user_profile(sender, instance, created, **kwargs):
@@ -72,7 +72,7 @@ class Club(models.Model):
     address = models.CharField(max_length=200, help_text='Enter the full address so google maps can find it.')
     max_capacity = models.IntegerField(help_text = 'The capacity of your club, you\'re responsible for the enforcement of this number.')
     NIF = models.CharField(max_length=10, help_text = 'Company number for the club')
-    picture = models.ImageField(upload_to= owner_directory_path,null=True,blank=True,default='clubby/static/clubby/images/background.jpg')
+    picture = models.ImageField(upload_to= owner_directory_path,null=True,blank=True,default='static/clubby/images/background.jpg')
 
     # This represents the owners user.
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -100,7 +100,7 @@ class Event(models.Model):
     start_time = models.IntegerField(max_length=2,help_text='event start time 24h format.', default=12)
     duration = models.IntegerField(max_length=2,help_text='event duration in hours, max is 12 hours',default=12)
     atendees = models.ManyToManyField(User)
-    picture = models.ImageField(upload_to=event_directory_path,null=True,blank=True,default='clubby/static/clubby/images/event_image.jpeg')
+    picture = models.ImageField(upload_to=event_directory_path,null=True,blank=True,default='static/clubby/images/event_image.jpeg')
 
     EVENT_TYPE = (
         ('c', 'casual'),
