@@ -7,15 +7,16 @@
 
   <div class="card-content">
     10$ will be substracted from your account at the start of every month,<br> 
-    if you dont have enought the suscription will be cancelled for that month.<br>
+    if you dont have enough the suscription will be cancelled for that month.<br>
     
   <form action="" method="post">
     {% csrf_token %}
-    <br>
-    <div>
-      {{form.as_p}}
-    </div>
-    <br>
+    <p>
+      <label>
+        <input type="checkbox" value="{{form.accept}}
+        <span style="color: white;">Accept</span>
+      </label>
+    </p>
     <button class="btn purple darken-4" type="submit">Activate a premium subscription!</button>
   </form>
   {% if not_accepted %}
