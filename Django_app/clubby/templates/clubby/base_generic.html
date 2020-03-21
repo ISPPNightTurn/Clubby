@@ -95,8 +95,10 @@
     <li><a class="waves-effect" href="{% url 'landing' %}"><span class="white-text link">Home</span></a></li>
     <li><a class="waves-effect" href="{% url 'clubs' %}"><span class="white-text link">All clubs</span></a></li>
     <li><a class="waves-effect" href="{% url 'events' %}"><span class="white-text link">All events</span></a></li>
+    {% if perms.clubby.is_user %}
     <li><a class="waves-effect" href="{% url 'my-purchases' %}"><span class="white-text link">My purchases</span></a></li>
     <li><a class="waves-effect" href="{% url 'my-history' %}"><span class="white-text link">My history</span></a></li>
+    {%endif%}
     <li><div class="divider"></div></li>
     <a class="subheader">Actions</a>
 
