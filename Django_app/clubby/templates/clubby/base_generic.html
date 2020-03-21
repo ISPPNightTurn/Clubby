@@ -59,9 +59,9 @@
     </nav>
   </div>
 
-
-  <nav class="purple darken-4 hide-on-large-only" role="navigation">
-    <div class="nav-wrapper container hide-on-large-only">  
+  <div class="navbar-fixed hide-on-large-only purple darken-4" role="navigation">
+  <nav class="purple darken-4">
+    <div class="purple darken-4 container hide-on-large-only">  
     <a href="#" data-target="slide-out" class="sidenav-trigger hide-on-large-only">
       <i class = "small material-icons">menu</i>
     </a>
@@ -73,7 +73,8 @@
         </ul>
     </div>
   </nav>
-  
+  </div>
+
   <!-- Sidenavfor mobile devices-->
   <ul id="slide-out" class="sidenav purple darken-4 ">
     <li><div class="user-view">
@@ -121,16 +122,12 @@
     {% if is_paginated %}
         <ul class="pagination">
           {% if page_obj.has_previous %}
-            <li class="waves-effect"><a  href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a></li>
-          {% endif %}
-          <li>
-            <span class="page-current">
-              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-          </li>
+            <li class="waves-effect"><a  href="{{ request.path }}?page={{ page_obj.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+            {% endif %}
+          <li class="waves-effect">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
           {% if page_obj.has_next %}
           <li class="waves-effect white-text">
-            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}"><i class="material-icons">chevron_right</i></a>
           </li>
           {% endif %}
         </ul>
