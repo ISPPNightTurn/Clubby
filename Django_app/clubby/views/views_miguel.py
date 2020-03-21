@@ -193,15 +193,18 @@ def get_premium(request): # new
         has_accepted = form['accept'].value()
         if(has_accepted):
             owner = request.user
-            funds = owner.profile.funds
-            if(funds < Decimal("15")):
+            
+            if(owner.profile.funds < Decimal("15")):
                 return render(request,'clubby/premium.html',{'form':form,'not_enough_funds':True})
             else:
-                owner.profile.renew_premium = True
-                funds -= Decimal("15")
+                profile = owner.profile
+                profile.renew_premium = True
+                profile.funds -=  Decimal("15")
                 my_group = Group.objects.get(name='premium owner') 
                 my_group.user_set.add(owner)
                 owner.save()
+                profile.save()
+                return render(request,'clubby/charge.html')
         else:
             return render(request,'clubby/premium.html',{'form':form,'not_accepted':True})
     else:

@@ -12,6 +12,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from clubby.models import Club, Event, Profile, Product, Ticket
+from django.contrib.admin.widgets import AdminDateWidget
 
 import re
     
@@ -38,7 +39,7 @@ class SignupForm(UserCreationForm):
     last_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
 
-    birth_date = forms.DateField(initial=datetime.date.today,required=True, help_text="Required, your birthday, format: YYYY-MM-DD")
+    birth_date = forms.DateField(widget=AdminDateWidget(),initial=datetime.date.today,required=True, help_text="Required, your birthday, format: YYYY-MM-DD")
 
     bio = forms.CharField(max_length=500, required=False, help_text="Optional, tell us something about you.")
     location = forms.CharField(max_length=30, required=False, help_text="Optional, where are you form?.")
@@ -69,7 +70,7 @@ class ProductModelForm(ModelForm):
 
 class EventModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
-    start_date = forms.DateField(initial=datetime.date.today)
+    start_date = forms.DateField(widget=AdminDateWidget(),initial=datetime.date.today)
     event_type = forms.CharField(
         max_length=124,
         widget=forms.Select(

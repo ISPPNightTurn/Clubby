@@ -43,13 +43,18 @@
           <li><a href="{% url 'my-history' %}">My History</a></li>
           {%endif%}
           {% if perms.clubby.is_owner %}
-          <!-- We can add owner specific actions here (they need to not require a club.)-->
-
+          <!-- We can add owner specific actions here (they need to not require a club.)--> 
           {% if not perms.clubby.is_premium_owner %}
           <li><a href = "{% url 'get-premium'%}">Become Premium!</a></li>
           {% endif %}
+          {% if perms.clubby.is_premium_owner %}
+          <li><a href = "">Statistics(not yet)</a></li>
+          {% endif %}
           {%endif%}
+
           
+          
+
         {% else %}
           <li><a href="{% url 'login'%}?next={% url 'landing'%}"><p class="light">Login</p></a></li>   
           <li><a href="{% url 'signup-user' %}"><p class="light">Sign Up!</p></a></li>

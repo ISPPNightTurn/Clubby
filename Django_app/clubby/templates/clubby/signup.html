@@ -12,11 +12,12 @@
   <p class="center white-text">back to user signup <a href="{% url 'signup-user' %}">here.</a></p>
   {% endif %}
   <div class="deep-purple darken-4 toast rounded">
-
+   
   <form method="post">
     <div class="formSignUp">
     {% csrf_token %}
     {{ form.as_p }}
+    {{ form.media }}
     <button type="submit" class="btn">Sign up</button>
   </div>
   </form>
