@@ -199,6 +199,8 @@ def get_premium(request): # new
             else:
                 owner.profile.renew_premium = True
                 funds -= Decimal("15")
+                my_group = Group.objects.get(name='premium owner') 
+                my_group.user_set.add(owner)
                 owner.save()
         else:
             return render(request,'clubby/premium.html',{'form':form,'not_accepted':True})
