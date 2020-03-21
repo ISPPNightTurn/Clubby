@@ -20,6 +20,9 @@ class TicketPurchaseForm(forms.Form):
 class FundsForm(forms.Form):
     ammount = forms.IntegerField(max_value=500,min_value=10,help_text="how much of your currency you want to add, max 500, min 10")
 
+class PremiumForm(forms.Form):
+    accept = forms.BooleanField(help_text="if you agree with these terms we welcome you to the clubby team!")
+
 # class ClubModelForm(ModelForm):
         
 #     class Meta:

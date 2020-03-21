@@ -33,6 +33,7 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     funds = models.DecimalField(decimal_places=2, max_digits=5,default=0.0)
     picture = models.ImageField(upload_to= user_directory_path,null=True,blank=True, default='static/clubby/images/user_img.jpg')
+    renew_premium = models.BooleanField(default=False)
 
     @receiver(post_save, sender=User)
     def update_user_profile(sender, instance, created, **kwargs):
