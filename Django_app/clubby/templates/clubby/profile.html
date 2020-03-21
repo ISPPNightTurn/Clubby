@@ -12,6 +12,12 @@
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Funds: </span>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.funds}} €</span>
           <br/>
+          {% if perms.clubby.is_owner %}
+          <i class="small material-icons white-text">attach_money</i>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">Premium status: </span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{%if user_profile.renew_premium %} Active {%else%} Inactive {%endif%}</span>
+          <br/>
+          {% endif %}
           <i class="small material-icons white-text">emoji_people</i>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Name: </span>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.first_name}}</span>
@@ -53,8 +59,11 @@
     {% if perms.clubby.is_owner %}
 
     {% if over_event_limit%}
+    <br>
+    <p class="strong materialize-red" style="font-size: 1.64rem">
       Sorry your event publication limit has been reached (2 per month), if you wish to have unlimited events and more <br>
       consider becoming <a href=>Premium</a>!(not yet implemented sorry again :P)
+    </p>
     {% endif %}
 
     {%if club == ''%}

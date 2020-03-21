@@ -19,7 +19,7 @@ from django import forms
 
 from django.utils.crypto import get_random_string
 
-from ..forms import TicketPurchaseForm,FundsForm
+from ..forms import TicketPurchaseForm, FundsForm, PremiumForm
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 from django.conf import settings
@@ -188,5 +188,22 @@ def charge(request, ammount): # new
 #################
 @permission_required('clubby.is_owner')
 def get_premium(request): # new
-    stripe.Plan.retrieve("plan_GwQAw0cGXBjWLQ")
-    return ('nigga')
+    if request.method == 'POST':
+        form = PremiumForm(request.POST)
+        has_accepted = form['accept'].value()
+        if(has_accepted):
+            owner = request.user
+            funds = owner.profile.funds
+            if(funds < Decimal("15")):
+                return render(request,'clubby/premium.html',{'form':form,'not_enough_funds':True})
+            else:
+                owner.profile.renew_premium = True
+                funds -= Decimal("15")
+                my_group = Group.objects.get(name='premium owner') 
+                my_group.user_set.add(owner)
+                owner.save()
+        else:
+            return render(request,'clubby/premium.html',{'form':form,'not_accepted':True})
+    else:
+        form = PremiumForm(initial={'accept':False})
+        return render(request,'clubby/premium.html',{'form':form})

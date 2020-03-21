@@ -6,17 +6,25 @@
   <span class="card-title">Setup your monthly subscription.</span>
 
   <div class="card-content">
-  <form action="{% url 'charge' ammount=ammount %}" method="post">
-    {% csrf_token %}
-    {{ form }}
+    10$ will be substracted from your account at the start of every month,<br> 
+    if you dont have enought the suscription will be cancelled for that month.<br>
     
-    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="{{ key }}"
-    data-description="A Django Charge"
-    data-amount="{{ammount}}"
-    data-locale="auto">
-    </script>
+  <form action="" method="post">
+    {% csrf_token %}
+    <br>
+    <div>
+      {{form.as_p}}
+    </div>
+    <br>
+    <button class="btn purple darken-4" type="submit">Activate a premium subscription!</button>
   </form>
+  {% if not_accepted %}
+  You must accept the conditions
+  {%endif%}
+
+  {% if not_enough_funds %}
+  You dont have enough funds, add more on the profile page.
+  {%endif%}
   </div>
 </div>
 </div>
