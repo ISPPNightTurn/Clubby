@@ -202,6 +202,7 @@ class QR_Item(models.Model):
 
     user = models.ForeignKey(User,on_delete= models.CASCADE,null=True,blank=True)
     priv_key = models.CharField(max_length=128)
+    fecha = models.DateTimeField()
 
     def __str__(self):
         return str(self.priv_key)

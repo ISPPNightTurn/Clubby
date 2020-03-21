@@ -18,7 +18,9 @@ from django.urls import reverse_lazy
 
 from ..forms import TicketCreateModelForm
 
-from ..models import Club, Event, Profile, Product, Ticket
+from datetime import datetime, timedelta
+
+from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 import datetime
 
@@ -67,27 +69,15 @@ def EventCreateTickets(request, event_id):
     else:
         raise PermissionDenied("You don't own that >:(")
 
-# class EventCreateTicketsView(PermissionRequiredMixin,CreateView):
-#     permission_required = 'clubby.is_owner'
-#     model = Ticket
-#     form_class = TicketCreateModelForm #<-- since the validation is here we need to specify the form we want to use.
-#     template_name = 'clubby/event/event_form.html'
-#     # you can't use the exclude here.
+#################
+#    History    #
+#################
 
-#     # we need to overide the default method for saving in this case because we need to
-#     # add the logged user as the owner to the club.
+@permission_required('clubby.is_user')
+def CheckHistory(request):
 
-#     def form_valid(self, form):
-#         id = self.request.GET.get('id')
-#         u = form.cleaned_data['size']
-#         price = form.cleaned_data['price']
-#         category = form.cleaned_data['category']
-#         description = form.cleaned_data['description']
-#         t = Ticket(price=price, event_id=id, user_id='',category=category,description=description)
+    current_user = request.user
 
-#         for i in range(0, u):
-#             t.pk = None
-#             t.save()
-#             i+=1
+    list = QR_Item.objects.filter(user = current_user)
 
-#         return HttpResponseRedirect(reverse('my-events-future'))
+    return render(request, 'clubby/purchase/history_list.html', {"list": list})

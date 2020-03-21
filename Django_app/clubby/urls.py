@@ -69,7 +69,7 @@ urlpatterns += [
 
 urlpatterns += [  
     path('purchase/list/', views.QRsByUserListView.as_view(), name='my-purchases'),
-    path('history/list/', views.QRsUsedByUserListView.as_view(), name='my-history'),
+    path('history/list/', views.CheckHistory, name='my-history'),
     path('purchase/<int:qr_item_id>/<slug:priv_key>', views.DisplayQRItemView, name='purchase-display'),   
 ]
 

@@ -6,22 +6,60 @@
   <div style="margin:auto; width: 100%;">
   <div class="card purple darken-2">
     
-    {% if object_list %}
-  <ul class="card-content collection purple darken-2">
-    {% for qr_item in object_list %}
+    {% if list %}
+    <table>
+      <tr>
+        <th>Tipo</th>
+        <th>Detalles</th>
+        <th>Lugar</th>
+        <th>Fecha de compra</th>
+        <th>Duración/Caducidad</th>
+        <th>Usado</th>
+      </tr>
+    {% for qr_item in list %}
+      <tr>
       {% if qr_item.product != blank %}
-      <li class="collection-item purple darken-2">
-        {{qr_item.product.name}}-<b>Product</b>
-      </br>
-      </li> 
-      </br>
+      <td>
+        <b>Product</b>
+      </td>
+      <td>
+        <p>{{qr_item.product.name}} - {{qr_item.product.price}}</p>
+      </td>
+      <td>
+        <p>{{qr_item.product.club.name}} - {{qr_item.product.club.address}}</p>
+      </td>
+      <td>
+        <p>{{qr_item.fecha}}</p>
+      </td>
+      <td>
+        <p>6 horas</p>
+      </td>
+      <td>
+        <p>{{qr_item.is_used}}</p>
+      </td>
       {% elif qr_item.ticket != blank %}
-      <li class="collection-item purple darken-2">
-        {{qr_item.ticket.event.name}}-<b>Ticket</b>
-      </li> 
+      <td>
+        <b>Ticket</b>
+      </td>
+      <td>
+        <p>{{qr_item.ticket.event.name}} - {{qr_item.ticket.price}}
+          ({{qr_item.ticket.event.start_date}} / {{qr_item.ticket.event.start_time}}:00)</p>
+      </td>
+      <td>
+        <p>{{qr_item.ticket.event.club.name}} - {{qr_item.ticket.event.club.address}}</p>
+      </td>
+      <td>
+        <p>{{qr_item.fecha}}</p>
+      </td>
+      <td>
+        <p>{{qr_item.ticket.event.duration}} horas</p>
+      </td>
+      <td>
+        <p>{{qr_item.is_used}}</p>
+      </td>
       {% endif %}
     {% endfor %}
-  </ul>
+  </table>
   {% else %}
   <p class="card-content">You have no purchases used</p>
   {% endif %}
