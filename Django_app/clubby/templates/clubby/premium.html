@@ -11,7 +11,11 @@
     
   <form action="" method="post">
     {% csrf_token %}
-    {{form}}
+    <br>
+    <div>
+      {{form.as_p}}
+    </div>
+    <br>
     <button class="btn purple darken-4" type="submit">Activate a premium subscription!</button>
   </form>
   {% if not_accepted %}
