@@ -29,9 +29,17 @@
   <td>{{ form.password }}</td>
 </div>
 
-<a  href="{% url 'social:begin' 'google-oauth2' %}">
-  Login with Google
-</a>
+
+<div>
+  <a class="oauth-container btn purple darken-4 white-text" href="{% url 'social:begin' 'google-oauth2' %}" style="text-transform:none">
+      <div class="left">
+          <img width="20px" style="margin-right:8px" alt="Google Login" 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+      </div>
+      Login with Google
+  </a>
+</div>
+<br/>
 
 <div>
   <input type="submit" class="btn purple darken-4" value="login" ></input>
