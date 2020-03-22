@@ -78,6 +78,17 @@ def CheckHistory(request):
 
     current_user = request.user
 
-    list = QR_Item.objects.filter(user = current_user)
+    list = QR_Item.objects.filter(user = current_user).order_by('-fecha')
+
+    for qr_item in list:
+        if qr_item.product != None:
+            dn = datetime.datetime.now() - timedelta(hours=6)
+        elif qr_item.ticket != None:
+            dn = datetime.datetime.now() - timedelta(hours=qr_item.ticket.event.duration)
+        d = qr_item.fecha
+        d = d.replace(tzinfo=None)
+        if dn > d:
+            qr_item.timed_out = True
+            qr_item.save()
 
     return render(request, 'clubby/purchase/history_list.html', {"list": list})

@@ -22,6 +22,8 @@ from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 from django.utils.crypto import get_random_string
 
+from datetime import datetime, timedelta
+
 from decimal import Decimal
 
 import datetime
@@ -58,7 +60,7 @@ def ProductsByClubList(request, club_id):
 
                 for x in range(quantity):
                     qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user,
-                        fecha=datetime.datetime.now(), caducado=False)
+                        fecha=datetime.datetime.now(), timed_out=False)
                     qr.save()
             
             return render(request,'clubby/purchase/list.html',{'user_is_broke':user_is_broke})
@@ -91,7 +93,22 @@ class QRsByUserListView(LoginRequiredMixin, generic.ListView):
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
     def get_queryset(self):
-        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=False)
+
+        current_user =  self.request.user
+        list = QR_Item.objects.filter(user = current_user).order_by('-fecha')
+
+        for qr_item in list:
+            if qr_item.product != None:
+                dn = datetime.datetime.now() - timedelta(hours=6)
+            elif qr_item.ticket != None:
+                dn = datetime.datetime.now() - timedelta(hours=qr_item.ticket.event.duration)
+            d = qr_item.fecha
+            d = d.replace(tzinfo=None)
+            if dn > d:
+                qr_item.timed_out = True
+                qr_item.save()
+
+        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=False).filter(timed_out=False).order_by('-fecha')
         return item
 
 

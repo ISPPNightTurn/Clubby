@@ -11,9 +11,11 @@
       <tr>
         <th>Tipo</th>
         <th>Detalles</th>
+        <th>Precio</th>
         <th>Lugar</th>
         <th>Fecha de compra</th>
         <th>Duración/Caducidad</th>
+        <th>Caducado</th>
         <th>Usado</th>
       </tr>
     {% for qr_item in list %}
@@ -23,8 +25,11 @@
         <b>Product</b>
       </td>
       <td>
-        <p>{{qr_item.product.name}} - {{qr_item.product.price}}</p>
+        <p>{{qr_item.product.name}}</p>
       </td>
+      <td>
+        <p>{{qr_item.product.price}}</p>
+      </td> 
       <td>
         <p>{{qr_item.product.club.name}} - {{qr_item.product.club.address}}</p>
       </td>
@@ -35,6 +40,9 @@
         <p>6 horas</p>
       </td>
       <td>
+        <p>{{qr_item.timed_out}}</p>
+      </td>
+      <td>
         <p>{{qr_item.is_used}}</p>
       </td>
       {% elif qr_item.ticket != blank %}
@@ -42,9 +50,12 @@
         <b>Ticket</b>
       </td>
       <td>
-        <p>{{qr_item.ticket.event.name}} - {{qr_item.ticket.price}}
+        <p>{{qr_item.ticket.event.name}} 
           ({{qr_item.ticket.event.start_date}} / {{qr_item.ticket.event.start_time}}:00)</p>
       </td>
+      <td>
+        <p>{{qr_item.ticket.price}}</p>
+      </td> 
       <td>
         <p>{{qr_item.ticket.event.club.name}} - {{qr_item.ticket.event.club.address}}</p>
       </td>
@@ -53,6 +64,9 @@
       </td>
       <td>
         <p>{{qr_item.ticket.event.duration}} horas</p>
+      </td>
+      <td>
+        <p>{{qr_item.timed_out}}</p>
       </td>
       <td>
         <p>{{qr_item.is_used}}</p>
