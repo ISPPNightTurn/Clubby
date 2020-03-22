@@ -96,7 +96,7 @@ urlpatterns += [
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('social_django.urls', namespace='social')),
-    
+    path('social/success/', views.socialsuccess, name="social-sucess"),
 ]
 
 

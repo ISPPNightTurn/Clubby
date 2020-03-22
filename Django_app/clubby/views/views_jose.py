@@ -154,3 +154,12 @@ def DisplayQRItemView(request, qr_item_id, priv_key):
                 return render(request,'clubby/purchase/display.html',context)
             else:
                 raise PermissionDenied('the security key did not match, trying to screw people over huh? Naughty >:(')
+
+
+@login_required(login_url="/login")
+def socialsuccess(request):
+    defaultgroup = Group.objects.get(name = 'user')
+    user = request.user
+    user.groups.add(defaultgroup)
+
+    return render(request, 'clubby/landing.html') 
