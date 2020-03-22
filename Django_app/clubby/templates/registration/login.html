@@ -29,6 +29,10 @@
   <td>{{ form.password }}</td>
 </div>
 
+<a  href="{% url 'social:begin' 'google-oauth2' %}">
+  Login with Google
+</a>
+
 <div>
   <input type="submit" class="btn purple darken-4" value="login" ></input>
   <input type="hidden" name="next" value="{{ next }}" />

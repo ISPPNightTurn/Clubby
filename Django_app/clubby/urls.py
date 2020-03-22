@@ -2,6 +2,9 @@ from django.urls import path, include
 from . import views
 from django.conf.urls import url
 
+from django.conf import settings
+from django.contrib.auth import logout
+
 
 
 # we might wanna test this later on, this changes the views from custom written to django generic.
@@ -89,6 +92,8 @@ urlpatterns += [
 # accounts/ reset/done/ [name='password_reset_complete']
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('social_django.urls', namespace='social')),
+    
 ]
 
 
