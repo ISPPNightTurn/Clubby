@@ -83,12 +83,79 @@ def CheckHistory(request):
     for qr_item in list:
         if qr_item.product != None:
             dn = datetime.datetime.now() - timedelta(hours=6)
+            d = qr_item.fecha
+            d = d.replace(tzinfo=None)
         elif qr_item.ticket != None:
             dn = datetime.datetime.now() - timedelta(hours=qr_item.ticket.event.duration)
-        d = qr_item.fecha
-        d = d.replace(tzinfo=None)
+            d = datetime.datetime(qr_item.ticket.event.start_date.year, qr_item.ticket.event.start_date.month, 
+                qr_item.ticket.event.start_date.day) + timedelta(hours=qr_item.ticket.event.start_time)
         if dn > d:
             qr_item.timed_out = True
             qr_item.save()
 
     return render(request, 'clubby/purchase/history_list.html', {"list": list})
+
+#################
+#  Order Events #
+#################
+
+@login_required
+def EventsByUserList(request, order = None):
+
+    current_user = request.user
+
+    if order is None or order is 1:
+
+        list = Event.objects.filter(atendees = current_user).order_by('start_date' , 'start_time')
+
+        aux = Event.objects.none()
+
+        for event in list:
+            dn = datetime.datetime.now() - timedelta(hours=event.duration)
+            d = datetime.datetime(event.start_date.year, event.start_date.month, 
+                event.start_date.day) + timedelta(hours=event.start_time)
+            if dn > d:
+                aux |= Event.objects.filter(pk = event.pk)
+                list = list.exclude(pk = event.pk)
+
+
+    return render(request, 'clubby/event/list.html', {"object_list": list, "old_object_list": aux})
+
+@login_required
+def EventList(request, order = None):
+
+    if order is None or order is 1:
+
+        list = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).order_by('start_date' , 'start_time')
+
+        for event in list:
+            dn = datetime.datetime.now() - timedelta(hours=event.duration)
+            d = datetime.datetime(event.start_date.year, event.start_date.month, 
+                event.start_date.day) + timedelta(hours=event.start_time)
+            if dn > d:
+                list = list.exclude(pk = event.pk)
+
+
+    return render(request, 'clubby/event/list.html', {"object_list": list})
+
+@permission_required('clubby.is_owner')
+def EventsByClubAndFutureList(request, order = None):
+
+    club = Club.objects.filter(owner = request.user)[0]
+
+    if order is None or order is 1:
+
+        list = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club).order_by('start_date' , 'start_time')
+
+        aux = Event.objects.none()
+
+        for event in list:
+            dn = datetime.datetime.now() - timedelta(hours=event.duration)
+            d = datetime.datetime(event.start_date.year, event.start_date.month, 
+                event.start_date.day) + timedelta(hours=event.start_time)
+            if dn > d:
+                aux |= Event.objects.filter(pk = event.pk)
+                list = list.exclude(pk = event.pk)
+
+
+    return render(request, 'clubby/event/list.html', {"object_list": list, "old_object_list": aux})
