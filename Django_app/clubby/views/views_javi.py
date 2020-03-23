@@ -188,7 +188,7 @@ def ClubCreateRating(request, club_id):
             stars = form.cleaned_data['stars']
             text = form.cleaned_data['text']
 
-            if listU is None :             
+            if len(listU) is 0 :             
                 t = Rating(stars=stars, text=text,fecha=datetime.datetime.now(),
                     club_id=club_id,user_id=request.user.id)
                 t.save()
