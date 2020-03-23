@@ -3,9 +3,32 @@
 {% block content %}
 <h1 class="header center white-text">Club list</h1>
 
+{% if listU %}
+<div class="list center">
+  <div class="deep-purple darken-4 toast rounded grid-container">
+    <div class="row">
+
+      {% for rating in listU %}
+            <div class="col s12 m7">
+              <p class="header center white-text">Mi opinion</p>
+                <p>{{rating.user.username}} - {{rating.fecha}}</p>
+                <p>Estrellas: {{rating.stars}}</p>
+                <p>Opinión:</p>
+                <p>{{rating.text}}</p>             
+            </div>
+                  
+      {% endfor %}
+    </div>
+    <div class="card-action black">
+      <a href="{% url 'create-rating' club_id=club_id %}" class="btn-large purple darken-4 ">Update rating</a>
+    </div>
+  </div>
+</div>
+{% else %}
 <div class="card-action black">
   <a href="{% url 'create-rating' club_id=club_id %}" class="btn-large purple darken-4 ">Add rating</a>
 </div>
+{% endif %}
 
 {% if order == 1 %}
 <div class="card-action black">

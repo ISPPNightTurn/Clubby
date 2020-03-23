@@ -169,11 +169,13 @@ def ClubListRating(request, club_id, order = None):
 
     if order is None or order is 1:
         order = 1
-        list = Rating.objects.filter(club_id = club_id).order_by('-fecha')
+        list = Rating.objects.filter(club_id = club_id).exclude(user_id=request.user.id).order_by('-fecha')
+        listU = Rating.objects.filter(club_id = club_id,user_id=request.user.id)
     if order is 2:
-        list = Rating.objects.filter(club_id = club_id).order_by('-stars')
+        list = Rating.objects.filter(club_id = club_id).order_by('-stars','-fecha')
+        listU = Rating.objects.filter(club_id = club_id,user_id=request.user.id)
 
-    return render(request, 'clubby/club/rating_list.html', {"list": list, "club_id":club_id, "order":order})
+    return render(request, 'clubby/club/rating_list.html', {"list": list,"listU":listU, "club_id":club_id, "order":order})
 
 @permission_required('clubby.is_user')
 def ClubCreateRating(request, club_id):
@@ -182,11 +184,17 @@ def ClubCreateRating(request, club_id):
         form = RatingCreateModelForm(data=request.POST or None)
         if form.is_valid():
 
+            listU = Rating.objects.filter(club_id = club_id,user_id=request.user.id)
             stars = form.cleaned_data['stars']
             text = form.cleaned_data['text']
-            t = Rating(stars=stars, text=text,fecha=datetime.datetime.now(),
-                club_id=club_id,user_id=request.user.id)
-            t.save()
+
+            if listU is None :             
+                t = Rating(stars=stars, text=text,fecha=datetime.datetime.now(),
+                    club_id=club_id,user_id=request.user.id)
+                t.save()
+
+            else:
+                Rating.objects.filter(club_id = club_id,user_id=request.user.id).update(stars=stars, text=text,fecha=datetime.datetime.now())
 
             return HttpResponseRedirect(reverse('clubs'))
 
