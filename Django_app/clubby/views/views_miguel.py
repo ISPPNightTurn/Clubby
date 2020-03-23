@@ -22,6 +22,10 @@ from django.utils.crypto import get_random_string
 from ..forms import TicketPurchaseForm, FundsForm, PremiumForm
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
+from background_task.models import Task
+
+from ..tasks import check_premium
+
 from django.conf import settings
 import datetime
 from decimal import Decimal
@@ -205,9 +209,31 @@ def get_premium(request): # new
                 my_group.user_set.add(owner)
                 owner.save()
                 profile.save()
+                
+                # These are models created by the package.
+                owner_tasks = Task.objects.filter(creator_object_id=owner.pk)
+
+                if(len(owner_tasks)==0):
+                    now = datetime.datetime.now()
+                    if(now.month == 12):
+                        next_payment = datetime.datetime(now.year+1, 1 , 2, 2)
+                    else:
+                        next_payment = datetime.datetime(now.year,now.month +1 , 2, 2)
+
+                    check_premium(owner.pk, schedule=next_payment, creator=owner)
+                else:
+                    profile.funds -=  Decimal("15")
+                    profile.save()
+
+                #check_premium(owner.pk, schedule=60)
                 return render(request,'clubby/charge.html')
         else:
             return render(request,'clubby/premium.html',{'form':form,'not_accepted':True})
     else:
         form = PremiumForm(initial={'accept':False})
         return render(request,'clubby/premium.html',{'form':form})
+
+@permission_required('clubby.is_premium_owner')
+def cancel_premium(request):
+    return None
+    
