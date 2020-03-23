@@ -185,7 +185,7 @@ class Reservation(models.Model):
 class Rating(models.Model):
     text = models.TextField(max_length=500)
     stars = models.IntegerField(help_text='star rating 1-10')
-    recommended = models.BooleanField(help_text='would you recommend this club?')
+    fecha = models.DateTimeField(default=datetime.datetime.now())
     club = models.ForeignKey(Club, on_delete = models.CASCADE)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
 

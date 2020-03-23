@@ -40,6 +40,6 @@ class TicketCreateModelForm(forms.Form):
     size = forms.IntegerField(max_value=99999,min_value=1,help_text="'Number of tickets. (Max)")
 
 
-#class ProductForm(ModelForm):
- #   name = forms.CharField(max_length=50, required= True, help_text='Required, 50 characters max')
-  #  price = forms.field
+class RatingCreateModelForm(forms.Form):
+    stars = forms.IntegerField(max_value=10,min_value=1, help_text='Your rating.')
+    text = forms.CharField(max_length = 500, help_text='Your oppinion.', widget=forms.Textarea)

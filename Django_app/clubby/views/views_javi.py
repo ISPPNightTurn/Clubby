@@ -16,11 +16,11 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from ..forms import TicketCreateModelForm
+from ..forms import TicketCreateModelForm, RatingCreateModelForm
 
 from datetime import datetime, timedelta
 
-from ..models import Club, Event, Profile, Product, Ticket, QR_Item
+from ..models import Club, Event, Profile, Product, Ticket, QR_Item, Rating
 
 import datetime
 
@@ -159,3 +159,37 @@ def EventsByClubAndFutureList(request, order = None):
 
 
     return render(request, 'clubby/event/list.html', {"object_list": list, "old_object_list": aux})
+
+#################
+#     Rating    #
+#################
+
+@login_required
+def ClubListRating(request, club_id, order = None):
+
+    if order is None or order is 1:
+        order = 1
+        list = Rating.objects.filter(club_id = club_id).order_by('-fecha')
+    if order is 2:
+        list = Rating.objects.filter(club_id = club_id).order_by('-stars')
+
+    return render(request, 'clubby/club/rating_list.html', {"list": list, "club_id":club_id, "order":order})
+
+@permission_required('clubby.is_user')
+def ClubCreateRating(request, club_id):
+
+    if (request.method == 'POST'):
+        form = RatingCreateModelForm(data=request.POST or None)
+        if form.is_valid():
+
+            stars = form.cleaned_data['stars']
+            text = form.cleaned_data['text']
+            t = Rating(stars=stars, text=text,fecha=datetime.datetime.now(),
+                club_id=club_id,user_id=request.user.id)
+            t.save()
+
+            return HttpResponseRedirect(reverse('clubs'))
+
+    else:
+        form = RatingCreateModelForm(initial={'stars':10,'text':''})
+        return render(request, 'clubby/club/rating_create.html', {'form': form})

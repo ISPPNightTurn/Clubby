@@ -1,0 +1,43 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+<h1 class="header center white-text">Club list</h1>
+
+<div class="card-action black">
+  <a href="{% url 'create-rating' club_id=club_id %}" class="btn-large purple darken-4 ">Add rating</a>
+</div>
+
+{% if order == 1 %}
+<div class="card-action black">
+  <a href="{% url 'list-rating' club_id=club_id order=2 %}" class="btn-large purple darken-4 ">Ordenar por estrellas</a>
+</div>
+{% endif %} 
+
+{% if order == 2 %}
+<div class="card-action black">
+  <a href="{% url 'list-rating' club_id=club_id order=1 %}" class="btn-large purple darken-4 ">Ordenar por fecha</a>
+</div>
+{% endif %} 
+
+<div class="list center">
+  <div class="deep-purple darken-4 toast rounded grid-container">
+    {% if list %}
+    <div class="row">
+
+      {% for rating in list %}
+            <div class="col s12 m7">
+                <p>{{rating.user.username}} - {{rating.fecha}}</p>
+                <p>Estrellas: {{rating.stars}}</p>
+                <p>Opinión:</p>
+                <p>{{rating.text}}</p>             
+            </div>
+                  
+      {% endfor %}
+    </div>
+    {% else %}
+      <br>
+      <p>There are no rating yet.</p>
+    {% endif %} 
+  </div>
+</div>
+{% endblock %}

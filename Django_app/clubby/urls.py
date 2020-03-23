@@ -71,6 +71,9 @@ urlpatterns += [
 
 urlpatterns += [
     path('event/<int:event_id>/create_tickets', views.EventCreateTickets, name='create-tickets'),
+    path('club/<int:club_id>/rating_list', views.ClubListRating, name='list-rating'),
+    path('club/<int:club_id>/rating_list/<int:order>', views.ClubListRating, name='list-rating'),
+    path('club/<int:club_id>/rating_create', views.ClubCreateRating, name='create-rating'),
 ]
 
 urlpatterns += [  
