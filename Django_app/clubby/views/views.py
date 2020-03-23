@@ -217,7 +217,7 @@ class ClubDelete(PermissionRequiredMixin,DeleteView):
 class ProductCreate(PermissionRequiredMixin,CreateView):
     permission_required = 'clubby.is_owner'
     model = Product
-    fields = ['name','price']
+    form_class = ProductModelForm #<-- since the validation is here we need to specify the form we want to use.
     template_name = 'clubby/product/product_form.html'
     # you can't use the exclude here.
 

@@ -164,6 +164,27 @@ class Product(models.Model):
     name = models.CharField(max_length=50)
     price = models.DecimalField(decimal_places=2,max_digits=5)
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    
+
+    PRODUCT_TYPE = (
+        ('r', 'refreshment'),
+        ('c', 'cocktail'),
+        ('s', 'shot'),
+        ('b', 'beer'),
+        ('w', 'wine'),
+        ('k', 'snack'),
+        ('h', 'hookah'),
+        ('m', 'misc.'),
+    )
+    product_type = models.CharField(
+        max_length=1,
+        choices=PRODUCT_TYPE,
+        blank=False,
+        default='m',
+        help_text='product type',
+    )
+
+    reservation_exclusive = models.BooleanField()
 
     def __str__(self):
         return self.name

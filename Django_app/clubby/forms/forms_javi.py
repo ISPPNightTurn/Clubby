@@ -38,6 +38,7 @@ class TicketCreateModelForm(forms.Form):
     category = forms.CharField(max_length = 40, help_text='The name of the type of ticket you are trying to sell.')
     description = forms.CharField(help_text='Decribe what this ticket entices.', widget=forms.Textarea)
     size = forms.IntegerField(max_value=99999,min_value=1,help_text="'Number of tickets. (Max)")
+    
 
 
 class RatingCreateModelForm(forms.Form):

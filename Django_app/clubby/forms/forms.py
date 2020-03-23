@@ -63,10 +63,19 @@ class SignupForm(UserCreationForm):
 class ProductModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
     price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, help_text='Required. 5 digits max' )
+    product_type = forms.CharField(
+        max_length=124,
+        widget=forms.Select(
+            choices=Product.PRODUCT_TYPE,
+            attrs={'class': 'browser-default deep-purple darken-4'}
+        ),
+    )
+    reservation_exclusive = forms.BooleanField(required=False,help_text="Is this product exclusive for clients with a reservation?")
+
     class Meta:
         model = Product
         fields = '__all__'
-        exclude = ['owner'] 
+        exclude = ['owner','club'] 
 
 class EventModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
