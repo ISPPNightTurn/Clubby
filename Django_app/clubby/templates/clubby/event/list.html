@@ -2,10 +2,15 @@
 
 {% block content %}
 <h1 class="header center white-text">Event List</h1>
-  
+
 <div class="center">
   <div class="deep-purple darken-4 rounded grid-container">
-
+    <form action="" method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <br>
+      <input type="submit" value="Search" class="btn-large purple darken-4">
+    </form>
   {% if object_list or old_object_list %}
   <div class="row">
 

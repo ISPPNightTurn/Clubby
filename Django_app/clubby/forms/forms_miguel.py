@@ -26,9 +26,21 @@ class PremiumForm(forms.Form):
 class SearchForm(forms.Form):
     query = forms.CharField(help_text="Looking for something?")
 
-# class ClubModelForm(ModelForm):
+class SearchEventForm(forms.Form):
+    # query = forms.CharField(help_text="Looking for something?",required=False)
+    start_date = forms.DateField(help_text="We will start looking here.")
+    end_date = forms.DateField(help_text="We stop looking here.")
+
+    def clean(self):
+        current_date = datetime.datetime.now().date()
+
+        start_date = self.cleaned_data.get('start_date')
+        end_date = self.cleaned_data.get('end_date')
+
+        if (start_date < current_date):
+            raise ValidationError("Date must be further than today.")
         
-#     class Meta:
-#         model = Club
-#         fields = '__all__'# we can eithe specify the fields from the model we want to use or
-#         exclude = ['club'] # select the ones we want to exclude.
+        if (end_date < start_date):
+            raise ValidationError("Date must be bigger or equal to the starting date.")
+
+        return self.cleaned_data
