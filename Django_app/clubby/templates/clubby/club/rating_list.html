@@ -63,6 +63,10 @@
             <div class="col s12 m7">
               <div class="card rounded">
                 <div class="card-content black">
+                      {% if rating.user.profile.picture != null %}
+                      <img src="{{rating.user.profile.picture}}" class="circle responsive-img" style="width: 50%;"/>
+                      </br>
+                      {% endif %}
                       <i class="small material-icons white-text">people</i><span class="light white-text" style="display: inline-block; vertical-align:top;">User: </span>
                       <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.user.username}}</span>
                       </br>
