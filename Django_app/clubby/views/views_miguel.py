@@ -19,7 +19,7 @@ from django import forms
 
 from django.utils.crypto import get_random_string
 
-from ..forms import TicketPurchaseForm, FundsForm, PremiumForm
+from ..forms import TicketPurchaseForm, FundsForm, PremiumForm, SearchForm
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 from background_task.models import Task
@@ -255,5 +255,9 @@ def cancel_premium(request):
     else:
         form = PremiumForm(initial={'accept':False})
         return render(request,'clubby/cancel_premium.html',{'form':form})
-    return None
+    
+#################
+#    FILTERS    #
+#################
+
     

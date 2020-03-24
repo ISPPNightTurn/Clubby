@@ -17,7 +17,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
-from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm, FundsForm
+from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm, FundsForm, SearchForm
 from ..models import Club, Event, Profile, Product, Ticket
 
 import datetime
@@ -150,9 +150,35 @@ def signup_owner(request):
 ###############
 
 class ClubListView(generic.ListView):
-    paginate_by = 2 # add pagination to the view
+    paginate_by = 5 # add pagination to the view
     model = Club
-    template_name = 'clubby/club/list.html'  # Specify your own template name/location 
+    template_name = 'clubby/club/list.html'  # Specify your own template name/location
+
+    def get_queryset(self):
+        items = Club.objects.all()
+        # items = Club.objects.filter(club = self.request.user.club) #this will be touched when the maps API is here.
+        return items
+
+    def get_context_data(self, **kwargs):
+        context = super(ClubListView, self).get_context_data(**kwargs)
+        form = SearchForm()
+        context['form'] = form
+        return context  
+
+    def post(self, request, *args, **kwargs):
+        form = SearchForm(self.request.POST)
+        query = form['query'].value()
+        # items = Club.objects.filter(club = self.request.user.club) #this will be touched when the maps API is here.
+        items = Club.objects.all()
+        
+        clubs = []
+        for club in items:
+            if((query.lower() in club.name.lower() )  or (query.lower() in club.address.lower())):
+                clubs.append(club)
+                
+        return render(request, 'clubby/club/list.html',{'object_list':clubs,'form':form})
+        # return StatusFormView.as_view()(request)
+
 
 class ClubDetailView(generic.DetailView):
     model = Club

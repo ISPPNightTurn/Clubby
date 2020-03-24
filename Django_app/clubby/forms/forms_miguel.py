@@ -23,6 +23,9 @@ class FundsForm(forms.Form):
 class PremiumForm(forms.Form):
     accept = forms.BooleanField(help_text="if you agree with these terms we welcome you to the clubby team!")
 
+class SearchForm(forms.Form):
+    query = forms.CharField(help_text="Looking for something?")
+
 # class ClubModelForm(ModelForm):
         
 #     class Meta:
