@@ -12,7 +12,12 @@
           <div class="col s12 m7">
             <div class="card rounded">
               <div class="card-image">
+                {% if club.picture == null%}
+                <img src="../../../static/clubby/images/background.jpg">
+                {% else %}
                 <img src={{club.picture}}>
+                {% endif %}
+                
                 <span class="card-title">{{ club.name }}</span>
               </div>
               <div class="card-content black">
