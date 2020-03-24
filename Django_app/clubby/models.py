@@ -32,7 +32,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     funds = models.DecimalField(decimal_places=2, max_digits=5,default=0.0)
-    picture = models.ImageField(upload_to= user_directory_path,null=True,blank=True, default='static/clubby/images/user_img.jpg')
+    picture = models.URLField(help_text='Post a picture of your pretty face, dude',null=True,blank=True)
     renew_premium = models.BooleanField(default=False)
 
     @receiver(post_save, sender=User)
@@ -73,8 +73,7 @@ class Club(models.Model):
     address = models.CharField(max_length=200, help_text='Enter the full address so google maps can find it.')
     max_capacity = models.IntegerField(help_text = 'The capacity of your club, you\'re responsible for the enforcement of this number.')
     NIF = models.CharField(max_length=10, help_text = 'Company number for the club')
-    picture = models.ImageField(upload_to= owner_directory_path,null=True,blank=True,default='static/clubby/images/background.jpg')
-
+    picture = models.URLField(help_text = 'URL to a picture of your club',null=True,blank=True)
     # This represents the owners user.
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -101,8 +100,7 @@ class Event(models.Model):
     start_time = models.IntegerField(max_length=2,help_text='event start time 24h format.', default=12)
     duration = models.IntegerField(max_length=2,help_text='event duration in hours, max is 12 hours',default=12)
     atendees = models.ManyToManyField(User)
-    picture = models.ImageField(upload_to=event_directory_path,null=True,blank=True,default='static/clubby/images/event_image.jpeg')
-
+    picture = models.URLField(help_text="URL to the poster for the event",null=True,blank=True)
     EVENT_TYPE = (
         ('c', 'casual'),
         ('f', 'fancy'),
@@ -149,6 +147,9 @@ class Ticket(models.Model):
     def __str__(self):
         return str(self.category) +' '+ str(self.event)
 
+    class Meta:
+        ordering=('category','price')
+
 class CreateTicket(models.Model):
     price = models.DecimalField(decimal_places=2,max_digits=5,default=1)#999,99 es el maximo
     category = models.CharField(max_length = 40, help_text='The name of the type of ticket you are trying to sell.',default = 'Basic')
@@ -193,6 +194,8 @@ class Product(models.Model):
         """Returns the url to access a detail record for this product."""
         return reverse('product-detail', args=[str(self.id)])
 
+    class Meta:
+        ordering=('reservation_exclusive','product_type')
 
 class Reservation(models.Model):
     max_time = models.IntegerField(help_text="max hours after the event starts people can arrive at.", max_length=2, default=4)

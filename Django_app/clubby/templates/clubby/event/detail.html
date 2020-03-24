@@ -3,7 +3,7 @@
 {% block content %}
 <div style="max-width: 700px;" class="card purple darken-2">  
   <div class="card-image">
-    <img src="../../../static/clubby/images/event_image.jpeg">
+    <img src="{{event.picture}}">
     <span class="card-title">{{ event.name }} (<a href="{{ event.club.get_absolute_url }}">{{ event.club.name}}</a>)</span>
   </div>
 <div class="card-content">

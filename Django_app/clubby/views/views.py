@@ -239,7 +239,7 @@ class ProductsByClubListView(LoginRequiredMixin, generic.ListView):
         login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
         def get_queryset(self):
-            item = Product.objects.filter(club = self.request.user.club)#.filter(status__exact='o').order_by('due_back')
+            item = Product.objects.filter(club = self.request.user.club)
             return item
 
 #################
