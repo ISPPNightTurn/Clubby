@@ -172,7 +172,7 @@ def ClubListRating(request, club_id, order = None):
         list = Rating.objects.filter(club_id = club_id).exclude(user_id=request.user.id).order_by('-fecha')
         listU = Rating.objects.filter(club_id = club_id,user_id=request.user.id)
     if order is 2:
-        list = Rating.objects.filter(club_id = club_id).order_by('-stars','-fecha')
+        list = Rating.objects.filter(club_id = club_id).exclude(user_id=request.user.id).order_by('-stars','-fecha')
         listU = Rating.objects.filter(club_id = club_id,user_id=request.user.id)
 
     return render(request, 'clubby/club/rating_list.html', {"list": list,"listU":listU, "club_id":club_id, "order":order})
