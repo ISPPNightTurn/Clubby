@@ -15,7 +15,7 @@
           {% if perms.clubby.is_owner %}
           <i class="small material-icons white-text">attach_money</i>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Premium status: </span>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">{%if user_profile.renew_premium %} Active {%else%} Inactive {%endif%}</span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{%if user_profile.renew_premium %} Active (<a href="{% url 'cancel-premium' %}">CANCEL</a>) {%else%} Inactive {%endif%}</span>
           <br/>
           {% endif %}
           <i class="small material-icons white-text">emoji_people</i>

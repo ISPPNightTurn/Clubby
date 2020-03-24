@@ -66,7 +66,8 @@ urlpatterns += [
 urlpatterns += [
     path('addFunds/<int:ammount>', views.add_funds, name='add-funds'),
     path('charge/<int:ammount>', views.charge, name='charge'),
-    path('getPremium', views.get_premium, name='get-premium'), 
+    path('getPremium', views.get_premium, name='get-premium'),
+    path('cancelPremium', views.cancel_premium, name='cancel-premium'), 
 ]
 
 urlpatterns += [

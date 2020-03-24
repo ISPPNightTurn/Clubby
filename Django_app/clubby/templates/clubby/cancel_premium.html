@@ -3,12 +3,12 @@
 {% block content %}
 <div class="col s12 m7">
 <div class="card center purple darken-2">
-  <span class="card-title">Setup your monthly subscription.</span>
+  <span class="card-title">Cancel your subscription?</span>
 
   <div class="card-content">
-    15$ will be substracted from your account at the start of every month.<br> 
-    if you dont have enough funds in your account the suscription will be cancelled automatically.<br>
-
+    This will cancel your current premium subscription, if you decide to renew it again you will be charged for it.<br> 
+    if you are okay with this you please check the box below.<br>
+    
   <form action="" method="post">
     {% csrf_token %}
     <p>
@@ -17,15 +17,13 @@
         <span style="color: white;">Accept</span>
       </label>
     </p>
-    <button class="btn purple darken-4" type="submit">Activate a premium subscription!</button>
+    <button class="btn purple darken-4" type="submit">Sorry to see you go :(</button>
   </form>
+
   {% if not_accepted %}
   You must accept the conditions
   {%endif%}
 
-  {% if not_enough_funds %}
-  You dont have enough funds, add more on the profile page.
-  {%endif%}
   </div>
 </div>
 </div>

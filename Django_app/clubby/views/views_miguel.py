@@ -202,27 +202,30 @@ def get_premium(request): # new
             if(owner.profile.funds < Decimal("15")):
                 return render(request,'clubby/premium.html',{'form':form,'not_enough_funds':True})
             else:
-                profile = owner.profile
-                profile.renew_premium = True
-                profile.funds -=  Decimal("15")
-                my_group = Group.objects.get(name='premium owner') 
-                my_group.user_set.add(owner)
-                owner.save()
-                profile.save()
-                
-                # These are models created by the package.
+                # These are models created by the django-background-tasks package...
                 owner_tasks = Task.objects.filter(creator_object_id=owner.pk)
+                profile = owner.profile
+
+                print(owner_tasks)
 
                 if(len(owner_tasks)==0):
+                    profile.renew_premium = True
+                    profile.funds -=  Decimal("15")
+                    my_group = Group.objects.get(name='premium owner') 
+                    my_group.user_set.add(owner)
+                    owner.save()
+                    profile.save()
                     now = datetime.datetime.now()
                     if(now.month == 12):
                         next_payment = datetime.datetime(now.year+1, 1 , 2, 2)
                     else:
                         next_payment = datetime.datetime(now.year,now.month +1 , 2, 2)
 
-                    check_premium(owner.pk, schedule=next_payment, creator=owner)
+                    #check_premium(owner.pk, schedule=next_payment, creator=owner) #Solo la crearemos una vez.
+                    check_premium(owner.pk, schedule=600, creator=owner) #10 Minutos como testing.
                 else:
                     profile.funds -=  Decimal("15")
+                    profile.renew_premium = True
                     profile.save()
 
                 #check_premium(owner.pk, schedule=60)
@@ -235,5 +238,22 @@ def get_premium(request): # new
 
 @permission_required('clubby.is_premium_owner')
 def cancel_premium(request):
+    if request.method == 'POST':
+        form = PremiumForm(request.POST)
+        has_accepted = form['accept'].value()
+        if(has_accepted):
+            owner = request.user
+            profile = owner.profile    
+            profile.funds -=  Decimal("15")
+            profile.renew_premium = False
+            my_group = Group.objects.get(name='premium owner') 
+            my_group.user_set.remove(owner)
+            profile.save()
+            return render(request,'clubby/charge.html')
+        else:
+            return render(request,'clubby/cancel_premium.html',{'form':form,'not_accepted':True})
+    else:
+        form = PremiumForm(initial={'accept':False})
+        return render(request,'clubby/cancel_premium.html',{'form':form})
     return None
     
