@@ -7,7 +7,23 @@
   {% if perms.clubby.is_user %}
     {% for product, form in product_ammount.items %} 
     <li class="collection-item purple darken-4 avatar">
-      <img alt="" class="circle" src="../../../static/clubby/images/bebidas.jpeg">
+      {% if product.product_type == 'h' %}
+    <img class="circle" src="../../../static/clubby/images/hookah.jpg">
+    {% elif product.product_type == 'b' %}
+    <img class="circle" src="../../../static/clubby/images/beer.jpg">
+    {% elif product.product_type == 'w'  %}
+    <img class="circle" src="../../../static/clubby/images/wine.jpg">
+    {% elif product.product_type == 'k'  %}
+    <img class="circle" src="../../../static/clubby/images/snack.jpg">
+    {% elif product.product_type == 'r'  %}
+    <img class="circle" src="../../../static/clubby/images/refreshment.jpg">
+    {% elif product.product_type == 'c'  %}
+    <img class="circle" src="../../../static/clubby/images/cocktail.jpg">
+    {% elif product.product_type == 's'  %}
+    <img class="circle" src="../../../static/clubby/images/shot.jpg">
+    {% elif product.product_type == 'm'  %}
+    <img class="circle" src="../../../static/clubby/images/bebidas.jpeg">
+    {% endif %}
       <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ({{product.price}}) 
       {% if product.product_type == 'h'  %}
       <p><strong>Type:</strong> Hookah</p>

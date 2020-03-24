@@ -1,10 +1,27 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-<div class="card purple">
+<div style="max-width: 700px;" class="card purple">
   <div class="card-image">
-    <img src="../../../static/clubby/images/bebidas.jpeg">
+    {% if product.product_type == 'h' %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/hookah.jpg">
+    {% elif product.product_type == 'b' %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/beer.jpg">
+    {% elif product.product_type == 'w'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/wine.jpg">
+    {% elif product.product_type == 'k'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/snack.jpg">
+    {% elif product.product_type == 'r'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/refreshment.jpg">
+    {% elif product.product_type == 'c'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/cocktail.jpg">
+    {% elif product.product_type == 's'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/shot.jpg">
+    {% elif product.product_type == 'm'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/bebidas.jpeg">
+    {% endif %}
     <span class="card-title">Name: {{ product.name }}</span>
+    
   </div>
   <div class="card-content">
     <p>Price: {{ product.price }}</p>
