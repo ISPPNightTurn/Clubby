@@ -101,7 +101,7 @@ class Event(models.Model):
     duration = models.IntegerField(max_length=2,help_text='event duration in hours, max is 12 hours',default=12)
     atendees = models.ManyToManyField(User)
     picture = models.URLField(help_text="URL to the poster for the event",null=True,blank=True)
-    EVENT_TYPE = (
+    TYPE_OF_EVENT = (
         ('c', 'casual'),
         ('f', 'fancy'),
         ('d', 'dress_up'),
@@ -109,7 +109,7 @@ class Event(models.Model):
     )
     event_type = models.CharField(
         max_length=1,
-        choices=EVENT_TYPE,
+        choices=TYPE_OF_EVENT,
         blank=True,
         default='c',
         help_text='event type',
@@ -167,7 +167,7 @@ class Product(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     
 
-    PRODUCT_TYPE = (
+    TYPE_OF_PRODUCT = (
         ('r', 'refreshment'),
         ('c', 'cocktail'),
         ('s', 'shot'),
@@ -179,7 +179,7 @@ class Product(models.Model):
     )
     product_type = models.CharField(
         max_length=1,
-        choices=PRODUCT_TYPE,
+        choices=TYPE_OF_PRODUCT,
         blank=False,
         default='m',
         help_text='product type',
