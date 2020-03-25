@@ -13,6 +13,10 @@
         <div class="card rounded">
           <span class="black">My opinion</span>
           <div class="card-content black">
+                {% if rating.user.profile.picture != null %}
+                <img src="{{rating.user.profile.picture}}" class="circle responsive-img" style="width: 50%;"/>
+                </br>
+                {% endif %}
                 <i class="small material-icons white-text">calendar_today</i><span class="light white-text" style="display: inline-block; vertical-align:top;">Date: </span>
                 <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.fecha}}</span>
                 <br/>
