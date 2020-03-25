@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'qr_code',
     'background_task',
     'social_django',
+	'rest_framework',
 ]
 
 MIDDLEWARE = [
