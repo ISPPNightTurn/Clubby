@@ -34,6 +34,7 @@ urlpatterns = [
     path('mypublishedeventsfuture', views.EventsByClubAndFutureListView.as_view(), name='my-events-future'),
     path('event/create', views.EventCreateView.as_view(), name='event-create'),
     path('profile', views.profile, name='profile'),
+    path('profile/edit', views.edit_profile, name='edit-profile'),
 ]
 
 urlpatterns += [

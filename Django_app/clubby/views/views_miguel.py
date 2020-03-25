@@ -19,7 +19,7 @@ from django import forms
 
 from django.utils.crypto import get_random_string
 
-from ..forms import TicketPurchaseForm, FundsForm, PremiumForm, SearchForm
+from ..forms import TicketPurchaseForm, FundsForm, PremiumForm, SearchForm, EditProfileForm
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 from background_task.models import Task
@@ -256,8 +256,33 @@ def cancel_premium(request):
         form = PremiumForm(initial={'accept':False})
         return render(request,'clubby/cancel_premium.html',{'form':form})
     
-#################
-#    FILTERS    #
-#################
+########################
+#    EDIT USER DATA    #
+########################
 
-    
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request=request)
+        if form.is_valid():
+            user = request.user
+            profile = user.profile
+            user.first_name = form.cleaned_data.get('first_name')
+            user.last_name = form.cleaned_data.get('last_name')
+            user.email = form.cleaned_data.get('email')
+
+            user.save()
+
+            profile.birth_date = form.cleaned_data.get('birth_date')
+            profile.bio = form.cleaned_data.get('bio')
+            profile.location = form.cleaned_data.get('location')
+
+            profile.save()
+            return redirect('profile')
+        else:
+            return render(request,'clubby/edit_profile.html',{'form':form})
+    else:
+        user = request.user
+        form = EditProfileForm(initial={'first_name':user.first_name,'last_name':user.last_name,'email':user.email,
+        'bio':user.profile.bio, 'location':user.profile.location, 'birth_date':user.profile.birth_date,})
+        return render(request,'clubby/edit_profile.html',{'form':form})

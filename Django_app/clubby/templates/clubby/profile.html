@@ -44,8 +44,7 @@
           <br/>
         </div>
         <div class="card-action black">
-          <a href="">Edit profile</a>
-          <p>(Not implement yet, sorry)</p>
+          <a href="{% url 'edit-profile' %}">Edit profile</a>
 
           <form method="post">
             {% csrf_token %}
@@ -62,7 +61,7 @@
     <br>
     <p class="strong materialize-red" style="font-size: 1.64rem">
       Sorry your event publication limit has been reached (2 per month), if you wish to have unlimited events and more <br>
-      consider becoming <a href=>Premium</a>!(not yet implemented sorry again :P)
+      consider becoming <a href="{% url 'get-premium' %}">Premium</a>!
     </p>
     {% endif %}
 
