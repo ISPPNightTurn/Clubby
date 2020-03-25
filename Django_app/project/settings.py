@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import sys
 import logging
 from qr_code.qrcode import constants    
 
@@ -87,25 +86,15 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        #'NAME': os.path.join(BASE_DIR, 'db.mysql'),
         'NAME': 'djangodatabase',
         'USER': 'clubby',
         'PASSWORD': 'I$PP-C1ubby',
         'HOST': '127.0.0.1',
-        'TEST': {
-          # this gets you in-memory sqlite for tests, which is fast
-          'ENGINE': 'django.db.backends.sqlite3',
-        },
         'PORT': '3306',
     }
 }
-if 'test' in sys.argv and 'keepdb' in sys.argv:
-    # and this allows you to use --keepdb to skip re-creating the db,
-    # even faster!
-    DATABASES['default']['TEST']['NAME'] = '/dev/shm/clubby.test.db.sqlite3'
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
