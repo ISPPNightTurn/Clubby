@@ -24,8 +24,6 @@ from ..models import Club, Event, Profile, Product, Ticket, QR_Item, Rating
 
 import datetime
 
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 #################
 #    TICKETS    #
 #################
@@ -101,65 +99,66 @@ def CheckHistory(request):
 #  Order Events #
 #################
 
-# @login_required
-# def EventsByUserList(request, order = None):
+@login_required
+def EventsByUserList(request, order = None):
 
-#     current_user = request.user
+    current_user = request.user
 
-#     if order is None or order is 1:
+    if order is None or order is 1:
 
-#         list = Event.objects.filter(atendees = current_user).order_by('start_date' , 'start_time')
+        list = Event.objects.filter(atendees = current_user).order_by('start_date' , 'start_time')
 
-#         aux = Event.objects.none()
+        aux = Event.objects.none()
 
-#         for event in list:
-#             dn = datetime.datetime.now() - timedelta(hours=event.duration)
-#             d = datetime.datetime(event.start_date.year, event.start_date.month, 
-#                 event.start_date.day) + timedelta(hours=event.start_time)
-#             if dn > d:
-#                 aux |= Event.objects.filter(pk = event.pk)
-#                 list = list.exclude(pk = event.pk)
-
-#     return render(request, 'clubby/event/list.html', {"object_list": list, "old_object_list": aux})
-
-# @login_required
-# def EventList(request, order = None):
-
-#     if order is None or order is 1:
-
-#         list = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).order_by('start_date' , 'start_time')
-
-#         for event in list:
-#             dn = datetime.datetime.now() - timedelta(hours=event.duration)
-#             d = datetime.datetime(event.start_date.year, event.start_date.month, 
-#                 event.start_date.day) + timedelta(hours=event.start_time)
-#             if dn > d:
-#                 list = list.exclude(pk = event.pk)
+        for event in list:
+            dn = datetime.datetime.now() - timedelta(hours=event.duration)
+            d = datetime.datetime(event.start_date.year, event.start_date.month, 
+                event.start_date.day) + timedelta(hours=event.start_time)
+            if dn > d:
+                aux |= Event.objects.filter(pk = event.pk)
+                list = list.exclude(pk = event.pk)
 
 
-#     return render(request, 'clubby/event/list.html', {"object_list": list})
+    return render(request, 'clubby/event/list.html', {"object_list": list, "old_object_list": aux})
 
-# @permission_required('clubby.is_owner')
-# def EventsByClubAndFutureList(request, order = None):
+@login_required
+def EventList(request, order = None):
 
-#     club = Club.objects.filter(owner = request.user)[0]
+    if order is None or order is 1:
 
-#     if order is None or order is 1:
+        list = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).order_by('start_date' , 'start_time')
 
-#         list = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club).order_by('start_date' , 'start_time')
-
-#         aux = Event.objects.none()
-
-#         for event in list:
-#             dn = datetime.datetime.now() - timedelta(hours=event.duration)
-#             d = datetime.datetime(event.start_date.year, event.start_date.month, 
-#                 event.start_date.day) + timedelta(hours=event.start_time)
-#             if dn > d:
-#                 aux |= Event.objects.filter(pk = event.pk)
-#                 list = list.exclude(pk = event.pk)
+        for event in list:
+            dn = datetime.datetime.now() - timedelta(hours=event.duration)
+            d = datetime.datetime(event.start_date.year, event.start_date.month, 
+                event.start_date.day) + timedelta(hours=event.start_time)
+            if dn > d:
+                list = list.exclude(pk = event.pk)
 
 
-#     return render(request, 'clubby/event/list.html', {"object_list": list, "old_object_list": aux})
+    return render(request, 'clubby/event/list.html', {"object_list": list})
+
+@permission_required('clubby.is_owner')
+def EventsByClubAndFutureList(request, order = None):
+
+    club = Club.objects.filter(owner = request.user)[0]
+
+    if order is None or order is 1:
+
+        list = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club).order_by('start_date' , 'start_time')
+
+        aux = Event.objects.none()
+
+        for event in list:
+            dn = datetime.datetime.now() - timedelta(hours=event.duration)
+            d = datetime.datetime(event.start_date.year, event.start_date.month, 
+                event.start_date.day) + timedelta(hours=event.start_time)
+            if dn > d:
+                aux |= Event.objects.filter(pk = event.pk)
+                list = list.exclude(pk = event.pk)
+
+
+    return render(request, 'clubby/event/list.html', {"object_list": list, "old_object_list": aux})
 
 #################
 #     Rating    #
@@ -168,25 +167,13 @@ def CheckHistory(request):
 @login_required
 def ClubListRating(request, club_id, order = None):
 
-    page = request.GET.get('page', 1)
-    
     if order is None or order is 1:
         order = 1
         list = Rating.objects.filter(club_id = club_id).exclude(user_id=request.user.id).order_by('-fecha')
         listU = Rating.objects.filter(club_id = club_id,user_id=request.user.id)
-        paginator = Paginator(list, 5)
-
     if order is 2:
         list = Rating.objects.filter(club_id = club_id).exclude(user_id=request.user.id).order_by('-stars','-fecha')
         listU = Rating.objects.filter(club_id = club_id,user_id=request.user.id)
-        paginator = Paginator(list, 5)
-
-    try:
-        list = paginator.page(page)
-    except PageNotAnInteger:
-        list = paginator.page(1)
-    except EmptyPage:
-        list = paginator.page(paginator.num_pages)
 
     return render(request, 'clubby/club/rating_list.html', {"list": list,"listU":listU, "club_id":club_id, "order":order})
 

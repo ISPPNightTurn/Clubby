@@ -20,8 +20,6 @@ from django.urls import reverse_lazy
 from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm, FundsForm, SearchForm, SearchEventForm
 from ..models import Club, Event, Profile, Product, Ticket
 
-from datetime import datetime, timedelta
-
 import datetime
 import calendar
 
@@ -286,7 +284,7 @@ class EventListView(generic.ListView):
         #gt = greater than
         #lte = lesser than or equal
         #lt = lesser than
-        items = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).order_by('start_date' , 'start_time')
+        items = Event.objects.filter(start_date__gte = datetime.datetime.now().date())
         return items
 
     def get_context_data(self, **kwargs):
@@ -302,7 +300,7 @@ class EventListView(generic.ListView):
         end_date = form['end_date'].value()
         #check if these were used.
         items = Event.objects.filter(start_date__gte = start_date)
-        items = items.filter(start_date__lte = end_date).order_by('start_date' , 'start_time')
+        items = items.filter(start_date__lte = end_date)
         print(items)
 
         return render(request, 'clubby/event/list.html',{'object_list':items,'form':form})
@@ -318,14 +316,14 @@ class EventDetailView(generic.DetailView):
 class EventsByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing events the user has participated, or is going to participate in."""
     model = Event
-    template_name ='clubby/event/user_list.html'
+    template_name ='clubby/event/list.html'
     paginate_by = 5
+
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
     def get_queryset(self):
-
-        list = Event.objects.filter(atendees = self.request.user).order_by('-start_date','-start_time')
-        return list
+        item = Event.objects.filter(atendees = self.request.user)#.filter(status__exact='o').order_by('due_back')
+        return item
 
 class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
     """Generic class-based view listing events of the club, that haven't happened yet."""
@@ -333,13 +331,14 @@ class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
     model = Event
     template_name ='clubby/event/list.html'
     paginate_by = 5
+
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
 
     def get_queryset(self):
         #the gte and lte indicate greater than and lesser than for filtering by dates.
         club = Club.objects.filter(owner = self.request.user)[0]
-        list = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club).order_by('-start_date' , '-start_time')
-        return list
+        items = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club)#.filter(start_date__gte = datetime.datetime.now().date)#.order_by('due_back')
+        return items
 
 class EventCreateView(PermissionRequiredMixin,CreateView):
     permission_required = 'clubby.is_owner'
