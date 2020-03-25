@@ -13,10 +13,6 @@
         <div class="card rounded">
           <span class="black">My opinion</span>
           <div class="card-content black">
-                {% if rating.user.profile.picture != null %}
-                <img src="{{rating.user.profile.picture}}" class="circle responsive-img" style="width: 50%;"/>
-                </br>
-                {% endif %}
                 <i class="small material-icons white-text">calendar_today</i><span class="light white-text" style="display: inline-block; vertical-align:top;">Date: </span>
                 <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.fecha}}</span>
                 <br/>
@@ -38,9 +34,11 @@
   </div>
 </div>
 {% else %}
+{% if perms.clubby.is_user %}
 <div class="center">
   <a href="{% url 'create-rating' club_id=club_id %}" class="btn-large purple darken-4 ">Add rating</a>
 </div>
+{%endif%} 
 {% endif %}
 <br>
 <br>
@@ -95,4 +93,18 @@
     {% endif %} 
   </div>
 </div>
+
+{% if list.has_other_pages %}
+<br><br>
+  <ul class="pagination">
+    {% if list.has_previous %}
+      <li><a href="?page={{ list.previous_page_number }}"><i class="material-icons">chevron_left</i></a></a></li>
+    {% endif %}
+    <li><span>Page {{ list.number }} of {{list.paginator.num_pages}} <span class="sr-only">(current)</span></span></li>
+    {% if list.has_next %}
+      <li><a href="?page={{ list.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
 {% endblock %}

@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import logging
 from qr_code.qrcode import constants    
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -44,7 +43,6 @@ INSTALLED_APPS = [
     'qr_code',
     'background_task',
     'social_django',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +85,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        #'NAME': os.path.join(BASE_DIR, 'db.mysql'),
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME': 'djangodatabase',
         'USER': 'clubby',
         'PASSWORD': 'I$PP-C1ubby',
@@ -95,6 +93,7 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

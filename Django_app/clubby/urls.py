@@ -28,13 +28,10 @@ urlpatterns = [
     path('clubs', views.ClubListView.as_view(), name='clubs'),
     path('club/<int:pk>', views.ClubDetailView.as_view(), name='club-detail'),
     path('events', views.EventListView.as_view(), name='events'),
-    path('events/<int:order>', views.EventList, name='events'),
     path('event/<int:pk>', views.EventDetailView.as_view(), name='event-detail'),
-    path('myevents', views.EventsByUserList, name='my-events'),
-    path('myevents/<int:order>', views.EventsByUserList, name='my-events'),
+    path('myevents', views.EventsByUserListView.as_view(), name='my-events'),
     # path('mypublishedevents', views.EventsByClubListView.as_view(), name='my-published-events'),
-    path('mypublishedeventsfuture', views.EventsByClubAndFutureList, name='my-events-future'),
-    path('mypublishedeventsfuture/<int:order>', views.EventsByClubAndFutureList, name='my-events-future'),
+    path('mypublishedeventsfuture', views.EventsByClubAndFutureListView.as_view(), name='my-events-future'),
     path('event/create', views.EventCreateView.as_view(), name='event-create'),
     path('profile', views.profile, name='profile'),
 ]
@@ -101,10 +98,6 @@ urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('social_django.urls', namespace='social')),
     path('social/success/', views.socialsuccess, name="social-sucess"),
-]
-
-urlpatterns += [
-    url(r'^api/chart/data/$', views.ChartData.as_view()),
 ]
 
 
