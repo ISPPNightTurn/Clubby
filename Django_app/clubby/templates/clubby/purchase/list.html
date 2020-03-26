@@ -16,25 +16,35 @@
               {% qr_from_text qr_item.get_real_absolute_url size="M" %}
             </div>
             <div class="card-content">
-              {{qr_item.product.name}}-<b>Product</b>
-              {% if product.product_type == 'h'  %}
-    <p><strong>Type:</strong> Hookah</p>
-  {% elif qr_item.product.product_type == 'b'  %}
-    <p><strong>Type:</strong> Beer</p>
-  {% elif qr_item.product.product_type == 'w'  %}
-    <p><strong>Type:</strong> Wine</p>
-  {% elif qr_item.product.product_type == 'k'  %}
-    <p><strong>Type:</strong> Snack</p>
-  {% elif qr_item.product.product_type == 'r'  %}
-    <p><strong>Type:</strong> Refreshment</p>
-  {% elif qr_item.product.product_type == 'c'  %}
-    <p><strong>Type:</strong> Cocktail</p>
-  {% elif qr_item.product.product_type == 's'  %}
-    <p><strong>Type:</strong> Shot</p>
-  {% elif qr_item.product.product_type == 'm'  %}
-    <p><strong>Type:</strong> Misc.</p>
-  {%endif%}
-              (Reservatione exclusive: {{qr_item.product.reservation_exclusive}})
+              <b>Product: </b>{{qr_item.product.name}}<br/>
+
+
+              <b>Product Type: </b>
+              {% if qr_item.product.product_type == 'r' %}
+              <p>Refreshment</p>
+              {% elif qr_item.product.product_type == 'c'%}
+              <p>Cocktail</p>
+              {% elif qr_item.product.product_type == 's'%}
+              <p>Shot</p>
+              {% elif qr_item.product.product_type == 'b'%}
+              <p>Beer</p>
+              {% elif qr_item.product.product_type == 'w'%}
+              <p>Wine</p>
+              {% elif qr_item.product.product_type == 'k'%}
+              <p>Snack</p>
+              {% elif qr_item.product.product_type == 'h'%}
+              <p>Hookah</p>
+              {% elif qr_item.product.product_type == 'm'%}
+              <p>Misc.</p>
+              {% endif %}
+
+              {% if qr_item.product.reservation_exclusive == True %}
+              <b>Reservation exclusive</b>
+              {% else %}
+              <b>Not exclusive</b>
+              {% endif %}
+
+
               </br>
             </div>
           </div>
@@ -44,7 +54,8 @@
               {% qr_from_text qr_item.get_real_absolute_url size="M" %}
             </div>
             <div class="card-content">
-              {{qr_item.ticket.event.name}}-<b>Ticket</b>
+              <b>Ticket: </b>{{qr_item.ticket.event.name}}<br/>
+              <b>Price: </b>{{qr_item.ticket.price}}
             </div>
           </div>
         {% endif %}
@@ -56,7 +67,7 @@
   <div class="card purple darken-2">
     <p>You have no purchases</p>
   </div>
-    
+
   {% endif %}
 
 {% endblock %}
