@@ -19,7 +19,11 @@
     <div class="list col s12 m7">
       <div class="card rounded">
         <div class="card-image">
+          {% if club.picture == null%}
+          <img src="../../../static/clubby/images/event_image.jpeg">
+          {% else %}
           <img src="{{event.picture}}">
+          {% endif %}
           <span class="card-title">{{ event.name }}</span>
         </div>
         <div class="card-content black">
