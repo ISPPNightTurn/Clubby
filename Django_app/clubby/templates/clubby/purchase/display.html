@@ -2,73 +2,133 @@
 
 {% block content %}
   {% if qr_item.product != blank %}
-  <div class="card-image">
-    {% if qr_item.product.product_type == 'h' %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/hookah.jpg">
-    {% elif qr_item.product.product_type == 'b' %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/beer.jpg">
-    {% elif qr_item.product.product_type == 'w'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/wine.jpg">
-    {% elif qr_item.product.product_type == 'k'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/snack.jpg">
-    {% elif qr_item.product.product_type == 'r'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/refreshment.jpg">
-    {% elif qr_item.product.product_type == 'c'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/cocktail.jpg">
-    {% elif qr_item.product.product_typee == 's'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/shot.jpg">
-    {% elif qr_item.product.product_type == 'm'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/bebidas.jpeg">
-    {% endif %}
-    <h1>Product: {{ qr_item.product.name }}</h1>
-    <h1>Price: {{ qr_item.product.price }}</h1>
-    <h1>Club: {{ qr_item.product.club.name }}</h1>
-      {% if qr_item.product.product_type == 'h'  %}
-       <h1><p><strong>Type:</strong> Hookah</p></h1>
-      {% elif qr_item.product.product_type == 'b'  %}
-        <h1><p><strong>Type:</strong> Beer</p></h1>
-      {% elif qr_item.product.product_type == 'w'  %}
-        <h1><p><strong>Type:</strong> Wine</p></h1>
-      {% elif qr_item.product.product_type == 'k'  %}
-        <h1><p><strong>Type:</strong> Snack</p></h1>
-      {% elif qr_item.product.product_type == 'r'  %}
-        <h1><p><strong>Type:</strong> Refreshment</p></h1>
-      {% elif qr_item.product.product_type == 'c'  %}
-        <h1><p><strong>Type:</strong> Cocktail</p></h1>
-      {% elif qr_item.product.product_type == 's'  %}
-        <h1><p><strong>Type:</strong> Shot</p></h1>
-      {% elif qr_item.product.product_type == 'm'  %}
-        <h1><p><strong>Type:</strong> Misc.</p></h1>
-      {%endif%}
-    <h1>Club: {{ qr_item.product.club.name }}</h1>
-    {% if qr_item.product.reservation_exclusive %}
-      <h2>THE USER NEED TO HAVE A RESERVATION TO REDEEM THIS PRODUCT</h2>
-    {% endif %}
-  
- 
-  {% elif qr_item.ticket != blank %}
-    <div class="card-image">
-      {% if event.picture == blank%}
-                  <img src="../../../static/clubby/images/event_image.jpeg">
-                  {% else %}
-                  <img src={{event.picture}}>
+<div class="center">
+  <div class="deep-purple darken-4  rounded grid-container">
+    <div class="col s12 m7">
+      <div style="max-width: 700px; margin: auto;" class="card rounded">
+        <div class="card-content black">
+            {% if qr_item.product.product_type == 'h' %}
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/hookah.jpg">
+            {% elif qr_item.product.product_type == 'b' %}
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/beer.jpg">
+            {% elif qr_item.product.product_type == 'w'  %}
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/wine.jpg">
+            {% elif qr_item.product.product_type == 'k'  %}
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/snack.jpg">
+            {% elif qr_item.product.product_type == 'r'  %}
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/refreshment.jpg">
+            {% elif qr_item.product.product_type == 'c'  %}
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/cocktail.jpg">
+            {% elif qr_item.product.product_typee == 's'  %}
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/shot.jpg">
+            {% elif qr_item.product.product_type == 'm'  %}
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/bebidas.jpeg">
             {% endif %}
-    
-    <h1>Event: {{ qr_item.ticket.event.name }}</h1>
-    <h1>Price: {{ qr_item.ticket.price }}</h1>
-    <h1>Club: {{ qr_item.ticket.event.club.name }}</h1>
-    <h1>Category: {{ qr_item.ticket.category }}</h1>
-    <h1>Description: {{ qr_item.ticket.description }}</h1>
-
-  {% endif %}
-      {% if qr_item.is_used %}
-        <p>The QR has already been used</p>
-      {% else %}
-        <form action="" method="post">
-        {% csrf_token %} 
-        {{form}} Are you sure you want to redeem the QR Code?
-        </br>
-        <input type="submit" class="btn purple darken-4" value="Redeem!">
-        </form> 
-      {% endif %}
+            <br>
+            <br>
+            <i class="small material-icons white-text">redeem</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Product: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.name }}</span>
+            <br/>
+            <i class="small material-icons white-text">attach_money</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Price: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.price }}</span>
+            <br/>
+            {% if qr_item.product.product_type == 'h'  %}
+            <i class="small material-icons white-text">category</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Hookah</span>
+            <br/>
+            {%elif qr_item.product.product_type == 'b'  %}
+            <i class="small material-icons white-text">category</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Beer</span>
+            <br/>
+            {%elif qr_item.product.product_type == 'w'  %}
+            <i class="small material-icons white-text">category</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Wine</span>
+            <br/>
+            {%elif qr_item.product.product_type == 'k'  %}
+            <i class="small material-icons white-text">category</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Snack</span>
+            <br/>
+            {%elif qr_item.product.product_type == 'r'  %}
+            <i class="small material-icons white-text">category</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Refreshment</span>
+            <br/>
+            {%elif qr_item.product.product_type == 'c'  %}
+            <i class="small material-icons white-text">category</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Cocktail</span>
+            <br/>
+            {%elif qr_item.product.product_type == 's'  %}
+            <i class="small material-icons white-text">category</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Shot</span>
+            <br/>
+            {%elif qr_item.product.product_type == 'm'  %}
+            <i class="small material-icons white-text">category</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Misc.</span>
+            <br/>
+            {%endif%}
+            <i class="small material-icons white-text">domain</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Club: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.club.name }}</span>
+            <br/>
+            {% if qr_item.product.reservation_exclusive %}
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">THE USER NEED TO HAVE A RESERVATION TO REDEEM THIS PRODUCT</span>
+            <br/>
+            {% endif %}
+          
+         
+          {% elif qr_item.ticket != blank %}
+              {% if event.picture == blank%}
+                          <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/event_image.jpeg">
+                          <br>
+                          {% else %}
+                          <img class="responsive-img" style="width: 50%;" src={{event.picture}}>
+                          <br>
+                    {% endif %}
+            <i class="small material-icons white-text">group</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Event: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.event.name }}</span>
+            <br/>
+            <i class="small material-icons white-text">attach_money</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Price: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.price }}</span>
+            <br/>
+            <i class="small material-icons white-text">domain</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Club: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.event.club.name }}</span>
+            <br/>
+            <i class="small material-icons white-text">category</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Category: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.category }}</span>
+            <br/>
+            <i class="small material-icons white-text">description</i>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">Description: </span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.description }}</span>
+            <br/>
+        
+          {% endif %}
+              {% if qr_item.is_used %}
+              <span class="light white-text" style="display: inline-block; vertical-align:top;">The QR has already been used</span>
+              {% else %}
+                <form action="" method="post">
+                {% csrf_token %} 
+                {{form}} Are you sure you want to redeem the QR Code?
+                </br>
+                <input type="submit" class="btn purple darken-4" value="Redeem!">
+                </form> 
+              {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
 {% endblock %}
