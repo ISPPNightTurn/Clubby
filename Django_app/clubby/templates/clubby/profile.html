@@ -46,9 +46,9 @@
           </br>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">
             {% if user_profile.picture == blank%}
-                <img src="../../../static/clubby/images/user_img.jpg">
+                <img class="circle responsive-img" style="width: 50%;" src="../../../static/clubby/images/user_img.jpg">
                 {% else %}
-                <img src={{user_profile.picture}}>
+                <img class="circle responsive-img" style="width: 50%;" src={{user_profile.picture}}>
           {% endif %}
           </span>
         </div>
