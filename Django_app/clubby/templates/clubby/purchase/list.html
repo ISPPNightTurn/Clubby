@@ -11,7 +11,7 @@
     <div style="margin: auto" class="center-align">
       {% for qr_item in object_list %}
         {% if qr_item.product != blank %}
-          <div class="card purple darken-2">
+          <div class="card deep-purple darken-4">
             <div class="card-image white">
               {% qr_from_text "http://localhost:8000"|add:qr_item.get_absolute_url size="M" %}
               
@@ -50,7 +50,7 @@
             </div>
           </div>
         {% elif qr_item.ticket != blank %}
-          <div class="card purple darken-2">
+          <div class="card deep-purple darken-4">
             <div class="card-image white">
               {% qr_from_text qr_item.get_real_absolute_url size="M" %}
             </div>
@@ -65,7 +65,7 @@
   </div>
 
   {% else %}
-  <div class="card purple darken-2">
+  <div class="card deep-purple darken-4">
     <p>You have no purchases</p>
   </div>
     
