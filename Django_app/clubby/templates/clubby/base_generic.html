@@ -87,6 +87,11 @@
       <img class="logo_img_sidenav" src="../../static/clubby/images/clubby_logo_white_no_bg.png"/>
       <BR/>
     </div></li>
+    {% if user.profile.picture != null %}
+    <li><a><img src="{{user.profile.picture}}" class="circle responsive-img" style="width: 25%;"/></a></li>
+    <BR>
+    {%endif%}
+    
     <a class="subheader">User</a>
 
       {% if user.is_authenticated %}
