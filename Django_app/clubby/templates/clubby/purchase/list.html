@@ -13,8 +13,7 @@
         {% if qr_item.product != blank %}
           <div class="card deep-purple darken-4">
             <div class="card-image white">
-              {% qr_from_text "http://localhost:8000"|add:qr_item.get_absolute_url size="M" %}
-              
+              {% qr_from_text qr_item.get_real_absolute_url size="M" %}
             </div>
             <div class="card-content">
               <b>Product: </b>{{qr_item.product.name}}<br/>
@@ -68,7 +67,7 @@
   <div class="card deep-purple darken-4">
     <p>You have no purchases</p>
   </div>
-    
+
   {% endif %}
 
 {% endblock %}

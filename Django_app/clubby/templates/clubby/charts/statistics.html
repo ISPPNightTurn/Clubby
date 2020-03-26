@@ -1,0 +1,82 @@
+
+<div style="width:50%;">
+    <canvas id="mycanvas"></canvas>
+</div>
+
+
+<script>
+// used for example purposes
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// create initial empty chart
+var ctx_live = document.getElementById("mycanvas");
+var labels_from_view = {{labels}};
+var data_from_view = {{data}};
+
+var myChart = new Chart(ctx_live, {
+  type: 'bar',
+  data: {
+    labels: labels_from_view,
+    datasets: [{
+      data: data_from_view,
+      borderWidth: 1,
+      borderColor:'#00c0ef',
+      label: 'Ammount Sold.',
+    }]
+  },
+  options: {
+    responsive: true,
+    title: {
+      display: true,
+      text: "Products Chart",
+    },
+    legend: {
+      display: false
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+        }
+      }]
+    }
+  }
+});
+
+// this post id drives the example data
+// var postId = 1;
+
+// // logic to get new data
+// var getData = function() {
+//   $.ajax({
+//       //a url that return json
+//     url: '{% url:update-stats %}',
+//     success: function(data) {
+//       // process your data to pull out what you plan to use to update the chart
+//       // e.g. new label and a new data point
+      
+//       // add new label and data point to chart's underlying data structures
+//       myChart.data.labels = ;
+//       myChart.data.datasets[0].data.push(getRandomIntInclusive(1, 25));
+      
+//       // re-render the chart
+//       myChart.update();
+//     }
+//   });
+// };
+
+// function addData(chart, label, data) {
+//     chart.data.labels.push(label);
+//     chart.data.datasets.forEach((dataset) => {
+//         dataset.data.push(data);
+//     });
+//     chart.update();
+// }
+
+// // get new data every 60 seconds (60k miliseconds)
+// setInterval(getData, 60000);
+</script>

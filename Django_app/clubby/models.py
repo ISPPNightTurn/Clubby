@@ -239,4 +239,4 @@ class QR_Item(models.Model):
 
     def get_real_absolute_url(self):
         str1 = QR_Item.get_absolute_url(self)
-        return str("https://clubby-sprint1.herokuapp.com")+str(str1)
+        return str("https://clubby-sprint2.herokuapp.com")+str(str1)

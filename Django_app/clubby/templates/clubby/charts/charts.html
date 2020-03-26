@@ -1,7 +1,26 @@
-{% extends 'base.html' %}
+{% extends 'clubby/base_generic.html' %}
+
+{% block content %}
+<div class='row'>
+    <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
+        <h1>Hello World</h1>
+        <div class='col-sm-6'>
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+        <div class='col-sm-6'>
+            <canvas id="myChart2" width="400" height="400"></canvas>
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
 
 <script>
-{% block jquery %}
 var endpoint = '/api/chart/data/'
 var defaultData = []
 var labels = [];
@@ -98,25 +117,8 @@ function setChart(){
 }
 // var ctx = document.getElementById("myChart");
 
-
-
-{% endblock %}
 </script>
-
-{% block content %}
-
-<div class='row'>
-    <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
-        <h1>Hello World</h1>
-        <div class='col-sm-6'>
-            <canvas id="myChart" width="400" height="400"></canvas>
-        </div>
-        <div class='col-sm-6'>
-            <canvas id="myChart2" width="400" height="400"></canvas>
-        </div>
+{% endblock %}
 
 
-    </div>
-</div>
 
-{% endblock content %}
