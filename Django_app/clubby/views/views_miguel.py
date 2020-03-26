@@ -296,9 +296,11 @@ def get_stats(request):
     products_by_club = Product.objects.filter(club = request.user.club)
 
     ammounts = []
+    products = []
     for product in products_by_club:
+        products.append(str(product))
         ammounts.append(QR_Item.objects.filter(product = product).count())
 
-    context = {'labels':str(list(products_by_club)),'data':str(ammounts)}
+    context = {'labels':str(products),'data':str(ammounts)}
     return render(request,'clubby/charts/statistics.html',context)
 
