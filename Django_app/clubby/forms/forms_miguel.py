@@ -60,7 +60,8 @@ class EditProfileForm(forms.Form):
     bio = forms.CharField(max_length=500, required=False, help_text="Optional, tell us something about you.")
     location = forms.CharField(max_length=30, required=False, help_text="Optional, where are you form?.")
     birth_date = forms.DateField(initial=(datetime.datetime.now()-datetime.timedelta(days=365*18)).date(),required=True, help_text="Required, your birthday, format: YYYY-MM-DD")
-    
+    picture = forms.URLField()
+
     def clean(self):
         email = self.cleaned_data.get('email')
         birth_date = self.cleaned_data.get('birth_date')

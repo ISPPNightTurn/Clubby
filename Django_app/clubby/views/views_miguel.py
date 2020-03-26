@@ -276,6 +276,7 @@ def edit_profile(request):
             profile.birth_date = form.cleaned_data.get('birth_date')
             profile.bio = form.cleaned_data.get('bio')
             profile.location = form.cleaned_data.get('location')
+            profile.picture = form.cleaned_data.get('picture')
 
             profile.save()
             return redirect('profile')
@@ -284,5 +285,20 @@ def edit_profile(request):
     else:
         user = request.user
         form = EditProfileForm(initial={'first_name':user.first_name,'last_name':user.last_name,'email':user.email,
-        'bio':user.profile.bio, 'location':user.profile.location, 'birth_date':user.profile.birth_date,})
+        'bio':user.profile.bio, 'location':user.profile.location, 'birth_date':user.profile.birth_date,'picture':user.profile.picture,})
         return render(request,'clubby/edit_profile.html',{'form':form})
+
+##################
+#   STATISTICS   #
+##################
+def get_stats(request):
+    
+    products_by_club = Product.objects.filter(club = request.user.club)
+
+    ammounts = []
+    for product in products_by_club:
+        ammounts.append(QR_Item.objects.filter(product = product).count())
+
+    context = {'labels':str(list(products_by_club)),'data':str(ammounts)}
+    return render(request,'clubby/charts/statistics.html',context)
+

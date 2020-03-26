@@ -38,6 +38,11 @@ urlpatterns = [
 ]
 
 urlpatterns += [
+    url('statistics', views.get_stats, name='get-stats'),
+    
+]
+
+urlpatterns += [
     url('signup/user', views.signup_user, name='signup-user'),
     url('signup/owner', views.signup_owner, name='signup-owner'),
 ]
