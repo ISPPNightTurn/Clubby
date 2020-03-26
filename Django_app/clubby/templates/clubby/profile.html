@@ -42,6 +42,15 @@
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Birth Date: </span>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.birth_date}}</span>
           <br/>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">Profile pic: </span>
+          </br>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">
+            {% if user_profile.picture == blank%}
+                <img src="../../../static/clubby/images/user_img.jpg">
+                {% else %}
+                <img src={{user_profile.picture}}>
+          {% endif %}
+          </span>
         </div>
         <div class="card-action black">
           <a href="{% url 'edit-profile' %}">Edit profile</a>

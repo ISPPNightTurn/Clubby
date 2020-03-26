@@ -276,6 +276,7 @@ def edit_profile(request):
             profile.birth_date = form.cleaned_data.get('birth_date')
             profile.bio = form.cleaned_data.get('bio')
             profile.location = form.cleaned_data.get('location')
+            profile.picture = form.cleaned_data.get('picture')
 
             profile.save()
             return redirect('profile')
