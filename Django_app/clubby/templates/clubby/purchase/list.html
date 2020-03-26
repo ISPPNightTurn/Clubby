@@ -55,7 +55,8 @@
               {% qr_from_text qr_item.get_real_absolute_url size="M" %}
             </div>
             <div class="card-content">
-              {{qr_item.ticket.event.name}}-<b>Ticket</b>
+              <b>Ticket: </b>{{qr_item.ticket.event.name}}<br/>
+              <b>Price: </b>{{qr_item.ticket.price}}
             </div>
           </div>
         {% endif %}
