@@ -1,19 +1,18 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-    <div style="max-width: 700px;" class="card purple ">  
+    <div style="max-width: 700px;" class="card deep-purple darken-4">  
       <div class="card-image">
         {% if club.picture == null%}
         <img src="../../../static/clubby/images/background.jpg">
         {% else %}
         <img src="../../../{{club.picture}}">
         {% endif %}
-        <span class="card-title">Name: {{ club.name }}</span>
+        <span class="card-title"> {{ club.name }}</span>
       </div>
     <div class="card-content">
       <p><strong>Address:</strong>{{ club.address }}</p> <!-- author detail link not yet defined -->
       <p><strong>Max Capacity:</strong> {{ club.max_capacity }}</p>
-      <p><strong>NIF:</strong> {{ club.NIF }}</p> 
   
     </div>
   <!-- <div style="margin-left:20px;margin-top:20px">

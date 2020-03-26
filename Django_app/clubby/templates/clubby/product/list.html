@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1>Product List</h1>
-  <ul class="collection purple darken-2">
+  <ul class="collection deep-purple darken-4">
 
   {% if perms.clubby.is_user %}
     {% for product, form in product_ammount.items %} 
@@ -54,7 +54,7 @@
 
   {% if perms.clubby.is_owner %}
   {% if object_list %}
-  <ul class="collection-item purple darken-2">
+  <ul class="collection-item deep-purple darken-2">
     {% for product in object_list %}
       <li class="collection-item purple darken-4 avatar">
         <img alt="" class="circle" src="../../../static/clubby/images/bebidas.jpeg">
@@ -63,11 +63,11 @@
     {% endfor %}
   </ul>
   {% else %}
-    <li class="collection-item purple darken-2">
+    <li class="collection-item deep-purple darken-2">
       <p>There are no products avaliable.</p>
     </li>
   {% endif %}
-    <li class="collection-item purple darken-2">
+    <li class="collection-item deep-purple darken-2">
       <a class="btn-large purple darken-4" href="{% url 'product-create' %}">Create new product</a>  
     </li>
   {%endif%}   

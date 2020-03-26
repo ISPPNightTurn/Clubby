@@ -5,6 +5,8 @@ from django.forms import ModelForm
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
+from django.core.exceptions import ValidationError
+
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -23,9 +25,53 @@ class FundsForm(forms.Form):
 class PremiumForm(forms.Form):
     accept = forms.BooleanField(help_text="if you agree with these terms we welcome you to the clubby team!")
 
-# class ClubModelForm(ModelForm):
+class SearchForm(forms.Form):
+    query = forms.CharField(help_text="Looking for something?")
+
+class SearchEventForm(forms.Form):
+    # query = forms.CharField(help_text="Looking for something?",required=False)
+    start_date = forms.DateField(help_text="We will start looking here.")
+    end_date = forms.DateField(help_text="We stop looking here.")
+
+    def clean(self):
+        current_date = datetime.datetime.now().date()
+
+        start_date = self.cleaned_data.get('start_date')
+        end_date = self.cleaned_data.get('end_date')
+
+        if (start_date < current_date):
+            raise ValidationError("Date must be further than today.")
         
-#     class Meta:
-#         model = Club
-#         fields = '__all__'# we can eithe specify the fields from the model we want to use or
-#         exclude = ['club'] # select the ones we want to exclude.
+        if (end_date < start_date):
+            raise ValidationError("Date must be bigger or equal to the starting date.")
+
+        return self.cleaned_data
+
+class EditProfileForm(forms.Form):
+    # we override the init object to allow the request to get here.
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+
+    first_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
+    last_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    
+    bio = forms.CharField(max_length=500, required=False, help_text="Optional, tell us something about you.")
+    location = forms.CharField(max_length=30, required=False, help_text="Optional, where are you form?.")
+    birth_date = forms.DateField(initial=(datetime.datetime.now()-datetime.timedelta(days=365*18)).date(),required=True, help_text="Required, your birthday, format: YYYY-MM-DD")
+    picture = forms.URLField(help_text="URL to a picture of your pretty face", required=False)
+
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        birth_date = self.cleaned_data.get('birth_date')
+        user_with_mail = User.objects.filter(email=email)[0]
+        picture = self.cleaned_data.get('picture')
+
+        if user_with_mail != self.request.user:
+            raise ValidationError("Email exists")
+
+        if birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date():
+            raise ValidationError("You're too young.")
+
+        return self.cleaned_data

@@ -66,7 +66,7 @@ class ProductModelForm(ModelForm):
     product_type = forms.CharField(
         max_length=124,
         widget=forms.Select(
-            choices=Product.PRODUCT_TYPE,
+            choices=Product.TYPE_OF_PRODUCT,
             attrs={'class': 'browser-default deep-purple darken-4'}
         ),
     )
@@ -83,7 +83,7 @@ class EventModelForm(ModelForm):
     event_type = forms.CharField(
         max_length=124,
         widget=forms.Select(
-            choices=Event.EVENT_TYPE,
+            choices=Event.TYPE_OF_EVENT,
             attrs={'class': 'browser-default deep-purple darken-4'}
         ),
     )

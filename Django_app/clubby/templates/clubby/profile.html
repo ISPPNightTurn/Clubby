@@ -42,10 +42,18 @@
           <span class="light white-text" style="display: inline-block; vertical-align:top;">Birth Date: </span>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.birth_date}}</span>
           <br/>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">Profile pic: </span>
+          </br>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">
+            {% if user_profile.picture == blank%}
+                <img class="circle responsive-img" style="width: 50%;" src="../../../static/clubby/images/user_img.jpg">
+                {% else %}
+                <img class="circle responsive-img" style="width: 50%;" src={{user_profile.picture}}>
+          {% endif %}
+          </span>
         </div>
         <div class="card-action black">
-          <a href="">Edit profile</a>
-          <p>(Not implement yet, sorry)</p>
+          <a href="{% url 'edit-profile' %}">Edit profile</a>
 
           <form method="post">
             {% csrf_token %}
@@ -62,7 +70,7 @@
     <br>
     <p class="strong materialize-red" style="font-size: 1.64rem">
       Sorry your event publication limit has been reached (2 per month), if you wish to have unlimited events and more <br>
-      consider becoming <a href=>Premium</a>!(not yet implemented sorry again :P)
+      consider becoming <a href="{% url 'get-premium' %}">Premium</a>!
     </p>
     {% endif %}
 

@@ -3,6 +3,13 @@
 {% block content %}
 <h1 class="header center white-text">Club list</h1>
 
+<form action="" method="post">
+  {% csrf_token %}
+  {{form}}
+  <input type="submit" value="Search" class="btn-large purple darken-4">
+</form>
+
+
 <div class="list center">
   <div class="deep-purple darken-4 toast rounded grid-container">
   {% if object_list %}

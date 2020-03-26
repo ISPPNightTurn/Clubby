@@ -1,0 +1,19 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  
+  <h2 class="header center white-text">Edit your data.</h2>
+
+  <div class="deep-purple darken-4 toast rounded">
+   
+  <form method="post">
+    <div class="formSignUp">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Update</button>
+  </div>
+  </form>
+  </div>
+  <br/>
+  <br/>
+{% endblock %}

@@ -2,17 +2,63 @@
 
 {% block content %}
   {% if qr_item.product != blank %}
+  <div class="card-image">
+    {% if qr_item.product.product_type == 'h' %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/hookah.jpg">
+    {% elif qr_item.product.product_type == 'b' %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/beer.jpg">
+    {% elif qr_item.product.product_type == 'w'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/wine.jpg">
+    {% elif qr_item.product.product_type == 'k'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/snack.jpg">
+    {% elif qr_item.product.product_type == 'r'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/refreshment.jpg">
+    {% elif qr_item.product.product_type == 'c'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/cocktail.jpg">
+    {% elif qr_item.product.product_typee == 's'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/shot.jpg">
+    {% elif qr_item.product.product_type == 'm'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/bebidas.jpeg">
+    {% endif %}
     <h1>Product: {{ qr_item.product.name }}</h1>
     <h1>Price: {{ qr_item.product.price }}</h1>
     <h1>Club: {{ qr_item.product.club.name }}</h1>
+      {% if qr_item.product.product_type == 'h'  %}
+       <h1><p><strong>Type:</strong> Hookah</p></h1>
+      {% elif qr_item.product.product_type == 'b'  %}
+        <h1><p><strong>Type:</strong> Beer</p></h1>
+      {% elif qr_item.product.product_type == 'w'  %}
+        <h1><p><strong>Type:</strong> Wine</p></h1>
+      {% elif qr_item.product.product_type == 'k'  %}
+        <h1><p><strong>Type:</strong> Snack</p></h1>
+      {% elif qr_item.product.product_type == 'r'  %}
+        <h1><p><strong>Type:</strong> Refreshment</p></h1>
+      {% elif qr_item.product.product_type == 'c'  %}
+        <h1><p><strong>Type:</strong> Cocktail</p></h1>
+      {% elif qr_item.product.product_type == 's'  %}
+        <h1><p><strong>Type:</strong> Shot</p></h1>
+      {% elif qr_item.product.product_type == 'm'  %}
+        <h1><p><strong>Type:</strong> Misc.</p></h1>
+      {%endif%}
+    <h1>Club: {{ qr_item.product.club.name }}</h1>
+    {% if qr_item.product.reservation_exclusive %}
+      <h2>THE USER NEED TO HAVE A RESERVATION TO REDEEM THIS PRODUCT</h2>
+    {% endif %}
   
  
   {% elif qr_item.ticket != blank %}
+    <div class="card-image">
+      {% if event.picture == blank%}
+                  <img src="../../../static/clubby/images/event_image.jpeg">
+                  {% else %}
+                  <img src={{event.picture}}>
+            {% endif %}
+    
     <h1>Event: {{ qr_item.ticket.event.name }}</h1>
     <h1>Price: {{ qr_item.ticket.price }}</h1>
     <h1>Club: {{ qr_item.ticket.event.club.name }}</h1>
-    <h1>Category: {{ qr_item.ticket.event.category }}</h1>
-    <h1>Description: {{ qr_item.ticket.event.description }}</h1>
+    <h1>Category: {{ qr_item.ticket.category }}</h1>
+    <h1>Description: {{ qr_item.ticket.description }}</h1>
 
   {% endif %}
       {% if qr_item.is_used %}

@@ -1,12 +1,12 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-<div style="max-width: 700px;" class="card purple darken-2">  
+<div style="max-width: 700px;" class="card deep-purple darken-4">  
   <div class="card-image">
-    {% if club.picture == null%}
-          <img src="../../../static/clubby/images/event_image.jpeg">
-          {% else %}
-          <img src="{{event.picture}}">
+    {% if event.picture == blank%}
+                <img src="../../../static/clubby/images/event_image.jpeg">
+                {% else %}
+                <img src={{event.picture}}>
           {% endif %}
     <span class="card-title">{{ event.name }} (<a href="{{ event.club.get_absolute_url }}">{{ event.club.name}}</a>)</span>
   </div>
@@ -34,17 +34,19 @@
     <p class="strong materialize-red" style="font-size: 1.64rem">Man you broke!, add some cash in your profile page</p>
   {%endif%}
 
-  <p><strong>Atendee List:</strong></p><br>
-  {% if event.atendees %}
-  <ul>
-    {% for atendant in event.atendees.all %}
-      <li>
-        <p style="margin-left: 20px;">{{atendant}}</p>
-      </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-    <p>There are no atendants yet.</p>
+  {% if perms.clubby.is_owner%}
+    <p><strong>Atendee List:</strong></p><br>
+    {% if event.atendees %}
+    <ul>
+      {% for atendant in event.atendees.all %}
+        <li>
+          <p style="margin-left: 20px;">{{atendant}}</p>
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no atendants yet.</p>
+    {% endif %}
   {% endif %}
 
   {% if perms.clubby.is_owner%}

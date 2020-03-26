@@ -17,8 +17,10 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
-from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm, FundsForm
+from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm, FundsForm, SearchForm, SearchEventForm
 from ..models import Club, Event, Profile, Product, Ticket
+
+from datetime import datetime, timedelta
 
 import datetime
 import calendar
@@ -150,9 +152,35 @@ def signup_owner(request):
 ###############
 
 class ClubListView(generic.ListView):
-    paginate_by = 2 # add pagination to the view
+    paginate_by = 5 # add pagination to the view
     model = Club
-    template_name = 'clubby/club/list.html'  # Specify your own template name/location 
+    template_name = 'clubby/club/list.html'  # Specify your own template name/location
+
+    def get_queryset(self):
+        items = Club.objects.all()
+        # items = Club.objects.filter(club = self.request.user.club) #this will be touched when the maps API is here.
+        return items
+
+    def get_context_data(self, **kwargs):
+        context = super(ClubListView, self).get_context_data(**kwargs)
+        form = SearchForm()
+        context['form'] = form
+        return context  
+
+    def post(self, request, *args, **kwargs):
+        form = SearchForm(self.request.POST)
+        query = form['query'].value()
+        # items = Club.objects.filter(club = self.request.user.club) #this will be touched when the maps API is here.
+        items = Club.objects.all()
+        
+        clubs = []
+        for club in items:
+            if((query.lower() in club.name.lower() )  or (query.lower() in club.address.lower())):
+                clubs.append(club)
+
+        return render(request, 'clubby/club/list.html',{'object_list':clubs,'form':form})
+        # return StatusFormView.as_view()(request)
+
 
 class ClubDetailView(generic.DetailView):
     model = Club
@@ -258,8 +286,27 @@ class EventListView(generic.ListView):
         #gt = greater than
         #lte = lesser than or equal
         #lt = lesser than
-        item = Event.objects.filter(start_date__gte = datetime.datetime.now().date())
-        return item
+        items = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).order_by('start_date' , 'start_time')
+        return items
+
+    def get_context_data(self, **kwargs):
+        context = super(EventListView, self).get_context_data(**kwargs)
+        form = SearchEventForm(initial={'end_date':(datetime.datetime.now()+datetime.timedelta(days=7)).date(),'start_date':datetime.date.today})
+        context['form'] = form
+        return context  
+
+    def post(self, request, *args, **kwargs):
+        form = SearchEventForm(self.request.POST)
+
+        start_date = form['start_date'].value()
+        end_date = form['end_date'].value()
+        #check if these were used.
+        items = Event.objects.filter(start_date__gte = start_date)
+        items = items.filter(start_date__lte = end_date).order_by('start_date' , 'start_time')
+        print(items)
+
+        return render(request, 'clubby/event/list.html',{'object_list':items,'form':form})
+        # return StatusFormView.as_view()(request)
 
 
 class EventDetailView(generic.DetailView):
@@ -271,26 +318,14 @@ class EventDetailView(generic.DetailView):
 class EventsByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing events the user has participated, or is going to participate in."""
     model = Event
-    template_name ='clubby/event/list.html'
+    template_name ='clubby/event/user_list.html'
     paginate_by = 5
-
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
     def get_queryset(self):
-        item = Event.objects.filter(atendees = self.request.user)#.filter(status__exact='o').order_by('due_back')
-        return item
 
-# class EventsByClubListView(LoginRequiredMixin, generic.ListView):
-#     """Generic class-based view listing events the user has participated, or is going to participate in."""
-#     model = Event
-#     template_name ='clubby/event/list.html'
-#     paginate_by = 5
-
-#     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
-    
-#     def get_queryset(self):
-#         item = Event.objects.filter(club = self.request.user.club)#.filter(status__exact='o').order_by('due_back')
-#         return item
+        list = Event.objects.filter(atendees = self.request.user).order_by('-start_date','-start_time')
+        return list
 
 class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
     """Generic class-based view listing events of the club, that haven't happened yet."""
@@ -298,14 +333,13 @@ class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
     model = Event
     template_name ='clubby/event/list.html'
     paginate_by = 5
-
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
 
     def get_queryset(self):
         #the gte and lte indicate greater than and lesser than for filtering by dates.
         club = Club.objects.filter(owner = self.request.user)[0]
-        items = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club)#.filter(start_date__gte = datetime.datetime.now().date)#.order_by('due_back')
-        return items
+        list = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club).order_by('-start_date' , '-start_time')
+        return list
 
 class EventCreateView(PermissionRequiredMixin,CreateView):
     permission_required = 'clubby.is_owner'

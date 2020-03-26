@@ -36,6 +36,7 @@
 
           {% if user.is_authenticated %}
           <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">User: {{ user.get_username }}<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li><a href="{% url 'profile' %}"><p class="light">Funds: {{  user.profile.funds  }}€</p></a></li>
           {% if perms.clubby.is_user %}
           <!-- We can list our events only if we are a user.  -->
           <li><a href="{% url 'my-events' %}">My Events</a></li>
@@ -48,7 +49,7 @@
           <li><a href = "{% url 'get-premium'%}">Become Premium!</a></li>
           {% endif %}
           {% if perms.clubby.is_premium_owner %}
-          <li><a href = "">Statistics(not yet)</a></li>
+          <li><a href = "{% url 'get-stats'%}">Statistics</a></li>
           {% endif %}
           {%endif%}
 
@@ -86,6 +87,11 @@
       <img class="logo_img_sidenav" src="../../static/clubby/images/clubby_logo_white_no_bg.png"/>
       <BR/>
     </div></li>
+    {% if user.profile.picture != null %}
+    <li><a><img src="{{user.profile.picture}}" class="circle responsive-img" style="width: 25%;"/></a></li>
+    <BR>
+    {%endif%}
+    
     <a class="subheader">User</a>
 
       {% if user.is_authenticated %}
