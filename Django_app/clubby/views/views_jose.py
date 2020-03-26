@@ -76,9 +76,9 @@ def ProductsByClubList(request, club_id):
                         qr_item.timed_out = True
                         qr_item.save()
                     
-                item = QR_Item.objects.filter(user = request.user).filter(is_used=False).filter(timed_out=False).order_by('-fecha')
+        item = QR_Item.objects.filter(user = request.user).filter(is_used=False).filter(timed_out=False).order_by('-fecha')
             
-            return render(request,'clubby/purchase/list.html',{'user_is_broke':user_is_broke,'object_list':item})
+        return render(request,'clubby/purchase/list.html',{'user_is_broke':user_is_broke,'object_list':item})
     else:
         club = Club.objects.filter(pk=club_id)[0]
         products = Product.objects.filter(club = club)
