@@ -17,7 +17,35 @@
               
             </div>
             <div class="card-content">
-              {{qr_item.product.name}}-<b>Product</b>
+              <b>Product: </b>{{qr_item.product.name}}<br/>
+
+
+              <b>Product Type: </b>
+              {% if qr_item.product.product_type == 'r' %}
+              <p>Refreshment</p>
+              {% elif qr_item.product.product_type == 'c'%}
+              <p>Cocktail</p>
+              {% elif qr_item.product.product_type == 's'%}
+              <p>Shot</p>
+              {% elif qr_item.product.product_type == 'b'%}
+              <p>Beer</p>
+              {% elif qr_item.product.product_type == 'w'%}
+              <p>Wine</p>
+              {% elif qr_item.product.product_type == 'k'%}
+              <p>Snack</p>
+              {% elif qr_item.product.product_type == 'h'%}
+              <p>Hookah</p>
+              {% elif qr_item.product.product_type == 'm'%}
+              <p>Misc.</p>
+              {% endif %}
+
+              {% if qr_item.product.reservation_exclusive == True %}
+              <b>Reservation exclusive</b>
+              {% else %}
+              <b>Not exclusive</b>
+              {% endif %}
+
+
               </br>
             </div>
           </div>
