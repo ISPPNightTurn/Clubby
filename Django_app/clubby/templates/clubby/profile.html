@@ -57,7 +57,10 @@
 
           <form method="post">
             {% csrf_token %}
-            {{ form }}
+            <br>
+            <p><b style="font-size: larger;">Ammount to add </b>{{form.ammount}}</p>
+         
+            {{ form.funds }}
             <button class="btn purple darken-4" type="submit">Add funds to your account!</button>
           </form>
         </div>

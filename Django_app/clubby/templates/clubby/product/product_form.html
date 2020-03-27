@@ -11,7 +11,26 @@
   <form action="" method="post">
     {% csrf_token %}
     <div class="input-field">
-    {{ form.as_p}}
+    
+      <b>{{form.non_field_errors}}</b>
+      <p><b style="font-size: larger;">Name </b>{{form.name}}</p>
+      <span class="helptext">{{form.name.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Price </b>{{form.price}}</p>
+      <span class="helptext">{{form.price.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Product type </b>{{form.product_type}}</p>
+      <p>
+        <label>
+          <input type="checkbox" value="{{form.reservation_exclusive}}
+          <span style="color: white;">Reservation exclusive</span>
+        </label>
+      </p>
+      <span class="helptext">{{form.reservation_exclusive.help_text}}</span>
+      <br>
+      <br>
       </div>
     
       <input type="submit" value="Submit" class="btn-large purple darken-4">

@@ -1,14 +1,32 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-<div class="center card deep-purple darken-4">
+<div class="card deep-purple darken-4">
 
-<span class="card-title">Create tickets</span>
+<span class="center card-title">Create tickets</span>
 <div class="card-content">  
 <form action="" method="post">
     {% csrf_token %}
     <table>
-    {{ form.as_table }}
+
+      <b>{{form.non_field_errors}}</b>
+      <p><b style="font-size: larger;">Price </b>{{form.price}}</p>
+      <span class="helptext">{{form.price.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Category </b>{{form.category}}</p>
+      <span class="helptext">{{form.category.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Description </b>{{form.description}}</p>
+      <span class="helptext">{{form.description.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Size </b>{{form.size}}</p>
+      <span class="helptext">{{form.size.help_text}}</span>
+      <br>
+      <br>
+      
     </table>
     <input class="btn purple darken-4" type="submit" value="Submit">
   </form>

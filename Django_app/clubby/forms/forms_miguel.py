@@ -60,7 +60,7 @@ class EditProfileForm(forms.Form):
     
     bio = forms.CharField(max_length=500, required=False, help_text="Optional, tell us something about you.")
     location = forms.CharField(max_length=30, required=False, help_text="Optional, where are you form?.")
-    birth_date = forms.DateField(initial=(datetime.datetime.now()-datetime.timedelta(days=365*18)).date(),required=True, help_text="Required, your birthday, format: YYYY-MM-DD")
+    birth_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker'}), initial=(datetime.datetime.now()-datetime.timedelta(days=365*18)).date(),required=True, help_text="Required, your birthday, format: YYYY-MM-DD")
     picture = forms.URLField(help_text="URL to a picture of your pretty face", required=False)
 
     def clean(self):

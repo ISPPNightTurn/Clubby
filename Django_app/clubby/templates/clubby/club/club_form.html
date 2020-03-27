@@ -6,7 +6,29 @@
   <form action="" method="post">
     {% csrf_token %}
     <table>
-    {{ form.as_table }}
+    
+      <b>{{form.non_field_errors}}</b>
+      <p><b style="font-size: larger;">Name </b>{{form.name}}</p>
+      <span class="helptext">{{form.name.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Address </b>{{form.address}}</p>
+      <span class="helptext">{{form.address.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Max Capacity </b>{{form.max_capacity}}</p>
+      <span class="helptext">{{form.max_capacity.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">NIF </b>{{form.NIF}}</p>
+      <span class="helptext">{{form.NIF.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Picture </b>{{form.picture}}</p>
+      <span class="helptext">{{form.picture.help_text}}</span>
+      <br>
+      <br>
+      
     </table>
     <input type="submit" value="Submit" class="btn-large purple darken-4">
   </form>
