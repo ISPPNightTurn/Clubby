@@ -27,56 +27,56 @@
             <br>
             <br>
             <i class="small material-icons white-text">redeem</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Product: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Product: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.name }}</span>
             <br/>
             <i class="small material-icons white-text">attach_money</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Price: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Price: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.price }}</span>
             <br/>
             {% if qr_item.product.product_type == 'h'  %}
             <i class="small material-icons white-text">category</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Hookah</span>
             <br/>
             {%elif qr_item.product.product_type == 'b'  %}
             <i class="small material-icons white-text">category</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Beer</span>
             <br/>
             {%elif qr_item.product.product_type == 'w'  %}
             <i class="small material-icons white-text">category</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Wine</span>
             <br/>
             {%elif qr_item.product.product_type == 'k'  %}
             <i class="small material-icons white-text">category</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Snack</span>
             <br/>
             {%elif qr_item.product.product_type == 'r'  %}
             <i class="small material-icons white-text">category</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Refreshment</span>
             <br/>
             {%elif qr_item.product.product_type == 'c'  %}
             <i class="small material-icons white-text">category</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Cocktail</span>
             <br/>
             {%elif qr_item.product.product_type == 's'  %}
             <i class="small material-icons white-text">category</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Shot</span>
             <br/>
             {%elif qr_item.product.product_type == 'm'  %}
             <i class="small material-icons white-text">category</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Type: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Misc.</span>
             <br/>
             {%endif%}
             <i class="small material-icons white-text">domain</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Club: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Club: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.club.name }}</span>
             <br/>
             {% if qr_item.product.reservation_exclusive %}
@@ -94,23 +94,23 @@
                           <br>
                     {% endif %}
             <i class="small material-icons white-text">group</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Event: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Event: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.event.name }}</span>
             <br/>
             <i class="small material-icons white-text">attach_money</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Price: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Price: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.price }}</span>
             <br/>
             <i class="small material-icons white-text">domain</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Club: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Club: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.event.club.name }}</span>
             <br/>
             <i class="small material-icons white-text">category</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Category: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Category: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.category }}</span>
             <br/>
             <i class="small material-icons white-text">description</i>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Description: </span>
+            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Description: </b>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.description }}</span>
             <br/>
         

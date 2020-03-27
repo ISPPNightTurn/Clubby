@@ -11,15 +11,15 @@
     <span class="card-title">{{ event.name }} (<a href="{{ event.club.get_absolute_url }}">{{ event.club.name}}</a>)</span>
   </div>
 <div class="card-content">
-  <p><strong>Starts:</strong> {{ event.start_date }}</p>
+  <p><b style="font-size: larger;">Starts:</b> {{ event.start_date }}</p>
   {% if event.event_type == 'p'  %}
-  <p><strong>Type:</strong> Private</p>
+  <p><b style="font-size: larger;">Type:</b> Private</p>
   {% elif event.event_type == 'd'  %}
-  <p><strong>Type:</strong> Dress Up</p>
+  <p><b style="font-size: larger;">Type:</b> Dress Up</p>
   {% elif event.event_type == 'f'  %}
-  <p><strong>Type:</strong> Fancy</p>
+  <p><b style="font-size: larger;">Type:</b> Fancy</p>
   {% elif event.event_type == 'c'  %}
-  <p><strong>Type:</strong> Casual</p>
+  <p><b style="font-size: larger;">Type:</b> Casual</p>
   {%endif%}
 
     <!-- if the owner of the club is the one looking at this page give him the option to edit the event if no atendees are in yet.-->
@@ -35,7 +35,7 @@
   {%endif%}
 
   {% if perms.clubby.is_owner%}
-    <p><strong>Atendee List:</strong></p><br>
+    <p><b syle="font-size: larger;">Atendee List:</b></p><br>
     {% if event.atendees %}
     <ul>
       {% for atendant in event.atendees.all %}
