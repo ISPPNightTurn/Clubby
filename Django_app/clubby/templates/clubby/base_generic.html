@@ -181,10 +181,8 @@
    $('.sidenav').sidenav();
    $(".dropdown-trigger").dropdown();
    $(".datepicker").datepicker({
-     defaultDate: new Date(currYear - 18, currMonth, currDay),
+     defaultDate: new Date(currYear, currMonth, currDay),
      setDefaultDate: true,
-     maxDate: new Date(currYear - 18, currMonth, currDay),
-     yearRange: [1928, currYear - 18],
      format: "yyyy-mm-dd"
    });
   });
