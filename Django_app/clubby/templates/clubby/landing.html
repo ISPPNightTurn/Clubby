@@ -95,5 +95,9 @@
   </div>
 <br/>
 <h5 class="center header col s12 light">You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</h5>
+<footer class="center">
+  <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">terms and conditions</a>
+</footer>
 {% endblock %}
+
 
