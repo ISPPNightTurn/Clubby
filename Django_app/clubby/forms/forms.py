@@ -47,12 +47,16 @@ class SignupForm(UserCreationForm):
     def clean(self):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
+        birth_date = self.cleaned_data.get('birth_date')
 
         if User.objects.filter(email=email).exists():
             raise ValidationError("Email exists")
         
         if User.objects.filter(username=username).exists():
             raise ValidationError("Sorry that username is already taken :(")
+        
+        if birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date():
+            raise ValidationError("You're too young. You must be 18 or older to use this app.")
 
         return self.cleaned_data
 

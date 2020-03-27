@@ -178,3 +178,6 @@ def socialsuccess(request):
     user.groups.add(defaultgroup)
 
     return render(request, 'clubby/landing.html') 
+
+def terms(request):
+    return render(request, 'clubby/terms.html')
