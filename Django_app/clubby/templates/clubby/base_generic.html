@@ -160,8 +160,9 @@
 </div>
 
     <!--  Scripts-->
-    <script src="{% static 'clubby/js/materialize.js' %}"></script>
+    
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'clubby/js/materialize.js' %}"></script>
     <script type="text/javascript">
 
   var elem = document.querySelector('.sidenav');
@@ -172,10 +173,20 @@
     M.Dropdown.init(dropdowns[i]);
   }
 
+  var currYear = (new Date()).getFullYear();
+  var currMonth = (new Date()).getMonth();
+  var currDay = (new Date()).getDay();
 
   $(document).ready(function(){
    $('.sidenav').sidenav();
    $(".dropdown-trigger").dropdown();
+   $(".datepicker").datepicker({
+     defaultDate: new Date(currYear - 18, currMonth, currDay),
+     setDefaultDate: true,
+     maxDate: new Date(currYear - 18, currMonth, currDay),
+     yearRange: [1928, currYear - 18],
+     format: "yyyy-mm-dd"
+   });
   });
   </script>
 </body>
