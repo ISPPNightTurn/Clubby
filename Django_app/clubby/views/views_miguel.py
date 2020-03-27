@@ -29,8 +29,10 @@ from ..tasks import check_premium
 from django.conf import settings
 import datetime
 from decimal import Decimal
+import json
 import stripe # new
 stripe.api_key = settings.STRIPE_SECRET_KEY # new
+
 
 
 class ProductDetailView(LoginRequiredMixin,generic.DetailView):
@@ -293,14 +295,65 @@ def edit_profile(request):
 ##################
 def get_stats(request):
     
+    #PRODUCTOS VENDIDOS TOTAL
     products_by_club = Product.objects.filter(club = request.user.club)
-
-    ammounts = []
+    product_ammounts = []
     products = []
     for product in products_by_club:
-        products.append(str(product))
-        ammounts.append(QR_Item.objects.filter(product = product).count())
+        products.append(str(product.name))
+        product_ammounts.append(QR_Item.objects.filter(product = product).count())
 
-    context = {'labels':str(products),'data':str(ammounts)}
+    context = {'product_labels':json.dumps(products),'product_data':json.dumps(product_ammounts)}
+
+    #ENTRADAS VENDIDAS POR EVENTO
+    events_by_club = Event.objects.filter(club= request.user.club)
+    events = []
+    event_ammounts = []
+    for event in events_by_club:
+        events.append(str(event))
+        tickets_for_event = Ticket.objects.filter(event=event)
+        cont = 0
+        for ticket in tickets_for_event:
+            cont += QR_Item.objects.filter(ticket=ticket).count()
+        event_ammounts.append(cont)
+
+    context['event_labels']= json.dumps(events)
+    context['event_data']= json.dumps(event_ammounts)
+
+    # DINERO GENERADO TOTAL AÑO(SUMA ACUMULADA)
+    cont = 0
+    now = datetime.datetime.now().date()
+
+    context['month_labels'] = json.dumps(['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
+    sales_month_products = []
+    sales_month_events = []
+    cumsum_products = 0
+    cumsum_events = 0
+
+    from calendar import monthrange
+    for month in range(1,13):
+        first = now.replace(month=month,day=1)
+        last = now.replace(month=month,day=monthrange(now.year, month)[1])
+        
+        products_by_club = Product.objects.filter(club = request.user.club)
+        
+        for product in products_by_club:
+            cumsum_products += QR_Item.objects.filter(product = product).filter(fecha__gte = first).filter(fecha__lte=last).count()*product.price
+
+        events_by_club = Event.objects.filter(club= request.user.club).filter(start_date__gte = first).filter(start_date__lte = last)
+
+        for event in events_by_club:
+            tickets_for_event = Ticket.objects.filter(event=event)
+            
+            for ticket in tickets_for_event:
+                cumsum_events += QR_Item.objects.filter(ticket=ticket).count()*ticket.price
+
+        sales_month_products.append(str(cumsum_products))
+        sales_month_events.append(str(cumsum_events))
+
+    context['sales_month_products'] = sales_month_products
+    context['sales_month_events'] = sales_month_events
+
+
     return render(request,'clubby/charts/statistics.html',context)
 

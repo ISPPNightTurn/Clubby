@@ -1,21 +1,114 @@
 {% extends 'clubby/base_generic.html' %}
 
 {% block content %}
-<div style="width:100%;">
-    <canvas id="mycanvas"></canvas>
+
+
+<div>
+<div style="width:50%;float:left">
+  PRODUCT SALES
+    <canvas id="products_sales"></canvas>
+</div>
+<div style="width:50%;float:right">
+  TICKET SALES
+  <canvas id="event_sales"></canvas>
+</div>
+</div>
+<div>
+  MONEY
+  <canvas id="money"></canvas>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
   // create initial empty chart
-  var ctx = document.getElementById("mycanvas");
-  var labels_from_view = {{labels}};
-  var data_from_view = {{data}};
-  
-  var myBarChart = new Chart(ctx, {
+var product_data_from_view = {{product_data}};
+var product_labels_from_view = {{product_labels|safe}};
+
+var event_data_from_view = {{event_data}};
+var event_labels_from_view = {{event_labels|safe}};
+
+var monthly_sales_products = {{sales_month_products|safe}};
+var monthly_sales_events = {{sales_month_events|safe}};
+
+
+var ctx = document.getElementById('products_sales').getContext('2d');
+var myChart = new Chart(ctx, {
     type: 'bar',
-    data: data_from_view,
+    data: {
+        labels: product_labels_from_view,
+        datasets: [{
+            label: '# of purchases',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: product_data_from_view,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
 });
 
+var ctx2 = document.getElementById('event_sales').getContext('2d');
+var myChar2 = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: event_labels_from_view,
+        datasets: [{
+            label: '# of purchases',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: event_data_from_view,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx3 = document.getElementById('money').getContext('2d');
+var myChar3 = new Chart(ctx3, {
+  type: 'line',
+    data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+        datasets: [{
+            label: '# of product purchases',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: monthly_sales_products,
+            
+        },
+        {
+            label: '# of event purchases',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: monthly_sales_events,
+            
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
 </script>
 {% endblock %}
 
