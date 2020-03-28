@@ -97,8 +97,8 @@ class Event(models.Model):
     name = models.CharField(max_length=200,)
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     start_date = models.DateField()
-    start_time = models.IntegerField(max_length=2,help_text='event start time 24h format.', default=12)
-    duration = models.IntegerField(max_length=2,help_text='event duration in hours, max is 12 hours',default=12)
+    start_time = models.PositiveIntegerField(max_length=2,help_text='event start time 24h format.', default=12)
+    duration = models.PositiveIntegerField(max_length=2,help_text='event duration in hours, max is 12 hours',default=12)
     atendees = models.ManyToManyField(User)
     picture = models.URLField(help_text="URL to the poster for the event",null=True,blank=True)
     TYPE_OF_EVENT = (
