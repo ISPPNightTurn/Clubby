@@ -71,7 +71,7 @@ class Club(models.Model):
     # picture = models.ImageField()
     name = models.CharField(max_length=50, help_text='Enter the name of your club.')
     address = models.CharField(max_length=200, help_text='Enter the full address so google maps can find it.')
-    max_capacity = models.IntegerField(help_text = 'The capacity of your club, you\'re responsible for the enforcement of this number.')
+    max_capacity = models.PositiveIntegerField(help_text = 'The capacity of your club, you\'re responsible for the enforcement of this number.')
     NIF = models.CharField(max_length=10, help_text = 'Company number for the club')
     picture = models.URLField(help_text = 'URL to a picture of your club',null=True,blank=True)
     # This represents the owners user.
