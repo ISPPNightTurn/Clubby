@@ -4,22 +4,22 @@
 <div style="max-width: 700px;" class="card deep-purple darken-4">  
   <div class="card-image">
     {% if event.picture == blank%}
-                <img src="../../../static/clubby/images/event_image.jpeg">
+                <img src="../../../static/clubby/images/event_image.jpeg" alt="event_image">
                 {% else %}
-                <img src={{event.picture}}>
+                <img src={{event.picture}} alt="">
           {% endif %}
     <span class="card-title">{{ event.name }} (<a href="{{ event.club.get_absolute_url }}">{{ event.club.name}}</a>)</span>
   </div>
 <div class="card-content">
-  <p><b style="font-size: larger;">Starts:</b> {{ event.start_date }}</p>
+  <p><strong style="font-size: larger;">Starts:</strong> {{ event.start_date }}</p>
   {% if event.event_type == 'p'  %}
-  <p><b style="font-size: larger;">Type:</b> Private</p>
+  <p><strong style="font-size: larger;">Type:</strong> Private</p>
   {% elif event.event_type == 'd'  %}
-  <p><b style="font-size: larger;">Type:</b> Dress Up</p>
+  <p><strong style="font-size: larger;">Type:</strong> Dress Up</p>
   {% elif event.event_type == 'f'  %}
-  <p><b style="font-size: larger;">Type:</b> Fancy</p>
+  <p><strong style="font-size: larger;">Type:</strong> Fancy</p>
   {% elif event.event_type == 'c'  %}
-  <p><b style="font-size: larger;">Type:</b> Casual</p>
+  <p><strong style="font-size: larger;">Type:</strong> Casual</p>
   {%endif%}
 
     <!-- if the owner of the club is the one looking at this page give him the option to edit the event if no atendees are in yet.-->
@@ -35,7 +35,7 @@
   {%endif%}
 
   {% if perms.clubby.is_owner%}
-    <p><b syle="font-size: larger;">Atendee List:</b></p><br>
+    <p><strong syle="font-size: larger;">Atendee List:</strong></p><br>
     {% if event.atendees %}
     <ul>
       {% for atendant in event.atendees.all %}

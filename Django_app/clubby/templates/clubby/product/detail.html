@@ -4,48 +4,48 @@
 <div style="max-width: 700px;" class="card deep-purple darken-4">
   <div class="card-image">
     {% if product.product_type == 'h' %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/hookah.jpg">
+    <img style="max-width: 700px;" src="../../../static/clubby/images/hookah.jpg" alt="">
     {% elif product.product_type == 'b' %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/beer.jpg">
+    <img style="max-width: 700px;" src="../../../static/clubby/images/beer.jpg" alt="">
     {% elif product.product_type == 'w'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/wine.jpg">
+    <img style="max-width: 700px;" src="../../../static/clubby/images/wine.jpg" alt="">
     {% elif product.product_type == 'k'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/snack.jpg">
+    <img style="max-width: 700px;" src="../../../static/clubby/images/snack.jpg" alt="">
     {% elif product.product_type == 'r'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/refreshment.jpg">
+    <img style="max-width: 700px;" src="../../../static/clubby/images/refreshment.jpg" alt="">
     {% elif product.product_type == 'c'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/cocktail.jpg">
+    <img style="max-width: 700px;" src="../../../static/clubby/images/cocktail.jpg" alt="">
     {% elif product.product_type == 's'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/shot.jpg">
+    <img style="max-width: 700px;" src="../../../static/clubby/images/shot.jpg" alt="">
     {% elif product.product_type == 'm'  %}
-    <img style="max-width: 700px;" src="../../../static/clubby/images/bebidas.jpeg">
+    <img style="max-width: 700px;" src="../../../static/clubby/images/bebidas.jpeg" alt="">
     {% endif %}
     <span class="card-title">Name: {{ product.name }}</span>
     
   </div>
   <div class="card-content">
-    <p><b style="font-size: larger;">Price:</b> {{ product.price }}</p>
+    <p><strong style="font-size: larger;">Price:</strong> {{ product.price }}</p>
   </div>
   {% if product.product_type == 'h'  %}
-    <p><b style="font-size: larger;">Type:</b> Hookah</p>
+    <p><strong style="font-size: larger;">Type:</strong> Hookah</p>
   {% elif product.product_type == 'b'  %}
-    <p><b style="font-size: larger;">Type:</b> Beer</p>
+    <p><strong style="font-size: larger;">Type:</strong> Beer</p>
   {% elif product.product_type == 'w'  %}
-    <p><b style="font-size: larger;">Type:</b> Wine</p>
+    <p><strong style="font-size: larger;">Type:</strong> Wine</p>
   {% elif product.product_type == 'k'  %}
-    <p><b style="font-size: larger;">Type:</b> Snack</p>
+    <p><strong style="font-size: larger;">Type:</strong> Snack</p>
   {% elif product.product_type == 'r'  %}
-    <p><b style="font-size: larger;">Type:</b> Refreshment</p>
+    <p><strong style="font-size: larger;">Type:</strong> Refreshment</p>
   {% elif product.product_type == 'c'  %}
-    <p><b style="font-size: larger;">Type:</b> Cocktail</p>
+    <p><strong style="font-size: larger;">Type:</strong> Cocktail</p>
   {% elif product.product_type == 's'  %}
-    <p><b style="font-size: larger;">Type:</b> Shot</p>
+    <p><strong style="font-size: larger;">Type:</strong> Shot</p>
   {% elif product.product_type == 'm'  %}
-    <p><b style="font-size: larger;">Type:</b> Misc.</p>
+    <p><strong style="font-size: larger;">Type:</strong> Misc.</p>
   {%endif%}
   {% if product.reservation_exclusive %}
     </br>
-    <b>This product is exclusive for reservations</b>
+    <strong>This product is exclusive for reservations</strong>
   {% endif %}
   
   <!-- this should appear only if its the owner. -->

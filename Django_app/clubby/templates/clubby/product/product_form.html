@@ -12,16 +12,16 @@
     {% csrf_token %}
     <div class="input-field">
     
-      <b>{{form.non_field_errors}}</b>
-      <p><b style="font-size: larger;">Name </b>{{form.name}}</p>
+      <strong>{{form.non_field_errors}}</strong>
+      <p><strong style="font-size: larger;">Name </strong>{{form.name}}</p>
       <span class="helptext">{{form.name.help_text}}</span>
       <br>
       <br>
-      <p><b style="font-size: larger;">Price </b>{{form.price}}</p>
+      <p><strong style="font-size: larger;">Price </strong>{{form.price}}</p>
       <span class="helptext">{{form.price.help_text}}</span>
       <br>
       <br>
-      <p><b style="font-size: larger;">Product type </b>{{form.product_type}}</p>
+      <p><strong style="font-size: larger;">Product type </strong>{{form.product_type}}</p>
       <p>
         <label>
           <input type="checkbox" value="{{form.reservation_exclusive}}
