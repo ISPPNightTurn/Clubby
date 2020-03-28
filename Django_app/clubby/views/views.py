@@ -299,7 +299,11 @@ class EventListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
-        form = SearchEventForm(initial={'end_date':(datetime.datetime.now()+datetime.timedelta(days=7)).date(),'start_date':datetime.date.today})
+
+        end_date = datetime.datetime.now()+datetime.timedelta(days=7)
+        start_date = datetime.datetime.now()
+
+        form = SearchEventForm(initial={'end_date':end_date.date(),'start_date':start_date.date()})
         context['form'] = form
         return context  
 
@@ -311,7 +315,6 @@ class EventListView(generic.ListView):
         #check if these were used.
         items = Event.objects.filter(start_date__gte = start_date)
         items = items.filter(start_date__lte = end_date).order_by('start_date' , 'start_time')
-        print(items)
 
         return render(request, 'clubby/event/list.html',{'object_list':items,'form':form})
         # return StatusFormView.as_view()(request)
