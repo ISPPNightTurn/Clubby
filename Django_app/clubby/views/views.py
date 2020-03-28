@@ -100,7 +100,11 @@ def signup_user(request):
             user = form.save()
             user.refresh_from_db()
 
-            user.profile.birth_date = form.cleaned_data.get('birth_date')
+            birth_day = form.cleaned_data.get('birth_day')
+            birth_month = form.cleaned_data.get('birth_month')
+            birth_year = form.cleaned_data.get('birth_year')
+
+            user.profile.birth_date = datetime.datetime(int(birth_year),int(birth_month),int(birth_day)).date()
             user.profile.bio = form.cleaned_data.get('bio')
             user.profile.location = form.cleaned_data.get('location')
             user.profile.funds = 0.0
@@ -124,7 +128,11 @@ def signup_owner(request):
             user = form.save()
             user.refresh_from_db()
 
-            user.profile.birth_date = form.cleaned_data.get('birth_date')
+            birth_day = form.cleaned_data.get('birth_day')
+            birth_month = form.cleaned_data.get('birth_month')
+            birth_year = form.cleaned_data.get('birth_year')
+
+            user.profile.birth_date = datetime.datetime(int(birth_year),int(birth_month),int(birth_day)).date()
             user.profile.bio = form.cleaned_data.get('bio')
             user.profile.location = form.cleaned_data.get('location')
             user.profile.funds = 0.0

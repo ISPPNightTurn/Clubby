@@ -275,7 +275,11 @@ def edit_profile(request):
 
             user.save()
 
-            profile.birth_date = form.cleaned_data.get('birth_date')
+            birth_day = form.cleaned_data.get('birth_day')
+            birth_month = form.cleaned_data.get('birth_month')
+            birth_year = form.cleaned_data.get('birth_year')
+
+            user.profile.birth_date = datetime.datetime(int(birth_year),int(birth_month),int(birth_day)).date()
             profile.bio = form.cleaned_data.get('bio')
             profile.location = form.cleaned_data.get('location')
             profile.picture = form.cleaned_data.get('picture')
@@ -286,8 +290,10 @@ def edit_profile(request):
             return render(request,'clubby/edit_profile.html',{'form':form})
     else:
         user = request.user
+        birth_date = user.profile.birth_date
         form = EditProfileForm(initial={'first_name':user.first_name,'last_name':user.last_name,'email':user.email,
-        'bio':user.profile.bio, 'location':user.profile.location, 'birth_date':user.profile.birth_date,'picture':user.profile.picture,})
+        'bio':user.profile.bio, 'location':user.profile.location, 'picture':user.profile.picture,
+        'birth_day':birth_date.day,'birth_month':birth_date.month,'birth_year':birth_date.year})
         return render(request,'clubby/edit_profile.html',{'form':form})
 
 ##################
