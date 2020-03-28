@@ -85,16 +85,16 @@ def CheckHistory(request):
 
     for qr_item in list:
         if qr_item.product != None:
-            dn = datetime.datetime.now() - timedelta(hours=6)
+            dn = datetime.datetime.now()
             d = qr_item.fecha
             d = d.replace(tzinfo=None)
             qr_item.expiret = d + timedelta(hours=6)
         elif qr_item.ticket != None:
-            dn = datetime.datetime.now() - timedelta(hours=qr_item.ticket.event.duration)
+            dn = datetime.datetime.now()
             d = datetime.datetime(qr_item.ticket.event.start_date.year, qr_item.ticket.event.start_date.month, 
                 qr_item.ticket.event.start_date.day) + timedelta(hours=qr_item.ticket.event.start_time)
             qr_item.expiret = d + timedelta(hours=qr_item.ticket.event.duration)
-        if dn > d:
+        if dn > qr_item.expiret:
             qr_item.timed_out = True
             qr_item.save()
             

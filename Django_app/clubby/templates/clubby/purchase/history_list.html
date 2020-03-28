@@ -72,17 +72,17 @@
         <p>{{qr_item.fecha}}</p>
       </td>
       <td>
-        <p><p>{{qr_item.expiret}}</p></p>
+        <p>{{qr_item.expiret}}</p>
       </td>
       <td>
-        {% if qr_item.timed_out == true %}
+        {% if qr_item.timed_out %}
         <em class="small material-icons white-text">done</em>
         {% else %}
         <em class="small material-icons white-text">clear</em>
         {% endif %}
       </td>
       <td>
-        {% if qr_item.is_used == true %}
+        {% if qr_item.is_used %}
         <em class="small material-icons white-text">done</em>
         {% else %}
         <em class="small material-icons white-text">clear</em>
