@@ -197,13 +197,6 @@ class Product(models.Model):
     class Meta:
         ordering=('reservation_exclusive','product_type')
 
-class Reservation(models.Model):
-    max_time = models.IntegerField(help_text="max hours after the event starts people can arrive at.", max_length=2, default=4)
-    price = models.DecimalField(decimal_places=2,max_digits=5)
-    event = models.ForeignKey(Event,on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.event) + ' ' + str(self.price) + ' ' + str(self.max_time)
 
 
 class Rating(models.Model):
