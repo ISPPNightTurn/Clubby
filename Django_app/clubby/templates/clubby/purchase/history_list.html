@@ -7,7 +7,7 @@
   <div class="card deep-purple darken-4">
     
     {% if list %}
-    <table>
+    <table summary=" List of QR items">
       <tr>
         <th id = "Type">Type</th>
         <th id = "Details">Details</th>
@@ -22,7 +22,7 @@
       <tr>
       {% if qr_item.product != blank %}
       <td>
-        <b>Product</b>
+        <strong>Product</strong>
       </td>
       <td>
         <p>{{qr_item.product.name}}</p>
@@ -47,7 +47,7 @@
       </td>
       {% elif qr_item.ticket != blank %}
       <td>
-        <b>Ticket</b>
+        <strong>Ticket</strong>
       </td>
       <td>
         <p>{{qr_item.ticket.event.name}} 

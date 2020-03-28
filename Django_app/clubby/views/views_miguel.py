@@ -166,7 +166,7 @@ def add_funds(request, ammount):
 def charge(request, ammount): # new
     if request.method == 'POST':
         form = FundsForm(request.POST)
-        ammount = form['ammount'].value()
+        quantity = form['ammount'].value()
 
         # form.is_valid()
         # print (form)
@@ -175,14 +175,14 @@ def charge(request, ammount): # new
         # print('I get here.')
 
         charge = stripe.Charge.create(
-        amount=int(ammount),
+        amount=int(quantity),
         currency='usd',
         description='A Django charge',
         source=request.POST['stripeToken']
     )
 
         profile = request.user.profile
-        profile.funds += Decimal(str(int(ammount)/100))
+        profile.funds += Decimal(str(int(quantity)/100))
         profile.save()
 
         return render(request,'clubby/charge.html')

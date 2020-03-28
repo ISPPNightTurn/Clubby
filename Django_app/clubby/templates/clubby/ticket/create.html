@@ -8,20 +8,20 @@
 <form action="" method="post">
     {% csrf_token %}
 
-      <b>{{form.non_field_errors}}</b>
-      <p><b style="font-size: larger;">Price </b>{{form.price}}</p>
+      <strong>{{form.non_field_errors}}</strong>
+      <p><strong style="font-size: larger;">Price </strong>{{form.price}}</p>
       <span class="helptext">{{form.price.help_text}}</span>
       <br>
       <br>
-      <p><b style="font-size: larger;">Category </b>{{form.category}}</p>
+      <p><strong style="font-size: larger;">Category </strong>{{form.category}}</p>
       <span class="helptext">{{form.category.help_text}}</span>
       <br>
       <br>
-      <p><b style="font-size: larger;">Description </b>{{form.description}}</p>
+      <p><strong style="font-size: larger;">Description </strong>{{form.description}}</p>
       <span class="helptext">{{form.description.help_text}}</span>
       <br>
       <br>
-      <p><b style="font-size: larger;">Size </b>{{form.size}}</p>
+      <p><strong style="font-size: larger;">Size </strong>{{form.size}}</p>
       <span class="helptext">{{form.size.help_text}}</span>
       <br>
       <br>

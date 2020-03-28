@@ -8,75 +8,75 @@
       <div style="max-width: 700px; margin: auto;" class="card rounded">
         <div class="card-content black">
             {% if qr_item.product.product_type == 'h' %}
-            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/hookah.jpg">
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/hookah.jpg" alt="">
             {% elif qr_item.product.product_type == 'b' %}
-            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/beer.jpg">
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/beer.jpg" alt="">
             {% elif qr_item.product.product_type == 'w'  %}
-            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/wine.jpg">
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/wine.jpg" alt="">
             {% elif qr_item.product.product_type == 'k'  %}
-            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/snack.jpg">
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/snack.jpg" alt="">
             {% elif qr_item.product.product_type == 'r'  %}
-            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/refreshment.jpg">
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/refreshment.jpg" alt="">
             {% elif qr_item.product.product_type == 'c'  %}
-            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/cocktail.jpg">
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/cocktail.jpg" alt="">
             {% elif qr_item.product.product_typee == 's'  %}
-            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/shot.jpg">
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/shot.jpg" alt="">
             {% elif qr_item.product.product_type == 'm'  %}
-            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/bebidas.jpeg">
+            <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/bebidas.jpeg" alt="">
             {% endif %}
             <br>
             <br>
-            <i class="small material-icons white-text">redeem</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Product: </b>
+            <em class="small material-icons white-text">redeem</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Product: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.name }}</span>
             <br/>
-            <i class="small material-icons white-text">attach_money</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Price: </b>
+            <em class="small material-icons white-text">attach_money</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Price: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.price }}</span>
             <br/>
             {% if qr_item.product.product_type == 'h'  %}
-            <i class="small material-icons white-text">category</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
+            <em class="small material-icons white-text">category</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Hookah</span>
             <br/>
             {%elif qr_item.product.product_type == 'b'  %}
-            <i class="small material-icons white-text">category</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
+            <em class="small material-icons white-text">category</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Beer</span>
             <br/>
             {%elif qr_item.product.product_type == 'w'  %}
-            <i class="small material-icons white-text">category</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
+            <em class="small material-icons white-text">category</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Wine</span>
             <br/>
             {%elif qr_item.product.product_type == 'k'  %}
-            <i class="small material-icons white-text">category</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
+            <em class="small material-icons white-text">category</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Snack</span>
             <br/>
             {%elif qr_item.product.product_type == 'r'  %}
-            <i class="small material-icons white-text">category</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
+            <em class="small material-icons white-text">category</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Refreshment</span>
             <br/>
             {%elif qr_item.product.product_type == 'c'  %}
-            <i class="small material-icons white-text">category</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
+            <em class="small material-icons white-text">category</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Cocktail</span>
             <br/>
             {%elif qr_item.product.product_type == 's'  %}
-            <i class="small material-icons white-text">category</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
+            <em class="small material-icons white-text">category</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Shot</span>
             <br/>
             {%elif qr_item.product.product_type == 'm'  %}
-            <i class="small material-icons white-text">category</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </b>
+            <em class="small material-icons white-text">category</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">Misc.</span>
             <br/>
             {%endif%}
-            <i class="small material-icons white-text">domain</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Club: </b>
+            <em class="small material-icons white-text">domain</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Club: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.club.name }}</span>
             <br/>
             {% if qr_item.product.reservation_exclusive %}
@@ -93,24 +93,24 @@
                           <img class="responsive-img" style="width: 50%;" src={{event.picture}}>
                           <br>
                     {% endif %}
-            <i class="small material-icons white-text">group</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Event: </b>
+            <em class="small material-icons white-text">group</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Event: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.event.name }}</span>
             <br/>
-            <i class="small material-icons white-text">attach_money</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Price: </b>
+            <em class="small material-icons white-text">attach_money</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Price: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.price }}</span>
             <br/>
-            <i class="small material-icons white-text">domain</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Club: </b>
+            <em class="small material-icons white-text">domain</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Club: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.event.club.name }}</span>
             <br/>
-            <i class="small material-icons white-text">category</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Category: </b>
+            <em class="small material-icons white-text">category</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Category: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.category }}</span>
             <br/>
-            <i class="small material-icons white-text">description</i>
-            <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Description: </b>
+            <em class="small material-icons white-text">description</em>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Description: </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.description }}</span>
             <br/>
         

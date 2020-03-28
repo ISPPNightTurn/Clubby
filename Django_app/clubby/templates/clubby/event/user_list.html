@@ -58,9 +58,9 @@
       <div class="card rounded">
         <div class="card-image">
           {% if event.picture == blank%}
-                <img src="../../../static/clubby/images/event_image.jpeg">
+                <img src="../../../static/clubby/images/event_image.jpeg" alt= "">
                 {% else %}
-                <img src={{event.picture}}>
+                <img src={{event.picture}} alt ="">
           {% endif %}
           <span class="card-title">{{ event.name }}</span>
         </div>
