@@ -26,21 +26,21 @@
     {% endif %}
       <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ({{product.price}}) 
       {% if product.product_type == 'h'  %}
-      <p><strong>Type:</strong> Hookah</p>
+      <p><b style="font-size: larger;">Type:</b> Hookah</p>
       {% elif product.product_type == 'b'  %}
-      <p><strong>Type:</strong> Beer</p>
+      <p><b style="font-size: larger;">Type:</b> Beer</p>
       {% elif product.product_type == 'w'  %}
-      <p><strong>Type:</strong> Wine</p>
+      <p><b style="font-size: larger;">Type:</b> Wine</p>
       {% elif product.product_type == 'k'  %}
-      <p><strong>Type:</strong> Snack</p>
+      <p><b style="font-size: larger;">Type:</b> Snack</p>
       {% elif product.product_type == 'r'  %}
-      <p><strong>Type:</strong> Refreshment</p>
+      <p><b style="font-size: larger;">Type:</b> Refreshment</p>
       {% elif product.product_type == 'c'  %}
-      <p><strong>Type:</strong> Cocktail</p>
+      <p><b style="font-size: larger;">Type:</b> Cocktail</p>
       {% elif product.product_type == 's'  %}
-      <p><strong>Type:</strong> Shot</p>
+      <p><b style="font-size: larger;">Type:</b> Shot</p>
       {% elif product.product_type == 'm'  %}
-      <p><strong>Type:</strong> Misc.</p>
+      <p><b style="font-size: larger;">Type:</b> Misc.</p>
       {%endif%}
       {% if product.reservation_exclusive %}
         </br>

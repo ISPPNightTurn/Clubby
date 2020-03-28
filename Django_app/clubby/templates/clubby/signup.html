@@ -16,9 +16,44 @@
   <form method="post">
     <div class="formSignUp">
     {% csrf_token %}
-    {{ form.as_p }}
+    
+      <b>{{form.non_field_errors}}</b>
+      <p><b style="font-size: larger;">Username </b>{{form.username}}</p>
+      <span class="helptext">{{form.username.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">First name </b>{{form.first_name}}</p>
+      <span class="helptext">{{form.first_name.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Last name </b>{{form.last_name}}</p>
+      <span class="helptext">{{form.last_name.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Email </b>{{form.email}}</p>
+      <span class="helptext">{{form.email.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Bio </b>{{form.bio}}</p>
+      <span class="helptext">{{form.bio.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Location </b>{{form.location}}</p>
+      <span class="helptext">{{form.location.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Birth date </b>{{form.birth_date}}</p>
+      <p><b style="font-size: larger;">Password </b>{{form.password1}}</p>
+      <span class="helptext">{{form.password1.help_text}}</span>
+      <br>
+      <br>
+      <p><b style="font-size: larger;">Password confirmation </b>{{form.password2}}</p>
+      <span class="helptext">{{form.password2.help_text}}</span>
+      <br>
+      <br>
+      
     {{ form.media }}
-    <p>By clicking in the 'Sign up' button you agree with our <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">terms and conditions</a></p>
+    <p><small>*By clicking in the 'Sign up' button you agree with our <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">terms and conditions</a></small></p>
     <button type="submit" class="btn">Sign up</button>
   </div>
   </form>

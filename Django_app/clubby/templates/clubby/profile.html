@@ -9,40 +9,40 @@
       <div style="max-width: 700px; margin: auto;" class="card rounded">
         <div class="card-content black">
           <i class="small material-icons white-text">attach_money</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Funds: </span>
+          <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Funds: </b>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.funds}} €</span>
           <br/>
           {% if perms.clubby.is_owner %}
           <i class="small material-icons white-text">attach_money</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Premium status: </span>
+          <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Premium status: </b>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{%if user_profile.renew_premium %} Active (<a href="{% url 'cancel-premium' %}">CANCEL</a>) {%else%} Inactive {%endif%}</span>
           <br/>
           {% endif %}
           <i class="small material-icons white-text">emoji_people</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Name: </span>
+          <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Name: </b>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.first_name}}</span>
           <br/>
           <i class="small material-icons white-text"></i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Surname: </span>
+          <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Surname: </b>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.last_name}}</span>
           <br/>
           <i class="small material-icons white-text">alternate_email</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Email: </span>
+          <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Email: </b>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.email}}</span>
           <br/>
           <i class="small material-icons white-text">comment</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Bio: </span>
+          <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Bio: </b>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.bio}}</span>
           <br/>
           <i class="small material-icons white-text">location_on</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Location: </span>
+          <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Location: </b>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.location}}</span>
           <br/>
           <i class="small material-icons white-text">cake</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Birth Date: </span>
+          <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Birth Date: </b>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.birth_date}}</span>
           <br/>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Profile pic: </span>
+          <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Profile pic: </b>
           </br>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">
             {% if user_profile.picture == blank%}
@@ -57,7 +57,10 @@
 
           <form method="post">
             {% csrf_token %}
-            {{ form }}
+            <br>
+            <p><b style="font-size: larger;">Ammount to add </b>{{form.ammount}}</p>
+         
+            {{ form.funds }}
             <button class="btn purple darken-4" type="submit">Add funds to your account!</button>
           </form>
         </div>
@@ -94,11 +97,11 @@
             </div>
             <div class="card-content black">
               <i class="small material-icons white-text">map</i>
-              <span class="light white-text" style="display: inline-block; vertical-align:top;">Address: </span>
+              <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Address: </b>
               <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.address}}</span>
               <br/>
               <i class="small material-icons white-text">people</i>
-              <span class="light white-text" style="display: inline-block; vertical-align:top;">Capacity: </span>
+              <b class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Capacity: </b>
               <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}} people</span>
               <br/>
             </div>
