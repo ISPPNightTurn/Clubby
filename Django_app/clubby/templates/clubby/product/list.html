@@ -57,7 +57,24 @@
   <ul class="collection-item deep-purple darken-2">
     {% for product in object_list %}
       <li class="collection-item purple darken-4 avatar">
-        <img alt="" class="circle" src="../../../static/clubby/images/bebidas.jpeg">
+      {% if product.product_type == 'h'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/hookah.jpg">
+      {% elif product.product_type == 'b'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/beer.jpg">
+      {% elif product.product_type == 'w'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/wine.jpg">
+      {% elif product.product_type == 'k'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/snack.jpg">
+      {% elif product.product_type == 'r'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/refreshment.jpg">
+      {% elif product.product_type == 'c'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/cocktail.jpg">
+      {% elif product.product_type == 's'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/shot.jpg">
+      {% elif product.product_type == 'm'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/bebidas.jpeg">
+      {%endif%}
+        
         <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> 
       </li>
     {% endfor %}
