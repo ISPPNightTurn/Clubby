@@ -6,7 +6,7 @@
         {% if club.picture == null%}
         <img src="../../../static/clubby/images/background.jpg" alt="background">
         {% else %}
-        <img src="../../../{{club.picture}}" alt="picture of the club">
+        <img src="{{club.picture}}" alt="picture of the club">
         {% endif %}
         <span class="card-title"> {{ club.name }}</span>
       </div>
