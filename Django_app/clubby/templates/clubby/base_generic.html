@@ -88,7 +88,7 @@
       <BR/>
     </div></li>
     {% if user.profile.picture != null %}
-    <li><a><img src="{{user.profile.picture}}" class="circle responsive-img" style="width: 25%;"/></a></li>
+    <li><a><img src="{{user.profile.picture}}" class="circle responsive-img" style="width: 25%;" alt="profile picture"/></a></li>
     <BR>
     {%endif%}
     
@@ -133,12 +133,12 @@
     {% if is_paginated %}
         <ul class="pagination">
           {% if page_obj.has_previous %}
-            <li class="waves-effect"><a  href="{{ request.path }}?page={{ page_obj.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+            <li class="waves-effect"><a  href="{{ request.path }}?page={{ page_obj.previous_page_number }}"><em class="material-icons">chevron_left</em></a></li>
             {% endif %}
           <li class="waves-effect">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
           {% if page_obj.has_next %}
           <li class="waves-effect white-text">
-            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}"><i class="material-icons">chevron_right</i></a>
+            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}"><em class="material-icons">chevron_right</em></a>
           </li>
           {% endif %}
         </ul>
