@@ -109,6 +109,17 @@ class SignupForm(UserCreationForm):
 class ProductModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
     price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, help_text='Required. 5 digits max' )
+
+    TYPE_OF_PRODUCT = (
+        ('r', 'refreshment'),
+        ('c', 'cocktail'),
+        ('s', 'shot'),
+        ('b', 'beer'),
+        ('w', 'wine'),
+        ('k', 'snack'),
+        ('h', 'hookah'),
+        ('m', 'misc.'),
+    )
     product_type = forms.CharField(
         max_length=124,
         widget=forms.Select(

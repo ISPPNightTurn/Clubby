@@ -165,7 +165,6 @@ class Product(models.Model):
     name = models.CharField(max_length=50)
     price = models.DecimalField(decimal_places=2,max_digits=5)
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
-    
 
     TYPE_OF_PRODUCT = (
         ('r', 'refreshment'),
@@ -177,10 +176,11 @@ class Product(models.Model):
         ('h', 'hookah'),
         ('m', 'misc.'),
     )
+
     product_type = models.CharField(
         max_length=1,
         choices=TYPE_OF_PRODUCT,
-        blank=False,
+        blank=True,
         default='m',
         help_text='product type',
     )
