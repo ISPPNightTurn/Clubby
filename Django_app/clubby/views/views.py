@@ -211,7 +211,7 @@ class ClubUpdate(PermissionRequiredMixin,UpdateView):
     permission_required = 'clubby.is_owner'
     model = Club
     template_name = 'clubby/club/club_form.html'
-    fields = ['name', 'address', 'max_capacity', 'NIF']
+    fields = ['name', 'address', 'max_capacity', 'NIF', 'picture']
 
     def form_valid(self, form):  
         obj = form.save(commit=False)
