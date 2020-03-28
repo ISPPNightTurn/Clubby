@@ -35,7 +35,7 @@
           <li><a href="{% url 'events' %}"><p class="light">All events</p></a></li>
 
           {% if user.is_authenticated %}
-          <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">User: {{ user.get_username }}<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">User: {{ user.get_username }}<em class="material-icons right">arrow_drop_down</em></a></li>
           <li><a href="{% url 'profile' %}"><p class="light">Funds: {{  user.profile.funds  }}€</p></a></li>
           {% if perms.clubby.is_user %}
           <!-- We can list our events only if we are a user.  -->
