@@ -87,10 +87,10 @@
          
           {% elif qr_item.ticket != blank %}
               {% if event.picture == blank%}
-                          <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/event_image.jpeg">
+                          <img class="responsive-img" style="width: 50%;" src="../../../static/clubby/images/event_image.jpeg" alt="">
                           <br>
                           {% else %}
-                          <img class="responsive-img" style="width: 50%;" src={{event.picture}}>
+                          <img class="responsive-img" style="width: 50%;" src={{event.picture}} alt="">
                           <br>
                     {% endif %}
             <em class="small material-icons white-text">group</em>
