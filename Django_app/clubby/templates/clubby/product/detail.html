@@ -20,12 +20,13 @@
     {% elif product.product_type == 'm'  %}
     <img style="max-width: 700px;" src="../../../static/clubby/images/bebidas.jpeg" alt="">
     {% endif %}
-    <span class="card-title">Name: {{ product.name }}</span>
+    
     
   </div>
   <div class="card-content">
+    <span class="card-title">{{ product.name }}</span>
     <p><strong style="font-size: larger;">Price:</strong> {{ product.price }}</p>
-  </div>
+  
   {% if product.product_type == 'h'  %}
     <p><strong style="font-size: larger;">Type:</strong> Hookah</p>
   {% elif product.product_type == 'b'  %}
@@ -47,6 +48,7 @@
     </br>
     <strong>This product is exclusive for reservations</strong>
   {% endif %}
+</div>
   
   <!-- this should appear only if its the owner. -->
   {% if product.club.owner == user%}

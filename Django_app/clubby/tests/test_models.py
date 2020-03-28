@@ -3,7 +3,7 @@ import datetime
 from django.test import TestCase
 from django.utils import timezone
 
-from ..models import Profile, User, Club, Event, Ticket, CreateTicket, Product, Reservation, Rating, QR_Item
+from ..models import Profile, User, Club, Event, Ticket, CreateTicket, Product, Rating, QR_Item
 
 from datetime import datetime, timedelta
 
@@ -200,23 +200,23 @@ class ProductModelTest(TestCase):
     def test_product_to_reservation_exclusive(self):
         self.assertEquals(self.test_product.reservation_exclusive, False)
 
-class ReservationModelTest(TestCase):
+# class ReservationModelTest(TestCase):
 
-    def setUp(self):
-        self.club = Club()
-        self.event = Event(name = "Evento", club = self.club, start_date = datetime.strptime("2021/01/01", "%Y/%m/%d"),
-            start_time = 12, duration = 4, picture = "https://picture.com")
+#     def setUp(self):
+#         self.club = Club()
+#         self.event = Event(name = "Evento", club = self.club, start_date = datetime.strptime("2021/01/01", "%Y/%m/%d"),
+#             start_time = 12, duration = 4, picture = "https://picture.com")
 
-        self.test_reservation = Reservation(max_time = 12, price = 40,event = self.event)
+#         self.test_reservation = Reservation(max_time = 12, price = 40,event = self.event)
 
-    def test_reservation_to_max_time(self):
-        self.assertEquals(self.test_reservation.max_time, 12)
+#     def test_reservation_to_max_time(self):
+#         self.assertEquals(self.test_reservation.max_time, 12)
 
-    def test_reservation_to_price(self):
-        self.assertEquals(self.test_reservation.price, 40)
+#     def test_reservation_to_price(self):
+#         self.assertEquals(self.test_reservation.price, 40)
 
-    def test_reservation_to_event(self):
-        self.assertEquals(self.test_reservation.event, self.event)
+#     def test_reservation_to_event(self):
+#         self.assertEquals(self.test_reservation.event, self.event)
 
 class RatingModelTest(TestCase):
 
@@ -255,7 +255,7 @@ class QR_ItemModelTest(TestCase):
         self.product = Product(name = "Cerveza", price = 1.5, club = self.club, product_type = 'm',
             reservation_exclusive = False)
     
-        self.test_qr_item = QR_Item(is_used = False, product = self.product, reservation = None, ticket = None,
+        self.test_qr_item = QR_Item(is_used = False, product = self.product, ticket = None,
             user = self.user, fecha = datetime.strptime("2021/01/01", "%Y/%m/%d"), priv_key = '12345', timed_out = False)
 
     def test_qr_item_to_is_used(self):
@@ -264,8 +264,8 @@ class QR_ItemModelTest(TestCase):
     def test_qr_item_to_product(self):
         self.assertEquals(self.test_qr_item.product, self.product)
 
-    def test_qr_item_to_reservation(self):
-        self.assertEquals(self.test_qr_item.reservation, None)
+    # def test_qr_item_to_reservation(self):
+    #     self.assertEquals(self.test_qr_item.reservation, None)
 
     def test_qr_item_to_ticket(self):
         self.assertEquals(self.test_qr_item.ticket, None)

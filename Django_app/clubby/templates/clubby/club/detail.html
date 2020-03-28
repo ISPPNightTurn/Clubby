@@ -8,9 +8,10 @@
         {% else %}
         <img src="{{club.picture}}" alt="picture of the club">
         {% endif %}
-        <span class="card-title"> {{ club.name }}</span>
+        
       </div>
     <div class="card-content">
+      <span class="card-title"> {{ club.name }}</span>
       <p><strong style="font-size: larger;">Address:</strong> {{ club.address }}</p> <!-- author detail link not yet defined -->
       <p><strong style="font-size: larger;">Max Capacity:</strong> {{ club.max_capacity }}</p>
   
