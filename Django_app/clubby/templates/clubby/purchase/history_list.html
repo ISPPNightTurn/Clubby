@@ -18,6 +18,7 @@
         <th id = "Expired">Expired</th>
         <th id = "Used">Used</th>
       </tr>
+
     {% for qr_item in list %}
       <tr>
       {% if qr_item.product != blank %}
@@ -37,7 +38,7 @@
         <p>{{qr_item.fecha}}</p>
       </td>
       <td>
-        <p>6 hours</p>
+        <p>{{qr_item.expiret}}</p>
       </td>
       <td>
         {% if qr_item.timed_out %}
@@ -58,8 +59,8 @@
         <strong>Ticket</strong>
       </td>
       <td>
-        <p>{{qr_item.ticket.event.name}} 
-          ({{qr_item.ticket.event.start_date}} / {{qr_item.ticket.event.start_time}}:00)</p>
+        <p>{{qr_item.ticket.event.name}} <br/>
+          Inicio : {{qr_item.ticket.event.start_date}} / {{qr_item.ticket.event.start_time}}:00 <br/> Fin: {{qr_item.expiret}})</p>
       </td>
       <td>
         <p>{{qr_item.ticket.price}}</p>
@@ -71,7 +72,7 @@
         <p>{{qr_item.fecha}}</p>
       </td>
       <td>
-        <p>{{qr_item.ticket.event.duration}} hours</p>
+        <p><p>{{qr_item.expiret}}</p></p>
       </td>
       <td>
         {% if qr_item.timed_out == true %}
