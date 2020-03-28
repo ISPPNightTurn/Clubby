@@ -40,10 +40,18 @@
         <p>6 hours</p>
       </td>
       <td>
-        <p>{{qr_item.timed_out}}</p>
+        {% if qr_item.timed_out %}
+        <em class="small material-icons white-text">done</em>
+        {% else %}
+        <em class="small material-icons white-text">clear</em>
+        {% endif %}
       </td>
       <td>
-        <p>{{qr_item.is_used}}</p>
+        {% if qr_item.is_used%}
+        <em class="small material-icons white-text">done</em>
+        {% else %}
+        <em class="small material-icons white-text">clear</em>
+        {% endif %}
       </td>
       {% elif qr_item.ticket != blank %}
       <td>
@@ -66,10 +74,18 @@
         <p>{{qr_item.ticket.event.duration}} hours</p>
       </td>
       <td>
-        <p>{{qr_item.timed_out}}</p>
+        {% if qr_item.timed_out == true %}
+        <em class="small material-icons white-text">done</em>
+        {% else %}
+        <em class="small material-icons white-text">clear</em>
+        {% endif %}
       </td>
       <td>
-        <p>{{qr_item.is_used}}</p>
+        {% if qr_item.is_used == true %}
+        <em class="small material-icons white-text">done</em>
+        {% else %}
+        <em class="small material-icons white-text">clear</em>
+        {% endif %}
       </td>
       {% endif %}
     {% endfor %}
