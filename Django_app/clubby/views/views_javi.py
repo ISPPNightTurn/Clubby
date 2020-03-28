@@ -93,6 +93,7 @@ def CheckHistory(request):
             dn = datetime.datetime.now()
             d = datetime.datetime(qr_item.ticket.event.start_date.year, qr_item.ticket.event.start_date.month, 
                 qr_item.ticket.event.start_date.day) + timedelta(hours=qr_item.ticket.event.start_time)
+            qr_item.start = d
             qr_item.expiret = d + timedelta(hours=qr_item.ticket.event.duration)
         if dn > qr_item.expiret:
             qr_item.timed_out = True

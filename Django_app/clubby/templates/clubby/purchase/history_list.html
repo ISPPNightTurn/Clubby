@@ -13,7 +13,7 @@
         <th id = "Details">Details</th>
         <th id = "Price">Price</th>
         <th id = "Place">Place</th>
-        <th id = "Date">Date</th>
+        <th id = "Date">Purchase date:</th>
         <th id = "Expiring">Expires after:</th>
         <th id = "Expired">Expired</th>
         <th id = "Used">Used</th>
@@ -60,7 +60,7 @@
       </td>
       <td>
         <p>{{qr_item.ticket.event.name}} <br/>
-          Start : {{qr_item.ticket.event.start_date}} / {{qr_item.ticket.event.start_time}}:00 <br/> End: {{qr_item.expiret}})</p>
+          Start : {{qr_item.start}} <br/> End: {{qr_item.expiret}}</p>
       </td>
       <td>
         <p>{{qr_item.ticket.price}}</p>
