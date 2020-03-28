@@ -215,7 +215,6 @@ class QR_Item(models.Model):
     #The order is used so we can find the user and give them all his QR items
     #A QR_Item can be either a product, a reservation or a ticket
     product = models.ForeignKey(Product,on_delete=models.CASCADE,null=True,blank=True)
-    reservation = models.ForeignKey(Reservation,on_delete=models.CASCADE,null=True,blank=True)
     ticket = models.ForeignKey(Ticket,on_delete=models.CASCADE,null=True,blank=True)
 
     user = models.ForeignKey(User,on_delete= models.CASCADE,null=True,blank=True)
