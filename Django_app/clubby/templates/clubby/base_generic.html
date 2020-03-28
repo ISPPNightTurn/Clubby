@@ -27,7 +27,7 @@
       <div class=" purple darken-4 nav-wrapper">
         <div class="large-logo">
           <a href="{% url 'landing' %}">
-           <img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png"/>
+           <img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png" alt="clubby_logo"/>
           </a>
         </div>
         <ul class="right hide-on-med-and-down">
@@ -69,7 +69,7 @@
   <nav class="purple darken-4">
     <div class="purple darken-4 container hide-on-large-only">  
     <a href="#" data-target="slide-out" class="sidenav-trigger hide-on-large-only">
-      <i class = "small material-icons">menu</i>
+      <em class = "small material-icons">menu</em>
     </a>
 
       <ul class="right hide-on-large-only">
@@ -84,7 +84,7 @@
   <!-- Sidenavfor mobile devices-->
   <ul id="slide-out" class="sidenav purple darken-4 ">
     <li><div class="user-view">
-      <img class="logo_img_sidenav" src="../../static/clubby/images/clubby_logo_white_no_bg.png"/>
+      <img class="logo_img_sidenav" src="../../static/clubby/images/clubby_logo_white_no_bg.png" alt="logo_img_sidenav"/>
       <BR/>
     </div></li>
     {% if user.profile.picture != null %}
@@ -153,10 +153,10 @@
 <br/><br/><br/>
 <!-- Toolbar on the bottom of the screen for mobile devices-->
 <div class="purple darken-4 hide-on-large-only navbar bar-icon">
-  <a href="{% url 'landing' %}"><i class="small material-icons">home</i></a>
+  <a href="{% url 'landing' %}"><em class="small material-icons">home</em></a>
   <a href="{% url 'clubs' %}"><img class="icon_logo" src="../../../static/clubby/images/clubby_logo_white_icon.png"></a>
 
-  <a href="{% url 'events' %}"><i class="small material-icons bar-icon">event</i></a>
+  <a href="{% url 'events' %}"><em class="small material-icons bar-icon">event</em></a>
 </div>
 
     <!--  Scripts-->

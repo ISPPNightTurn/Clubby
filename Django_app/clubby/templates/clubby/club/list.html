@@ -22,16 +22,16 @@
                 {% if club.picture == null%}
                 <img src="../../../static/clubby/images/background.jpg" alt="generic club image">
                 {% else %}
-                <img src="../../../{{club.picture}}">
+                <img src="../../../{{club.picture}}" alt="">
                 {% endif %}
                 
                 <span class="card-title">{{ club.name }}</span>
               </div>
               <div class="card-content black">
-                <i class="small material-icons white-text">people</i><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Capacity: </strong>
+                <em class="small material-icons white-text">people</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Capacity: </strong>
                 <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}} people  </span>
                 <br/>
-                <i class="small material-icons white-text">map</i><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;"> Address: </strong>
+                <em class="small material-icons white-text">map</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;"> Address: </strong>
                 <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.address}}</span>
               </div>
               <div class="card-action black">

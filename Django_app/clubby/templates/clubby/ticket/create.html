@@ -7,7 +7,6 @@
 <div class="card-content">  
 <form action="" method="post">
     {% csrf_token %}
-    <table>
 
       <b>{{form.non_field_errors}}</b>
       <p><b style="font-size: larger;">Price </b>{{form.price}}</p>
@@ -27,7 +26,6 @@
       <br>
       <br>
       
-    </table>
     <input class="btn purple darken-4" type="submit" value="Submit">
   </form>
 </div>

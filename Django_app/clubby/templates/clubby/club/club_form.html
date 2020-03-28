@@ -5,9 +5,8 @@
 <div class="deep-purple darken-4 toast rounded">
   <form action="" method="post">
     {% csrf_token %}
-    <table>
-    
-      <b>{{form.non_field_errors}}</b>
+
+      <strong>{{form.non_field_errors}}</strong>
       <p><strong style="font-size: larger;">Name </strong>{{form.name}}</p>
       <span class="helptext">{{form.name.help_text}}</span>
       <br>
@@ -29,7 +28,6 @@
       <br>
       <br>
       
-    </table>
     <input type="submit" value="Submit" class="btn-large purple darken-4">
   </form>
 </div>
