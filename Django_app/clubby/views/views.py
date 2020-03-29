@@ -342,7 +342,7 @@ class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
     """Generic class-based view listing events of the club, that haven't happened yet."""
     permission_required = 'clubby.is_owner'
     model = Event
-    template_name ='clubby/event/list.html'
+    template_name ='clubby/event/future-list.html'
     paginate_by = 5
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
 

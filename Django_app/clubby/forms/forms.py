@@ -13,6 +13,8 @@ from django.contrib.auth.models import User
 
 from clubby.models import Club, Event, Profile, Product, Ticket
 from django.contrib.admin.widgets import AdminDateWidget
+from decimal import Decimal
+from datetime import date
 
 import re
     
@@ -108,7 +110,7 @@ class SignupForm(UserCreationForm):
 
 class ProductModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
-    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, help_text='Required. 5 digits max' )
+    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, min_value=Decimal('0.00'), help_text='Required. 5 digits max' )
 
     TYPE_OF_PRODUCT = (
         ('r', 'refreshment'),
