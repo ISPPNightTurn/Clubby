@@ -141,16 +141,32 @@ class ProductModelForm(ModelForm):
 class EventModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
     start_date = forms.DateField(widget=DateInput, initial= datetime.date.today)
+
     event_type = forms.CharField(
         max_length=124,
         widget=forms.Select(
-            choices=Event.TYPE_OF_EVENT,
+            choices=Event.TYPE_OF_MUSIC,
             attrs={'class': 'browser-default deep-purple darken-4'}
         ),
     )
+
+    start_time = forms.IntegerField(
+        widget=forms.Select(
+            choices=Event.START_TIMES,
+            attrs={'class': 'browser-default deep-purple darken-4'}
+        ),
+    )
+
+    duration = forms.IntegerField(
+        widget=forms.Select(
+            choices=Event.DURATIONS,
+            attrs={'class': 'browser-default deep-purple darken-4'}
+        ),
+    )
+
     
+
     class Meta:
         model = Event
         fields = '__all__'
         exclude = ['atendees','club'] 
-
