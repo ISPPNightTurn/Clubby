@@ -1,10 +1,7 @@
 {% extends "clubby/base_generic.html" %}
 {% block content %}
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('select').material_select();
-});
-</script>
+{% load static %}
+
 <h2 class="header center white-text">Create new event</h2>
 <div class="deep-purple darken-4 toast rounded">
   
@@ -42,5 +39,18 @@
   
 </div>
 
-
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'clubby/js/materialize.js' %}"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".datepicker").datepicker({
+      setDefaultDate: true,
+      yearRange: [(new Date()).getFullYear(), (new Date()).getFullYear() + 10],
+     defaultDate: new Date(),
+     minDate: new Date(),
+    maxDate: new Date((new Date).getFullYear() + 10, 1, 1),
+     format: "yyyy-mm-dd"
+   });
+});
+</script>
 {% endblock %}
