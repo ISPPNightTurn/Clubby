@@ -2,6 +2,21 @@ import datetime
 
 from django.test import TestCase
 from django.utils import timezone
+from datetime import datetime, timedelta
+from clubby.forms import ClubModelForm, SignupForm, ProductModelForm, EventModelForm, TicketCreateModelForm, RatingCreateModelForm, ProductPurchaseForm, RedeemQRCodeForm, TicketPurchaseForm, FundsForm, PremiumForm, SearchForm, SearchEventForm
+from ..models import Club, Product, User, QR_Item
+from django.contrib.auth.models import User
+
+from datetime import datetime, timedelta
+
+#######################
+#    CLUBBY TESTS     #
+#######################
+
+import datetime
+
+from django.test import TestCase
+from django.utils import timezone
 
 from clubby.forms import ClubModelForm, SignupForm, ProductModelForm, EventModelForm, TicketCreateModelForm, RatingCreateModelForm
 
@@ -11,6 +26,7 @@ from datetime import datetime, timedelta
 #    CLUBBY TESTS     #
 #######################
 
+#################################### JAVI ####################################
 class ClubModelFormTests(TestCase):
     def test_form_complete(self):
         form_data = {'name': 'name', 'address': 'address', 'max_capacity': 10, 'NIF': '12345678x', 'picture': 'https://picture.com'}
@@ -418,3 +434,267 @@ class RatingCreateModelFormTests(TestCase):
         form_data = {'stars': 10, 'text': 'toooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo long'}
         form = RatingCreateModelForm(data=form_data)
         self.assertFalse(form.is_valid())
+
+#################################### YASSIN ####################################
+class ProductPurchaseFormTest(TestCase):
+    #Test 1 - Yassin
+    def test_form_complete(self):
+        self.user = User()
+        self.user.save()
+        club = Club.objects.create(name = "Clubby", address = "Callesita", max_capacity = 120, NIF = '12345678X',
+            picture = "https://picture.com", owner = self.user)
+        product = Product.objects.create(name = "Cerveza", price = 1.5, club = club, product_type = 'm',
+            reservation_exclusive = False)            
+        form_data = {'quantity': 2, 'product': product.id}
+        form = ProductPurchaseForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    #Test 2 - Yassin
+    def test_form_quantity_too_big(self):
+        self.user = User()
+        self.user.save()
+        club = Club.objects.create(name = "Clubby", address = "Callesita", max_capacity = 120, NIF = '12345678X',
+            picture = "https://picture.com", owner = self.user)
+        product = Product.objects.create(name = "Cerveza", price = 1.5, club = club, product_type = 'm',
+            reservation_exclusive = False)        
+        form_data = {'quantity': 12, 'product': product.id}
+        form = ProductPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 3 - Yassin
+    def test_form_quantity_too_small(self):
+        self.user = User()
+        self.user.save()
+        club = Club.objects.create(name = "Clubby", address = "Callesita", max_capacity = 120, NIF = '12345678X',
+            picture = "https://picture.com", owner = self.user)
+        product = Product.objects.create(name = "Cerveza", price = 1.5, club = club, product_type = 'm',
+            reservation_exclusive = False)
+        form_data = {'quantity': 0, 'product': product.id}
+        form = ProductPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 4 - Yassin
+    def test_form_quantity_negative(self):
+        self.user = User()
+        self.user.save()
+        club = Club.objects.create(name = "Clubby", address = "Callesita", max_capacity = 120, NIF = '12345678X',
+            picture = "https://picture.com", owner = self.user)
+        product = Product.objects.create(name = "Cerveza", price = 1.5, club = club, product_type = 'm',
+            reservation_exclusive = False)
+        form_data = {'quantity': -1, 'product': product.id}
+        form = ProductPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 5 - Yassin
+    def test_form_quantity_null(self):
+        self.user = User()
+        self.user.save()
+        club = Club.objects.create(name = "Clubby", address = "Callesita", max_capacity = 120, NIF = '12345678X',
+            picture = "https://picture.com", owner = self.user)
+        product = Product.objects.create(name = "Cerveza", price = 1.5, club = club, product_type = 'm',
+            reservation_exclusive = False) 
+        form_data = {'product': product.id}
+        form = ProductPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 6 - Yassin
+    def test_form_product_null(self):
+        form_data = {'quantity': 1}
+        form = ProductPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 7 - Yassin
+    def test_form_quantity_wrong_type(self):
+        form_data = {'quantity': 'string', 'product': 123}
+        form = ProductPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 8 - Yassin
+    def test_form_product_wrong_type(self):
+        form_data = {'quantity': 1, 'product': 'string'}
+        form = ProductPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+class RedeemQRCodeFormTest(TestCase):
+    #Test 9 - Yassin
+    def test_form_complete(self):
+        self.user = User()
+        self.user.save()
+        club = Club.objects.create(name = "Clubby", address = "Callesita", max_capacity = 120, NIF = '12345678X',
+            picture = "https://picture.com", owner = self.user)
+        product = Product.objects.create(name = "Cerveza", price = 1.5, club = club, product_type = 'm',
+            reservation_exclusive = False) 
+        qr_item = QR_Item(is_used = False, product = product, ticket = None,
+            user = self.user, fecha = datetime.strptime("2021/01/01", "%Y/%m/%d"), priv_key = '12345', timed_out = False)
+        form_data = {'qr_item_id': qr_item}
+        form = RedeemQRCodeForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    #Test 10 - Yassin
+    def test_form_qr_item_null(self):
+        form_data = {}
+        form = RedeemQRCodeForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 11 - Yassin
+    def test_form_qr_item_wrong_type(self):
+        form_data = {'qr_item_id': 'string'}
+        form = RedeemQRCodeForm(data=form_data)
+        self.assertFalse(form.is_valid())
+    
+class TicketPurchaseFormTest(TestCase):
+    #Test 12 - Yassin
+    def test_form_complete(self):    
+        form_data = {'quantity': 4, 'event': 1, 'category': 'string'}
+        form = TicketPurchaseForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    #Test 13 - Yassin
+    def test_form_quantity_too_big(self):
+        form_data = {'quantity': 5, 'event': 1, 'category': 'string'}
+        form = TicketPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 14 - Yassin
+    def test_form_quantity_too_small(self):
+        form_data = {'quantity': 0, 'event': 1, 'category': 'string'}
+        form = TicketPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 15 - Yassin
+    def test_form_quantity_negative(self):
+        form_data = {'quantity': -2, 'event': 1, 'category': 'string'}
+        form = TicketPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 16 - Yassin
+    def test_form_quantity_null(self):
+        form_data = {'event': 1, 'category': 'string'}
+        form = TicketPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 17 - Yassin
+    def test_form_event_null(self):
+        form_data = {'quantity': 2, 'category': 'string'}
+        form = TicketPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 18 - Yassin
+    def test_form_category_too_long(self):
+        form_data = {'event': 1, 'quantity': 2, 'category': 'toooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooolong'}
+        form = TicketPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 19 - Yassin
+    def test_form_category_null(self):
+        form_data = {'quantity': 2, 'event': 1}
+        form = TicketPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 20 - Yassin
+    def test_form_quantity_wrong_type(self):
+        form_data = {'quantity': 'string', 'event': 1, 'category': 'string'}
+        form = TicketPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 21 - Yassin
+    def test_form_event_wrong_type(self):
+        form_data = {'quantity': 2, 'event': 'string', 'category': 'string'}
+        form = TicketPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+    
+    #Test 22 - Yassin
+    def test_form_category_wrong_type(self):
+        form_data = {'quantity': 2, 'event': 'string', 'category': 2}
+        form = TicketPurchaseForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+class FundsFormTest(TestCase):
+    #Test 23 - Yassin
+    def test_form_complete(self):    
+        form_data = {'ammount': 101}
+        form = FundsForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    #Test 24 - Yassin
+    def test_form_amount_too_big(self):
+        form_data = {'ammount': 505}
+        form = FundsForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 25 - Yassin
+    def test_form_amount_too_small(self):
+        form_data = {'ammount': 5}
+        form = FundsForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 26 - Yassin
+    def test_form_amount_negative(self):
+        form_data = {'ammount': -50}
+        form = FundsForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 27 - Yassin
+    def test_form_amount_null(self):
+        form_data = {}
+        form = FundsForm(data=form_data)
+        self.assertFalse(form.is_valid())
+    
+    #Test 28 - Yassin
+    def test_form_amount_wrong_type(self):
+        form_data = {'ammount': 'string'}
+        form = FundsForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+class PremiumFormTest(TestCase):
+    #Test 29 - Yassin
+    def test_form_complete_true_case(self):    
+        form_data = {'accept': True}
+        form = PremiumForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    #Test 30 - Yassin
+    def test_form_complete_false_case(self):    
+        form_data = {'accept': False}
+        form = PremiumForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    #Test 31 - Yassin
+    def test_form_null_accept(self):    
+        form_data = {}
+        form = PremiumForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+class SearchEventFormTest(TestCase):
+    #Test 32 - Yassin
+    def test_form_complete(self):    
+        form_data = {'start_date': datetime.strptime("2021/01/04", "%Y/%m/%d"), 'end_date': datetime.strptime("2021/01/06", "%Y/%m/%d")}
+        form = SearchEventForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    #Test 33 - Yassin
+    def test_form_start_date_after_end_date(self):    
+        form_data = {'start_date': datetime.strptime("2021/01/04", "%Y/%m/%d"), 'end_date': datetime.strptime("2021/01/02", "%Y/%m/%d")}
+        form = SearchEventForm(data=form_data)
+        self.assertFalse(form.is_valid())
+    
+    #Test 34 - Yassin
+    def test_form_start_date_in_the_past(self):    
+        form_data = {'start_date': datetime.strptime("2001/01/04", "%Y/%m/%d"), 'end_date': datetime.strptime("2021/01/02", "%Y/%m/%d")}
+        form = SearchEventForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+class SearchFormTest(TestCase):
+    #Test 35 - Yassin
+    def test_form_complete(self):    
+        form_data = {'query': 'string'}
+        form = SearchForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    #Test 36 - Yassin
+    def test_form_null_query(self):    
+        form_data = {}
+        form = SearchForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        
+        
