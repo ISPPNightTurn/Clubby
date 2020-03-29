@@ -109,6 +109,17 @@ class SignupForm(UserCreationForm):
 class ProductModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
     price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, help_text='Required. 5 digits max' )
+
+    TYPE_OF_PRODUCT = (
+        ('r', 'refreshment'),
+        ('c', 'cocktail'),
+        ('s', 'shot'),
+        ('b', 'beer'),
+        ('w', 'wine'),
+        ('k', 'snack'),
+        ('h', 'hookah'),
+        ('m', 'misc.'),
+    )
     product_type = forms.CharField(
         max_length=124,
         widget=forms.Select(
@@ -139,27 +150,3 @@ class EventModelForm(ModelForm):
         fields = '__all__'
         exclude = ['atendees','club'] 
 
-
-# Custom form we will come back to it later on.
-
-# class EventAddForm(forms.Form):
-#     event_date = forms.DateField(help_text="Enter a date between tomorrow and 4 weeks (default 3).")
-#     event_time = forms.TimeField(help_text="Your event start time.")
-#     event_name = forms.CharField(help_text="The name of the event, this will help users find you!")
-
-#     #these methods exist in the form class and we override them.
-#     def clean_event_date(self):
-#         #This step gets us the data "cleaned" and sanitized of potentially unsafe input using the default validators
-#         data = self.cleaned_data['event_date']
-
-#         # Check if a date is not in the past. 
-#         if data < datetime.date.today():
-#             # this method of getting text can help us later if we want to translate the site.
-#             raise ValidationError(_('Invalid date - event in past'))
-
-#         # Check if a date is in the allowed range (+4 weeks from today).
-#         if data > datetime.date.today() + datetime.timedelta(weeks=4):
-#             raise ValidationError(_('Invalid date - event more than 4 weeks ahead'))
-
-#         # Remember to always return the cleaned data.
-#         return data

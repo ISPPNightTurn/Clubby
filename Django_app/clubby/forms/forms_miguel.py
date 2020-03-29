@@ -46,7 +46,7 @@ class SearchEventForm(forms.Form):
         if (end_date < start_date):
             raise ValidationError("Date must be bigger or equal to the starting date.")
 
-        return self.cleaned_data
+        return self.cleaned_data    
 
 class EditProfileForm(forms.Form):
     # we override the init object to allow the request to get here.

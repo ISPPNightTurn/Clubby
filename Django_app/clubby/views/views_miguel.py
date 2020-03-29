@@ -19,7 +19,7 @@ from django import forms
 
 from django.utils.crypto import get_random_string
 
-from ..forms import TicketPurchaseForm, FundsForm, PremiumForm, SearchForm, EditProfileForm
+from ..forms import TicketPurchaseForm, FundsForm, PremiumForm, SearchForm, EditProfileForm, ProductModelForm
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 from background_task.models import Task
@@ -41,20 +41,20 @@ class ProductDetailView(LoginRequiredMixin,generic.DetailView):
     
     #investigate how to add a list of all events that belong to the club.
 
-class ProductUpdate(PermissionRequiredMixin,UpdateView):
-    permission_required = 'clubby.is_owner'
-    model = Product
-    template_name = 'clubby/product/product_form.html'
-    fields = ['name','price']
-
-    def form_valid(self, form):  
-        obj = form.save(commit=False)
-        self.object = obj # this is neccesary as the url is pulled from self.object.
-        if(obj.club.owner == self.request.user):
-            obj.save()
-            return HttpResponseRedirect(self.get_success_url())
+@permission_required('clubby.is_owner')
+def ProductUpdate(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    if request.method == 'POST':
+        form = ProductModelForm(instance=product, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
         else:
-            raise PermissionDenied("You don't own that >:(")
+            return render(request,'clubby/product/product_form.html',{'form':form})
+    else:
+        form = ProductModelForm(instance=product, initial={'name':product.name,'price':product.price,'product_type':product.product_type,'reservation_exclusive':product.reservation_exclusive})
+        return render(request,'clubby/product/product_form.html',{'form':form})
+
 
 class ProductDelete(PermissionRequiredMixin,DeleteView):
     permission_required = 'clubby.is_owner'
