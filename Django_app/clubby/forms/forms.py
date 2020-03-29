@@ -14,9 +14,11 @@ from django.contrib.auth.models import User
 from clubby.models import Club, Event, Profile, Product, Ticket
 from django.contrib.admin.widgets import AdminDateWidget
 from decimal import Decimal
-from datetime import date
 
 import re
+
+class DateInput(forms.DateInput):
+    input_type='date'
     
 #Model forms: these forms use the models to create themselves basically: (only a single model can't combine multiple.)
 
@@ -138,7 +140,7 @@ class ProductModelForm(ModelForm):
 
 class EventModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
-    start_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker'}),initial=datetime.date.today)
+    start_date = forms.DateField(widget=DateInput)
     event_type = forms.CharField(
         max_length=124,
         widget=forms.Select(
