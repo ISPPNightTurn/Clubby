@@ -1,5 +1,5 @@
 {% extends "clubby/base_generic.html" %}
-
+{% load static %}
 {% block content %}
 <h1 class="header center white-text">Event List</h1>
 
@@ -65,3 +65,16 @@
 </div>
 {% endblock %}
 </div>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'clubby/js/materialize.js' %}"></script>
+<script type="text/javascript">
+currDate = new Date()
+  $(document).ready(function() {
+    $(".datepicker").datepicker({
+      setDefaultDate: true,
+     defaultDate: new Date(),
+     format: "yyyy-mm-dd"
+   });
+});
+</script>
