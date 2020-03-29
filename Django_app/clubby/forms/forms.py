@@ -18,7 +18,10 @@ from decimal import Decimal
 import re
 
 class DateInput(forms.DateInput):
-    input_type='date'
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('attrs', {})
+        kwargs['attrs'].setdefault('placeholder', 'jj/mm/aaaa')
+        super().__init__(*args, **kwargs)
     
 #Model forms: these forms use the models to create themselves basically: (only a single model can't combine multiple.)
 
