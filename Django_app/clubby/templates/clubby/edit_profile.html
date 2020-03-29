@@ -1,5 +1,5 @@
 {% extends "clubby/base_generic.html" %}
-
+{% load static %}
 {% block content %}
   
   <h2 class="header center white-text">Edit your data.</h2>
@@ -9,9 +9,11 @@
   <form method="post">
     <div class="formSignUp">
     {% csrf_token %}
+    {% if form.non_field_errors %}
       <div class="card red center">
         <strong class="card-title">{{form.non_field_errors}}</strong>
       </div>
+      {%endif%}
       <p><strong style="font-size: larger;">First name </strong>{{form.first_name}}</p>
       <span class="helptext">{{form.first_name.help_text}}</span>
       <br>
