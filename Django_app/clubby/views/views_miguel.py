@@ -275,11 +275,7 @@ def edit_profile(request):
 
             user.save()
 
-            birth_day = form.cleaned_data.get('birth_day')
-            birth_month = form.cleaned_data.get('birth_month')
-            birth_year = form.cleaned_data.get('birth_year')
-
-            user.profile.birth_date = datetime.datetime(int(birth_year),int(birth_month),int(birth_day)).date()
+            user.profile.birth_date = form.cleaned_data.get('birth_date')
             profile.bio = form.cleaned_data.get('bio')
             profile.location = form.cleaned_data.get('location')
             profile.picture = form.cleaned_data.get('picture')

@@ -7,6 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.core.exceptions import ValidationError
 
+from django.contrib.admin.widgets import AdminDateWidget
+
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -14,6 +16,12 @@ from clubby.models import Club, Event, Profile,Product, Ticket
 from django.contrib.admin.widgets import AdminDateWidget
 
 import re
+
+class DateInput(forms.DateInput):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('attrs', {})
+        kwargs['attrs'].setdefault('placeholder', 'jj/mm/aaaa')
+        super().__init__(*args, **kwargs)
 
 class TicketPurchaseForm(forms.Form):
     quantity = forms.IntegerField(max_value=4,min_value=1,help_text="tickets you want to buy, max 4.")
@@ -61,51 +69,14 @@ class EditProfileForm(forms.Form):
     bio = forms.CharField(max_length=500, required=False, help_text="Optional, tell us something about you.")
     location = forms.CharField(max_length=30, required=False, help_text="Optional, where are you form?.")
 
-    current = datetime.datetime.now().year
-    years = []
-    for y in range(current, current-60, -1):
-        years.append((str(y),str(y)))
-
-    months = []
-    for m in range(1,13):
-        months.append((str(m),str(m)))
-    
-    days = []
-    for d in range (1,32):
-        days.append((str(d),str(d)))
-
-    birth_day = forms.CharField(
-        max_length=124,
-        widget=forms.Select(
-            choices=days,
-            attrs={'class': 'browser-default deep-purple darken-4'}
-        ),
-    )
-
-    birth_month = forms.CharField(
-        max_length=124,
-        widget=forms.Select(
-            choices=months,
-            attrs={'class': 'browser-default deep-purple darken-4'}
-        ),
-    )
-
-    birth_year = forms.CharField(
-        max_length=124,
-        widget=forms.Select(
-            choices=years,
-            attrs={'class': 'browser-default deep-purple darken-4'}
-        ),
-    )
+    birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}))
     
     picture = forms.URLField(help_text="URL to a picture of your pretty face", required=False)
 
     def clean(self):
         email = self.cleaned_data.get('email')
 
-        birth_day = self.cleaned_data.get('birth_day')
-        birth_month = self.cleaned_data.get('birth_month')
-        birth_year = self.cleaned_data.get('birth_year')
+        birth_day = self.cleaned_data.get('birth_date')
         
         user_with_mail = User.objects.filter(email=email)[0]
         picture = self.cleaned_data.get('picture')
@@ -113,11 +84,7 @@ class EditProfileForm(forms.Form):
         if user_with_mail != self.request.user:
             raise ValidationError("Email exists")
 
-        try:
-            current_date = datetime.datetime(int(birth_year),int(birth_month),int(birth_day)).date()
-            if(current_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
-                raise ValidationError("You're too young. You must be 18 or older to use this app.")
-        except ValueError:
-            raise ValidationError("Select a valid date.")
+        if(birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
+            raise ValidationError("You're too young. You must be 18 or older to use this app.")
 
         return self.cleaned_data

@@ -100,11 +100,7 @@ def signup_user(request):
             user = form.save()
             user.refresh_from_db()
 
-            birth_day = form.cleaned_data.get('birth_day')
-            birth_month = form.cleaned_data.get('birth_month')
-            birth_year = form.cleaned_data.get('birth_year')
-
-            user.profile.birth_date = datetime.datetime(int(birth_year),int(birth_month),int(birth_day)).date()
+            user.profile.birth_date = form.cleaned_data.get('birth_date')
             user.profile.bio = form.cleaned_data.get('bio')
             user.profile.location = form.cleaned_data.get('location')
             user.profile.funds = 0.0
@@ -128,11 +124,7 @@ def signup_owner(request):
             user = form.save()
             user.refresh_from_db()
 
-            birth_day = form.cleaned_data.get('birth_day')
-            birth_month = form.cleaned_data.get('birth_month')
-            birth_year = form.cleaned_data.get('birth_year')
-
-            user.profile.birth_date = datetime.datetime(int(birth_year),int(birth_month),int(birth_day)).date()
+            user.profile.birth_date = form.cleaned_data.get('birth_date')
             user.profile.bio = form.cleaned_data.get('bio')
             user.profile.location = form.cleaned_data.get('location')
             user.profile.funds = 0.0
@@ -148,11 +140,6 @@ def signup_owner(request):
     else:
         form = SignupForm()
     return render(request, 'clubby/signup.html', {'form': form, 'owner':True, 'user':False})
-
-
-# Generic views are the way that django makes easy the processing of simple requests:
-# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views
-# you can see more about them here
 
 
 ###############

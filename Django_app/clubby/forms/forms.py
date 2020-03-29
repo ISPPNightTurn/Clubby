@@ -46,42 +46,7 @@ class SignupForm(UserCreationForm):
     last_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
     email = forms.EmailField(max_length=254, required=True, help_text='Required. Inform a valid email address.')
 
-    current = datetime.datetime.now().year
-    years = []
-    for y in range(current, current-60, -1):
-        years.append((str(y),str(y)))
-
-    months = []
-    for m in range(1,13):
-        months.append((str(m),str(m)))
-    
-    days = []
-    for d in range (1,32):
-        days.append((str(d),str(d)))
-
-    birth_day = forms.CharField(
-        max_length=124,
-        widget=forms.Select(
-            choices=days,
-            attrs={'class': 'browser-default deep-purple darken-4'}
-        ),
-    )
-
-    birth_month = forms.CharField(
-        max_length=124,
-        widget=forms.Select(
-            choices=months,
-            attrs={'class': 'browser-default deep-purple darken-4'}
-        ),
-    )
-
-    birth_year = forms.CharField(
-        max_length=124,
-        widget=forms.Select(
-            choices=years,
-            attrs={'class': 'browser-default deep-purple darken-4'}
-        ),
-    )
+    birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}), initial= (datetime.datetime.now()-datetime.timedelta(days=365*18)).date())
     
     bio = forms.CharField(max_length=500, required=False, help_text="Optional, tell us something about you.")
     location = forms.CharField(max_length=30, required=False, help_text="Optional, where are you form?.")
@@ -89,18 +54,11 @@ class SignupForm(UserCreationForm):
     def clean(self):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
+        birth_date = self.cleaned_data.get('birth_date')
+
+        if(birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
+            raise ValidationError("You're too young. You must be 18 or older to use this app.")
         
-        birth_day = self.cleaned_data.get('birth_day')
-        birth_month = self.cleaned_data.get('birth_month')
-        birth_year = self.cleaned_data.get('birth_year')
-
-        try:
-            current_date = datetime.datetime(int(birth_year),int(birth_month),int(birth_day)).date()
-            if(current_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
-                raise ValidationError("You're too young. You must be 18 or older to use this app.")
-        except ValueError:
-            raise ValidationError("Select a valid date.")
-
         if User.objects.filter(email=email).exists():
             raise ValidationError("Email exists")
         
@@ -111,7 +69,7 @@ class SignupForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'birth_day', 'birth_year', 'birth_month', 'bio', 'location', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'email', 'birth_date', 'bio', 'location', 'password1', 'password2')
 
 class ProductModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
