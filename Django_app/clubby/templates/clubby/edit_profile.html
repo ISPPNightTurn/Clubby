@@ -46,4 +46,20 @@
   </div>
   <br/>
   <br/>
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'clubby/js/materialize.js' %}"></script>
+<script type="text/javascript">
+currDate = new Date()
+  $(document).ready(function() {
+    $(".datepicker").datepicker({
+      setDefaultDate: true,
+      yearRange: [(new Date()).getFullYear() - 100, (new Date()).getFullYear() - 18],
+     defaultDate: new Date(),
+     minDate: new Date(currDate.getFullYear() - 100, currDate.getMonth(), currDate.getDay()),
+    maxDate: new Date(currDate.getFullYear() - 18, currDate.getMonth(), currDate.getDay()),
+     format: "yyyy-mm-dd"
+   });
+});
+</script>
 {% endblock %}
