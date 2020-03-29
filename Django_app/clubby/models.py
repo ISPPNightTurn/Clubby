@@ -153,7 +153,7 @@ class Ticket(models.Model):
 class CreateTicket(models.Model):
     price = models.DecimalField(decimal_places=2,max_digits=5,default=1)#999,99 es el maximo
     category = models.CharField(max_length = 40, help_text='The name of the type of ticket you are trying to sell.',default = 'Basic')
-    description = models.TextField(help_text='Decribe what this ticket entices.', default="this allows you to enter the party.")
+    description = models.TextField(max_length = 40, help_text='Decribe what this ticket entices.', default="this allows you to enter the party.")
     size = IntegerRangeField(min_value=1, max_value=50, default = 1, help_text='Number of tickets. (Max)')
     event =  models.ForeignKey(Event, on_delete=models.CASCADE)
     user =  models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
