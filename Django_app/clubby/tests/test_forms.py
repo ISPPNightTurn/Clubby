@@ -331,3 +331,90 @@ class EventModelFormTests(TestCase):
         'start_time': 10, 'duration': 10, 'event_type': 'ccc'}
         form = EventModelForm(data=form_data)
         self.assertFalse(form.is_valid())
+
+class TicketCreateModelFormTests(TestCase):
+    def test_form_complete(self):
+        form_data = {'price': 10, 'category': 'category', 'description': 'description', 'size': 100}
+        form = TicketCreateModelForm(data=form_data, max=100)
+        self.assertTrue(form.is_valid())
+
+    def test_form_price_null(self):
+        form_data = {'category': 'category', 'description': 'description', 'size': 100}
+        form = TicketCreateModelForm(data=form_data, max=100)
+        self.assertFalse(form.is_valid())
+
+    def test_form_price_too_big(self):
+        form_data = {'price': 1000, 'category': 'category', 'description': 'description', 'size': 100}
+        form = TicketCreateModelForm(data=form_data, max=100)
+        self.assertFalse(form.is_valid())
+    
+    def test_form_category_null(self):
+        form_data = {'price': 10, 'description': 'description', 'size': 100}
+        form = TicketCreateModelForm(data=form_data, max=100)
+        self.assertFalse(form.is_valid())
+
+    def test_form_category_too_long(self):
+        form_data = {'price': 10, 'category': 'categorycategorycategorycategorycategorycategory', 'description': 'description', 'size': 100}
+        form = TicketCreateModelForm(data=form_data, max=100)
+        self.assertFalse(form.is_valid())
+
+    def test_form_description_null(self):
+        form_data = {'price': 10, 'category': 'category', 'size': 100}
+        form = TicketCreateModelForm(data=form_data, max=100)
+        self.assertFalse(form.is_valid())
+
+    def test_form_description_too_long(self):
+        form_data = {'price': 10, 'category': 'category', 'description': 'descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription', 'size': 100}
+        form = TicketCreateModelForm(data=form_data, max=100)
+        self.assertFalse(form.is_valid())
+
+    def test_form_size_null(self):
+        form_data = {'price': 10, 'category': 'category', 'description': 'description'}
+        form = TicketCreateModelForm(data=form_data, max=100)
+        self.assertFalse(form.is_valid())
+    
+    def test_form_size_bigger_max(self):
+        form_data = {'price': 10, 'category': 'category', 'description': 'description', 'size': 110}
+        form = TicketCreateModelForm(data=form_data, max=100)
+        self.assertFalse(form.is_valid())
+
+    def test_form_size_neg(self):
+        form_data = {'price': 10, 'category': 'category', 'description': 'description', 'size': -1}
+        form = TicketCreateModelForm(data=form_data, max=100)
+        self.assertFalse(form.is_valid())
+
+    def test_form_max_null(self):
+        form_data = {'price': 10, 'category': 'category', 'description': 'description', 'size': 100}
+        form = TicketCreateModelForm(data=form_data, max=None)
+        self.assertTrue(form.is_valid())
+
+class RatingCreateModelFormTests(TestCase):
+    def test_form_complete(self):
+        form_data = {'stars': 10, 'text': 'text'}
+        form = RatingCreateModelForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_form_stars_null(self):
+        form_data = {'text': 'text'}
+        form = RatingCreateModelForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    def test_form_stars_neg(self):
+        form_data = {'stars': -1, 'text': 'text'}
+        form = RatingCreateModelForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    def test_form_stars_too_big(self):
+        form_data = {'stars': 11, 'text': 'text'}
+        form = RatingCreateModelForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    def test_form_text_null(self):
+        form_data = {'stars': 10}
+        form = RatingCreateModelForm(data=form_data)
+        self.assertFalse(form.is_valid())
+    
+    def test_form_text_too_long(self):
+        form_data = {'stars': 10, 'text': 'toooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo long'}
+        form = RatingCreateModelForm(data=form_data)
+        self.assertFalse(form.is_valid())
