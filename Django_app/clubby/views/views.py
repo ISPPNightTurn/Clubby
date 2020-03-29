@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
 
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied,ValidationError
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -358,12 +358,32 @@ class EventCreateView(PermissionRequiredMixin,CreateView):
     form_class = EventModelForm #<-- since the validation is here we need to specify the form we want to use.
     template_name = 'clubby/event/event_form.html'
     # you can't use the exclude here.
-
-    # we need to overide the default method for saving in this case because we need to
-    # add the logged user as the owner to the club.
-    def form_valid(self, form):  
-        owner = self.request.user
         
+
+    def form_valid(self, form):  
+        duration = form.cleaned_data.get('duration')
+        start_time = form.cleaned_data.get('start_time')
+        start_date = form.cleaned_data.get('start_date')
+
+        now = datetime.datetime.now().date()
+        errors = []
+
+        if(start_date < now ):
+            errors.append('date cant be in the past.')
+
+        if(start_time > 24 or start_time < 0 ):
+            errors.append('start time is invalid')
+        
+        if(duration > 12 or duration < 0):
+            errors.append('Duration is invalid')
+
+
+        if(len(errors) != 0):
+            return render(self.request, 'clubby/event/event_form.html',{'form':form,'errors':errors})
+
+
+        owner = self.request.user
+
         now = datetime.datetime.now()
         lastday = calendar.monthrange(now.year,now.month)[1]
         first = datetime.datetime(now.year,now.month,1)
@@ -383,6 +403,6 @@ class EventCreateView(PermissionRequiredMixin,CreateView):
                 form = FundsForm()
                 context = {'logged_user': owner,'user_profile': owner.profile, 'club':owner.club,'form':form,'over_event_limit':True}
                 return render(self.request,'clubby/profile.html',context)
-        
+
         return HttpResponseRedirect(self.object.get_create_tickets_url())
 

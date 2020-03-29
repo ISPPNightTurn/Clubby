@@ -5,6 +5,14 @@
 <h2 class="header center white-text">Create new event</h2>
 <div class="deep-purple darken-4 toast rounded">
   
+  {% for e in errors %}
+
+  <strong>{{e}}</strong>
+
+  {% endfor %}
+
+
+
   <form action="" method="post">
     {% csrf_token %}
     <div class="input-field">

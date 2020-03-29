@@ -97,23 +97,49 @@ class Event(models.Model):
     name = models.CharField(max_length=200,)
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     start_date = models.DateField()
-    start_time = models.PositiveIntegerField(max_length=2,help_text='event start time 24h format.', default=12)
-    duration = models.PositiveIntegerField(max_length=2,help_text='event duration in hours, max is 12 hours',default=12)
+    # start_time = models.PositiveIntegerField(max_length=2,help_text='event start time 24h format.', default=12)
+    # duration = models.PositiveIntegerField(max_length=2,help_text='event duration in hours, max is 12 hours',default=12)
     atendees = models.ManyToManyField(User)
     picture = models.URLField(help_text="URL to the poster for the event",null=True,blank=True)
-    TYPE_OF_EVENT = (
-        ('c', 'casual'),
-        ('f', 'fancy'),
-        ('d', 'dress_up'),
-        ('p', 'private'),
-    )
-    event_type = models.CharField(
-        max_length=1,
-        choices=TYPE_OF_EVENT,
+    
+    START_TIMES =((0,0),(23,23),(22,22),(21,21),(20,20),(19,19),(18,18),(17,17),(16,16),(15,15),(14,14),(13,13),
+    (12,12),(11,11),(10,10),(9,9),(8,8),(7,7),(6,6),(5,5),(4,4),(3,3),(2,2),(1,1))
+    
+    start_time = models.PositiveIntegerField(
+        choices=START_TIMES,
         blank=True,
-        default='c',
-        help_text='event type',
+        default=0,
+        help_text='event start time 24h format.',
     )
+
+    DURATIONS = ((12,12),(11,11),(10,10),(9,9),(8,8),(7,7),(6,6),(5,5),(4,4),(3,3),(2,2),(1,1))
+    duration = models.PositiveIntegerField(
+        choices=DURATIONS,
+        blank=True,
+        default=0,
+        help_text='event duration in hours, max is 12 hours.',
+    )
+
+    TYPE_OF_MUSIC = (
+        ('rock', 'rock'),
+        ('pop', 'pop'),
+        ('techno', 'techno'),
+        ('hip hop', 'hip hop'),
+        ('trap', 'trap'),
+        ('reggaeton', 'reggaeton'),
+        ('indie','indie'),
+        ('metal','metal'),
+        ('latino','latino'),
+    )
+
+    event_type = models.CharField(
+        max_length=100,
+        choices=TYPE_OF_MUSIC,
+        blank=True,
+        default='reggaeton',
+        help_text='event music type',
+    )
+
     @property
     def start_datetime(self):
         dur = datetime.timedelta(hours=self.start_time)
