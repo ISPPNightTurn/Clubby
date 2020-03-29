@@ -140,7 +140,7 @@ class ProductModelForm(ModelForm):
 
 class EventModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
-    start_date = forms.DateField(widget=DateInput, initial= datetime.date.today)
+    start_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}), initial= datetime.date.today)
     event_type = forms.CharField(
         max_length=124,
         widget=forms.Select(

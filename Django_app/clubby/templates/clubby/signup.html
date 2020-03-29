@@ -16,10 +16,11 @@
   <form method="post">
     <div class="formSignUp">
     {% csrf_token %}
-    
+      {% if form.non_field_errors %}
       <div class="card red center">
         <strong class="card-title">{{form.non_field_errors}}</strong>
       </div>
+      {%endif%}
       <p><strong style="font-size: larger;">Username </strong>{{form.username}}</p>
       <span class="helptext">{{form.username.help_text}}</span>
       <br>
