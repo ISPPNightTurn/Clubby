@@ -9,8 +9,9 @@
   <form method="post">
     <div class="formSignUp">
     {% csrf_token %}
-    
-      <strong>{{form.non_field_errors}}</strong>
+      <div class="card red center">
+        <strong class="card-title">{{form.non_field_errors}}</strong>
+      </div>
       <p><strong style="font-size: larger;">First name </strong>{{form.first_name}}</p>
       <span class="helptext">{{form.first_name.help_text}}</span>
       <br>

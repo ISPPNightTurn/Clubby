@@ -11,8 +11,9 @@
   <form action="" method="post">
     {% csrf_token %}
     <div class="input-field">
-    
-      <strong>{{form.non_field_errors}}</strong>
+      <div class="card red center">
+        <strong class="card-title">{{form.non_field_errors}}</strong>
+      </div>
       <p><strong style="font-size: larger;">Name </strong>{{form.name}}</p>
       <span class="helptext">{{form.name.help_text}}</span>
       <br>

@@ -7,8 +7,9 @@
 <div class="card-content">  
 <form action="" method="post">
     {% csrf_token %}
-    
-    <strong>{{form.non_field_errors}}</strong>
+    <div class="card red center">
+      <strong class="card-title">{{form.non_field_errors}}</strong>
+    </div>
     <p><strong style="font-size: larger;">Stars </strong>{{form.stars}}</p>
     <p><strong style="font-size: larger;">Text </strong>{{form.text}}</p>
 

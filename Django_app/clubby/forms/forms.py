@@ -37,7 +37,7 @@ class ClubModelForm(ModelForm):
 class SignupForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
     last_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    email = forms.EmailField(max_length=254, required=True, help_text='Required. Inform a valid email address.')
 
     current = datetime.datetime.now().year
     years = []
