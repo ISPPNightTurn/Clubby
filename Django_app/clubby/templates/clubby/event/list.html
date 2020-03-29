@@ -63,18 +63,20 @@
   {%endif%}
 </div>
 </div>
-{% endblock %}
-</div>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="{% static 'clubby/js/materialize.js' %}"></script>
 <script type="text/javascript">
 currDate = new Date()
   $(document).ready(function() {
-    $(".datepicker").datepicker({
-      setDefaultDate: true,
-     defaultDate: new Date(),
-     format: "yyyy-mm-dd"
+   $(".datepicker").datepicker({
+    selectMonths: true, // Creates a dropdown to control month
+    closeOnSelect: true,
+    closeOnClear: true,
+    format: 'yyyy-mm-dd',
    });
-});
+  });
 </script>
+{% endblock %}
+</div>
+
