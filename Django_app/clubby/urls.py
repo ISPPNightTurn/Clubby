@@ -106,9 +106,6 @@ urlpatterns += [
     path('social/success/', views.socialsuccess, name="social-sucess"),
 ]
 
-urlpatterns += [
-    url(r'^api/chart/data/$', views.ChartData.as_view()),
-]
 
 
 '''
