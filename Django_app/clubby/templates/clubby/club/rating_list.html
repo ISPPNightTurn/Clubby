@@ -65,13 +65,13 @@
             <div class="col s12 m7">
               <div class="card rounded">
                 <div class="card-content black">
-                  {% if user_profile.picture == null or user_profile.picture == ''%}
-                  <img class="circle responsive-img" style="width: 50%;" src="../../../static/clubby/images/user_img.jpg" alt="">
-                  </br>
+                  {% if rating.user.profile.picture == null or rating.user.profile.picture == '' %}
+                    <img class="circle responsive-img" style="width: 50%;" src="/static/clubby/images/user_img.jpg" alt="">
+                    </br>
                   {% else %}
-                  <img class="circle responsive-img" style="width: 50%;" src={{user_profile.picture}} alt="">
-                  </br>
-              {% endif %}
+                    <img class="circle responsive-img" style="width: 50%;" src={{rating.user.profile.picture}} alt="">
+                    </br>
+                  {% endif %}
                       <em class="small material-icons white-text">people</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">User: </strong>
                       <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.user.username}}</span>
                       </br>
