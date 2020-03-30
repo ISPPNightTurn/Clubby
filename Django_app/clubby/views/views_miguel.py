@@ -53,7 +53,12 @@ def ProductUpdate(request, product_id):
             return render(request,'clubby/product/product_form.html',{'form':form})
     else:
         form = ProductModelForm(instance=product, initial={'name':product.name,'price':product.price,'product_type':product.product_type,'reservation_exclusive':product.reservation_exclusive})
-        return render(request,'clubby/product/product_form.html',{'form':form})
+        if(product.club.owner != request.user):
+            raise PermissionDenied("You don't own that >:(")
+        else:
+            return render(request,'clubby/product/product_form.html',{'form':form})
+        
+        
 
 
 class ProductDelete(PermissionRequiredMixin,DeleteView):
@@ -61,6 +66,13 @@ class ProductDelete(PermissionRequiredMixin,DeleteView):
     model = Product
     template_name = 'clubby/product/product_confirm_delete.html'
     success_url = reverse_lazy('my-products')
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if(self.object.club.owner != request.user):
+            raise PermissionDenied("You don't own that >:(")
+        else:
+            return super(ProductDelete, self).get(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs): #to check for permissions we override the default delete method
         self.object = self.get_object()

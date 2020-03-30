@@ -208,6 +208,13 @@ class ClubUpdate(PermissionRequiredMixin,UpdateView):
     template_name = 'clubby/club/club_form.html'
     fields = ['name', 'address', 'max_capacity', 'NIF', 'picture']
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if(self.object.owner != request.user):
+            raise PermissionDenied("You don't own that >:(")
+        else:
+            return super(ClubUpdate, self).get(request, *args, **kwargs)
+
     def form_valid(self, form):  
         obj = form.save(commit=False)
         self.object = obj # this is neccesary as the url is pulled from self.object.
@@ -224,6 +231,13 @@ class ClubDelete(PermissionRequiredMixin,DeleteView):
     model = Club
     template_name = 'clubby/club/club_confirm_delete.html'
     success_url = reverse_lazy('clubs')
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if(self.object.owner != request.user):
+            raise PermissionDenied("You don't own that >:(")
+        else:
+            return super(ClubDelete, self).get(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs): #to check for permissions we override the default delete method
         self.object = self.get_object()
