@@ -22,3 +22,4 @@ class Migration(migrations.Migration):
             field=models.DateTimeField(default=datetime.datetime(2020, 3, 30, 20, 57, 30, 56226)),
         ),
     ]
+
