@@ -92,7 +92,9 @@
               <img src="../../../static/clubby/images/background.jpg" alt="">
               {% else %}
               <img src={{club.picture}} alt="">
-              {% endif %}
+
+            {% endif %}
+             
               
             </div>
             <div class="card-content black">
@@ -111,7 +113,12 @@
               <a href="club/{{ club.pk }}/delete/">Delete club</a>
               <a href="{% url 'my-events-future' %}">My published events</a>
               <a href="{% url 'my-products' %}">My products</a>
+              {% if perms.clubby.is_premium_owner %}
+              <a href = "{% url 'get-stats'%}">Statistics</a>
+              {% endif %}
             </div>
+
+            
           </div>
         </div>
       </div>

@@ -222,12 +222,14 @@ def get_premium(request): # new
                         next_payment = datetime.datetime(now.year+1, 1 , 2, 2)
                     else:
                         next_payment = datetime.datetime(now.year,now.month +1 , 2, 2)
-                    
+
                     #check_premium(owner.pk, schedule=next_payment, creator=owner) #Solo la crearemos una vez.
                     check_premium(owner.pk, schedule=600, creator=owner) #10 Minutos como testing.
                 else:
                     profile.funds -=  Decimal("15")
                     profile.renew_premium = True
+                    my_group = Group.objects.get(name='premium owner') 
+                    my_group.user_set.add(owner)
                     profile.save()
 
                 #check_premium(owner.pk, schedule=60)
@@ -245,8 +247,7 @@ def cancel_premium(request):
         has_accepted = form['accept'].value()
         if(has_accepted):
             owner = request.user
-            profile = owner.profile    
-            profile.funds -=  Decimal("15")
+            profile = owner.profile 
             profile.renew_premium = False
             my_group = Group.objects.get(name='premium owner') 
             my_group.user_set.remove(owner)

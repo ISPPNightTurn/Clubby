@@ -48,9 +48,6 @@
           {% if not perms.clubby.is_premium_owner %}
           <li><a href = "{% url 'get-premium'%}">Become Premium!</a></li>
           {% endif %}
-          {% if perms.clubby.is_premium_owner %}
-          <li><a href = "{% url 'get-stats'%}">Statistics</a></li>
-          {% endif %}
           {%endif%}
 
           
