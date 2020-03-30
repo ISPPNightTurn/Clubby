@@ -25,11 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')4xu%pi!cpx52^&8g!vbgbvjuo1d3u(w8(k!wr!im(*u_m9^!!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
-LOGIN_REDIRECT_URL = '/clubby/'
 
 # Application definition
 
@@ -197,7 +195,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'TONwYSQfiWit-y8S6Z9E7RP5'
 
 LOGIN_URL = '/auth/login/google-oauth2/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/clubby/'
 LOGOUT_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
