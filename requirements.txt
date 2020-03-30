@@ -50,8 +50,6 @@ ipywidgets==7.5.1
 
 jedi==0.16.0
 
-Jinja
-
 jsonschema==3.2.0
 
 jupyter==1.0.0
@@ -122,7 +120,7 @@ requests-oauthlib==1.3.0
 
 Send2Trash==1.5.0
 
-setuptools
+setuptools==46.0.0.post20200309
 
 six==1.14.0
 
