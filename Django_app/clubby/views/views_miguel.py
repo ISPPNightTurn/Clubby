@@ -222,7 +222,7 @@ def get_premium(request): # new
                         next_payment = datetime.datetime(now.year+1, 1 , 2, 2)
                     else:
                         next_payment = datetime.datetime(now.year,now.month +1 , 2, 2)
-
+                    
                     #check_premium(owner.pk, schedule=next_payment, creator=owner) #Solo la crearemos una vez.
                     check_premium(owner.pk, schedule=600, creator=owner) #10 Minutos como testing.
                 else:
