@@ -106,8 +106,6 @@ urlpatterns += [
     path('social/success/', views.socialsuccess, name="social-sucess"),
 ]
 
-
-
 '''
 This is a local page for the clubby project where all URLS will be defined. You can see some examples below.
 
