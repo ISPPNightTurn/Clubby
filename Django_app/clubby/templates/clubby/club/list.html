@@ -3,6 +3,13 @@
 {% block content %}
 <h1 class="header center white-text">Club list</h1>
 
+<form action="" method="post">
+  {% csrf_token %}
+  {{form}}
+  <input type="submit" value="Search" class="btn-large purple darken-4">
+</form>
+
+
 <div class="list center">
   <div class="deep-purple darken-4 toast rounded grid-container">
   {% if object_list %}
@@ -12,18 +19,26 @@
           <div class="col s12 m7">
             <div class="card rounded">
               <div class="card-image">
-                <img src="../../../static/clubby/images/background.jpg">
-                <span class="card-title">{{ club.name }}</span>
+                {% if club.picture == null%}
+                <img src="../../../static/clubby/images/background.jpg" alt="generic club image">
+                {% else %}
+                <img src="{{club.picture}}" alt="">
+                {% endif %}
               </div>
+              
               <div class="card-content black">
-                <i class="small material-icons white-text">people</i><span class="light white-text" style="display: inline-block; vertical-align:top;">Capacity: </span>
+                <span class="card-title">{{ club.name }}</span>
+                <em class="small material-icons white-text">people</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Capacity: </strong>
                 <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}} people  </span>
                 <br/>
-                <i class="small material-icons white-text">map</i><span class="light white-text" style="display: inline-block; vertical-align:top;"> Address: </span>
+                <em class="small material-icons white-text">map</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;"> Address: </strong>
                 <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.address}}</span>
               </div>
               <div class="card-action black">
                 <a href="{{ club.get_absolute_url }}">Navigate to the club</a>
+              </div>
+              <div class="card-action black">
+                <a href="{% url 'list-rating' club_id=club.pk %}" class="btn-large purple darken-4 ">View ratings</a>         
               </div>
             </div>
           </div>

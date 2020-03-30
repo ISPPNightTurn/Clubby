@@ -8,54 +8,75 @@
     <div class="col s12 m7">
       <div style="max-width: 700px; margin: auto;" class="card rounded">
         <div class="card-content black">
-          <i class="small material-icons white-text">attach_money</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Funds: </span>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.funds}}
-            €</span>
-          <br />
-          <i class="small material-icons white-text">emoji_people</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Name: </span>
-          <span class="light white-text"
-            style="display: inline-block; vertical-align:top;">{{logged_user.first_name}}</span>
-          <br />
-          <i class="small material-icons white-text"></i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Surname: </span>
-          <span class="light white-text"
-            style="display: inline-block; vertical-align:top;">{{logged_user.last_name}}</span>
-          <br />
-          <i class="small material-icons white-text">alternate_email</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Email: </span>
+          <em class="small material-icons white-text">attach_money</em>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Funds: </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.funds}} €</span>
+          <br/>
+          {% if perms.clubby.is_owner %}
+          <em class="small material-icons white-text">attach_money</em>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Premium status: </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{%if user_profile.renew_premium %} Active (<a href="{% url 'cancel-premium' %}">CANCEL</a>) {%else%} Inactive {%endif%}</span>
+          <br/>
+          {% endif %}
+          <em class="small material-icons white-text">emoji_people</em>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Name: </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.first_name}}</span>
+          <br/>
+          <em class="small material-icons white-text"></em>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Surname: </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.last_name}}</span>
+          <br/>
+          <em class="small material-icons white-text">alternate_email</em>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Email: </strong>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.email}}</span>
-          <br />
-          <i class="small material-icons white-text">comment</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Bio: </span>
+          <br/>
+          <em class="small material-icons white-text">comment</em>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Bio: </strong>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.bio}}</span>
-          <br />
-          <i class="small material-icons white-text">location_on</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Location: </span>
-          <span class="light white-text"
-            style="display: inline-block; vertical-align:top;">{{user_profile.location}}</span>
-          <br />
-          <i class="small material-icons white-text">cake</i>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">Birth Date: </span>
-          <span class="light white-text"
-            style="display: inline-block; vertical-align:top;">{{user_profile.birth_date}}</span>
-          <br />
+          <br/>
+          <em class="small material-icons white-text">location_on</em>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Location: </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.location}}</span>
+          <br/>
+          <em class="small material-icons white-text">cake</em>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Birth Date: </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.birth_date}}</span>
+          <br/>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Profile pic: </strong>
+          </br>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">
+            {% if user_profile.picture == blank%}
+                <img class="circle responsive-img" style="width: 50%;" src="../../../static/clubby/images/user_img.jpg" alt="">
+                {% else %}
+                <img class="circle responsive-img" style="width: 50%;" src={{user_profile.picture}} alt="">
+          {% endif %}
+          </span>
         </div>
         <div class="card-action black">
-          <a href="">Edit profile</a>
-          <p>(Not implement yet, sorry)</p>
+          <a href="{% url 'edit-profile' %}">Edit profile</a>
 
           <form method="post">
             {% csrf_token %}
-            {{ form }}
+            <br>
+            <p><strong style="font-size: larger;">Ammount to add </strong>{{form.ammount}}</p>
+         
+            {{ form.funds }}
             <button class="btn purple darken-4" type="submit">Add funds to your account!</button>
           </form>
         </div>
       </div>
     </div>
-
+    
     {% if perms.clubby.is_owner %}
+
+    {% if over_event_limit%}
+    <br>
+    <p class="strong materialize-red" style="font-size: 1.64rem">
+      Sorry your event publication limit has been reached (2 per month), if you wish to have unlimited events and more <br>
+      consider becoming <a href="{% url 'get-premium' %}">Premium</a>!
+    </p>
+    {% endif %}
+
     {%if club == ''%}
     No club registered: register one <a href="{% url 'club-create' %}" class="btn purple darken-4">HERE</a>
     {%else%}
@@ -67,19 +88,23 @@
         <div class="col s12 m7">
           <div style="max-width: 700px; margin: auto;" class="card rounded">
             <div class="card-image">
-              <img src="../../../static/clubby/images/background.jpg">
-              <span class="card-title">{{ club.name }}</span>
+              {% if club.picture == null%}
+              <img src="../../../static/clubby/images/background.jpg" alt="">
+              {% else %}
+              <img src={{club.picture}} alt="">
+              {% endif %}
+              
             </div>
             <div class="card-content black">
-              <i class="small material-icons white-text">map</i>
-              <span class="light white-text" style="display: inline-block; vertical-align:top;">Address: </span>
+              <span class="card-title">{{ club.name }}</span>
+              <em class="small material-icons white-text">map</em>
+              <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Address: </strong>
               <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.address}}</span>
-              <br />
-              <i class="small material-icons white-text">people</i>
-              <span class="light white-text" style="display: inline-block; vertical-align:top;">Capacity: </span>
-              <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}}
-                people</span>
-              <br />
+              <br/>
+              <em class="small material-icons white-text">people</em>
+              <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Capacity: </strong>
+              <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}} people</span>
+              <br/>
             </div>
             <div class="card-action black">
               <a href="club/{{ club.pk }}/update/">Edit club</a>
@@ -95,10 +120,11 @@
     {%endif%}
     {%endif%}
 
-    <!-- add assisted events if the user is an user and has been to at least 1 event.-->
-    {% if perms.clubby.is_user%}
+  <!-- add assisted events if the user is an user and has been to at least 1 event.-->
+  {% if perms.clubby.is_user%}
 
     <!-- include assisted events-->
+    <!-- link spotify?-->
 
-    {%endif%}
-    {% endblock %}
+  {%endif%}
+{% endblock %}

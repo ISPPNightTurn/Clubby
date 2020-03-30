@@ -1,47 +1,157 @@
-asgiref==3.2.3
-
-astroid==2.3.3
-
-certifi==2019.11.28
-
-chardet==3.0.4
-
-colorama==0.4.3
-
-Django==3.0.3
-
-django-qr-code==1.1.0
-
-idna==2.9
-
-isort==4.3.21
-
-lazy-object-proxy==1.4.3
-
-mccabe==0.6.1
-
-mysqlclient==1.4.6
-
-pylint==2.4.4
-
-pytz==2019.3
-
-qrcode==6.1
-
-requests==2.23.0
-
-six==1.14.0
-
-sqlparse==0.3.0
-
-stripe==2.43.0
-
-urllib3==1.25.8
-
-wincertstore==0.2
-
-wrapt==1.11.2
-
 django_heroku
 
 gunicorn
+
+asgiref                 3.2.3              
+
+attrs                   19.3.0             
+
+backcall                0.1.0              
+
+bleach                  3.1.3              
+
+certifi                 2019.11.28         
+
+cffi                    1.14.0             
+
+chardet                 3.0.4              
+
+colorama                0.4.3              
+
+cryptography            2.8                
+
+decorator               4.4.2              
+
+defusedxml              0.6.0              
+
+Django                  3.0.3              
+
+django-background-tasks 1.2.5              
+
+django-compat           1.0.15             
+
+django-extensions       2.2.9              
+
+django-qr-code          1.1.0              
+
+djangorestframework     3.11.0             
+
+entrypoints             0.3                
+
+idna                    2.9                
+
+ipykernel               5.1.4              
+
+ipython                 7.13.0             
+
+ipython-genutils        0.2.0              
+
+ipywidgets              7.5.1              
+
+jedi                    0.16.0             
+
+Jinja2                  2.11.1             
+
+jsonschema              3.2.0              
+
+jupyter                 1.0.0              
+
+jupyter-client          6.0.0              
+
+jupyter-console         6.1.0              
+
+jupyter-core            4.6.3              
+
+MarkupSafe              1.1.1              
+
+mistune                 0.8.4              
+
+mysqlclient             1.4.6              
+
+nbconvert               5.6.1              
+
+nbformat                5.0.4              
+
+notebook                6.0.3              
+
+oauthlib                3.1.0              
+
+pandocfilters           1.4.2              
+
+parso                   0.6.2              
+
+pickleshare             0.7.5              
+
+Pillow                  7.0.0              
+
+pip                     20.0.2             
+
+prometheus-client       0.7.1              
+
+prompt-toolkit          3.0.4              
+
+pycparser               2.20               
+
+Pygments                2.6.1              
+
+PyJWT                   1.7.1              
+
+pyrsistent              0.15.7             
+
+python-dateutil         2.8.1              
+
+python3-openid          3.1.0              
+
+pytz                    2019.3             
+
+pywin32                 227                
+
+pywinpty                0.5.7              
+
+pyzmq                   19.0.0             
+
+qrcode                  6.1                
+
+qtconsole               4.7.1              
+
+QtPy                    1.9.0              
+
+requests                2.23.0             
+
+requests-oauthlib       1.3.0              
+
+Send2Trash              1.5.0              
+
+setuptools              46.0.0.post20200309
+
+six                     1.14.0             
+
+social-auth-app-django  3.1.0              
+
+social-auth-core        3.3.0              
+
+sqlparse                0.3.0              
+
+stripe                  2.43.0             
+
+terminado               0.8.3              
+
+testpath                0.4.4              
+
+tornado                 6.0.4              
+
+traitlets               4.3.3              
+
+Unidecode               1.1.1              
+
+urllib3                 1.25.8             
+
+wcwidth                 0.1.8              
+
+webencodings            0.5.1              
+
+wheel                   0.34.2             
+
+widgetsnbextension      3.5.1              
+
+wincertstore            0.2                

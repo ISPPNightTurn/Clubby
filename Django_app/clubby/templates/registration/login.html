@@ -1,45 +1,59 @@
+
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
 <h2 class="header center white-text">Login</h2>
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
 
-{% if next %}
-{% if user.is_authenticated %}
-<p>Your account doesn't have access to this page. To proceed,
-  please login with an account that has access.</p>
-{% else %}
-<p>Please login to see this page.</p>
-{% endif %}
-{% endif %}
 <div class="deep-purple darken-4 toast rounded">
 
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
 
-    <div>
-      <td>{{ form.username.label_tag }}</td>
-      <td>{{ form.username }}</td>
-    </div>
-    <div>
-      <td>{{ form.password.label_tag }}</td>
-      <td>{{ form.password }}</td>
-    </div>
+<div>
+  {% if form.errors %}
+    <div class="card red center"><p class="card-title">Your username and password didn't match. Please try again.</p></div>
+  {% endif %}
 
-    <div>
-      <input type="submit" class="btn purple darken-4" value="login"></input>
-      <input type="hidden" name="next" value="{{ next }}" />
-      <br />
-      <br />
-      <a class="btn purple darken-4" href="{% url 'password_reset' %}">Lost password?</a>
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+          please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+  <strong>Username</strong>
+  <td>{{ form.username }}</td>
+</div>
+<div>
+  <strong>Password</strong>
+  <td>{{ form.password }}</td>
+</div>
 
-    </div>
-  </form>
 
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <div>
-  </div>
+<div>
+  <a class="oauth-container btn purple darken-4 white-text" href="{% url 'social:begin' 'google-oauth2' %}" style="text-transform:none">
+      <div class="left">
+          <img width="20px" style="margin-right:8px" alt="Google Login" 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+      </div>
+      Login with Google
+  </a>
+</div>
+<br/>
+
+<div>
+  <input type="submit" class="btn purple darken-4" value="login" ></input>
+  <input type="hidden" name="next" value="{{ next }}" />
+  <br/>
+  <br/>
+  <a class="btn purple darken-4" href="{% url 'password_reset' %}">Lost password?</a>
+
+</div>
+</form>
+
+{# Assumes you setup the password_reset view in your URLconf #}
+<div>
+</div>
 </div>
 {% endblock %}

@@ -1,0 +1,67 @@
+{% extends "clubby/base_generic.html" %}
+{% load static %}
+{% block content %}
+  
+  <h2 class="header center white-text">Edit your data.</h2>
+
+  <div class="deep-purple darken-4 toast rounded">
+   
+  <form method="post">
+    <div class="formSignUp">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+      <div class="card red center">
+        <strong class="card-title">{{form.non_field_errors}}</strong>
+      </div>
+      {%endif%}
+      <p><strong style="font-size: larger;">First name </strong>{{form.first_name}}</p>
+      <span class="helptext">{{form.first_name.help_text}}</span>
+      <br>
+      <br>
+      <p><strong style="font-size: larger;">Last name </strong>{{form.last_name}}</p>
+      <span class="helptext">{{form.last_name.help_text}}</span>
+      <br>
+      <br>
+      <p><strong style="font-size: larger;">Email </strong>{{form.email}}</p>
+      <span class="helptext">{{form.email.help_text}}</span>
+      <br>
+      <br>
+      <p><strong style="font-size: larger;">Bio </strong>{{form.bio}}</p>
+      <span class="helptext">{{form.bio.help_text}}</span>
+      <br>
+      <br>
+      <p><strong style="font-size: larger;">Location </strong>{{form.location}}</p>
+      <span class="helptext">{{form.location.help_text}}</span>
+      <br>
+      <br>
+      <p><strong style="font-size: larger;">Birth date </strong>{{form.birth_date}}</p>
+      <br>
+      <br>
+      <p><strong style="font-size: larger;">Picture </strong>{{form.picture}}</p>
+      <span class="helptext">{{form.picture.help_text}}</span>
+      <br>
+      <br>
+      
+    <button type="submit" class="btn">Update</button>
+  </div>
+  </form>
+  </div>
+  <br/>
+  <br/>
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'clubby/js/materialize.js' %}"></script>
+<script type="text/javascript">
+currDate = new Date()
+  $(document).ready(function() {
+    $(".datepicker").datepicker({
+      setDefaultDate: true,
+      yearRange: [(new Date()).getFullYear() - 100, (new Date()).getFullYear() - 18],
+     defaultDate: new Date(),
+     minDate: new Date(currDate.getFullYear() - 100, currDate.getMonth(), currDate.getDay()),
+    maxDate: new Date(currDate.getFullYear() - 18, currDate.getMonth(), currDate.getDay()),
+     format: "yyyy-mm-dd"
+   });
+});
+</script>
+{% endblock %}

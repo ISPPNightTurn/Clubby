@@ -16,11 +16,15 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from ..forms import TicketCreateModelForm
+from ..forms import TicketCreateModelForm, RatingCreateModelForm
 
-from ..models import Club, Event, Profile, Product, Ticket
+from datetime import datetime, timedelta
+
+from ..models import Club, Event, Profile, Product, Ticket, QR_Item, Rating
 
 import datetime
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 #################
 #    TICKETS    #
@@ -67,27 +71,150 @@ def EventCreateTickets(request, event_id):
     else:
         raise PermissionDenied("You don't own that >:(")
 
-# class EventCreateTicketsView(PermissionRequiredMixin,CreateView):
-#     permission_required = 'clubby.is_owner'
-#     model = Ticket
-#     form_class = TicketCreateModelForm #<-- since the validation is here we need to specify the form we want to use.
-#     template_name = 'clubby/event/event_form.html'
-#     # you can't use the exclude here.
+#################
+#    History    #
+#################
 
-#     # we need to overide the default method for saving in this case because we need to
-#     # add the logged user as the owner to the club.
+@permission_required('clubby.is_user')
+def CheckHistory(request):
 
-#     def form_valid(self, form):
-#         id = self.request.GET.get('id')
-#         u = form.cleaned_data['size']
-#         price = form.cleaned_data['price']
-#         category = form.cleaned_data['category']
-#         description = form.cleaned_data['description']
-#         t = Ticket(price=price, event_id=id, user_id='',category=category,description=description)
+    current_user = request.user
 
-#         for i in range(0, u):
-#             t.pk = None
-#             t.save()
-#             i+=1
+    list = QR_Item.objects.filter(user = current_user).order_by('-fecha')
+    expiret = []  
 
-#         return HttpResponseRedirect(reverse('my-events-future'))
+    for qr_item in list:
+        if qr_item.product != None:
+            dn = datetime.datetime.now()
+            d = qr_item.fecha
+            d = d.replace(tzinfo=None)
+            qr_item.expiret = d + timedelta(hours=6)
+        elif qr_item.ticket != None:
+            dn = datetime.datetime.now()
+            d = datetime.datetime(qr_item.ticket.event.start_date.year, qr_item.ticket.event.start_date.month, 
+                qr_item.ticket.event.start_date.day) + timedelta(hours=qr_item.ticket.event.start_time)
+            qr_item.start = d
+            qr_item.expiret = d + timedelta(hours=qr_item.ticket.event.duration)
+        if dn > qr_item.expiret:
+            qr_item.timed_out = True
+            qr_item.save()
+            
+    return render(request, 'clubby/purchase/history_list.html', {"list": list, "expiret" : expiret})
+
+#################
+#  Order Events #
+#################
+
+# @login_required
+# def EventsByUserList(request, order = None):
+
+#     current_user = request.user
+
+#     if order is None or order is 1:
+
+#         list = Event.objects.filter(atendees = current_user).order_by('start_date' , 'start_time')
+
+#         aux = Event.objects.none()
+
+#         for event in list:
+#             dn = datetime.datetime.now() - timedelta(hours=event.duration)
+#             d = datetime.datetime(event.start_date.year, event.start_date.month, 
+#                 event.start_date.day) + timedelta(hours=event.start_time)
+#             if dn > d:
+#                 aux |= Event.objects.filter(pk = event.pk)
+#                 list = list.exclude(pk = event.pk)
+
+#     return render(request, 'clubby/event/list.html', {"object_list": list, "old_object_list": aux})
+
+# @login_required
+# def EventList(request, order = None):
+
+#     if order is None or order is 1:
+
+#         list = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).order_by('start_date' , 'start_time')
+
+#         for event in list:
+#             dn = datetime.datetime.now() - timedelta(hours=event.duration)
+#             d = datetime.datetime(event.start_date.year, event.start_date.month, 
+#                 event.start_date.day) + timedelta(hours=event.start_time)
+#             if dn > d:
+#                 list = list.exclude(pk = event.pk)
+
+
+#     return render(request, 'clubby/event/list.html', {"object_list": list})
+
+# @permission_required('clubby.is_owner')
+# def EventsByClubAndFutureList(request, order = None):
+
+#     club = Club.objects.filter(owner = request.user)[0]
+
+#     if order is None or order is 1:
+
+#         list = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club).order_by('start_date' , 'start_time')
+
+#         aux = Event.objects.none()
+
+#         for event in list:
+#             dn = datetime.datetime.now() - timedelta(hours=event.duration)
+#             d = datetime.datetime(event.start_date.year, event.start_date.month, 
+#                 event.start_date.day) + timedelta(hours=event.start_time)
+#             if dn > d:
+#                 aux |= Event.objects.filter(pk = event.pk)
+#                 list = list.exclude(pk = event.pk)
+
+
+#     return render(request, 'clubby/event/list.html', {"object_list": list, "old_object_list": aux})
+
+#################
+#     Rating    #
+#################
+
+@login_required
+def ClubListRating(request, club_id, order = None):
+
+    page = request.GET.get('page', 1)
+    
+    if order is None or order is 1:
+        order = 1
+        list = Rating.objects.filter(club_id = club_id).exclude(user_id=request.user.id).order_by('-fecha')
+        listU = Rating.objects.filter(club_id = club_id,user_id=request.user.id)
+        paginator = Paginator(list, 5)
+
+    if order is 2:
+        list = Rating.objects.filter(club_id = club_id).exclude(user_id=request.user.id).order_by('-stars','-fecha')
+        listU = Rating.objects.filter(club_id = club_id,user_id=request.user.id)
+        paginator = Paginator(list, 5)
+
+    try:
+        list = paginator.page(page)
+    except PageNotAnInteger:
+        list = paginator.page(1)
+    except EmptyPage:
+        list = paginator.page(paginator.num_pages)
+
+    return render(request, 'clubby/club/rating_list.html', {"list": list,"listU":listU, "club_id":club_id, "order":order})
+
+@permission_required('clubby.is_user')
+def ClubCreateRating(request, club_id):
+
+    if (request.method == 'POST'):
+        form = RatingCreateModelForm(data=request.POST or None)
+        if form.is_valid():
+
+            listU = Rating.objects.filter(club_id = club_id,user_id=request.user.id)
+            stars = form.cleaned_data['stars']
+            text = form.cleaned_data['text']
+
+            if len(listU) is 0 :             
+                t = Rating(stars=stars, text=text,fecha=datetime.datetime.now(),
+                    club_id=club_id,user_id=request.user.id)
+                t.save()
+
+            else:
+                Rating.objects.filter(club_id = club_id,user_id=request.user.id).update(stars=stars, text=text,fecha=datetime.datetime.now())
+
+            return HttpResponseRedirect(reverse('clubs'))
+
+    else:
+        form = RatingCreateModelForm(initial={'stars':10,'text':''})
+        return render(request, 'clubby/club/rating_create.html', {'form': form})

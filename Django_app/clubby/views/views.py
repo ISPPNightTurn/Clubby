@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
 
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied,ValidationError
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -17,10 +17,13 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
-from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm, FundsForm
+from ..forms import ClubModelForm, SignupForm,ProductModelForm,EventModelForm, FundsForm, SearchForm, SearchEventForm
 from ..models import Club, Event, Profile, Product, Ticket
 
+from datetime import datetime, timedelta
+
 import datetime
+import calendar
 
 
 # Create your views here.
@@ -72,6 +75,8 @@ def profile(request):
         if form.is_valid():
             to_recharge = form.cleaned_data.get('ammount')
             return redirect('add-funds', ammount=to_recharge)
+        else:
+            return redirect('profile')
     else:
 
         me = request.user #this is the current user.
@@ -137,19 +142,40 @@ def signup_owner(request):
     return render(request, 'clubby/signup.html', {'form': form, 'owner':True, 'user':False})
 
 
-# Generic views are the way that django makes easy the processing of simple requests:
-# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views
-# you can see more about them here
-
-
 ###############
 #    CLUB     #
 ###############
 
 class ClubListView(generic.ListView):
-    paginate_by = 2 # add pagination to the view
+    paginate_by = 5 # add pagination to the view
     model = Club
-    template_name = 'clubby/club/list.html'  # Specify your own template name/location 
+    template_name = 'clubby/club/list.html'  # Specify your own template name/location
+
+    def get_queryset(self):
+        items = Club.objects.all()
+        # items = Club.objects.filter(club = self.request.user.club) #this will be touched when the maps API is here.
+        return items
+
+    def get_context_data(self, **kwargs):
+        context = super(ClubListView, self).get_context_data(**kwargs)
+        form = SearchForm()
+        context['form'] = form
+        return context  
+
+    def post(self, request, *args, **kwargs):
+        form = SearchForm(self.request.POST)
+        query = form['query'].value()
+        # items = Club.objects.filter(club = self.request.user.club) #this will be touched when the maps API is here.
+        items = Club.objects.all()
+        
+        clubs = []
+        for club in items:
+            if((query.lower() in club.name.lower() )  or (query.lower() in club.address.lower())):
+                clubs.append(club)
+
+        return render(request, 'clubby/club/list.html',{'object_list':clubs,'form':form})
+        # return StatusFormView.as_view()(request)
+
 
 class ClubDetailView(generic.DetailView):
     model = Club
@@ -180,7 +206,7 @@ class ClubUpdate(PermissionRequiredMixin,UpdateView):
     permission_required = 'clubby.is_owner'
     model = Club
     template_name = 'clubby/club/club_form.html'
-    fields = ['name', 'address', 'max_capacity', 'NIF']
+    fields = ['name', 'address', 'max_capacity', 'NIF', 'picture']
 
     def form_valid(self, form):  
         obj = form.save(commit=False)
@@ -214,7 +240,7 @@ class ClubDelete(PermissionRequiredMixin,DeleteView):
 class ProductCreate(PermissionRequiredMixin,CreateView):
     permission_required = 'clubby.is_owner'
     model = Product
-    fields = ['name','price']
+    form_class = ProductModelForm #<-- since the validation is here we need to specify the form we want to use.
     template_name = 'clubby/product/product_form.html'
     # you can't use the exclude here.
 
@@ -236,7 +262,7 @@ class ProductsByClubListView(LoginRequiredMixin, generic.ListView):
         login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
         def get_queryset(self):
-            item = Product.objects.filter(club = self.request.user.club)#.filter(status__exact='o').order_by('due_back')
+            item = Product.objects.filter(club = self.request.user.club)
             return item
 
 #################
@@ -255,8 +281,30 @@ class EventListView(generic.ListView):
         #gt = greater than
         #lte = lesser than or equal
         #lt = lesser than
-        item = Event.objects.filter(start_date__gte = datetime.datetime.now().date())
-        return item
+        items = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).order_by('start_date' , 'start_time')
+        return items
+
+    def get_context_data(self, **kwargs):
+        context = super(EventListView, self).get_context_data(**kwargs)
+
+        end_date = datetime.datetime.now()+datetime.timedelta(days=7)
+        start_date = datetime.datetime.now()
+
+        form = SearchEventForm(initial={'end_date':end_date.date(),'start_date':start_date.date()})
+        context['form'] = form
+        return context  
+
+    def post(self, request, *args, **kwargs):
+        form = SearchEventForm(self.request.POST)
+
+        start_date = form['start_date'].value()
+        end_date = form['end_date'].value()
+        #check if these were used.
+        items = Event.objects.filter(start_date__gte = start_date)
+        items = items.filter(start_date__lte = end_date).order_by('start_date' , 'start_time')
+
+        return render(request, 'clubby/event/list.html',{'object_list':items,'form':form})
+        # return StatusFormView.as_view()(request)
 
 
 class EventDetailView(generic.DetailView):
@@ -268,41 +316,28 @@ class EventDetailView(generic.DetailView):
 class EventsByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing events the user has participated, or is going to participate in."""
     model = Event
-    template_name ='clubby/event/list.html'
+    template_name ='clubby/event/user_list.html'
     paginate_by = 5
-
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
     def get_queryset(self):
-        item = Event.objects.filter(atendees = self.request.user)#.filter(status__exact='o').order_by('due_back')
-        return item
 
-# class EventsByClubListView(LoginRequiredMixin, generic.ListView):
-#     """Generic class-based view listing events the user has participated, or is going to participate in."""
-#     model = Event
-#     template_name ='clubby/event/list.html'
-#     paginate_by = 5
-
-#     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
-    
-#     def get_queryset(self):
-#         item = Event.objects.filter(club = self.request.user.club)#.filter(status__exact='o').order_by('due_back')
-#         return item
+        list = Event.objects.filter(atendees = self.request.user).order_by('-start_date','-start_time')
+        return list
 
 class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
     """Generic class-based view listing events of the club, that haven't happened yet."""
     permission_required = 'clubby.is_owner'
     model = Event
-    template_name ='clubby/event/list.html'
+    template_name ='clubby/event/future-list.html'
     paginate_by = 5
-
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
 
     def get_queryset(self):
         #the gte and lte indicate greater than and lesser than for filtering by dates.
         club = Club.objects.filter(owner = self.request.user)[0]
-        items = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club)#.filter(start_date__gte = datetime.datetime.now().date)#.order_by('due_back')
-        return items
+        list = Event.objects.filter(start_date__gte = datetime.datetime.now().date()).filter(club = club).order_by('-start_date' , '-start_time')
+        return list
 
 class EventCreateView(PermissionRequiredMixin,CreateView):
     permission_required = 'clubby.is_owner'
@@ -310,77 +345,51 @@ class EventCreateView(PermissionRequiredMixin,CreateView):
     form_class = EventModelForm #<-- since the validation is here we need to specify the form we want to use.
     template_name = 'clubby/event/event_form.html'
     # you can't use the exclude here.
+        
 
-    # we need to overide the default method for saving in this case because we need to
-    # add the logged user as the owner to the club.
     def form_valid(self, form):  
-        obj = form.save(commit=False)
-        obj.owner = self.request.user
+        duration = form.cleaned_data.get('duration')
+        start_time = form.cleaned_data.get('start_time')
+        start_date = form.cleaned_data.get('start_date')
+
+        now = datetime.datetime.now().date()
+        errors = []
+
+        if(start_date < now ):
+            errors.append('date cant be in the past.')
+
+        if(start_time > 24 or start_time < 0 ):
+            errors.append('start time is invalid')
+        
+        if(duration > 12 or duration < 0):
+            errors.append('Duration is invalid')
+
+
+        if(len(errors) != 0):
+            return render(self.request, 'clubby/event/event_form.html',{'form':form,'errors':errors})
+
+
+        owner = self.request.user
+
+        now = datetime.datetime.now()
+        lastday = calendar.monthrange(now.year,now.month)[1]
+        first = datetime.datetime(now.year,now.month,1)
+        last = datetime.datetime(now.year,now.month,lastday)
+
+        events_in_month = Event.objects.filter(club=owner.club).filter(start_date__gte = first).filter(start_date__lte = last).count()
+        obj = form.save(commit=False) #commit false avoids the object being saved to the database directly:
+        obj.owner = owner
         obj.club = obj.owner.club
         self.object = obj # this is neccesary as the url is pulled from self.object.
-        obj.save()
+        if(events_in_month < 2):
+            obj.save()
+        else:
+            if(owner.groups.filter(name='premium owner').exists()):
+                obj.save()
+            else:
+                form = FundsForm()
+                context = {'logged_user': owner,'user_profile': owner.profile, 'club':owner.club,'form':form,'over_event_limit':True}
+                return render(self.request,'clubby/profile.html',context)
+
         return HttpResponseRedirect(self.object.get_create_tickets_url())
-
-##########################
-#    EXAMPLES (POLLS)    #
-##########################
-
-# def index(request):
-#     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-#     context = {'latest_question_list': latest_question_list}
-#     return render(request, 'clubby/polls/index.html', context)
-
-#     # Both of these do the same but django offers the render() option for easyness
-
-#     # latest_question_list = Question.objects.order_by('-pub_date')[:5]
-#     # template = loader.get_template('clubby/index.html')
-#     # context = {
-#     #     'latest_question_list': latest_question_list,
-#     # }
-#     # return HttpResponse(template.render(context, request))
-
-
-# def detail(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     return render(request, 'clubby/polls/detail.html', {'question': question})
-
-#     # get_list_or_404() <-- this is a similar function but instead of returning the 404 if the id...
-#     # is not found it returns it if the list is empty.
-
-#     # Both of these do the same but django offers the get_object_or_404() option for easyness
-
-#     # try:
-#     #     question = Question.objects.get(pk=question_id)
-#     # except Question.DoesNotExist:
-#     #     raise Http404("Question does not exist")
-#     # return render(request, 'clubby/detail.html', {'question': question})
-
-# def results(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     return render(request, 'clubby/polls/results.html', {'question': question})
-
-# # All the information about how to process a form can be found here including 
-# # everything you can find in this function
-# # https://docs.djangoproject.com/en/3.0/intro/tutorial04/#write-a-minimal-form
-
-# def vote(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     try:
-#         selected_choice = question.choice_set.get(pk=request.POST['choice'])
-#     except (KeyError, Choice.DoesNotExist):
-#         # Redisplay the question voting form.
-#         return render(request, 'clubby/polls/detail.html', {
-#             'question': question,
-#             'error_message': "You didn't select a choice.",
-#         })
-#     else:
-#         selected_choice.votes += 1
-#         selected_choice.save()
-#         # Always return an HttpResponseRedirect after successfully dealing
-#         # with POST data. This prevents data from being posted twice if a
-#         # user hits the Back button.
-#         return HttpResponseRedirect(reverse('clubby:polls-results', args=(question.id,)))
-
-
-
 

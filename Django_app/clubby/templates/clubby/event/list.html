@@ -1,63 +1,82 @@
 {% extends "clubby/base_generic.html" %}
-
+{% load static %}
 {% block content %}
 <h1 class="header center white-text">Event List</h1>
 
 <div class="center">
   <div class="deep-purple darken-4 rounded grid-container">
-    {% if object_list %}
-    <div class="row">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <br>
+      <input type="submit" value="Search" class="btn-large purple darken-4">
+    </form>
+  {% if object_list %}
+  <div class="row">
 
-      {% for event in object_list %}
-      <!--
+    {% for event in object_list %}
+    <!--
       <li>
         <a href="{{ event.get_absolute_url }}">{{ event.name }}</a> 
       </li>
     -->
 
-      <div class="list col s12 m7">
-        <div class="card rounded">
-          <div class="card-image">
-            <img src="../../../static/clubby/images/event_image.jpeg">
-            <span class="card-title">{{ event.name }}</span>
-          </div>
-          <div class="card-content black">
-            <i class="small material-icons white-text">domain</i><span class="light white-text"
-              style="display: inline-block; vertical-align:top;">Club: </span>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.club}}</span>
-            <br />
-            <i class="small material-icons white-text">calendar_today</i><span class="light white-text"
-              style="display: inline-block; vertical-align:top;"> Start Date: </span>
-            <span class="light white-text"
-              style="display: inline-block; vertical-align:top;">{{event.start_date}}</span>
-            </br>
-            <i class="small material-icons white-text">access_time</i><span class="light white-text"
-              style="display: inline-block; vertical-align:top;">Start Time: </span>
-            <span class="light white-text"
-              style="display: inline-block; vertical-align:top;">{{event.start_time}}h</span>
-            <br />
-            <i class="small material-icons white-text">av_timer</i><span class="light white-text"
-              style="display: inline-block; vertical-align:top;">Duration: </span>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.duration}}
-              hours</span>
-          </div>
-          <div class="card-action black">
-            <a href="{{ event.get_absolute_url }}">Navigate to the event</a>
-          </div>
+    <div class="list col s12 m7">
+      <div class="card rounded">
+        <div class="card-image">
+          {% if event.picture == blank%}
+                <img src="../../../static/clubby/images/event_image.jpeg" alt="">
+                {% else %}
+                <img src={{event.picture}} alt="">
+          {% endif %}
+        </div>
+        <div class="card-content black">
+          <span class="card-title">{{ event.name }}</span>
+          <em class="small material-icons white-text">domain</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Club: </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.club}}</span>
+          <br/>
+          <em class="small material-icons white-text">calendar_today</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;"> Start Date: </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.start_date}}</span>
+          </br>
+          <em class="small material-icons white-text">access_time</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Start Time: </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.start_time}}h</span>
+          <br/>
+          <em class="small material-icons white-text">av_timer</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Duration: </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.duration}} hours</span>
+        </div>
+        <div class="card-action black">
+          <a href="{{ event.get_absolute_url }}">Navigate to the event</a>
         </div>
       </div>
-
-      {% endfor %}
     </div>
-    {% else %}
-    <p>There are no events avaliable.</p>
-    {% endif %}
-    {% if perms.clubby.is_owner %}
-    {% if request.user.club != ''%}
-    <a href="{% url 'event-create' %}" class="btn-large purple darken-4 ">Create new event</a>
-    {%endif%}
-    {%endif%}
+  
+    {% endfor %}
+
   </div>
+  {% else %}
+    <p>There are no events avaliable.</p>
+  {% endif %}
+  {% if perms.clubby.is_owner %}
+  {% if request.user.club != ''%}
+      <a href="{% url 'event-create' %}" class="btn-large purple darken-4 ">Create new event</a>  
+  {%endif%}   
+  {%endif%}
 </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'clubby/js/materialize.js' %}"></script>
+<script type="text/javascript">
+currDate = new Date()
+  $(document).ready(function() {
+   $(".datepicker").datepicker({
+    selectMonths: true, // Creates a dropdown to control month
+    closeOnSelect: true,
+    closeOnClear: true,
+    format: 'yyyy-mm-dd',
+   });
+  });
+</script>
 {% endblock %}
 </div>
+

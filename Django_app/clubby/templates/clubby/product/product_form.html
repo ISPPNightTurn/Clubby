@@ -1,14 +1,43 @@
 {% extends "clubby/base_generic.html" %}
-
 {% block content %}
-<h1 style="text-align: center;">Create new product</h1>
-<form action="" method="post">
-  {% csrf_token %}
-  <div class="card deep-purple darken-4">
-    <table>
-      {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit" class="btn-large purple darken-4">
-  </div>
-</form>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('select').material_select();
+});
+</script>
+<h2 class="header center white-text">Create new product</h2>
+<div class="deep-purple darken-4 toast rounded">
+  
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="input-field">
+      <div class="card red center">
+        <strong class="card-title">{{form.non_field_errors}}</strong>
+      </div>
+      <p><strong style="font-size: larger;">Name </strong>{{form.name}}</p>
+      <span class="helptext">{{form.name.help_text}}</span>
+      <br>
+      <br>
+      <p><strong style="font-size: larger;">Price </strong>{{form.price}}</p>
+      <span class="helptext">{{form.price.help_text}}</span>
+      <br>
+      <br>
+      <p><strong style="font-size: larger;">Product type </strong>{{form.product_type}} {{form.product_select}}</p>
+      <p>
+        <label>
+          <input type="checkbox" value="{{form.reservation_exclusive}}
+          <span style="color: white;">Reservation exclusive</span>
+        </label>
+      </p>
+      <span class="helptext">{{form.reservation_exclusive.help_text}}</span>
+      <br>
+      <br>
+      </div>
+    
+      <input type="submit" value="Submit" class="btn-large purple darken-4">
+  </form>
+  
+</div>
+
+
 {% endblock %}

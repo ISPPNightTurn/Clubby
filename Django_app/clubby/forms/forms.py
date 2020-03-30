@@ -12,8 +12,16 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from clubby.models import Club, Event, Profile, Product, Ticket
+from django.contrib.admin.widgets import AdminDateWidget
+from decimal import Decimal
 
 import re
+
+class DateInput(forms.DateInput):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('attrs', {})
+        kwargs['attrs'].setdefault('placeholder', 'jj/mm/aaaa')
+        super().__init__(*args, **kwargs)
     
 #Model forms: these forms use the models to create themselves basically: (only a single model can't combine multiple.)
 
@@ -36,17 +44,21 @@ class ClubModelForm(ModelForm):
 class SignupForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
     last_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    email = forms.EmailField(max_length=254, required=True, help_text='Required. Inform a valid email address.')
 
-    birth_date = forms.DateField(initial=datetime.date.today,required=True, help_text="Required, your birthday, format: YYYY-MM-DD")
-
+    birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}), initial= (datetime.datetime.now()-datetime.timedelta(days=365*18)).date())
+    
     bio = forms.CharField(max_length=500, required=False, help_text="Optional, tell us something about you.")
     location = forms.CharField(max_length=30, required=False, help_text="Optional, where are you form?.")
 
     def clean(self):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
+        birth_date = self.cleaned_data.get('birth_date')
 
+        if(birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
+            raise ValidationError("You're too young. You must be 18 or older to use this app.")
+        
         if User.objects.filter(email=email).exists():
             raise ValidationError("Email exists")
         
@@ -57,53 +69,64 @@ class SignupForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email','bio','birth_date','location', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'email', 'birth_date', 'bio', 'location', 'password1', 'password2')
 
 class ProductModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
-    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, help_text='Required. 5 digits max' )
-    class Meta:
-        model = Product
-        fields = '__all__'
-        exclude = ['owner'] 
+    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, min_value=Decimal('0.00'), help_text='Required. 5 digits max' )
 
-class EventModelForm(ModelForm):
-    name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
-    start_date = forms.DateField(initial=datetime.date.today)
-    event_type = forms.CharField(
+    TYPE_OF_PRODUCT = (
+        ('r', 'refreshment'),
+        ('c', 'cocktail'),
+        ('s', 'shot'),
+        ('b', 'beer'),
+        ('w', 'wine'),
+        ('k', 'snack'),
+        ('h', 'hookah'),
+        ('m', 'misc.'),
+    )
+    product_type = forms.CharField(
         max_length=124,
         widget=forms.Select(
-            choices=Event.EVENT_TYPE,
+            choices=Product.TYPE_OF_PRODUCT,
             attrs={'class': 'browser-default deep-purple darken-4'}
         ),
     )
-    
+    reservation_exclusive = forms.BooleanField(required=False,help_text="Is this product exclusive for clients with a reservation?")
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+        exclude = ['owner','club'] 
+
+class EventModelForm(ModelForm):
+    name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
+    start_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}), initial= datetime.date.today)
+
+    event_type = forms.CharField(
+        max_length=124,
+        widget=forms.Select(
+            choices=Event.TYPE_OF_MUSIC,
+            attrs={'class': 'browser-default deep-purple darken-4'}
+        ),
+    )
+
+    start_time = forms.IntegerField(
+        widget=forms.Select(
+            choices=Event.START_TIMES,
+            attrs={'class': 'browser-default deep-purple darken-4'}
+        ),
+    )
+
+    duration = forms.IntegerField(
+        widget=forms.Select(
+            choices=Event.DURATIONS,
+            attrs={'class': 'browser-default deep-purple darken-4'}
+        ),
+    )
+
+
     class Meta:
         model = Event
         fields = '__all__'
         exclude = ['atendees','club'] 
-
-
-# Custom form we will come back to it later on.
-
-# class EventAddForm(forms.Form):
-#     event_date = forms.DateField(help_text="Enter a date between tomorrow and 4 weeks (default 3).")
-#     event_time = forms.TimeField(help_text="Your event start time.")
-#     event_name = forms.CharField(help_text="The name of the event, this will help users find you!")
-
-#     #these methods exist in the form class and we override them.
-#     def clean_event_date(self):
-#         #This step gets us the data "cleaned" and sanitized of potentially unsafe input using the default validators
-#         data = self.cleaned_data['event_date']
-
-#         # Check if a date is not in the past. 
-#         if data < datetime.date.today():
-#             # this method of getting text can help us later if we want to translate the site.
-#             raise ValidationError(_('Invalid date - event in past'))
-
-#         # Check if a date is in the allowed range (+4 weeks from today).
-#         if data > datetime.date.today() + datetime.timedelta(weeks=4):
-#             raise ValidationError(_('Invalid date - event more than 4 weeks ahead'))
-
-#         # Remember to always return the cleaned data.
-#         return data

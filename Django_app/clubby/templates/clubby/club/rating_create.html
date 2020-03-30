@@ -1,0 +1,20 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+<div class="center card deep-purple darken-4">
+
+<span class="card-title">Add ratting</span>
+<div class="card-content">  
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="card red center">
+      <strong class="card-title">{{form.non_field_errors}}</strong>
+    </div>
+    <p><strong style="font-size: larger;">Stars </strong>{{form.stars}}</p>
+    <p><strong style="font-size: larger;">Text </strong>{{form.text}}</p>
+
+    <input class="btn purple darken-4" type="submit" value="Submit">
+  </form>
+</div>
+  </div
+{% endblock %}

@@ -42,13 +42,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'qr_code',
+    'background_task',
+    'social_django',
+    'rest_framework',
 ]
 
 MODULES = [
     # 'clubby',
 ]
 
-BASEURL = 'https://clubby-sprint1.herokuapp.com'
+BASEURL = 'https://clubby-sprint2.herokuapp.com'
 
 APIS = {
     'clubby': BASEURL,
@@ -183,3 +186,21 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 STRIPE_SECRET_KEY = 'sk_test_9IhxLsCMrm68wEsLukTks8o600GjKW4X7v'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_O3189kQJ1kig0wQ6NGrgQACW00Zy8MA8xI'
+STRIPE_PREMIUM_PLAN = 'plan_GwQAw0cGXBjWLQ'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1092054840257-qu6hcm8bftj0pl0ja4guk2gvk1b0vkcr.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'TONwYSQfiWit-y8S6Z9E7RP5'
+
+LOGIN_URL = '/auth/login/google-oauth2/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/clubby/social/success/'

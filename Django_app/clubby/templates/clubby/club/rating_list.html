@@ -1,0 +1,110 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+<h1 class="header center white-text">Club Rating</h1>
+
+{% if listU %}
+<div class="list center">
+  <div class="deep-purple darken-4 toast rounded grid-container">
+    <div class="row">
+
+      {% for rating in listU %}
+      <div class="col s12 m7">
+        <div class="card rounded">
+          <span class="black">My opinion</span>
+          <div class="card-content black">
+                <em class="small material-icons white-text">calendar_today</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Date: </strong>
+                <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.fecha}}</span>
+                <br/>
+                <em class="small material-icons white-text">stars</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Rating: </strong>
+                <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.stars}} stars</span>
+                <br/>
+                <em class="small material-icons white-text">comment</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Opinion: </strong>
+                <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.text}}</span>
+                <br/>      
+            </div>
+            <div class="card-action black">
+              <a href="{% url 'create-rating' club_id=club_id %}">Update rating</a>
+            </div>
+            </div>
+          </div>
+                  
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% else %}
+{% if perms.clubby.is_user %}
+<div class="center">
+  <a href="{% url 'create-rating' club_id=club_id %}" class="btn-large purple darken-4 ">Add rating</a>
+</div>
+{%endif%} 
+{% endif %}
+<br>
+<br>
+<br>
+
+{% if order == 1 %}
+<div class="center">
+  <a href="{% url 'list-rating' club_id=club_id order=2 %}" class="btn-large purple darken-4 ">Ordenar por estrellas</a>
+</div>
+{% endif %} 
+
+{% if order == 2 %}
+<div class="center">
+  <a href="{% url 'list-rating' club_id=club_id order=1 %}" class="btn-large purple darken-4 ">Ordenar por fecha</a>
+</div>
+{% endif %} 
+
+<div class="list center">
+  <div class="deep-purple darken-4 toast rounded grid-container">
+    {% if list %}
+    <div class="row">
+
+      {% for rating in list %}          
+            <div class="col s12 m7">
+              <div class="card rounded">
+                <div class="card-content black">
+                      {% if rating.user.profile.picture != null %}
+                      <img src="{{rating.user.profile.picture}}" class="circle responsive-img" style="width: 50%;" alt=""/>
+                      </br>
+                      {% endif %}
+                      <em class="small material-icons white-text">people</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">User: </strong>
+                      <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.user.username}}</span>
+                      </br>
+                      <em class="small material-icons white-text">calendar_today</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Date: </strong>
+                      <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.fecha}}</span>
+                      <br/>
+                      <em class="small material-icons white-text">stars</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Rating: </strong>
+                      <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.stars}} stars</span>
+                      <br/>
+                      <em class="small material-icons white-text">comment</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Opinion: </strong>
+                      <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.text}}</span>
+                      <br/>      
+                  </div>
+                  </div>
+                </div>
+                  
+      {% endfor %}
+    </div>
+    {% else %}
+      <br>
+      <p>There are no rating yet.</p>
+    {% endif %} 
+  </div>
+</div>
+
+{% if list.has_other_pages %}
+<br><br>
+  <ul class="pagination">
+    {% if list.has_previous %}
+      <li><a href="?page={{ list.previous_page_number }}"><em class="material-icons">chevron_left</em></a></a></li>
+    {% endif %}
+    <li><span>Page {{ list.number }} of {{list.paginator.num_pages}} <span class="sr-only">(current)</span></span></li>
+    {% if list.has_next %}
+      <li><a href="?page={{ list.next_page_number }}"><em class="material-icons">chevron_right</em></a></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+{% endblock %}

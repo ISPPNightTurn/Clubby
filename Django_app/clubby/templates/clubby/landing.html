@@ -16,7 +16,7 @@
 
           <div class="card">
                 <div class="card-image">
-                  <img src="../../../static/clubby/images/background.jpg">
+                  <img src="../../../static/clubby/images/background.jpg" alt= "">
 
                   <span class="card-title">Total Clubs: {{ num_clubs }}</span>
                 </div>
@@ -30,7 +30,7 @@
 
           <div class="card">
                 <div class="card-image">
-                  <img src="../../../static/clubby/images/user_img.jpg">
+                  <img src="../../../static/clubby/images/user_img.jpg" alt ="">
                   <span class="card-title">Total Users: {{ num_users }}</span>
                 </div>
                 <div class="black card-content">
@@ -41,7 +41,7 @@
 
           <div class="card">
                 <div class="card-image">
-                  <img src="../../../static/clubby/images/event_image.jpeg">
+                  <img src="../../../static/clubby/images/event_image.jpeg" alt="">
                   <span class="card-title">Total Events: {{ num_events }}</span>
                 </div>
                 <div class="black card-content">
@@ -59,7 +59,7 @@
 
           <div class="card">
                 <div class="card-image">
-                  <img src="../../../static/clubby/images/background.jpg">
+                  <img src="../../../static/clubby/images/background.jpg" alt="">
                   <span class="card-title center">Total Clubs: {{ num_clubs }}</span>
                 </div>
                 <div class="black card-content">
@@ -72,7 +72,7 @@
 
           <div class="card">
                 <div class="card-image">
-                  <img src="../../../static/clubby/images/user_img.jpg">
+                  <img src="../../../static/clubby/images/user_img.jpg" alt="">
                   <span class="card-title center">Total Users: {{ num_users }}</span>
                 </div>
                 <div class="black card-content">
@@ -83,7 +83,7 @@
 
           <div class="card">
                 <div class="card-image">
-                  <img src="../../../static/clubby/images/event_image.jpeg">
+                  <img src="../../../static/clubby/images/event_image.jpeg" alt="">
                   <span class="card-title center">Total Events: {{ num_events }}</span>
                 </div>
                 <div class="black card-content">
@@ -95,5 +95,9 @@
   </div>
 <br/>
 <h5 class="center header col s12 light">You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</h5>
+<footer class="center">
+  <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">terms and conditions</a>
+</footer>
 {% endblock %}
+
 

@@ -1,40 +1,92 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-<h1>Product List</h1>
-<ul class="collection purple darken-2">
+  <h1>Product List</h1>
+  <ul class="collection deep-purple darken-4">
 
   {% if perms.clubby.is_user %}
-  {% for product, form in product_ammount.items %}
-  <li class="collection-item purple darken-4 avatar">
-    <img alt="" class="circle" src="../../../static/clubby/images/bebidas.jpeg">
-    <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> -
-    ({{product.price}})
-    <form action="" method="post">{% csrf_token %} {{form}} <input class="btn purple darken-2" type="submit"
-        value="Submit"></form>
-  </li>
-  <br>
-  {% endfor %}
+    {% for product, form in product_ammount.items %} 
+    <li class="collection-item purple darken-4 avatar">
+      {% if product.product_type == 'h' %}
+    <img class="circle" src="../../../static/clubby/images/hookah.jpg"  alt="">
+    {% elif product.product_type == 'b' %}
+    <img class="circle" src="../../../static/clubby/images/beer.jpg"  alt="">
+    {% elif product.product_type == 'w'  %}
+    <img class="circle" src="../../../static/clubby/images/wine.jpg"  alt="">
+    {% elif product.product_type == 'k'  %}
+    <img class="circle" src="../../../static/clubby/images/snack.jpg"  alt="">
+    {% elif product.product_type == 'r'  %}
+    <img class="circle" src="../../../static/clubby/images/refreshment.jpg"  alt="">
+    {% elif product.product_type == 'c'  %}
+    <img class="circle" src="../../../static/clubby/images/cocktail.jpg"  alt="">
+    {% elif product.product_type == 's'  %}
+    <img class="circle" src="../../../static/clubby/images/shot.jpg"  alt="">
+    {% elif product.product_type == 'm'  %}
+    <img class="circle" src="../../../static/clubby/images/bebidas.jpeg"  alt="">
+    {% endif %}
+      <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ({{product.price}}) 
+      {% if product.product_type == 'h'  %}
+      <p><strong style="font-size: larger;">Type:</strong> Hookah</p>
+      {% elif product.product_type == 'b'  %}
+      <p><strong style="font-size: larger;">Type:</strong> Beer</p>
+      {% elif product.product_type == 'w'  %}
+      <p><strong style="font-size: larger;">Type:</strong> Wine</p>
+      {% elif product.product_type == 'k'  %}
+      <p><strong style="font-size: larger;">Type:</strong> Snack</p>
+      {% elif product.product_type == 'r'  %}
+      <p><strong style="font-size: larger;">Type:</strong> Refreshment</p>
+      {% elif product.product_type == 'c'  %}
+      <p><strong style="font-size: larger;">Type:</strong> Cocktail</p>
+      {% elif product.product_type == 's'  %}
+      <p><strong style="font-size: larger;">Type:</strong> Shot</p>
+      {% elif product.product_type == 'm'  %}
+      <p><strong style="font-size: larger;">Type:</strong> Misc.</p>
+      {%endif%}
+      {% if product.reservation_exclusive %}
+        </br>
+        ("This product is exclusive for reservations")
+      {% endif %}
+    <form action="" method="post">{% csrf_token %} {{form}} <input class="btn purple darken-2" type="submit" value="Submit"></form> 
+    </li>
+    <br>
+    {% endfor %}
   {% endif %}
 
   {% if perms.clubby.is_owner %}
   {% if object_list %}
-  <ul class="collection-item purple darken-2">
+  <ul class="collection-item deep-purple darken-2">
     {% for product in object_list %}
-    <li class="collection-item purple darken-4 avatar">
+      <li class="collection-item purple darken-4 avatar">
+      {% if product.product_type == 'h'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/hookah.jpg">
+      {% elif product.product_type == 'b'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/beer.jpg">
+      {% elif product.product_type == 'w'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/wine.jpg">
+      {% elif product.product_type == 'k'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/snack.jpg">
+      {% elif product.product_type == 'r'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/refreshment.jpg">
+      {% elif product.product_type == 'c'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/cocktail.jpg">
+      {% elif product.product_type == 's'  %}
+      <img alt="" class="circle" src="../../../static/clubby/images/shot.jpg">
+      {% elif product.product_type == 'm'  %}
       <img alt="" class="circle" src="../../../static/clubby/images/bebidas.jpeg">
-      <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-    </li>
+      {%endif%}
+        
+        <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> 
+      </li>
     {% endfor %}
   </ul>
   {% else %}
-  <li class="collection-item purple darken-2">
-    <p>There are no products avaliable.</p>
-  </li>
+    <li class="collection-item deep-purple darken-2">
+      <p>There are no products avaliable.</p>
+    </li>
   {% endif %}
-  <li class="collection-item purple darken-2">
-    <a class="btn-large purple darken-4" href="{% url 'product-create' %}">Create new product</a>
-  </li>
-  {%endif%}
-</ul>
+    <li class="collection-item deep-purple darken-2">
+      <a class="btn-large purple darken-4" href="{% url 'product-create' %}">Create new product</a>  
+    </li>
+  {%endif%}   
+  </ul>
 {% endblock %}

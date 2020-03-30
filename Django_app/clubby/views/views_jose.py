@@ -22,6 +22,8 @@ from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 from django.utils.crypto import get_random_string
 
+from datetime import datetime, timedelta
+
 from decimal import Decimal
 
 import datetime
@@ -35,6 +37,7 @@ def ProductsByClubList(request, club_id):
     if (request.method == 'POST'):
         form = ProductPurchaseForm(request.POST)
         if form.is_valid():
+            
 
             product_id = form.cleaned_data['product']
             quantity = form.cleaned_data['quantity']
@@ -48,73 +51,97 @@ def ProductsByClubList(request, club_id):
                 user_is_broke = True
             else:
                 total_cost = product_selected.price * quantity
-                request.user.profile.funds -= total_cost
+                request.user.profile.funds -= total_cost 
                 request.user.save()
 
                 owner = product_selected.club.owner
-                # we take the 5% off the purchase.
-                owner.profile.funds += total_cost - \
-                    total_cost * Decimal("0.05")
+                owner.profile.funds += total_cost - total_cost * Decimal("0.05") #we take the 5% off the purchase.
                 owner.save()
 
                 for x in range(quantity):
-                    qr = QR_Item(is_used=False, product=product_selected, priv_key=get_random_string(
-                        length=128), user=request.user)
+                    qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user,
+                        fecha=datetime.datetime.now(), timed_out=False)
                     qr.save()
 
-            return render(request, 'clubby/purchase/list.html', {'user_is_broke': user_is_broke})
+                list = QR_Item.objects.filter(user = request.user).order_by('-fecha')
+
+                for qr_item in list:
+                    if qr_item.product != None:
+                        dn = datetime.datetime.now() - timedelta(hours=6)
+                    elif qr_item.ticket != None:
+                        dn = datetime.datetime.now() - timedelta(hours=qr_item.ticket.event.duration)
+                    d = qr_item.fecha
+                    d = d.replace(tzinfo=None)
+                    if dn > d:
+                        qr_item.timed_out = True
+                        qr_item.save()
+                    
+        item = QR_Item.objects.filter(user = request.user).filter(is_used=False).filter(timed_out=False).order_by('-fecha')
+            
+        return render(request,'clubby/purchase/list.html',{'user_is_broke':user_is_broke,'object_list':item})
     else:
         club = Club.objects.filter(pk=club_id)[0]
-        products = Product.objects.filter(club=club)
+        products = Product.objects.filter(club = club)
 
-        product_ammount = dict()
+        product_ammount=dict()
         for t in range(len(products)):
-            # returns the ammount of unsold tickets for an event and category
-            form = ProductPurchaseForm(initial={'product': products[t].pk})
+            #returns the ammount of unsold tickets for an event and category
+            form = ProductPurchaseForm(initial={'product':products[t].pk})
             product_ammount[products[t]] = form
 
         context = {'product_ammount': product_ammount}
-        return render(request, 'clubby/product/list.html', context)
-
-
+        return render(request,'clubby/product/list.html',context)
+    
+    
 #################
 #    QR         #
 #################
 
 
 class QRsByUserListView(LoginRequiredMixin, generic.ListView):
-
+    
     permission_required = 'clubby.is_user'
     model = QR_Item
-    template_name = 'clubby/purchase/list.html'
+    template_name ='clubby/purchase/list.html'
     paginate_by = 5
 
-    # <-- as this requires identification, we specify the redirection url if an anon tries to go here.
-    login_url = '/login/'
-
+    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
+    
     def get_queryset(self):
-        item = QR_Item.objects.filter(
-            user=self.request.user).filter(is_used=False)
+
+        current_user =  self.request.user
+        list = QR_Item.objects.filter(user = current_user).order_by('-fecha')
+
+        for qr_item in list:
+            if qr_item.product != None:
+                dn = datetime.datetime.now() - timedelta(hours=6)
+            elif qr_item.ticket != None:
+                dn = datetime.datetime.now() - timedelta(hours=qr_item.ticket.event.duration)
+            d = qr_item.fecha
+            d = d.replace(tzinfo=None)
+            if dn > d:
+                qr_item.timed_out = True
+                qr_item.save()
+
+        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=False).filter(timed_out=False).order_by('-fecha')
         return item
 
 
 class QRsUsedByUserListView(LoginRequiredMixin, generic.ListView):
-
+    
     permission_required = 'clubby.is_user'
     model = QR_Item
-    template_name = 'clubby/purchase/history_list.html'
+    template_name ='clubby/purchase/history_list.html'
     paginate_by = 5
 
-    # <-- as this requires identification, we specify the redirection url if an anon tries to go here.
-    login_url = '/login/'
-
+    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
+    
     def get_queryset(self):
-        item = QR_Item.objects.filter(
-            user=self.request.user).filter(is_used=True)
+        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=True)
         return item
 
 
-# class DisplayQRItemView(generic.DetailView):
+#class DisplayQRItemView(generic.DetailView):
    # model = QR_Item
    # template_name = 'clubby/purchase/display.html'  # Specify your own template name/location
 
@@ -129,17 +156,28 @@ def DisplayQRItemView(request, qr_item_id, priv_key):
             qr_selected.is_used = True
             qr_selected.save()
 
-            return render(request, 'clubby/landing.html')
+            return render(request,'clubby/landing.html')
     else:
-        qr = QR_Item.objects.filter(pk=qr_item_id)[0]
+            qr = QR_Item.objects.filter(pk=qr_item_id)[0]
 
-        if(priv_key == qr.priv_key):
+            if(priv_key == qr.priv_key):
 
-            form = RedeemQRCodeForm()
-            form.initial['qr_item_id'] = qr.pk
-            context = {'qr_item': qr, 'form': form}
+                form = RedeemQRCodeForm()
+                form.initial['qr_item_id'] = qr.pk
+                context = {'qr_item':qr,'form':form}
 
-            return render(request, 'clubby/purchase/display.html', context)
-        else:
-            raise PermissionDenied(
-                'the security key did not match, trying to screw people over huh? Naughty >:(')
+                return render(request,'clubby/purchase/display.html',context)
+            else:
+                raise PermissionDenied('the security key did not match, trying to screw people over huh? Naughty >:(')
+
+
+@login_required(login_url="/login")
+def socialsuccess(request):
+    defaultgroup = Group.objects.get(name = 'user')
+    user = request.user
+    user.groups.add(defaultgroup)
+
+    return render(request, 'clubby/landing.html') 
+
+def terms(request):
+    return render(request, 'clubby/terms.html')

@@ -1,0 +1,32 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+<div class="col s12 m7">
+<div class="card center deep-purple darken-4">
+  <span class="card-title">Setup your monthly subscription.</span>
+
+  <div class="card-content">
+    15$ will be substracted from your account at the start of every month.<br> 
+    if you dont have enough funds in your account the suscription will be cancelled automatically.<br>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <p>
+      <label>
+        <input type="checkbox" value="{{form.accept}}
+        <span style="color: white;">Accept</span>
+      </label>
+    </p>
+    <button class="btn purple darken-4" type="submit">Activate a premium subscription!</button>
+  </form>
+  {% if not_accepted %}
+  You must accept the conditions
+  {%endif%}
+
+  {% if not_enough_funds %}
+  You dont have enough funds, add more on the profile page.
+  {%endif%}
+  </div>
+</div>
+</div>
+{% endblock %}

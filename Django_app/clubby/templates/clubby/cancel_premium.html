@@ -1,0 +1,30 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+<div class="col s12 m7">
+<div class="card center deep-purple darken-4">
+  <span class="card-title">Cancel your subscription?</span>
+
+  <div class="card-content">
+    This will cancel your current premium subscription, if you decide to renew it again you will be charged for it.<br> 
+    if you are okay with this you please check the box below.<br>
+    
+  <form action="" method="post">
+    {% csrf_token %}
+    <p>
+      <label>
+        <input type="checkbox" value="{{form.accept}}
+        <span style="color: white;">Accept</span>
+      </label>
+    </p>
+    <button class="btn purple darken-4" type="submit">Sorry to see you go :(</button>
+  </form>
+
+  {% if not_accepted %}
+  You must accept the conditions
+  {%endif%}
+
+  </div>
+</div>
+</div>
+{% endblock %}

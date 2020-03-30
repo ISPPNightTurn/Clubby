@@ -1,0 +1,234 @@
+{% extends 'clubby/base_generic.html' %}
+
+{% block content %}
+
+<div class="hide-on-med-and-down" style="width:50.0%;float:left; position: relative">
+    <p class="white-text center">PRODUCT SALES<br/>Total amount of products sold in your club</p>
+    <canvas id="products_sales"></canvas>
+</div>
+<div class="hide-on-med-and-down" style="width:50.0%;float:right; position: relative">
+    <p class="white-text center">TICKET SALES<br/>Total amount of tickets sold for your events</p>
+
+  <canvas id="event_sales"></canvas>
+</div>
+
+<div class="hide-on-med-and-down">
+    <span style="opacity:0;">Invisible sentence to add a line between the graphs</span>
+    <p class="center">MONEY EARNED<br/>Money you have earned from products and tickets</p>
+
+  <canvas id="money"></canvas>
+</div>
+
+
+
+<div class="hide-on-large-only">
+    <p class="white-text center">PRODUCT SALES<br/>Total amount of products sold in your club</p>
+    <canvas id="products_sales_small"></canvas>
+</div>
+<div class="hide-on-large-only">
+    <p class="white-text center">TICKET SALES<br/>Total amount of tickets sold for your events</p>
+
+  <canvas id="event_sales_small"></canvas>
+</div>
+
+<div class="hide-on-large-only">
+    <span style="opacity:0;">Invisible sentence to add a line between the graphs</span>
+
+    <p class="white-text center">MONEY EARNED<br/>Money you have earned from products and tickets</p>
+
+  <canvas id="money_small"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+  // create initial empty chart
+var product_data_from_view = {{product_data}};
+var product_labels_from_view = {{product_labels|safe}};
+
+var event_data_from_view = {{event_data}};
+var event_labels_from_view = {{event_labels|safe}};
+
+var monthly_sales_products = {{sales_month_products|safe}};
+var monthly_sales_events = {{sales_month_events|safe}};
+
+/*Because of the responsive design we are using, it's necesary to create 2 charts for each one: one for the
+large size and another for the medium and low size.*/
+
+var ctx = document.getElementById('products_sales').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: product_labels_from_view,
+        datasets: [{
+            label: '# of purchases',
+            backgroundColor: 'rgb(255, 160, 160)',
+            borderColor: 'rgb(255, 120, 120)',
+            data: product_data_from_view,
+            borderWidth: 5,
+
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx_small = document.getElementById('products_sales_small').getContext('2d');
+var myChart = new Chart(ctx_small, {
+    type: 'bar',
+    data: {
+        labels: product_labels_from_view,
+        datasets: [{
+            label: '# of purchases',
+            backgroundColor: 'rgb(255, 160, 160)',
+            borderColor: 'rgb(255, 120, 120)',
+            data: product_data_from_view,
+            borderWidth: 5,
+
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx2 = document.getElementById('event_sales').getContext('2d');
+var myChar2_small = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: event_labels_from_view,
+        datasets: [{
+            label: '# of purchases',
+            backgroundColor: 'rgb(160, 160, 255)',
+            borderColor: 'rgb(120, 120, 255)',
+            data: event_data_from_view,
+            borderWidth: 5
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx2_small = document.getElementById('event_sales_small').getContext('2d');
+var myChar2_small = new Chart(ctx2_small, {
+    type: 'bar',
+    data: {
+        labels: event_labels_from_view,
+        datasets: [{
+            label: '# of purchases',
+            backgroundColor: 'rgb(160, 160, 255)',
+            borderColor: 'rgb(120, 120, 255)',
+            data: event_data_from_view,
+            borderWidth: 5
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx3 = document.getElementById('money').getContext('2d');
+var myChar3 = new Chart(ctx3, {
+  type: 'line',
+  
+    data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+        datasets: [{
+            label: '# of product purchases',
+            borderColor: 'rgb(255, 160, 160)',
+            pointBackgroundColor: 'rgb(255, 160, 160)',
+            pointHoverBackgroundColor: 'rgb(255, 120, 120)',
+            pointRadius:8,
+            pointHoverRadius:10,
+
+            data: monthly_sales_products,
+            
+        },
+        {
+            label: '# of event ticket purchases',
+            borderColor: 'rgb(160, 160, 255)',
+            pointBackgroundColor: 'rgb(160, 160, 255)',
+            pointHoverBackgroundColor: 'rgb(120, 120, 255)',
+            pointRadius:8,
+            pointHoverRadius:10,
+            data: monthly_sales_events,
+            
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx3_small = document.getElementById('money_small').getContext('2d');
+var myChar3_small = new Chart(ctx3_small, {
+  type: 'line',
+  
+    data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+        datasets: [{
+            label: '# of product purchases',
+            borderColor: 'rgb(255, 160, 160)',
+            pointBackgroundColor: 'rgb(255, 160, 160)',
+            pointHoverBackgroundColor: 'rgb(255, 120, 120)',
+            pointRadius:8,
+            pointHoverRadius:10,
+
+            data: monthly_sales_products,
+            
+        },
+        {
+            label: '# of event ticket purchases',
+            borderColor: 'rgb(160, 160, 255)',
+            pointBackgroundColor: 'rgb(160, 160, 255)',
+            pointHoverBackgroundColor: 'rgb(120, 120, 255)',
+            pointRadius:8,
+            pointHoverRadius:10,
+            data: monthly_sales_events,
+            
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+{% endblock %}
+

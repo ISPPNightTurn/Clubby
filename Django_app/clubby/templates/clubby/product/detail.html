@@ -1,16 +1,55 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-<div class="card purple">
+<div style="max-width: 700px;" class="card deep-purple darken-4">
   <div class="card-image">
-    <img src="../../../static/clubby/images/bebidas.jpeg">
-    <span class="card-title">Name: {{ product.name }}</span>
+    {% if product.product_type == 'h' %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/hookah.jpg" alt="">
+    {% elif product.product_type == 'b' %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/beer.jpg" alt="">
+    {% elif product.product_type == 'w'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/wine.jpg" alt="">
+    {% elif product.product_type == 'k'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/snack.jpg" alt="">
+    {% elif product.product_type == 'r'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/refreshment.jpg" alt="">
+    {% elif product.product_type == 'c'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/cocktail.jpg" alt="">
+    {% elif product.product_type == 's'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/shot.jpg" alt="">
+    {% elif product.product_type == 'm'  %}
+    <img style="max-width: 700px;" src="../../../static/clubby/images/bebidas.jpeg" alt="">
+    {% endif %}
+    
+    
   </div>
   <div class="card-content">
-    <p>Price: {{ product.price }}</p>
-  </div>
-
-
+    <span class="card-title">{{ product.name }}</span>
+    <p><strong style="font-size: larger;">Price:</strong> {{ product.price }}</p>
+  
+  {% if product.product_type == 'h'  %}
+    <p><strong style="font-size: larger;">Type:</strong> Hookah</p>
+  {% elif product.product_type == 'b'  %}
+    <p><strong style="font-size: larger;">Type:</strong> Beer</p>
+  {% elif product.product_type == 'w'  %}
+    <p><strong style="font-size: larger;">Type:</strong> Wine</p>
+  {% elif product.product_type == 'k'  %}
+    <p><strong style="font-size: larger;">Type:</strong> Snack</p>
+  {% elif product.product_type == 'r'  %}
+    <p><strong style="font-size: larger;">Type:</strong> Refreshment</p>
+  {% elif product.product_type == 'c'  %}
+    <p><strong style="font-size: larger;">Type:</strong> Cocktail</p>
+  {% elif product.product_type == 's'  %}
+    <p><strong style="font-size: larger;">Type:</strong> Shot</p>
+  {% elif product.product_type == 'm'  %}
+    <p><strong style="font-size: larger;">Type:</strong> Misc.</p>
+  {%endif%}
+  {% if product.reservation_exclusive %}
+    </br>
+    <strong>This product is exclusive for reservations</strong>
+  {% endif %}
+</div>
+  
   <!-- this should appear only if its the owner. -->
   {% if product.club.owner == user%}
   <a href="{{ product.pk }}/update/" class="btn-large purple darken-4">edit product</a><br>
@@ -18,3 +57,5 @@
   {%endif%}
 </div>
 {% endblock %}
+
+    
