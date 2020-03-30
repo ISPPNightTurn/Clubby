@@ -45,11 +45,11 @@
           <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Profile pic: </strong>
           </br>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">
-            {% if user_profile.picture == blank%}
+            {% if user_profile.picture == null or user_profile.picture == ''%}
                 <img class="circle responsive-img" style="width: 50%;" src="../../../static/clubby/images/user_img.jpg" alt="">
                 {% else %}
                 <img class="circle responsive-img" style="width: 50%;" src={{user_profile.picture}} alt="">
-          {% endif %}
+            {% endif %}
           </span>
         </div>
         <div class="card-action black">
