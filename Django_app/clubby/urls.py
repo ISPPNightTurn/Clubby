@@ -29,8 +29,7 @@ urlpatterns = [
     path('events', views.EventListView.as_view(), name='events'),
     path('event/<int:pk>', views.EventDetailView.as_view(), name='event-detail'),
     path('myevents', views.EventsByUserListView.as_view(), name='my-events'),
-    path('mypublishedeventsfuture',
-         views.EventsByClubAndFutureListView.as_view(), name='my-events-future'),
+    path('mypublishedeventsfuture', views.EventsByClubAndFutureListView.as_view(), name='my-events-future'),
     path('event/create', views.EventCreateView.as_view(), name='event-create'),
     path('profile', views.profile, name='profile'),
     path('profile/edit', views.edit_profile, name='edit-profile'),
@@ -38,30 +37,15 @@ urlpatterns = [
 
 urlpatterns += [
     url('statistics', views.get_stats, name='get-stats'),
-
+    
 ]
-
-urlpatterns += [
-    url('signup/user', views.signup_user, name='signup-user'),
-    url('signup/owner', views.signup_owner, name='signup-owner'),
-]
-
-urlpatterns += [
-    path('club/create/', views.ClubCreate.as_view(), name='club-create'),
-    path('club/<int:pk>/update/', views.ClubUpdate.as_view(), name='club-update'),
-    path('club/<int:pk>/delete/', views.ClubDelete.as_view(), name='club-delete'),
-]
-
 urlpatterns += [
     path('product/<int:pk>', views.ProductDetailView.as_view(),
          name='product-detail'),
     path('product/create/', views.ProductCreate.as_view(), name='product-create'),
-    path('product/<int:product_id>/update/',
-         views.ProductUpdate, name='product-update'),
-    path('product/<int:pk>/delete/',
-         views.ProductDelete.as_view(), name='product-delete'),
-    path('product/list/<int:club_id>',
-         views.ProductsByClubList, name='product-list'),
+    path('product/<int:product_id>/update/', views.ProductUpdate, name='product-update'),
+    path('product/<int:pk>/delete/', views.ProductDelete.as_view(), name='product-delete'),
+    path('product/list/<int:club_id>', views.ProductsByClubList, name='product-list'),
     path('myproducts', views.ProductsByClubListView.as_view(), name='my-products'),
 ]
 
@@ -74,26 +58,21 @@ urlpatterns += [
     path('addFunds/<int:ammount>', views.add_funds, name='add-funds'),
     path('charge/<int:ammount>', views.charge, name='charge'),
     path('getPremium', views.get_premium, name='get-premium'),
-    path('cancelPremium', views.cancel_premium, name='cancel-premium'),
-    path('terms-and-conditions', views.terms, name='terms-and-conditions'),
+    path('cancelPremium', views.cancel_premium, name='cancel-premium'), 
+    path('terms-and-conditions', views.terms, name='terms-and-conditions'), 
 ]
 
 urlpatterns += [
-    path('event/<int:event_id>/create_tickets',
-         views.EventCreateTickets, name='create-tickets'),
-    path('club/<int:club_id>/rating_list',
-         views.ClubListRating, name='list-rating'),
-    path('club/<int:club_id>/rating_list/<int:order>',
-         views.ClubListRating, name='list-rating'),
-    path('club/<int:club_id>/rating_create',
-         views.ClubCreateRating, name='create-rating'),
+    path('event/<int:event_id>/create_tickets', views.EventCreateTickets, name='create-tickets'),
+    path('club/<int:club_id>/rating_list', views.ClubListRating, name='list-rating'),
+    path('club/<int:club_id>/rating_list/<int:order>', views.ClubListRating, name='list-rating'),
+    path('club/<int:club_id>/rating_create', views.ClubCreateRating, name='create-rating'),
 ]
 
 urlpatterns += [
     path('purchase/list/', views.QRsByUserListView.as_view(), name='my-purchases'),
     path('history/list/', views.CheckHistory, name='my-history'),
-    path('purchase/<int:qr_item_id>/<slug:priv_key>',
-         views.DisplayQRItemView, name='purchase-display'),
+    path('purchase/<int:qr_item_id>/<slug:priv_key>', views.DisplayQRItemView, name='purchase-display'),   
 ]
 
 
@@ -115,11 +94,6 @@ urlpatterns += [
     path('', include('social_django.urls', namespace='social')),
     path('social/success/', views.socialsuccess, name="social-sucess"),
 ]
-
-# urlpatterns += [
-#     url(r'^api/chart/data/$', views.ChartData.as_view()),
-# ]
-
 
 '''
 This is a local page for the clubby project where all URLS will be defined. You can see some examples below.

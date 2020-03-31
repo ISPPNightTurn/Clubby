@@ -208,6 +208,13 @@ class ClubUpdate(PermissionRequiredMixin,UpdateView):
     template_name = 'clubby/club/club_form.html'
     fields = ['name', 'address', 'max_capacity', 'NIF', 'picture']
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if(self.object.owner != request.user):
+            raise PermissionDenied("You don't own that >:(")
+        else:
+            return super(ClubUpdate, self).get(request, *args, **kwargs)
+
     def form_valid(self, form):  
         obj = form.save(commit=False)
         self.object = obj # this is neccesary as the url is pulled from self.object.
@@ -224,6 +231,13 @@ class ClubDelete(PermissionRequiredMixin,DeleteView):
     model = Club
     template_name = 'clubby/club/club_confirm_delete.html'
     success_url = reverse_lazy('clubs')
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if(self.object.owner != request.user):
+            raise PermissionDenied("You don't own that >:(")
+        else:
+            return super(ClubDelete, self).get(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs): #to check for permissions we override the default delete method
         self.object = self.get_object()
@@ -353,27 +367,6 @@ class EventCreateView(PermissionRequiredMixin,CreateView):
         start_date = form.cleaned_data.get('start_date')
 
         now = datetime.datetime.now().date()
-        errors = []
-
-        if(start_date < now ):
-            errors.append('date cant be in the past.')
-
-        if(start_time > 24 or start_time < 0 ):
-            errors.append('start time is invalid')
-        
-        if(duration > 12 or duration < 0):
-            errors.append('Duration is invalid')
-
-
-        if(len(errors) != 0):
-            return render(self.request, 'clubby/event/event_form.html',{'form':form,'errors':errors})
-
-
-        owner = self.request.user
-
-        now = datetime.datetime.now()
-        lastday = calendar.monthrange(now.year,now.month)[1]
-        first = datetime.datetime(now.year,now.month,1)
         last = datetime.datetime(now.year,now.month,lastday)
 
         events_in_month = Event.objects.filter(club=owner.club).filter(start_date__gte = first).filter(start_date__lte = last).count()
@@ -392,4 +385,3 @@ class EventCreateView(PermissionRequiredMixin,CreateView):
                 return render(self.request,'clubby/profile.html',context)
 
         return HttpResponseRedirect(self.object.get_create_tickets_url())
-
