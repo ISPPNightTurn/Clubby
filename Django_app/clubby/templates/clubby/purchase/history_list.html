@@ -4,93 +4,51 @@
   {% load qr_code %}
   <h1 style="text-align: center;">My History Of Purchases</h1>
   <div style="margin:auto; width: 100%;">
-  <div class="card deep-purple darken-4">
+  <div style="max-width: 720px; margin: 0 auto;" class="card center deep-purple darken-4">
     
     {% if list %}
-    <table summary=" List of QR items">
-      <tr>
-        <th id = "Type">Type</th>
-        <th id = "Details">Details</th>
-        <th id = "Price">Price</th>
-        <th id = "Place">Place</th>
-        <th id = "Date">Purchase date:</th>
-        <th id = "Expiring">Expires after:</th>
-        <th id = "Expired">Expired</th>
-        <th id = "Used">Used</th>
-      </tr>
-
-    {% for qr_item in list %}
-      <tr>
-      {% if qr_item.product != blank %}
-      <td>
-        <strong>Product</strong>
-      </td>
-      <td>
-        <p>{{qr_item.product.name}}</p>
-      </td>
-      <td>
-        <p>{{qr_item.product.price}}</p>
-      </td> 
-      <td>
-        <p>{{qr_item.product.club.name}} - {{qr_item.product.club.address}}</p>
-      </td>
-      <td>
-        <p>{{qr_item.fecha}}</p>
-      </td>
-      <td>
-        <p>{{qr_item.expiret}}</p>
-      </td>
-      <td>
-        {% if qr_item.timed_out %}
-        <em class="small material-icons white-text">done</em>
-        {% else %}
-        <em class="small material-icons white-text">clear</em>
-        {% endif %}
-      </td>
-      <td>
-        {% if qr_item.is_used%}
-        <em class="small material-icons white-text">done</em>
-        {% else %}
-        <em class="small material-icons white-text">clear</em>
-        {% endif %}
-      </td>
-      {% elif qr_item.ticket != blank %}
-      <td>
-        <strong>Ticket</strong>
-      </td>
-      <td>
-        <p>{{qr_item.ticket.event.name}} <br/>
-          Start : {{qr_item.start}} <br/> End: {{qr_item.expiret}}</p>
-      </td>
-      <td>
-        <p>{{qr_item.ticket.price}}</p>
-      </td> 
-      <td>
-        <p>{{qr_item.ticket.event.club.name}} - {{qr_item.ticket.event.club.address}}</p>
-      </td>
-      <td>
-        <p>{{qr_item.fecha}}</p>
-      </td>
-      <td>
-        <p>{{qr_item.expiret}}</p>
-      </td>
-      <td>
-        {% if qr_item.timed_out %}
-        <em class="small material-icons white-text">done</em>
-        {% else %}
-        <em class="small material-icons white-text">clear</em>
-        {% endif %}
-      </td>
-      <td>
-        {% if qr_item.is_used %}
-        <em class="small material-icons white-text">done</em>
-        {% else %}
-        <em class="small material-icons white-text">clear</em>
-        {% endif %}
-      </td>
-      {% endif %}
-    {% endfor %}
-  </table>
+      {% for qr_item in list %}
+        <div class="card purple darken-4">
+          <div class="card-content">
+            {% if qr_item.product != blank %}
+              <p>Type: Product</span>
+              <p>Details: {{qr_item.product.name}}</p>
+              <p>Price: {{qr_item.product.price}}</p>
+              <p>Place: {{qr_item.product.club.name}} - {{qr_item.product.club.address}}</p>
+              <p>Purchase Date: {{qr_item.fecha}}</p>
+              <p>Expires After: {{qr_item.expiret}}</p>
+              {% if qr_item.timed_out %}
+                <p>Expired: <em class="small material-icons white-text">done</em></p>
+              {% else %}
+                <p>Expired: <em class="small material-icons white-text">clear</em></p>
+              {% endif %}
+              {% if qr_item.is_used%}
+                <p>Used: <em class="small material-icons white-text">done</em></p>
+              {% else %}
+                <p>Used: <em class="small material-icons white-text">clear</em></p>
+              {% endif %}
+            
+            {% elif qr_item.ticket != blank %}
+            <p>Type: Ticket</p>
+            <p>Details: {{qr_item.ticket.event.name}} <br/>Start : {{qr_item.start}} <br/> End: {{qr_item.expiret}}</p>
+            <p>Price: {{qr_item.ticket.price}}</p>
+            <p>Place: {{qr_item.ticket.event.club.name}} - {{qr_item.ticket.event.club.address}}</p>
+            <p>Purchase Date: {{qr_item.fecha}}</p>
+            <p>Expires After: {{qr_item.expiret}}</p>
+            {% if qr_item.timed_out %}
+              <p>Expired: <em class="small material-icons white-text">done</em></p>
+            {% else %}
+              <p>Expired: <em class="small material-icons white-text">clear</em></p>
+            {% endif %}
+            {% if qr_item.is_used %}
+              <p>Used: <em class="small material-icons white-text">done</em></p>
+            {% else %}
+              <p>Used: </p><em class="small material-icons white-text">clear</em></p>
+            {% endif %}
+            {%endif%}
+          </div>
+        </div>
+      {% endfor %}
   {% else %}
   <p class="card-content">You have no purchases used</p>
   {% endif %}
