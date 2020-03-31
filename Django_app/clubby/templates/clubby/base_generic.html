@@ -27,7 +27,7 @@
       <div class=" purple darken-4 nav-wrapper">
         <div class="large-logo">
           <a href="{% url 'landing' %}">
-           <img class="logo_img" src="../../../static/clubby/images/clubby_logo_white_no_bg.png" alt="clubby_logo"/>
+           <img class="logo_img" src="/static/clubby/images/clubby_logo_white_no_bg.png" alt="clubby_logo"/>
           </a>
         </div>
         <ul class="right hide-on-med-and-down">
@@ -47,9 +47,6 @@
           <!-- We can add owner specific actions here (they need to not require a club.)--> 
           {% if not perms.clubby.is_premium_owner %}
           <li><a href = "{% url 'get-premium'%}">Become Premium!</a></li>
-          {% endif %}
-          {% if perms.clubby.is_premium_owner %}
-          <li><a href = "{% url 'get-stats'%}">Statistics</a></li>
           {% endif %}
           {%endif%}
 
