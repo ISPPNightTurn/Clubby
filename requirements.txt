@@ -2,6 +2,8 @@ django_heroku
 
 gunicorn
 
+psycopg2==2.6.2
+
 asgiref==3.2.5
 
 certifi==2019.11.28
