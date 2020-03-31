@@ -121,7 +121,7 @@ def TicketsByEventList(request, event_id):
                 if (total_cost>logged.profile.funds):
                     user_is_broke = True
                 else:
-                    logged.profile.funds -= (total_cost* to_buy)
+                    logged.profile.funds -= total_cost
                     logged.profile.save()
 
                     owner = event.club.owner

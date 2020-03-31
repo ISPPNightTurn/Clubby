@@ -273,7 +273,6 @@ class ProductsByClubListView(LoginRequiredMixin, generic.ListView):
         template_name ='clubby/product/list.html'
         paginate_by = 5
 
-        login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
         def get_queryset(self):
             item = Product.objects.filter(club = self.request.user.club)
@@ -331,8 +330,7 @@ class EventsByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing events the user has participated, or is going to participate in."""
     model = Event
     template_name ='clubby/event/user_list.html'
-    paginate_by = 5
-    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
+    paginate_by = 5 
     
     def get_queryset(self):
 
@@ -345,7 +343,6 @@ class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
     model = Event
     template_name ='clubby/event/future-list.html'
     paginate_by = 5
-    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
 
     def get_queryset(self):
         #the gte and lte indicate greater than and lesser than for filtering by dates.
