@@ -2,7 +2,7 @@ django_heroku
 
 gunicorn
 
-psycopg2==2.6.2
+psycopg2
 
 asgiref==3.2.5
 
