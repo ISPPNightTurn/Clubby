@@ -98,48 +98,47 @@ def ProductsByClubList(request, club_id):
 #################
 
 
-class QRsByUserListView(PermissionRequiredMixin, generic.ListView):
+class QRsByUserListView(LoginRequiredMixin, generic.ListView):
     
     permission_required = 'clubby.is_user'
     model = QR_Item
     template_name ='clubby/purchase/list.html'
-    paginate_by = 5
+    paginate_by = 1
+
+    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
     def get_queryset(self):
-        try:
-            current_user =  self.request.user
-            list = QR_Item.objects.filter(user = current_user).order_by('-fecha')
 
-            for qr_item in list:
-                if qr_item.product != None:
-                    dn = datetime.datetime.now() - timedelta(hours=6)
-                elif qr_item.ticket != None:
-                    dn = datetime.datetime.now() - timedelta(hours=qr_item.ticket.event.duration)
-                d = qr_item.fecha
-                d = d.replace(tzinfo=None)
-                if dn > d:
-                    qr_item.timed_out = True
-                    qr_item.save()
+        current_user =  self.request.user
+        list = QR_Item.objects.filter(user = current_user).order_by('-fecha')
 
-            item = QR_Item.objects.filter(user = self.request.user).filter(is_used=False).filter(timed_out=False).order_by('-fecha')
-            return item
-        except:
-            redirect ('my-purchase')
+        for qr_item in list:
+            if qr_item.product != None:
+                dn = datetime.datetime.now() - timedelta(hours=6)
+            elif qr_item.ticket != None:
+                dn = datetime.datetime.now() - timedelta(hours=qr_item.ticket.event.duration)
+            d = qr_item.fecha
+            d = d.replace(tzinfo=None)
+            if dn > d:
+                qr_item.timed_out = True
+                qr_item.save()
+
+        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=False).filter(timed_out=False).order_by('-fecha')
+        return item
 
 
-class QRsUsedByUserListView(PermissionRequiredMixin, generic.ListView):
+class QRsUsedByUserListView(LoginRequiredMixin, generic.ListView):
     
     permission_required = 'clubby.is_user'
     model = QR_Item
     template_name ='clubby/purchase/history_list.html'
     paginate_by = 5
+
+    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
     def get_queryset(self):
-        try:
-            item = QR_Item.objects.filter(user = self.request.user).filter(is_used=True)
-            return item
-        except:
-            redirect ('my-history')
+        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=True)
+        return item
 
 
 #class DisplayQRItemView(generic.DetailView):
