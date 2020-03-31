@@ -75,9 +75,11 @@ class EditProfileForm(forms.Form):
 
     def clean(self):
         email = self.cleaned_data.get('email')
-        birth_date = self.cleaned_data.get('birth_date')
-        user_with_mail = User.objects.filter(email=email)[0]
 
+        birth_day = self.cleaned_data.get('birth_date')
+        
+        user_with_mail = User.objects.filter(email=email)[0]
+        picture = self.cleaned_data.get('picture')
 
         if user_with_mail != self.request.user:
             raise ValidationError("Email exists")

@@ -37,11 +37,9 @@
               <div class="card-action black">
                 <a href="{{ club.get_absolute_url }}">Navigate to the club</a>
               </div>
-              {% if user.is_authenticated %}
-                <div class="card-action black">
-                  <a href="{% url 'list-rating' club_id=club.pk %}" class="btn-large purple darken-4 ">View ratings</a>         
-                </div>
-              {% endif %}
+              <div class="card-action black">
+                <a href="{% url 'list-rating' club_id=club.pk %}" class="btn-large purple darken-4 ">View ratings</a>         
+              </div>
             </div>
           </div>
                 
