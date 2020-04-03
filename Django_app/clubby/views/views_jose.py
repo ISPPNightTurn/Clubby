@@ -60,25 +60,15 @@ def ProductsByClubList(request, club_id):
 
                 for x in range(quantity):
                     qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user,
-                        fecha=datetime.datetime.now(), timed_out=False)
+                        fecha=datetime.datetime.now(), expiration_date=datetime.datetime.now() + timedelta(hours=6))
                     qr.save()
 
-                list = QR_Item.objects.filter(user = request.user).order_by('-fecha')
-
-                for qr_item in list:
-                    if qr_item.product != None:
-                        dn = datetime.datetime.now() - timedelta(hours=6)
-                    elif qr_item.ticket != None:
-                        dn = datetime.datetime.now() - timedelta(hours=qr_item.ticket.event.duration)
-                    d = qr_item.fecha
-                    d = d.replace(tzinfo=None)
-                    if dn > d:
-                        qr_item.timed_out = True
-                        qr_item.save()
+                
+                
                     
-        item = QR_Item.objects.filter(user = request.user).filter(is_used=False).filter(timed_out=False).order_by('-fecha')
+        item = QR_Item.objects.filter(user = request.user).filter(is_used=False).filter(expiration_date__gte=datetime.datetime.now()).order_by('-fecha')
             
-        return render(request,'clubby/purchase/list.html',{'user_is_broke':user_is_broke,'object_list':item})
+        return render(request,'clubby/purchase/list.html',{'user_is_broke':user_is_broke,'object_list':item,'now':datetime.datetime.now()})
     else:
         club = Club.objects.filter(pk=club_id)[0]
         products = Product.objects.filter(club = club)
@@ -103,47 +93,35 @@ class QRsByUserListView(LoginRequiredMixin, generic.ListView):
     permission_required = 'clubby.is_user'
     model = QR_Item
     template_name ='clubby/purchase/list.html'
-    paginate_by = 1
+    paginate_by = 20
 
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
     def get_queryset(self):
 
         current_user =  self.request.user
-        list = QR_Item.objects.filter(user = current_user).order_by('-fecha')
+        
 
-        for qr_item in list:
-            if qr_item.product != None:
-                dn = datetime.datetime.now() - timedelta(hours=6)
-            elif qr_item.ticket != None:
-                dn = datetime.datetime.now() - timedelta(hours=qr_item.ticket.event.duration)
-            d = qr_item.fecha
-            d = d.replace(tzinfo=None)
-            if dn > d:
-                qr_item.timed_out = True
-                qr_item.save()
-
-        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=False).filter(timed_out=False).order_by('-fecha')
+        
+        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=False).filter(expiration_date__gte = datetime.datetime.now()).order_by('-fecha')
         return item
 
 
-class QRsUsedByUserListView(LoginRequiredMixin, generic.ListView):
-    
-    permission_required = 'clubby.is_user'
-    model = QR_Item
-    template_name ='clubby/purchase/history_list.html'
-    paginate_by = 5
 
-    login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
-    
-    def get_queryset(self):
-        item = QR_Item.objects.filter(user = self.request.user).filter(is_used=True)
-        return item
 
 
 #class DisplayQRItemView(generic.DetailView):
    # model = QR_Item
    # template_name = 'clubby/purchase/display.html'  # Specify your own template name/location
+
+def QRItemView(request, qr_item_id, priv_key):
+    qr = QR_Item.objects.filter(pk=qr_item_id)[0]
+
+    if(priv_key == qr.priv_key):
+        context = {'qr_item':qr,}
+        return render(request,'clubby/purchase/display-qr.html',context)
+    else:
+        raise PermissionDenied('the security key did not match, trying to screw people over huh? Naughty >:(')
 
 def DisplayQRItemView(request, qr_item_id, priv_key):
     if (request.method == 'POST'):
@@ -164,7 +142,7 @@ def DisplayQRItemView(request, qr_item_id, priv_key):
 
                 form = RedeemQRCodeForm()
                 form.initial['qr_item_id'] = qr.pk
-                context = {'qr_item':qr,'form':form}
+                context = {'qr_item':qr,'form':form,'now':datetime.datetime.now()}
 
                 return render(request,'clubby/purchase/display.html',context)
             else:

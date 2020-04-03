@@ -1,7 +1,6 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-  {% load qr_code %}
   <h1 style="text-align: center;">My History Of Purchases</h1>
   <div style="margin:auto; width: 100%;">
   <div style="max-width: 720px; margin: 0 auto;" class="card center deep-purple darken-4">
@@ -16,12 +15,7 @@
               <p>Price: {{qr_item.product.price}}</p>
               <p>Place: {{qr_item.product.club.name}} - {{qr_item.product.club.address}}</p>
               <p>Purchase Date: {{qr_item.fecha}}</p>
-              <p>Expires After: {{qr_item.expiret}}</p>
-              {% if qr_item.timed_out %}
-                <p>Expired: <em class="small material-icons white-text">done</em></p>
-              {% else %}
-                <p>Expired: <em class="small material-icons white-text">clear</em></p>
-              {% endif %}
+              <p>Expires After: {{qr_item.expiration_date}}</p>
               {% if qr_item.is_used%}
                 <p>Used: <em class="small material-icons white-text">done</em></p>
               {% else %}
@@ -30,16 +24,11 @@
             
             {% elif qr_item.ticket != blank %}
             <p>Type: Ticket</p>
-            <p>Details: {{qr_item.ticket.event.name}} <br/>Start : {{qr_item.start}} <br/> End: {{qr_item.expiret}}</p>
+            <p>Details: {{qr_item.ticket.event.name}} <br/>Start : {{qr_item.ticket.event.start_date}} {{qr_item.ticket.event.start_time}}:00h <br/> Duration: {{qr_item.ticket.event.duration}} Hours</p>
             <p>Price: {{qr_item.ticket.price}}</p>
             <p>Place: {{qr_item.ticket.event.club.name}} - {{qr_item.ticket.event.club.address}}</p>
             <p>Purchase Date: {{qr_item.fecha}}</p>
-            <p>Expires After: {{qr_item.expiret}}</p>
-            {% if qr_item.timed_out %}
-              <p>Expired: <em class="small material-icons white-text">done</em></p>
-            {% else %}
-              <p>Expired: <em class="small material-icons white-text">clear</em></p>
-            {% endif %}
+            <p>Expires After: {{qr_item.expiration_date}}</p>
             {% if qr_item.is_used %}
               <p>Used: <em class="small material-icons white-text">done</em></p>
             {% else %}

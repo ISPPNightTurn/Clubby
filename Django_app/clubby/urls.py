@@ -97,6 +97,8 @@ urlpatterns += [
     path('history/list/', views.CheckHistory, name='my-history'),
     path('purchase/<int:qr_item_id>/<slug:priv_key>',
          views.DisplayQRItemView, name='purchase-display'),
+    path('QR/<int:qr_item_id>/<slug:priv_key>',
+         views.QRItemView, name='QR-display'),
 ]
 
 
