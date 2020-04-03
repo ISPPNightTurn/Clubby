@@ -13,7 +13,7 @@
         {% if qr_item.product != blank %}
           <div class="card deep-purple darken-4">
             <div class="card-content">
-              <strong>Club: </strong>{{qr_item.product.club}}<br/}
+              <strong>Club: </strong>{{qr_item.product.club}}<br/}</strong>
               <strong>Product: </strong>{{qr_item.product.name}}<br/>
 
 
@@ -44,7 +44,7 @@
 
 
               </br>
-              <a style="color: red;" class="title" href="{{ qr_item.get_absolute_url_display }}">QR Code</a>
+              <a class="title btn purple darken-4" href="{{ qr_item.get_absolute_url_display }}">QR Code</a>
             </div>
           </div>
         {% elif qr_item.ticket != blank %}
@@ -53,7 +53,7 @@
               <strong>Ticket: </strong>{{qr_item.ticket.event.name}}<br/>
               <strong>Price: </strong>{{qr_item.ticket.price}}
             </br>
-              <a style="color: red;" class="title" href="{{ qr_item.get_absolute_url_display }}">QR Code</a>
+              <a class="title btn purple darken-4" href="{{ qr_item.get_absolute_url_display }}">QR Code</a>
             </div>
           </div>
         {% endif %}
