@@ -76,6 +76,9 @@ urlpatterns += [
     path('getPremium', views.get_premium, name='get-premium'),
     path('cancelPremium', views.cancel_premium, name='cancel-premium'),
     path('terms-and-conditions', views.terms, name='terms-and-conditions'),
+    path('privacy-policy', views.privacy, name='privacy-policy'),
+    path('export-data',views.export,name='export-data'),
+    path('delete-data', views.delete,name='delete-data')
 ]
 
 urlpatterns += [

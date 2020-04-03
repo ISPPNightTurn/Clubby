@@ -18,7 +18,7 @@ from django.urls import reverse_lazy
 
 from ..forms import ProductPurchaseForm, RedeemQRCodeForm
 
-from ..models import Club, Event, Profile, Product, Ticket, QR_Item
+from ..models import Club, Event, Profile, Product, Ticket, QR_Item, Rating
 
 from django.utils.crypto import get_random_string
 
@@ -181,3 +181,26 @@ def socialsuccess(request):
 
 def terms(request):
     return render(request, 'clubby/terms.html')
+
+def privacy(request):
+    return render(request, 'clubby/privacy.html')
+
+
+
+@login_required
+def export(request):
+    me = request.user  # this is the current user.
+    tickets = QR_Item.objects.filter(user = me).filter(product__isnull = True)
+    products = QR_Item.objects.filter(user = me).filter(ticket__isnull = True)
+    ratings = Rating.objects.filter(user = me)
+    context = {'user':me,'tickets':tickets,'products':products, 'ratings':ratings}
+    return render(request, 'clubby/export.html', context)
+
+@login_required
+def delete(request):
+    me = request.user
+    try:
+        me.delete()
+    except:
+      messages.error(request, "Something went wrong") 
+    return render(request, 'clubby/success.html')

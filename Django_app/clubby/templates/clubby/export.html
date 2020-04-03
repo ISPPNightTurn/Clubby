@@ -1,0 +1,19 @@
+{% block content %}
+<h1>Personal Information</h1>
+username:{{user.username}}, first_name:{{user.first_name}}, last_name:{{user.last_name}}, location: {{user.profile.location}}, birth_date: {{user.profile.birth_date}}, picture: {{user.profile.picture}}, bio: {{user.profile.bio}}, location: {{user.profile.location}}, email: {{user.email}}
+<h2>Tickets</h2>
+{% for item in tickets %}
+club:{{item.ticket.event.club}}, event:{{item.ticket.event}}, start_date:{{item.ticket.event.start_date}}, price:{{item.ticket.price}}, category:{{item.ticket.category}}, event_type:{{item.ticket.event.event_type}}, address:{{item.ticket.event.club.address}}
+</br>
+{% endfor %}
+<h2>Products</h2>
+{% for item in products %}
+product:{{item.product}}, price:{{item.product.price}}, club:{{item.product.club}}, category: {{item.product.product_type}}
+</br>
+{% endfor %}
+<h2>My ratings</h2>
+{% for item in ratings %}
+club:{{item.club}}, text:{{item.text}}, stars:{{item.stars}}, date: {{item.fecha}}
+</br>
+{%endfor%}
+{% endblock %}
