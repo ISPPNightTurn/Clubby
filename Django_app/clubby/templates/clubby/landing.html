@@ -1,23 +1,24 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-<h1 class="header center white-text">Clubby Home!</h1>
+
 {% for item in security_advice %}
   {% if item.is_active %}
   <div class="materialize-red center">
-    <img class="responsive-img" style="width: 10%;" src="../../../static/clubby/images/warning.png" alt= "">
     <br>
-  <h1 style="text-decoration: underline;">
-    <strong style="font-size: larger;">Security advice: </strong>{{item.title}}
-  </h1>
-  </br>
-  <h4><strong style="font-size: larger;">Information: </strong>{{item.text}}</h4>
-  </br>
-  <p>Date: {{item.date}}</p>
-  <img class="responsive-img" style="width: 10%;" src="../../../static/clubby/images/warning.png" alt= "">
-  <br>
+    <img class="responsive-img" style="width: 8%; float: left" src="../../../static/clubby/images/warning.png" alt= "">
+    <img class="responsive-img" style="width: 8%; float: right" src="../../../static/clubby/images/warning.png" alt= "">
+    <h5 style="text-decoration: underline;">
+      <strong style="font-size: larger;">Security advice: </strong>{{item.title}}
+    </h5>
+    <h6><strong style="font-size: larger;">Information: </strong>{{item.text}}</h6>
+    <p>Date: {{item.date}}</p>
+    <br>
   </div>
   {%endif%}
+
+<h1 class="header center white-text">Clubby Home!</h1>
+
 {%endfor%}
   <div class="row center">
     <h5 class="header col s12 light">Welcome to Clubby, a website developed by <em>Me</em>!</h5>
