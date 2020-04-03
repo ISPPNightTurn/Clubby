@@ -2,6 +2,15 @@
 
 {% block content %}
 <h1 class="header center white-text">Clubby Home!</h1>
+{% for item in security_advice %}
+  {% if item.is_active %}
+  <h1>Security advice: {{item.title}}</h1>
+  </br>
+  <h2>Information: {{item.text}}</h2>
+  </br>
+  <p>Date: {{item.date}}</p>
+  {%endif%}
+{%endfor%}
   <div class="row center">
     <h5 class="header col s12 light">Welcome to Clubby, a website developed by <em>Me</em>!</h5>
   </div>
@@ -97,6 +106,8 @@
 <h5 class="center header col s12 light">You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</h5>
 <footer class="center">
   <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">terms and conditions</a>
+</br>
+  <a class="white-text" style="text-decoration: underline white" href="{% url 'privacy-policy' %}">privacy policy</a>
 </footer>
 {% endblock %}
 

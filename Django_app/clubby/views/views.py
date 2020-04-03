@@ -18,7 +18,7 @@ from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
 from ..forms import ClubModelForm, SignupForm, ProductModelForm, EventModelForm, FundsForm, SearchForm, SearchEventForm
-from ..models import Club, Event, Profile, Product, Ticket
+from ..models import Club, Event, Profile, Product, Ticket, SecurityAdvice
 
 from datetime import datetime, timedelta
 
@@ -55,6 +55,7 @@ def landing(request):
     # Sessions is actually just a python dictionary and you can do whatever you want on it.
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
+    security_advice = SecurityAdvice.objects.filter(is_active=True)
 
     context = {
         'num_clubs': num_clubs,
@@ -62,6 +63,7 @@ def landing(request):
         # 'num_events_future': num_events_future,
         'num_users': num_users,
         'num_visits': num_visits,
+        'security_advice':security_advice
     }
 
     # Render the HTML template index.html with the data in the context variable

@@ -235,6 +235,15 @@ class Rating(models.Model):
     def __str__(self):
         return str(self.club)+' '+str(self.stars)
 
+class SecurityAdvice(models.Model):
+    text = models.TextField(max_length=5000)
+    title = models.TextField(max_length=200)
+    date = models.DateTimeField(default=datetime.datetime.now())
+    is_active = models.BooleanField(default=True)
+    user = models.ForeignKey(User,on_delete= models.CASCADE,null=False,blank=False)
+    def __str__(self):
+        return str(self.title)
+
 
 class QR_Item(models.Model):
     is_used = models.BooleanField(default=False)
@@ -257,4 +266,4 @@ class QR_Item(models.Model):
 
     def get_real_absolute_url(self):
         str1 = QR_Item.get_absolute_url(self)
-        return str("https://clubby-sprint2.herokuapp.com")+str(str1)
+        return str("https://clubby-sprint3.herokuapp.com")+str(str1)
