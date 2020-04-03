@@ -1,28 +1,30 @@
-dist: precise
-
-language: python 
- 
-python: 
-- 3.6 
+dist: xenial
+sudo: required
 services:
   - postgresql
+  - xvfb
+env:
+  - DJANGO_SETTINGS_MODULE="project.settings"
 addons:
   postgresql: "9.4"
-install:
-- pip install -r requirements.txt
+before_install:
+  - sudo apt-get update
 before_script:
-- psql -U postgres -c "create user clubby password 'clubby'"
-- psql -U postgres -c "create database test_clubby owner clubby"
-- psql -U postgres -c "ALTER USER clubby CREATEDB"
-#- mysql -u root -e "GRANT ALL ON *.* TO 'clubby'@'%' WITH GRANT OPTION;"
-#- mysql -p -u root
-#- ALTER USER clubby CREATEDB;
-#- sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('123123') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
-#- sudo mysql_upgrade -u root -p123123
-#- sudo service mysql restart
-
+  - psql -U postgres -c "create user clubby password 'clubby'"
+  - psql -U postgres -c "create database clubby_test owner clubby"
+  - psql -U postgres -c "ALTER USER clubby SUPERUSER"
+language: python
+python:
+  - "3.6"
+install:
+  - pip install -r requirements.txt
 script:
-- ls
-- cd "Django application"
-- cd "project"
-- python manage.py test 
+  - cd Django_app
+  - cp travis_local_settings.py local_settings.py
+  - python ./manage.py test --keepdb
+deploy:
+  provider: heroku
+  app: clubby-sprint1
+  strategy: git
+  api_key:
+    secure: Coz1UQ61t03w3/lDh3Sq3hjOG820SLZbAiuPqU8G4bF23JylZntCAdv6COvSYd2O5b9y9u4d43NbH+yEG5ll2l8xAo7JngWiVAxYvMPInOnWgfs+THNLItCuY395M6FaitwFXS4rcO1Nvd4AGRNUPpmk/sYdSLx5eshnxpJBbRklsRMm6Gq2pYfx3Mcpt4qRGg9UeAyG8HntqZMe2Fycx8mlEifAoB/zvZbt18Te9xbXRKHbT4Wk9wG8UGZuCstZaDMTF0iFq5mNhMRUB+R5ezGO9ZKrb/bagcvjH3zm56CXGv/osNoHQ7Gax9nWGcuAQ/+VdonXiOTvIacDwDwa/5/9ceHCobZ+Xu2hOJzOYzFCkKAzSRb+qM0U3vMYoE4JOvjFTVoFbBtR0hBi039j4mHnumlnRtF4ebTa2emQQ4pkDil8DtBn8YGCCgJNCNA6nqbJgawuVayomgJPmrhEIQp4exigeU2SJ/7zTuURyz333rK/DXW1RBDUa/t4KwILM7kqNCrXx20w83x3Fpl5nVpyjK/8xuKg/CLE/WpNcxZs2N1IlhiMzkOn+z73qHM5nBeaK4kg7si7+05X03Nmi2BlBwPOWAHWsn5DXI8EDZdpfM9jqxcz/1sChmKcAZOxdvRJZaTu39ux4FiWMGf1UzcSJSGVeZLWxk54pJL/7o0=

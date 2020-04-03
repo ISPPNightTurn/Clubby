@@ -84,7 +84,7 @@
       <img class="logo_img_sidenav" src="../../../static/clubby/images/clubby_logo_white_no_bg.png" alt="logo_img_sidenav" onerror="this.onerror=null;this.src='../../static/clubby/images/clubby_logo_white_no_bg.png';" />
       <BR/>
     </div></li>
-    {% if user.profile.picture != null %}
+    {% if user.profile.picture != null and user.profile.picture != '' %}
     <li><a><img src="{{user.profile.picture}}" class="circle responsive-img" style="width: 25%;" alt="profile picture"/></a></li>
     <BR>
     {%endif%}

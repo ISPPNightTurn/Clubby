@@ -103,7 +103,7 @@ class QRsByUserListView(LoginRequiredMixin, generic.ListView):
     permission_required = 'clubby.is_user'
     model = QR_Item
     template_name ='clubby/purchase/list.html'
-    paginate_by = 5
+    paginate_by = 1
 
     login_url = '/login/' #<-- as this requires identification, we specify the redirection url if an anon tries to go here.
     
