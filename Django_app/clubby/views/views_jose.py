@@ -62,10 +62,7 @@ def ProductsByClubList(request, club_id):
                     qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user,
                         fecha=datetime.datetime.now(), expiration_date=datetime.datetime.now() + timedelta(hours=6))
                     qr.save()
-
-                
-                
-                    
+                                 
         item = QR_Item.objects.filter(user = request.user).filter(is_used=False).filter(expiration_date__gte=datetime.datetime.now()).order_by('-fecha')
             
         return render(request,'clubby/purchase/list.html',{'user_is_broke':user_is_broke,'object_list':item,'now':datetime.datetime.now()})
