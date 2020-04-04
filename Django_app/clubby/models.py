@@ -140,15 +140,15 @@ class Event(models.Model):
         help_text='event music type',
     )
 
+    
     @property
     def start_datetime(self):
-        dur = datetime.timedelta(hours=self.start_time)
-        return self.start_date + dur
+        d = datetime.datetime(self.start_date.year, self.start_date.month, self.start_date.day)
+        return d + timedelta(hours=self.start_time)
 
     @property
     def end_datetime(self):
-        dur = datetime.timedelta(hours=self.duration)
-        return self.start_datetime + dur
+        return self.start_datetime + timedelta(hours=self.duration)
 
     def __str__(self):
         """String for representing the Model object."""
@@ -235,6 +235,15 @@ class Rating(models.Model):
     def __str__(self):
         return str(self.club)+' '+str(self.stars)
 
+class SecurityAdvice(models.Model):
+    text = models.TextField(max_length=5000)
+    title = models.TextField(max_length=200)
+    date = models.DateTimeField(default=datetime.datetime.now())
+    is_active = models.BooleanField(default=True)
+    user = models.ForeignKey(User,on_delete= models.CASCADE,null=False,blank=False)
+    def __str__(self):
+        return str(self.title)
+
 
 class QR_Item(models.Model):
     is_used = models.BooleanField(default=False)
@@ -246,7 +255,9 @@ class QR_Item(models.Model):
     user = models.ForeignKey(User,on_delete= models.CASCADE,null=True,blank=True)
     priv_key = models.CharField(max_length=128)
     fecha = models.DateTimeField(default=datetime.datetime.now())
-    timed_out = models.BooleanField(default=False)
+    expiration_date = models.DateTimeField(default=datetime.datetime.now())
+
+
 
     def __str__(self):
         return str(self.priv_key)
@@ -257,4 +268,8 @@ class QR_Item(models.Model):
 
     def get_real_absolute_url(self):
         str1 = QR_Item.get_absolute_url(self)
-        return str("https://clubby-sprint2.herokuapp.com")+str(str1)
+        return str("https://clubby-sprint3.herokuapp.com")+str(str1)
+    
+    def get_absolute_url_display(self):
+        """Returns the url to access a detail record for this club."""
+        return reverse('QR-display', args=[str(self.id),str(self.priv_key)])

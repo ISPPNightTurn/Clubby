@@ -9,13 +9,11 @@
   {% if object_list %}
   <div class="row">
     <div style="margin: auto" class="center-align">
-      {% for qr_item in object_list %}
+      {% for qr_item in object_list %} 
         {% if qr_item.product != blank %}
           <div class="card deep-purple darken-4">
-            <div class="card-image white">
-              {% qr_from_text qr_item.get_real_absolute_url size="M" %}
-            </div>
             <div class="card-content">
+              <strong>Club: </strong>{{qr_item.product.club}}<br/}</strong>
               <strong>Product: </strong>{{qr_item.product.name}}<br/>
 
 
@@ -46,16 +44,16 @@
 
 
               </br>
+              <a class="title btn purple darken-4" href="{{ qr_item.get_absolute_url_display }}">QR Code</a>
             </div>
           </div>
         {% elif qr_item.ticket != blank %}
           <div class="card deep-purple darken-4">
-            <div class="card-image white">
-              {% qr_from_text qr_item.get_real_absolute_url size="M" %}
-            </div>
             <div class="card-content">
               <strong>Ticket: </strong>{{qr_item.ticket.event.name}}<br/>
               <strong>Price: </strong>{{qr_item.ticket.price}}
+            </br>
+              <a class="title btn purple darken-4" href="{{ qr_item.get_absolute_url_display }}">QR Code</a>
             </div>
           </div>
         {% endif %}

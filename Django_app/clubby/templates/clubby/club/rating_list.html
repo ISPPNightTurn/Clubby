@@ -46,7 +46,7 @@
 
 {% if order == 1 %}
 <div class="center">
-  <a href="{% url 'list-rating' club_id=club_id order=2 %}" class="btn-large purple darken-4 ">Order by stars</a>
+    <a href="{% url 'list-rating' club_id=club_id order=2 %}" class="btn-large purple darken-4 ">Order by stars</a>
 </div>
 {% endif %} 
 
@@ -65,13 +65,13 @@
             <div class="col s12 m7">
               <div class="card rounded">
                 <div class="card-content black">
-                  {% if rating.user.profile.picture == null or rating.user.profile.picture == '' %}
-                    <img class="circle responsive-img" style="width: 50%;" src="/static/clubby/images/user_img.jpg" alt="">
-                    </br>
-                  {% else %}
-                    <img class="circle responsive-img" style="width: 50%;" src={{rating.user.profile.picture}} alt="">
-                    </br>
-                  {% endif %}
+                      {% if rating.user.profile.picture == null or rating.user.profile.picture == '' %}
+                        <img class="circle responsive-img" style="width: 50%;" src="/static/clubby/images/user_img.jpg" alt="">
+                      </br>
+                      {% else %}
+                        <img class="circle responsive-img" style="width: 50%;" src={{rating.user.profile.picture}} alt="">
+                        </br>
+                      {% endif %}
                       <em class="small material-icons white-text">people</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">User: </strong>
                       <span class="light white-text" style="display: inline-block; vertical-align:top;">{{rating.user.username}}</span>
                       </br>

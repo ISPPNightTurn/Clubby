@@ -1,5 +1,6 @@
 {% extends "clubby/base_generic.html" %}
 
+{% load static %}
 {% block content %}
 
 <h1 class="header center white-text">Profile</h1>
@@ -103,9 +104,7 @@
               <img src="../../../static/clubby/images/background.jpg" alt="">
               {% else %}
               <img src={{club.picture}} alt="">
-
-            {% endif %}
-             
+              {% endif %}
               
             </div>
             <div class="card-content black">
@@ -128,8 +127,6 @@
               <a href = "{% url 'get-stats'%}">Statistics</a>
               {% endif %}
             </div>
-
-            
           </div>
         </div>
       </div>
@@ -137,6 +134,33 @@
 
     {%endif%}
     {%endif%}
+    <div class="card-action black">
+    </br>
+      <a class="btn purple darken-4" href="export-data">Export personal data</a>
+    </br></br>
+      <a class="modal-trigger btn purple darken-4" href="#delete-modal">Delete your account</a>
+    
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="{% static 'clubby/js/materialize.js' %}"></script>
+
+          <!-- Modal -->
+          <div id="delete-modal" class="modal modal-fixed-footer" style="max-height: 40%;">
+            <div class="modal-content black">
+              <h4>Are you sure?</h4>
+              <p>Once you delete your account, there is no going back</p>
+            </div>
+            <div class="modal-footer black">
+              <a href="delete-data" class="modal-action modal-close waves-effect waves-red btn red lighten-1">Delete account</a>
+            </div>
+          </div>
+
+        <script>
+        $(document).ready(function(){
+            $('.modal').modal();
+          })
+        </script>
 
   <!-- add assisted events if the user is an user and has been to at least 1 event.-->
   {% if perms.clubby.is_user%}

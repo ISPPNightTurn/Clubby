@@ -6,7 +6,7 @@ from django.contrib import admin
 # https://docs.djangoproject.com/en/3.0/intro/tutorial07/
 
 
-from .models import Profile,Club,Event,Rating,Ticket,Product, QR_Item
+from .models import Profile,Club,Event,Rating,Ticket,Product, QR_Item, SecurityAdvice
 admin.site.register(Profile)
 admin.site.register(Club)
 admin.site.register(Event)
@@ -14,6 +14,7 @@ admin.site.register(Rating)
 admin.site.register(Ticket)
 admin.site.register(Product)
 admin.site.register(QR_Item)
+admin.site.register(SecurityAdvice)
 
 
 

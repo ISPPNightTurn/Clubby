@@ -1,0 +1,57 @@
+{% extends "clubby/base_generic.html" %}
+
+{% block content %}
+  {% load qr_code %}
+  <div style="min-width: fit-content; max-width: 450px; margin: auto;" class="deep-purple center darken-4 rounded grid-container">
+      <div class="card-image rounded">
+        <div style="min-width: fit-content;" class="white">
+          {% qr_from_text qr_item.get_real_absolute_url size="M" %}
+        </div>
+      </div>
+      <div class="card-content">
+        {% if qr_item.product != blank %}
+          <strong>Club: </strong>{{qr_item.product.club}}<br/}</strong>
+          <strong>Product: </strong>{{qr_item.product.name}}<br/>
+
+
+          <strong>Product Type: </strong>
+          {% if qr_item.product.product_type == 'r' %}
+            <p>Refreshment</p>
+          {% elif qr_item.product.product_type == 'c'%}
+            <p>Cocktail</p>
+          {% elif qr_item.product.product_type == 's'%}
+            <p>Shot</p>
+          {% elif qr_item.product.product_type == 'b'%}
+            <p>Beer</p>
+          {% elif qr_item.product.product_type == 'w'%}
+            <p>Wine</p>
+          {% elif qr_item.product.product_type == 'k'%}
+            <p>Snack</p>
+          {% elif qr_item.product.product_type == 'h'%}
+            <p>Hookah</p>
+          {% elif qr_item.product.product_type == 'm'%}
+            <p>Misc.</p>
+          {% endif %}
+
+          {% if qr_item.product.reservation_exclusive == True %}
+            <strong>Reservation exclusive</strong>
+          {% else %}
+          <strong>Not exclusive</strong>
+        {% endif %}
+
+
+        </br>
+
+
+
+        {% elif qr_item.ticket != blank %}
+          <strong>Ticket: </strong>{{qr_item.ticket.event.name}}<br/>
+          <strong>Price: </strong>{{qr_item.ticket.price}}
+          </br>
+        {% endif %}
+
+
+        <a class="btn purple darken-4" href="{ %url 'my-purchases' %}">Get back to my purchases</a>
+      </div>
+    </div>
+{% endblock %}

@@ -1,7 +1,25 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
+
+{% for item in security_advice %}
+  {% if item.is_active %}
+  <div class="materialize-red center">
+    <br>
+    <img class="responsive-img" style="width: 8%; float: left" src="../../../static/clubby/images/warning.png" alt= "">
+    <img class="responsive-img" style="width: 8%; float: right" src="../../../static/clubby/images/warning.png" alt= "">
+    <h5 style="text-decoration: underline;">
+      <strong style="font-size: larger;">Security advice: </strong>{{item.title}}
+    </h5>
+    <h6><strong style="font-size: larger;">Information: </strong>{{item.text}}</h6>
+    <p>Date: {{item.date}}</p>
+    <br>
+  </div>
+  {%endif%}
+
 <h1 class="header center white-text">Clubby Home!</h1>
+
+{%endfor%}
   <div class="row center">
     <h5 class="header col s12 light">Welcome to Clubby, a website developed by <em>Me</em>!</h5>
   </div>
@@ -97,6 +115,8 @@
 <h5 class="center header col s12 light">You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</h5>
 <footer class="center">
   <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">terms and conditions</a>
+</br>
+  <a class="white-text" style="text-decoration: underline white" href="{% url 'privacy-policy' %}">privacy policy</a>
 </footer>
 {% endblock %}
 

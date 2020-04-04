@@ -104,7 +104,7 @@ class EventModelForm(ModelForm):
     start_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}), initial= datetime.date.today)
 
     event_type = forms.CharField(
-        max_length=124,
+        max_length=100,
         widget=forms.Select(
             choices=Event.TYPE_OF_MUSIC,
             attrs={'class': 'browser-default deep-purple darken-4'}
