@@ -69,18 +69,24 @@
     </div>
     
     {% if perms.clubby.is_owner %}
+    <br>
+    <div class="card-content black" style="font-size: larger;">
     {% if user_profile.stripe_account_id == '' %}
-    Here you can get funds to your bank account. To do it you need to setup a stripe account:<br>
+    Here you can get funds to your bank account. To do it you need to setup a Stripe account:<br>
 
-    <a href ="https://connect.stripe.com/oauth/authorize?client_id=ca_H2FamdKZiiJBsugEImsR9ABKF7QI6eCr&scope=read_write&response_type=code&stripe_user[email]={{logged_user.email}}">
+    <br>
+    <a class="btn purple darken-4" href ="https://connect.stripe.com/oauth/authorize?client_id=ca_H2FamdKZiiJBsugEImsR9ABKF7QI6eCr&scope=read_write&response_type=code&stripe_user[email]={{logged_user.email}}">
       Connect to stripe
     </a>
+    <br></br>
 
     {% else %}
     {% if limited_funds%}
-     YOU DON'T HAVE THAT MUCH FUNDS... <br>
+    <p class="strong materialize-red" style="font-size: 1.64rem">
+     YOU DON'T HAVE THAT MUCH FUNDS... 
+    </p><br>
     {%endif%}
-    get money to your bank:<br>
+    Get money to your bank:<br>
     <form method="post" action="/clubby/payout/">
       {% csrf_token %}
       <br>
@@ -88,8 +94,10 @@
    
       {{ form.funds }}
       <button class="btn purple darken-4" type="submit">Get your funds to you bank!</button>
+      <br></br>
     </form>
     {%endif%}
+    </div>
     {% if over_event_limit%}
     <br>
     <p class="strong materialize-red" style="font-size: 1.64rem">
@@ -143,11 +151,13 @@
 
     {%endif%}
     {%endif%}
+    <br></br>
     <div class="card-action black">
     </br>
       <a class="btn purple darken-4" href="export-data">Export personal data</a>
     </br></br>
       <a class="modal-trigger btn purple darken-4" href="#delete-modal">Delete your account</a>
+      <br></br>
     
     </div>
 
