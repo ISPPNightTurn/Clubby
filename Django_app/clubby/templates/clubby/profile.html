@@ -56,7 +56,7 @@
         <div class="card-action black">
           <a href="{% url 'edit-profile' %}">Edit profile</a>
 
-          <form method="post">
+          <form method="post" action="/clubby/profile">
             {% csrf_token %}
             <br>
             <p><strong style="font-size: larger;">Ammount to add </strong>{{form.ammount}}</p>
@@ -69,10 +69,18 @@
     </div>
     
     {% if perms.clubby.is_owner %}
+    {% if user_profile.stripe_account_id == '' %}
+    Here you can get funds to your bank account. To do it you need to setup a stripe account:<br>
 
-    Here you can get funds to your bank account. To do it you need to setup an stripe account and put your banking information in clubby and in stripe:
-    you can consult a guide <a>here</a>: (setup a link to a PDF guide telling them how to setup an account.)
+    <a href ="https://connect.stripe.com/oauth/authorize?client_id=ca_H2FamdKZiiJBsugEImsR9ABKF7QI6eCr&scope=read_write&response_type=code&stripe_user[email]={{logged_user.email}}">
+      Connect to stripe
+    </a>
 
+    {% else %}
+    {% if limited_funds%}
+     YOU DON'T HAVE THAT MUCH FUNDS... <br>
+    {%endif%}
+    get money to your bank:<br>
     <form method="post" action="/clubby/payout/">
       {% csrf_token %}
       <br>
@@ -81,6 +89,7 @@
       {{ form.funds }}
       <button class="btn purple darken-4" type="submit">Get your funds to you bank!</button>
     </form>
+    {%endif%}
     {% if over_event_limit%}
     <br>
     <p class="strong materialize-red" style="font-size: 1.64rem">

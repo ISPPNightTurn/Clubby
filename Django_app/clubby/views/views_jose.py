@@ -178,5 +178,5 @@ def delete(request):
     try:
         me.delete()
     except:
-      messages.error(request, "Something went wrong") 
+        messages.error(request, "Something went wrong") 
     return render(request, 'clubby/success.html')

@@ -34,6 +34,7 @@ class Profile(models.Model):
     funds = models.DecimalField(decimal_places=2, max_digits=5,default=0.0)
     picture = models.URLField(help_text='Post a picture of your pretty face, dude',null=True,blank=True)
     renew_premium = models.BooleanField(default=False)
+    stripe_account_id = models.CharField(max_length=40, blank=True)
 
     @receiver(post_save, sender=User)
     def update_user_profile(sender, instance, created, **kwargs):

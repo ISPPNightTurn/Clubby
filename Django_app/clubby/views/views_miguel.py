@@ -186,6 +186,10 @@ def add_funds(request, ammount):
     return render(request, 'clubby/funds.html', {'form': form, 'key': settings.STRIPE_PUBLISHABLE_KEY, 'ammount': int(ammount * 100)})
 
 
+@login_required
+def clean_charge(request):
+    return render(request,'clubby/charge.html')
+
 
 @login_required
 def charge(request, ammount):  # new
@@ -212,12 +216,40 @@ def charge(request, ammount):  # new
 ###############
 
 @permission_required('clubby.is_owner')
+def register_stripe_account(request):
+    code, error ,error_description = None, None, None
+
+    try:
+        code = request.GET['code']
+    except:
+        error = request.GET['error']
+        error_description = request.GET['error_description']
+
+    if(error != None):
+        return json.dumps({"error": "Incorrect state parameter: " + state}), 403
+
+    try:
+        response = stripe.OAuth.token(grant_type="authorization_code", code=code,)
+    except stripe.oauth_error.OAuthError as e:
+        return json.dumps({"error": "Invalid authorization code: " + code}), 400
+    except Exception as e:
+        return json.dumps({"error": "An unknown error occurred."}), 500
+
+    connected_account_id = response["stripe_user_id"]
+
+    profile = request.user.profile
+    profile.stripe_account_id = connected_account_id
+    profile.save()
+
+    return render(request,'clubby/charge.html')
+
+@permission_required('clubby.is_owner')
 def payout(request): # new
 
     #this are testing bank accounts from all over the world.
-    posible_destinations = ['ES0700120345030000067890','AT611904300234573201','BE62510007547061','DK5000400440116243','EE382200221020145689',
-    'FI2112345600000785','FR1420041010050500013M02606','DE89370400440532013000','IE29AIBK93115212345678','IT40S0542811101000000123456',
-    'LT121000011101001000','LU280019400644750000','NL39RABO0300065264','NO9386011117947','PT50000201231234567890154','SE8150000000058398257400','GB82WEST12345698765432']
+    # posible_destinations = ['ES0700120345030000067890','AT611904300234573201','BE62510007547061','DK5000400440116243','EE382200221020145689',
+    # 'FI2112345600000785','FR1420041010050500013M02606','DE89370400440532013000','IE29AIBK93115212345678','IT40S0542811101000000123456',
+    # 'LT121000011101001000','LU280019400644750000','NL39RABO0300065264','NO9386011117947','PT50000201231234567890154','SE8150000000058398257400','GB82WEST12345698765432']
     
     user = request.user
     profile = user.profile
@@ -233,16 +265,28 @@ def payout(request): # new
         quantity = form['ammount'].value()
 
         if(int(quantity) > int(profile.funds)):
-            context = {'logged_user': user,'user_profile': profile, 'club':club, 'form':form}
+            context = {'logged_user': user,'user_profile': profile, 'club':club, 'form':form, 'limited_funds':True}
             return render(request,'clubby/profile.html',context)
         else:
-            payout = stripe.Payout.create(
-            amount=int(quantity),
-            currency='usd',
-            description='Money cashed from Clubby',
-            statement_descriptor='Money from clubby',
-            destination = 'DE89370400440532013000'
-        )
+            quantity = int(quantity) * 100
+
+            session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'name': "Clubby",
+                'amount': quantity,
+                'currency': 'usd',
+                'quantity': 1,
+            }],
+            payment_intent_data={
+                'application_fee_amount': int(quantity*0.05),
+                'transfer_data': {
+                'destination': profile.stripe_account_id,
+                },
+            },
+            success_url='http://localhost:8000/',
+            cancel_url='http://localhost:8000/profile',
+            )
             
             profile = request.user.profile
             profile.funds -= Decimal(str(int(quantity)/100))

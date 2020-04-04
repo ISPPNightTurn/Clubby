@@ -91,6 +91,7 @@ def profile(request):
             club = Club.objects.filter(owner=me)[0]
         except:
             club = ''
+            
         form = FundsForm()
         context = {'logged_user': me, 'user_profile': profile,
                    'club': club, 'form': form}
