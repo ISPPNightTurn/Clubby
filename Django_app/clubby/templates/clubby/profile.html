@@ -69,6 +69,17 @@
     
     {% if perms.clubby.is_owner %}
 
+    Here you can get funds to your bank account. To do it you need to setup an stripe account and put your banking information in clubby and in stripe:
+    you can consult a guide <a>here</a>: (setup a link to a PDF guide telling them how to setup an account.)
+
+    <form method="post" action="/clubby/payout/">
+      {% csrf_token %}
+      <br>
+      <p><strong style="font-size: larger;">Ammount to add </strong>{{form.ammount}}</p>
+   
+      {{ form.funds }}
+      <button class="btn purple darken-4" type="submit">Get your funds to you bank!</button>
+    </form>
     {% if over_event_limit%}
     <br>
     <p class="strong materialize-red" style="font-size: 1.64rem">

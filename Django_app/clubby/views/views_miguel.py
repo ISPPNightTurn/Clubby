@@ -27,12 +27,14 @@ from background_task.models import Task
 from ..tasks import check_premium
 
 from django.conf import settings
-import datetime
 from decimal import Decimal
+
+import datetime
+import random
 import json
 import stripe # new
-stripe.api_key = settings.STRIPE_SECRET_KEY # new
 
+stripe.api_key = settings.STRIPE_SECRET_KEY # new
 
 
 class ProductDetailView(LoginRequiredMixin,generic.DetailView):
@@ -58,8 +60,6 @@ def ProductUpdate(request, product_id):
         else:
             return render(request,'clubby/product/product_form.html',{'form':form})
         
-        
-
 
 class ProductDelete(PermissionRequiredMixin,DeleteView):
     permission_required = 'clubby.is_owner'
@@ -166,7 +166,6 @@ def TicketsByEventList(request, event_id):
 ###############
 #    FUNDS    #
 ###############
-
 @login_required
 def add_funds(request, ammount):
     form = FundsForm()
@@ -174,22 +173,17 @@ def add_funds(request, ammount):
     form.fields['ammount'].widget = forms.HiddenInput()
     return render(request, 'clubby/funds.html', {'form': form, 'key': settings.STRIPE_PUBLISHABLE_KEY,'ammount':int(ammount * 100)})
 
+
 @login_required
 def charge(request, ammount): # new
     if request.method == 'POST':
         form = FundsForm(request.POST)
         quantity = form['ammount'].value()
 
-        # form.is_valid()
-        # print (form)
-
-        # ammount = form.cleaned_data['ammount']
-        # print('I get here.')
-
         charge = stripe.Charge.create(
         amount=int(quantity),
         currency='usd',
-        description='A Django charge',
+        description='Money spent at Clubby',
         source=request.POST['stripeToken']
     )
 
@@ -198,9 +192,52 @@ def charge(request, ammount): # new
         profile.save()
 
         return render(request,'clubby/charge.html')
-        # else:
-        #     print(form)
-        #     return render(request,'clubby/charge.html')
+
+
+###############
+#   PAYOUTS   #
+###############
+
+@permission_required('clubby.is_owner')
+def payout(request): # new
+
+    #this are testing bank accounts from all over the world.
+    posible_destinations = ['ES0700120345030000067890','AT611904300234573201','BE62510007547061','DK5000400440116243','EE382200221020145689',
+    'FI2112345600000785','FR1420041010050500013M02606','DE89370400440532013000','IE29AIBK93115212345678','IT40S0542811101000000123456',
+    'LT121000011101001000','LU280019400644750000','NL39RABO0300065264','NO9386011117947','PT50000201231234567890154','SE8150000000058398257400','GB82WEST12345698765432']
+    
+    user = request.user
+    profile = user.profile
+    try:
+        club = Club.objects.filter(owner=user)[0]
+    except:
+        club = ''
+
+    #     form = FundsForm()
+    
+    if request.method == 'POST':
+        form = FundsForm(request.POST)
+        quantity = form['ammount'].value()
+
+        if(int(quantity) > int(profile.funds)):
+            context = {'logged_user': user,'user_profile': profile, 'club':club, 'form':form}
+            return render(request,'clubby/profile.html',context)
+        else:
+            payout = stripe.Payout.create(
+            amount=int(quantity),
+            currency='usd',
+            description='Money cashed from Clubby',
+            statement_descriptor='Money from clubby',
+            destination = 'DE89370400440532013000'
+        )
+            
+            profile = request.user.profile
+            profile.funds -= Decimal(str(int(quantity)/100))
+            profile.save()
+
+            return render(request,'clubby/charge.html')
+    else:
+        raise PermissionDenied("Incorrect accesing to resource.")
 
 #################
 #    PREMIUM    #
