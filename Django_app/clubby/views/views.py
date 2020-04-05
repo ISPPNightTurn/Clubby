@@ -24,7 +24,9 @@ from datetime import datetime, timedelta
 
 import datetime
 import calendar
+import requests as rq
 
+GOOGLE_API_KEY = 'AIzaSyAnvPEPEZXuwP9zAxJERgTlnui2Bm5KCus'
 
 # Create your views here.
 
@@ -161,7 +163,21 @@ class ClubListView(generic.ListView):
     template_name = 'clubby/club/list.html'
 
     def get_queryset(self):
+        latitude, longitude = None, None
+        try:
+            latitude = self.request.GET.get("latitude")
+            longitude = self.request.GET.get("longitude")
+        except:
+            print('no geolocation information recieved.')
+        
         items = Club.objects.all()
+        club_address = items[2].address
+        club_address = club_address.replace(" ","+")
+        club_address = club_address.replace(",",",+")
+
+        #'1600+Amphitheatre+Parkway,+Mountain+,View,+CA'
+        response = rq.request('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+club_address+'&key='+GOOGLE_API_KEY)
+        print(response.content)
         # items = Club.objects.filter(club = self.request.user.club) #this will be touched when the maps API is here.
         return items
 
@@ -169,6 +185,19 @@ class ClubListView(generic.ListView):
         context = super(ClubListView, self).get_context_data(**kwargs)
         form = SearchForm()
         context['form'] = form
+
+        latitude, longitude = None, None
+        try:
+            latitude = self.request.GET.get("latitude")
+            longitude = self.request.GET.get("longitude")
+        except:
+            print('no geolocation information recieved.')
+
+        if(latitude != None and longitude != None):
+            context['location_passed'] = 'true'
+        else:
+            context['location_passed'] = 'false'
+
         return context
 
     def post(self, request, *args, **kwargs):

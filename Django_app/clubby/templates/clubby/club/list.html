@@ -1,7 +1,7 @@
 {% extends "clubby/base_generic.html" %}
 
 {% block content %}
-<h1 class="header center white-text">Club list</h1>
+<h1 class="header center white-text" onload="getLocation()">Club list</h1>
 
 <form action="" method="post">
   {% csrf_token %}
@@ -52,6 +52,32 @@
   {% endif %} 
 </div>
 </div>
+
+<script>
+
+var location_passed={{location_passed}}
+
+window.onload = function() {
+  getLocation();
+};
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    window.alert("geolocation is not supported, or has been denied.");
+  }
+};
+
+function showPosition(position) {
+  if(location_passed){
+    
+  }else{
+    window.location.replace("/clubby/clubs?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude);
+  }
+};
+  
+</script>
 {% endblock %}
 
 

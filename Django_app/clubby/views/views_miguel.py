@@ -217,7 +217,7 @@ def charge(request, ammount):  # new
 
 @permission_required('clubby.is_owner')
 def register_stripe_account(request):
-    code, error ,error_description = None, None, None
+    code, error , error_description = None, None, None
 
     try:
         code = request.GET['code']

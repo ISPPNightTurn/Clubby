@@ -24,7 +24,8 @@ from django.contrib.auth import logout
 
 urlpatterns = [
     path('', views.landing, name='landing'),
-    path('clubs', views.ClubListView.as_view(), name='clubs'),
+    # path('clubs', views.ClubListView.as_view(), name='clubs'),
+    url(r'clubs/$', views.ClubListView.as_view(), name = 'clubs'),
     path('club/<int:pk>', views.ClubDetailView.as_view(), name='club-detail'),
     path('events', views.EventListView.as_view(), name='events'),
     path('event/<int:pk>', views.EventDetailView.as_view(), name='event-detail'),
