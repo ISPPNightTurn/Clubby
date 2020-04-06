@@ -9,11 +9,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from clubby.models import Club, Event, Profile,Product, Ticket
+from django.utils.translation import gettext
 
 import re
 
 class ProductPurchaseForm(forms.Form):
-    quantity = forms.IntegerField(max_value=4,min_value=1,help_text="quantity of product you want to buy, max 4.")
+    quantity = forms.IntegerField(max_value=4,min_value=1,help_text=_("quantity of product you want to buy, max 4."))
     product = forms.IntegerField(widget=forms.HiddenInput())
 
 class RedeemQRCodeForm(forms.Form):

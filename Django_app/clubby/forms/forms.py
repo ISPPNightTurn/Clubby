@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 from clubby.models import Club, Event, Profile, Product, Ticket
 from django.contrib.admin.widgets import AdminDateWidget
 from decimal import Decimal
+from django.utils.translation import gettext
 
 import re
 
@@ -42,14 +43,14 @@ class ClubModelForm(ModelForm):
         exclude = ['owner'] # select the ones we want to exclude.
 
 class SignupForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
-    last_name = forms.CharField(max_length=30, required=True, help_text='Required. 30 character max' )
-    email = forms.EmailField(max_length=254, required=True, help_text='Required. Inform a valid email address.')
+    first_name = forms.CharField(max_length=30, required=True, help_text=_('Required. 30 character max') )
+    last_name = forms.CharField(max_length=30, required=True, help_text=_('Required. 30 character max' ))
+    email = forms.EmailField(max_length=254, required=True, help_text=_('Required. Inform a valid email address.'))
 
     birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}), initial= (datetime.datetime.now()-datetime.timedelta(days=365*18)).date())
     
-    bio = forms.CharField(max_length=500, required=False, help_text="Optional, tell us something about you.")
-    location = forms.CharField(max_length=30, required=False, help_text="Optional, where are you form?.")
+    bio = forms.CharField(max_length=500, required=False, help_text=_("Optional, tell us something about you."))
+    location = forms.CharField(max_length=30, required=False, help_text=_("Optional, where are you form?."))
 
     def clean(self):
         email = self.cleaned_data.get('email')
@@ -57,13 +58,13 @@ class SignupForm(UserCreationForm):
         birth_date = self.cleaned_data.get('birth_date')
 
         if(birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
-            raise ValidationError("You're too young. You must be 18 or older to use this app.")
+            raise ValidationError(_("You're too young. You must be 18 or older to use this app."))
         
         if User.objects.filter(email=email).exists():
-            raise ValidationError("Email exists")
+            raise ValidationError(_("Email exists"))
         
         if User.objects.filter(username=username).exists():
-            raise ValidationError("Sorry that username is already taken :(")
+            raise ValidationError(_("Sorry that username is already taken :("))
 
         return self.cleaned_data
 
@@ -72,18 +73,18 @@ class SignupForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'birth_date', 'bio', 'location', 'password1', 'password2')
 
 class ProductModelForm(ModelForm):
-    name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
-    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, min_value=Decimal('0.00'), help_text='Required. 5 digits max' )
+    name = forms.CharField(max_length=50, required=True, help_text=_('Required. 50 character max' ))
+    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, min_value=Decimal('0.00'), help_text=_('Required. 5 digits max') )
 
     TYPE_OF_PRODUCT = (
-        ('r', 'refreshment'),
-        ('c', 'cocktail'),
-        ('s', 'shot'),
-        ('b', 'beer'),
-        ('w', 'wine'),
-        ('k', 'snack'),
-        ('h', 'hookah'),
-        ('m', 'misc.'),
+        ('r', _('refreshment')),
+        ('c', _('cocktail')),
+        ('s', _('shot')),
+        ('b', _('beer')),
+        ('w', _('wine')),
+        ('k', _('snack')),
+        ('h', _('hookah')),
+        ('m', _('misc.')),
     )
     product_type = forms.CharField(
         max_length=124,
@@ -92,7 +93,7 @@ class ProductModelForm(ModelForm):
             attrs={'class': 'browser-default deep-purple darken-4'}
         ),
     )
-    reservation_exclusive = forms.BooleanField(required=False,help_text="Is this product exclusive for clients with a reservation?")
+    reservation_exclusive = forms.BooleanField(required=False,help_text=_("Is this product exclusive for clients with a reservation?"))
 
     class Meta:
         model = Product
@@ -100,7 +101,7 @@ class ProductModelForm(ModelForm):
         exclude = ['owner','club'] 
 
 class EventModelForm(ModelForm):
-    name = forms.CharField(max_length=50, required=True, help_text='Required. 50 character max' )
+    name = forms.CharField(max_length=50, required=True, help_text=_('Required. 50 character max' ))
     start_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}), initial= datetime.date.today)
 
     event_type = forms.CharField(

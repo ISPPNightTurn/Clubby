@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.translation import ugettext_lazy
 
 from django.db import models
 
@@ -32,7 +33,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     funds = models.DecimalField(decimal_places=2, max_digits=5,default=0.0)
-    picture = models.URLField(help_text='Post a picture of your pretty face, dude',null=True,blank=True)
+    picture = models.URLField(help_text=ugettext_lazy('Post a picture of your pretty face, dude'),null=True,blank=True)
     renew_premium = models.BooleanField(default=False)
     stripe_account_id = models.CharField(max_length=40, blank=True)
 
@@ -70,11 +71,11 @@ class Club(models.Model):
     Model representing the clubs that the owners will register.
     '''
     # picture = models.ImageField()
-    name = models.CharField(max_length=50, help_text='Enter the name of your club.')
-    address = models.CharField(max_length=200, help_text='Enter the full address so google maps can find it.')
-    max_capacity = models.PositiveIntegerField(help_text = 'The capacity of your club, you\'re responsible for the enforcement of this number.')
-    NIF = models.CharField(max_length=10, help_text = 'Company number for the club')
-    picture = models.URLField(help_text = 'URL to a picture of your club',null=True,blank=True)
+    name = models.CharField(max_length=50, help_text=ugettext_lazy('Enter the name of your club.'))
+    address = models.CharField(max_length=200, help_text=ugettext_lazy('Enter the full address so google maps can find it.'))
+    max_capacity = models.PositiveIntegerField(help_text = ugettext_lazy('The capacity of your club, you\'re responsible for the enforcement of this number.'))
+    NIF = models.CharField(max_length=10, help_text = ugettext_lazy('Company number for the club'))
+    picture = models.URLField(help_text = ugettext_lazy('URL to a picture of your club'),null=True,blank=True)
     # This represents the owners user.
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -101,7 +102,7 @@ class Event(models.Model):
     # start_time = models.PositiveIntegerField(max_length=2,help_text='event start time 24h format.', default=12)
     # duration = models.PositiveIntegerField(max_length=2,help_text='event duration in hours, max is 12 hours',default=12)
     atendees = models.ManyToManyField(User)
-    picture = models.URLField(help_text="URL to the poster for the event",null=True,blank=True)
+    picture = models.URLField(help_text=ugettext_lazy("URL to the poster for the event"),null=True,blank=True)
     
     START_TIMES =((0,0),(23,23),(22,22),(21,21),(20,20),(19,19),(18,18),(17,17),(16,16),(15,15),(14,14),(13,13),
     (12,12),(11,11),(10,10),(9,9),(8,8),(7,7),(6,6),(5,5),(4,4),(3,3),(2,2),(1,1))
@@ -110,7 +111,7 @@ class Event(models.Model):
         choices=START_TIMES,
         blank=True,
         default=0,
-        help_text='event start time 24h format.',
+        help_text=ugettext_lazy('event start time 24h format.'),
     )
 
     DURATIONS = ((12,12),(11,11),(10,10),(9,9),(8,8),(7,7),(6,6),(5,5),(4,4),(3,3),(2,2),(1,1))
@@ -118,7 +119,7 @@ class Event(models.Model):
         choices=DURATIONS,
         blank=True,
         default=0,
-        help_text='event duration in hours, max is 12 hours.',
+        help_text=ugettext_lazy('event duration in hours, max is 12 hours.'),
     )
 
     TYPE_OF_MUSIC = (
@@ -138,7 +139,7 @@ class Event(models.Model):
         choices=TYPE_OF_MUSIC,
         blank=True,
         default='reggaeton',
-        help_text='event music type',
+        help_text=ugettext_lazy('event music type'),
     )
 
     
@@ -165,8 +166,8 @@ class Event(models.Model):
 
 class Ticket(models.Model):
     price = models.DecimalField(decimal_places=2,max_digits=5)#999,99 es el maximo
-    category = models.CharField(max_length = 40, help_text='The name of the type of ticket you are trying to sell.',default = 'Basic')
-    description = models.TextField(help_text='Decribe what this ticket entices.', default="this allows you to enter the party.")
+    category = models.CharField(max_length = 40, help_text=ugettext_lazy('The name of the type of ticket you are trying to sell.'),default = 'Basic')
+    description = models.TextField(help_text=ugettext_lazy('Decribe what this ticket entices.'), default="this allows you to enter the party.")
     # ticket_id = models.CharField()#<-- podemos usar a primary key para identificarlos, este tributo es redundante.
     event =  models.ForeignKey(Event, on_delete=models.CASCADE)
     user =  models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
@@ -179,9 +180,9 @@ class Ticket(models.Model):
 
 class CreateTicket(models.Model):
     price = models.DecimalField(decimal_places=2,max_digits=5,default=1)#999,99 es el maximo
-    category = models.CharField(max_length = 40, help_text='The name of the type of ticket you are trying to sell.',default = 'Basic')
-    description = models.TextField(max_length = 40, help_text='Decribe what this ticket entices.', default="this allows you to enter the party.")
-    size = IntegerRangeField(min_value=1, max_value=50, default = 1, help_text='Number of tickets. (Max)')
+    category = models.CharField(max_length = 40, help_text=ugettext_lazy('The name of the type of ticket you are trying to sell.'),default = 'Basic')
+    description = models.TextField(max_length = 40, help_text=ugettext_lazy('Decribe what this ticket entices.'), default="this allows you to enter the party.")
+    size = IntegerRangeField(min_value=1, max_value=50, default = 1, help_text=ugettext_lazy('Number of tickets. (Max)'))
     event =  models.ForeignKey(Event, on_delete=models.CASCADE)
     user =  models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
@@ -194,14 +195,14 @@ class Product(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
 
     TYPE_OF_PRODUCT = (
-        ('r', 'refreshment'),
-        ('c', 'cocktail'),
-        ('s', 'shot'),
-        ('b', 'beer'),
-        ('w', 'wine'),
-        ('k', 'snack'),
-        ('h', 'hookah'),
-        ('m', 'misc.'),
+        ('r', ugettext_lazy('refreshment')),
+        ('c', ugettext_lazy('cocktail')),
+        ('s', ugettext_lazy('shot')),
+        ('b', ugettext_lazy('beer')),
+        ('w', ugettext_lazy('wine')),
+        ('k', ugettext_lazy('snack')),
+        ('h', ugettext_lazy('hookah')),
+        ('m', ugettext_lazy('misc.')),
     )
 
     product_type = models.CharField(
@@ -209,7 +210,7 @@ class Product(models.Model):
         choices=TYPE_OF_PRODUCT,
         blank=True,
         default='m',
-        help_text='product type',
+        help_text=ugettext_lazy('product type'),
     )
 
     reservation_exclusive = models.BooleanField()
@@ -228,7 +229,7 @@ class Product(models.Model):
 
 class Rating(models.Model):
     text = models.TextField(max_length=500)
-    stars = models.IntegerField(help_text='star rating 1-10')
+    stars = models.IntegerField(help_text=ugettext_lazy('star rating 1-10'))
     fecha = models.DateTimeField(default=datetime.datetime.now())
     club = models.ForeignKey(Club, on_delete = models.CASCADE)
     user = models.ForeignKey(User, on_delete = models.CASCADE)

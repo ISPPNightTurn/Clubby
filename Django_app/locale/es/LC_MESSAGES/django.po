@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 18:56+0200\n"
-"PO-Revision-Date: 2020-04-06 18:57+0200\n"
+"POT-Creation-Date: 2020-04-06 20:20+0200\n"
+"PO-Revision-Date: 2020-04-06 20:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,201 @@ msgstr ""
 "Language: es\n"
 "X-Generator: Poedit 2.3\n"
 
-#: .\clubby\forms\forms.py:36
+#: .\clubby\forms\forms.py:37
 msgid "Invalid NIF - format is 8 numbers and a letter."
 msgstr "NIF no válido - El formato es de 8 números y una letra."
+
+#: .\clubby\forms\forms.py:46 .\clubby\forms\forms.py:47
+#: .\clubby\forms\forms_miguel.py:80 .\clubby\forms\forms_miguel.py:82
+msgid "Required. 30 character max"
+msgstr "Obligatorio. 30 caracteres máximo"
+
+#: .\clubby\forms\forms.py:48 .\clubby\forms\forms_miguel.py:84
+msgid "Required. Inform a valid email address."
+msgstr "Obligatorio. Debe ser un email válido."
+
+#: .\clubby\forms\forms.py:52 .\clubby\forms\forms_miguel.py:87
+msgid "Optional, tell us something about you."
+msgstr "Opcional. Cuéntanos algo sobre ti."
+
+#: .\clubby\forms\forms.py:53 .\clubby\forms\forms_miguel.py:89
+msgid "Optional, where are you form?."
+msgstr "Opcional. ¿De dónde eres?."
+
+#: .\clubby\forms\forms.py:61 .\clubby\forms\forms_miguel.py:109
+msgid "You're too young. You must be 18 or older to use this app."
+msgstr "Eres demasiado joven. Debes tener 18 años o más para usar esta app."
+
+#: .\clubby\forms\forms.py:64 .\clubby\forms\forms_miguel.py:105
+msgid "Email exists"
+msgstr "El email ya existe"
+
+#: .\clubby\forms\forms.py:67
+msgid "Sorry that username is already taken :("
+msgstr "Lo sentimos, ese nombre de usuario ya está cogido :("
+
+#: .\clubby\forms\forms.py:76 .\clubby\forms\forms.py:104
+msgid "Required. 50 character max"
+msgstr "Obligatorio. 50 caracteres máximo"
+
+#: .\clubby\forms\forms.py:77
+msgid "Required. 5 digits max"
+msgstr "Obligatorio. 5 dígitos máximo"
+
+#: .\clubby\forms\forms.py:80 .\clubby\models.py:198
+msgid "refreshment"
+msgstr "refresco"
+
+#: .\clubby\forms\forms.py:81 .\clubby\models.py:199
+msgid "cocktail"
+msgstr "cocktail"
+
+#: .\clubby\forms\forms.py:82 .\clubby\models.py:200
+msgid "shot"
+msgstr "chupito"
+
+#: .\clubby\forms\forms.py:83 .\clubby\models.py:201
+msgid "beer"
+msgstr "cerveza"
+
+#: .\clubby\forms\forms.py:84 .\clubby\models.py:202
+msgid "wine"
+msgstr "vino"
+
+#: .\clubby\forms\forms.py:85 .\clubby\models.py:203
+msgid "snack"
+msgstr "aperitivos"
+
+#: .\clubby\forms\forms.py:86 .\clubby\models.py:204
+msgid "hookah"
+msgstr "cachimba"
+
+#: .\clubby\forms\forms.py:87 .\clubby\models.py:205
+msgid "misc."
+msgstr "etc."
+
+#: .\clubby\forms\forms.py:96
+msgid "Is this product exclusive for clients with a reservation?"
+msgstr "¿Este producto es exclusivo para reservados?"
+
+#: .\clubby\forms\forms_javi.py:39 .\clubby\models.py:169
+#: .\clubby\models.py:183
+msgid "The name of the type of ticket you are trying to sell."
+msgstr "El tipo de entrada que quieres vender."
+
+#: .\clubby\forms\forms_javi.py:40 .\clubby\models.py:170
+#: .\clubby\models.py:184
+msgid "Decribe what this ticket entices."
+msgstr "Describe qué te permite esta entrada."
+
+#: .\clubby\forms\forms_javi.py:41
+msgid "'Number of tickets. (Max)"
+msgstr "'Número de entradas. (Max)"
+
+#: .\clubby\forms\forms_javi.py:46
+msgid "Your rating."
+msgstr "Tu valoración."
+
+#: .\clubby\forms\forms_javi.py:47
+msgid "Your oppinion."
+msgstr "Tu opinión."
+
+#: .\clubby\forms\forms_jose.py:17
+msgid "quantity of product you want to buy, max 4."
+msgstr "cantidad de productos que deseas comprar, máximo 4."
+
+#: .\clubby\forms\forms_miguel.py:31
+msgid "tickets you want to buy, max 4."
+msgstr "cantidad de entradas que quieres comprar, máximo 4."
+
+#: .\clubby\forms\forms_miguel.py:38
+msgid "how much of your currency you want to add, max 500€, min 10€"
+msgstr "cuánto dinero quieres cargar en tu cuenta, máximo 500€, mínimo 10€"
+
+#: .\clubby\forms\forms_miguel.py:43
+msgid "if you agree with these terms we welcome you to the clubby team!"
+msgstr ""
+"si estás de acuerdo con estos términos te damos la bienvenida al equipo de "
+"Clubby!"
+
+#: .\clubby\forms\forms_miguel.py:47
+msgid "Looking for something?"
+msgstr "¿Estás buscando algo?"
+
+#: .\clubby\forms\forms_miguel.py:53
+msgid "We will start looking here."
+msgstr "Empezamos a buscar aquí."
+
+#: .\clubby\forms\forms_miguel.py:55
+msgid "We stop looking here."
+msgstr "Acabamos de buscar aquí."
+
+#: .\clubby\forms\forms_miguel.py:64
+msgid "Date must be further than today."
+msgstr "La fecha debe ser posterior a hoy."
+
+#: .\clubby\forms\forms_miguel.py:68
+msgid "Date must be bigger or equal to the starting date."
+msgstr "La fecha debe ser posterior o igual a la fecha de inicio."
+
+#: .\clubby\forms\forms_miguel.py:95
+msgid "URL to a picture of your pretty face"
+msgstr "URL a una foto de tu cara bonita"
+
+#: .\clubby\models.py:36
+msgid "Post a picture of your pretty face, dude"
+msgstr "Pon una foto de tu cara bonita, colega"
+
+#: .\clubby\models.py:74
+msgid "Enter the name of your club."
+msgstr "Introduce el nombre de tu club."
+
+#: .\clubby\models.py:75
+msgid "Enter the full address so google maps can find it."
+msgstr ""
+"Introduce la dirección completa para que Google Maps pueda encontrarla."
+
+#: .\clubby\models.py:76
+msgid ""
+"The capacity of your club, you're responsible for the enforcement of this "
+"number."
+msgstr "El aforo de tu club; eres responsable de respetarlo."
+
+#: .\clubby\models.py:77
+msgid "Company number for the club"
+msgstr "Identificación fiscal de tu club"
+
+#: .\clubby\models.py:78
+msgid "URL to a picture of your club"
+msgstr "URL a una foto de tu club"
+
+#: .\clubby\models.py:105
+msgid "URL to the poster for the event"
+msgstr "URL a un cartel del evento"
+
+#: .\clubby\models.py:114
+msgid "event start time 24h format."
+msgstr "hora de inicio en formato 24 horas."
+
+#: .\clubby\models.py:122
+msgid "event duration in hours, max is 12 hours."
+msgstr "duración del evento en horas, el máximo son 12 horas."
+
+#: .\clubby\models.py:142
+msgid "event music type"
+msgstr "tipo de música del evento"
+
+#: .\clubby\models.py:185
+msgid "Number of tickets. (Max)"
+msgstr "Número de entradas. (Max)"
+
+#: .\clubby\models.py:213
+msgid "product type"
+msgstr "tipo de producto"
+
+#: .\clubby\models.py:232
+msgid "star rating 1-10"
+msgstr "valoración en estrellas de 1 a 10"
 
 #: .\clubby\templates\clubby\base_generic.html:22
 #: .\clubby\templates\clubby\base_generic.html:117
@@ -157,6 +349,10 @@ msgstr "¿Estás seguro de que quieres borrar el club: %(club)s?</p>"
 #: .\clubby\templates\clubby\product\product_confirm_delete.html:14
 msgid "Yes, delete."
 msgstr "Sí, borrar."
+
+#: .\clubby\templates\clubby\club\club_form.html:5
+msgid "Create Club"
+msgstr "Crear club"
 
 #: .\clubby\templates\clubby\club\club_form.html:12
 #: .\clubby\templates\clubby\event\event_form.html:25
@@ -1066,6 +1262,26 @@ msgstr "iniciar sesión"
 msgid "Lost password?"
 msgstr "¿No recuerdas tu contraseña?"
 
+#: .\clubby\views\views_jose.py:123 .\clubby\views\views_jose.py:148
+msgid ""
+"the security key did not match, trying to screw people over huh? Naughty >:("
+msgstr ""
+"la clave de seguridad no encaja,  ¿intentas fastidiar a alguien? Persona "
+"horrible >:("
+
+#: .\clubby\views\views_jose.py:182
+msgid "Something went wrong"
+msgstr "Algo salió mal"
+
+#: .\clubby\views\views_miguel.py:61 .\clubby\views\views_miguel.py:75
+#: .\clubby\views\views_miguel.py:87
+msgid "You don't own that >:("
+msgstr "Eso no te pertenece >:("
+
+#: .\clubby\views\views_miguel.py:297
+msgid "Incorrect accesing to resource."
+msgstr "Acceso incorrecto al recurso."
+
 #: .\project\settings.py:58
 msgid "Español"
 msgstr "Español"
@@ -1076,9 +1292,6 @@ msgstr "Inglés"
 
 #~ msgid "You"
 #~ msgstr "Tú"
-
-#~ msgid "Sometimes things just don"
-#~ msgstr "Algunas veces las cosas"
 
 #~ msgid "*By clicking in the "
 #~ msgstr "*Haciendo click en el "

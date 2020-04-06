@@ -28,7 +28,7 @@ from ..tasks import check_premium
 
 from django.conf import settings
 from decimal import Decimal
-
+from django.utils.translation import gettext
 import datetime
 import random
 import json
@@ -58,7 +58,7 @@ def ProductUpdate(request, product_id):
         form = ProductModelForm(instance=product, initial={'name': product.name, 'price': product.price,
                                                            'product_type': product.product_type, 'reservation_exclusive': product.reservation_exclusive})
         if(product.club.owner != request.user):
-            raise PermissionDenied("You don't own that >:(")
+            raise PermissionDenied(_("You don't own that >:("))
         else:
             return render(request,'clubby/product/product_form.html',{'form':form})
         
@@ -72,7 +72,7 @@ class ProductDelete(PermissionRequiredMixin, DeleteView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if(self.object.club.owner != request.user):
-            raise PermissionDenied("You don't own that >:(")
+            raise PermissionDenied(_("You don't own that >:("))
         else:
             return super(ProductDelete, self).get(request, *args, **kwargs)
 
@@ -84,7 +84,7 @@ class ProductDelete(PermissionRequiredMixin, DeleteView):
         if can_delete:
             return super(ProductDelete, self).delete(request, *args, **kwargs)
         else:
-            raise PermissionDenied("You don't own that >:(")
+            raise PermissionDenied(_("You don't own that >:("))
 
 #################
 #    TICKETS    #
@@ -294,7 +294,7 @@ def payout(request): # new
 
             return render(request,'clubby/charge.html')
     else:
-        raise PermissionDenied("Incorrect accesing to resource.")
+        raise PermissionDenied(_("Incorrect accesing to resource."))
 
 #################
 #    PREMIUM    #

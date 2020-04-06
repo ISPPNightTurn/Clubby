@@ -23,6 +23,7 @@ from ..models import Club, Event, Profile, Product, Ticket, QR_Item, Rating
 from django.utils.crypto import get_random_string
 
 from datetime import datetime, timedelta
+from django.utils.translation import gettext
 
 from decimal import Decimal
 import qr_code
@@ -119,7 +120,7 @@ def QRItemView(request, qr_item_id, priv_key):
         context = {'qr_item':qr,}
         return render(request,'clubby/purchase/display-qr.html',context)
     else:
-        raise PermissionDenied('the security key did not match, trying to screw people over huh? Naughty >:(')
+        raise PermissionDenied(_('the security key did not match, trying to screw people over huh? Naughty >:('))
 
 def DisplayQRItemView(request, qr_item_id, priv_key):
     if (request.method == 'POST'):
@@ -144,7 +145,7 @@ def DisplayQRItemView(request, qr_item_id, priv_key):
 
                 return render(request,'clubby/purchase/display.html',context)
             else:
-                raise PermissionDenied('the security key did not match, trying to screw people over huh? Naughty >:(')
+                raise PermissionDenied(_('the security key did not match, trying to screw people over huh? Naughty >:('))
 
 
 @login_required(login_url="/login")
@@ -178,5 +179,5 @@ def delete(request):
     try:
         me.delete()
     except:
-        messages.error(request, "Something went wrong") 
+        messages.error(request, _("Something went wrong")) 
     return render(request, 'clubby/success.html')

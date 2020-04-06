@@ -21,6 +21,7 @@ from ..forms import ClubModelForm, SignupForm, ProductModelForm, EventModelForm,
 from ..models import Club, Event, Profile, Product, Ticket, SecurityAdvice
 
 from datetime import datetime, timedelta
+from django.utils.translation import gettext
 
 import datetime
 import calendar
