@@ -1,4 +1,5 @@
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
 
 {% block content %}
 <h2 class="header center white-text">Create Club</h2>
@@ -8,28 +9,28 @@
     <div class="card red center">
       <strong class="card-title">{{form.non_field_errors}}</strong>
     </div>
-      <p><strong style="font-size: larger;">Name </strong>{{form.name}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Name' %} </strong>{{form.name}}</p>
       <span class="helptext">{{form.name.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Address </strong>{{form.address}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Address' %} </strong>{{form.address}}</p>
       <span class="helptext">{{form.address.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Max Capacity </strong>{{form.max_capacity}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Max Capacity' %} </strong>{{form.max_capacity}}</p>
       <span class="helptext">{{form.max_capacity.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">NIF </strong>{{form.NIF}}</p>
+      <p><strong style="font-size: larger;">{% trans 'NIF' %} </strong>{{form.NIF}}</p>
       <span class="helptext">{{form.NIF.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Picture </strong>{{form.picture}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Picture' %} </strong>{{form.picture}}</p>
       <span class="helptext">{{form.picture.help_text}}</span>
       <br>
       <br>
       
-    <input type="submit" value="Submit" class="btn-large purple darken-4">
+    <input type="submit" value="{% trans 'Submit' %}" class="btn-large purple darken-4">
   </form>
 </div>
 {% endblock %}

@@ -1,13 +1,14 @@
 {% extends 'clubby/base_generic.html' %}
+{% load i18n %}
 
 {% block content %}
 
 <div class="hide-on-med-and-down" style="width:50.0%;float:left; position: relative">
-    <p class="white-text center">PRODUCT SALES<br/>Total amount of products sold in your club</p>
+    <p class="white-text center">{% trans 'PRODUCT SALES' %}<br/>{% trans 'Total amount of products sold in your club' %}</p>
     <canvas id="products_sales"></canvas>
 </div>
 <div class="hide-on-med-and-down" style="width:50.0%;float:right; position: relative">
-    <p class="white-text center">TICKET SALES<br/>Total amount of tickets sold for your events</p>
+    <p class="white-text center">{% trans 'TICKET SALES' %}<br/>{% trans 'Total amount of tickets sold for your events' %}</p>
 
   <canvas id="event_sales"></canvas>
 </div>
@@ -15,11 +16,11 @@
 <h3> More statistics coming soon! </h3>
 
 <div class="hide-on-large-only">
-    <p class="white-text center">PRODUCT SALES<br/>Total amount of products sold in your club</p>
+    <p class="white-text center">{% trans 'PRODUCT SALES' %}<br/>{% trans 'Total amount of products sold in your club' %}</p>
     <canvas id="products_sales_small"></canvas>
 </div>
 <div class="hide-on-large-only">
-    <p class="white-text center">TICKET SALES<br/>Total amount of tickets sold for your events</p>
+    <p class="white-text center">{% trans 'TICKET SALES' %}<br/>{% trans 'Total amount of tickets sold for your events' %}</p>
 
   <canvas id="event_sales_small"></canvas>
 </div>

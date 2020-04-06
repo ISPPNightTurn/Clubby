@@ -1,7 +1,8 @@
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
 
 {% block content %}
-  <h1>Product List</h1>
+  <h1>{% trans 'Product List' %}</h1>
   <ul class="collection deep-purple darken-4">
 
   {% if perms.clubby.is_user %}
@@ -24,29 +25,30 @@
     {% elif product.product_type == 'm'  %}
     <img class="circle" src="../../../static/clubby/images/bebidas.jpeg"  alt="">
     {% endif %}
-      <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ({{product.price}}) 
+      <a style="color: white;" class="title" href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ({{product.price}}€) 
       {% if product.product_type == 'h'  %}
-      <p><strong style="font-size: larger;">Type:</strong> Hookah</p>
+      <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Hookah' %}</p>
       {% elif product.product_type == 'b'  %}
-      <p><strong style="font-size: larger;">Type:</strong> Beer</p>
+      <p><strong style="font-size: larger;">{% trans 'Type' %}:</strong> {% trans 'Beer' %}</p>
       {% elif product.product_type == 'w'  %}
-      <p><strong style="font-size: larger;">Type:</strong> Wine</p>
+      <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Wine' %}</p>
       {% elif product.product_type == 'k'  %}
-      <p><strong style="font-size: larger;">Type:</strong> Snack</p>
+      <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Snack' %}</p>
       {% elif product.product_type == 'r'  %}
-      <p><strong style="font-size: larger;">Type:</strong> Refreshment</p>
+      <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Refreshment' %}</p>
       {% elif product.product_type == 'c'  %}
-      <p><strong style="font-size: larger;">Type:</strong> Cocktail</p>
+      <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Cocktail' %}</p>
       {% elif product.product_type == 's'  %}
-      <p><strong style="font-size: larger;">Type:</strong> Shot</p>
+      <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Shot' %}</p>
       {% elif product.product_type == 'm'  %}
-      <p><strong style="font-size: larger;">Type:</strong> Misc.</p>
+      <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Misc.' %}</p>
       {%endif%}
       {% if product.reservation_exclusive %}
         </br>
-        ("This product is exclusive for reservations")
+        {% trans '("This product is exclusive for reservations")' %}'
       {% endif %}
-    <form action="" method="post">{% csrf_token %} {{form}} <input class="btn purple darken-2" type="submit" value="Submit"></form> 
+        
+    <form action="" method="post">{% csrf_token %} {{form}} <input class="btn purple darken-2" type="submit" value="{% trans 'Submit' %}"></form> 
     </li>
     <br>
     {% endfor %}
@@ -81,11 +83,11 @@
   </ul>
   {% else %}
     <li class="collection-item deep-purple darken-2">
-      <p>There are no products avaliable.</p>
+      <p>{% trans 'There are no products avaliable.' %}</p>
     </li>
   {% endif %}
     <li class="collection-item deep-purple darken-2">
-      <a class="btn-large purple darken-4" href="{% url 'product-create' %}">Create new product</a>  
+      <a class="btn-large purple darken-4" href="{% url 'product-create' %}">{% trans 'Create new product' %}</a>  
     </li>
   {%endif%}   
   </ul>

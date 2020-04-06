@@ -1,15 +1,16 @@
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
 {% load static %}
 {% block content %}
   {% if user %}
-  <h2 class="header center white-text">Sign up as user</h2>
+  <h2 class="header center white-text">{% trans 'Sign up as user' %}</h2>
 
-    <p class="center white-text">if you are a club owner sign up <a href="{% url 'signup-owner' %}" class="btn">here!</a></p>
+    <p class="center white-text">{% trans 'if you are a club owner sign up' %} <a href="{% url 'signup-owner' %}" class="btn">{% trans 'here!' %}</a></p>
   {%endif%}
 
   {% if owner %}
-  <h2 class="header center white-text">Sign up as owner</h2>    
-  <p class="center white-text">back to user signup <a href="{% url 'signup-user' %}">here.</a></p>
+  <h2 class="header center white-text">{% trans 'Sign up as owner' %}</h2>    
+  <p class="center white-text">{% trans 'back to user signup' %} <a href="{% url 'signup-user' %}">{% trans 'here.' %}</a></p>
   {% endif %}
   <div class="deep-purple darken-4 toast rounded">
    
@@ -21,15 +22,15 @@
         <strong class="card-title">{{form.non_field_errors}}</strong>
       </div>
       {%endif%}
-      <p><strong style="font-size: larger;">Username </strong>{{form.username}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Username' %} </strong>{{form.username}}</p>
       <span class="helptext">{{form.username.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">First name </strong>{{form.first_name}}</p>
+      <p><strong style="font-size: larger;">{% trans 'First name' %} </strong>{{form.first_name}}</p>
       <span class="helptext">{{form.first_name.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Last name </strong>{{form.last_name}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Last name' %} </strong>{{form.last_name}}</p>
       <span class="helptext">{{form.last_name.help_text}}</span>
       <br>
       <br>
@@ -41,26 +42,26 @@
       <span class="helptext">{{form.bio.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Location </strong>{{form.location}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Location' %} </strong>{{form.location}}</p>
       <span class="helptext">{{form.location.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Birth date </strong>{{form.birth_date}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Birth date' %} </strong>{{form.birth_date}}</p>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Password </strong>{{form.password1}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Password' %} </strong>{{form.password1}}</p>
       <span class="helptext">{{form.password1.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Password confirmation </strong>{{form.password2}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Password confirmation' %} </strong>{{form.password2}}</p>
       <span class="helptext">{{form.password2.help_text}}</span>
       <br>
       <br>
       
     {{ form.media }}
     
-    <button type="submit" class="btn">*Sign up and agree</button>
-  </div><p><small>*By clicking in the 'Sign up and agree' button you agree with our <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">terms and conditions</a> and <a class="white-text" style="text-decoration: underline white" href="{% url 'privacy-policy' %}">privacy policy</a></small></p>
+    <button type="submit" class="btn">{% trans '*Sign up and agree' %}</button>
+  </div><p><small>{% trans '*By clicking in the "Sign up and agree" button you agree with our' %} <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">{% trans 'terms and conditions' %}</a> {% trans 'and' %} <a class="white-text" style="text-decoration: underline white" href="{% url 'privacy-policy' %}">{% trans 'privacy policy' %}</a></small></p>
   </form>
   </div>
   <br/>

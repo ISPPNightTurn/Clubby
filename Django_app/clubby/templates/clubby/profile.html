@@ -1,30 +1,31 @@
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
 
 {% load static %}
 {% block content %}
 
-<h1 class="header center white-text">Profile</h1>
+<h1 class="header center white-text">{% trans 'Profile' %}</h1>
 <div class="center">
   <div class="deep-purple darken-4  rounded grid-container">
     <div class="col s12 m7">
       <div style="max-width: 700px; margin: auto;" class="card rounded">
         <div class="card-content black">
           <em class="small material-icons white-text">attach_money</em>
-          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Funds: </strong>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Funds:' %} </strong>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.funds}} €</span>
           <br/>
           {% if perms.clubby.is_owner %}
           <em class="small material-icons white-text">attach_money</em>
-          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Premium status: </strong>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">{%if user_profile.renew_premium %} Active (<a href="{% url 'cancel-premium' %}">CANCEL</a>) {%else%} Inactive {%endif%}</span>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Premium status:' %} </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{%if user_profile.renew_premium %} {% trans 'Active' %} (<a href="{% url 'cancel-premium' %}">{% trans 'CANCEL' %}</a>) {%else%} {% trans 'Inactive' %} {%endif%}</span>
           <br/>
           {% endif %}
           <em class="small material-icons white-text">emoji_people</em>
-          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Name: </strong>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Name:' %} </strong>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.first_name}}</span>
           <br/>
           <em class="small material-icons white-text"></em>
-          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Surname: </strong>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Surname:' %} </strong>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{logged_user.last_name}}</span>
           <br/>
           <em class="small material-icons white-text">alternate_email</em>
@@ -36,14 +37,14 @@
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.bio}}</span>
           <br/>
           <em class="small material-icons white-text">location_on</em>
-          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Location: </strong>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Location:' %} </strong>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.location}}</span>
           <br/>
           <em class="small material-icons white-text">cake</em>
-          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Birth Date: </strong>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Birth Date:' %} </strong>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{user_profile.birth_date}}</span>
           <br/>
-          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Profile pic: </strong>
+          <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Profile pic:' %} </strong>
           </br>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">
             {% if user_profile.picture == null or user_profile.picture == ''%}
@@ -54,15 +55,15 @@
           </span>
         </div>
         <div class="card-action black">
-          <a href="{% url 'edit-profile' %}">Edit profile</a>
+          <a href="{% url 'edit-profile' %}">{% trans 'Edit profile' %}</a>
 
           <form method="post" action="/clubby/profile">
             {% csrf_token %}
             <br>
-            <p><strong style="font-size: larger;">Ammount to add </strong>{{form.ammount}}</p>
+            <p><strong style="font-size: larger;">{% trans 'Ammount to add' %}</strong>{{form.ammount}}</p>
          
             {{ form.funds }}
-            <button class="btn purple darken-4" type="submit">Add funds to your account!</button>
+            <button class="btn purple darken-4" type="submit">{% trans 'Add funds to your account!' %}</button>
           </form>
         </div>
       </div>
@@ -72,28 +73,28 @@
     <br>
     <div class="card-content black" style="font-size: larger;">
     {% if user_profile.stripe_account_id == '' %}
-    Here you can get funds to your bank account. To do it you need to setup a Stripe account:<br>
+    {% trans 'Here you can get funds to your bank account. To do it you need to setup a Stripe account:' %}<br>
 
     <br>
     <a class="btn purple darken-4" href ="https://connect.stripe.com/oauth/authorize?client_id=ca_H2FamdKZiiJBsugEImsR9ABKF7QI6eCr&scope=read_write&response_type=code&stripe_user[email]={{logged_user.email}}">
-      Connect to stripe
+      {% trans 'Connect to stripe' %}
     </a>
     <br></br>
 
     {% else %}
     {% if limited_funds%}
     <p class="strong materialize-red" style="font-size: 1.64rem">
-     YOU DON'T HAVE THAT MUCH FUNDS... 
+      {% trans 'YOU DO NOT HAVE THAT MUCH FUNDS... ' %}
     </p><br>
     {%endif%}
-    Get money to your bank:<br>
+    {% trans 'Get money to your bank:' %}<br>
     <form method="post" action="/clubby/payout/">
       {% csrf_token %}
       <br>
-      <p><strong style="font-size: larger;">Ammount to add </strong>{{form.ammount}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Ammount to add' %} </strong>{{form.ammount}}</p>
    
       {{ form.funds }}
-      <button class="btn purple darken-4" type="submit">Get your funds to you bank!</button>
+      <button class="btn purple darken-4" type="submit">{% trans 'Get your funds to you bank!' %}</button>
       <br></br>
     </form>
     {%endif%}
@@ -101,13 +102,13 @@
     {% if over_event_limit%}
     <br>
     <p class="strong materialize-red" style="font-size: 1.64rem">
-      Sorry your event publication limit has been reached (2 per month), if you wish to have unlimited events and more <br>
-      consider becoming <a href="{% url 'get-premium' %}">Premium</a>!
+      {% trans 'Sorry your event publication limit has been reached (2 per month), if you wish to have unlimited events and more <br>
+      consider becoming' %} <a href="{% url 'get-premium' %}">Premium</a>!
     </p>
     {% endif %}
 
     {%if club == ''%}
-    No club registered: register one <a href="{% url 'club-create' %}" class="btn purple darken-4">HERE</a>
+    {% trans 'No club registered: register one' %} <a href="{% url 'club-create' %}" class="btn purple darken-4">{% trans 'HERE' %}</a>
     {%else%}
 
     <h2 class="header center white-text">Club</h2>
@@ -127,21 +128,21 @@
             <div class="card-content black">
               <span class="card-title">{{ club.name }}</span>
               <em class="small material-icons white-text">map</em>
-              <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Address: </strong>
+              <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Address:' %} </strong>
               <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.address}}</span>
               <br/>
               <em class="small material-icons white-text">people</em>
-              <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Capacity: </strong>
-              <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}} people</span>
+              <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Capacity:' %} </strong>
+              <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}} {% trans 'people' %}</span>
               <br/>
             </div>
             <div class="card-action black">
-              <a href="club/{{ club.pk }}/update/">Edit club</a>
-              <a href="club/{{ club.pk }}/delete/">Delete club</a>
-              <a href="{% url 'my-events-future' %}">My published events</a>
-              <a href="{% url 'my-products' %}">My products</a>
+              <a href="club/{{ club.pk }}/update/">{% trans 'Edit club' %}</a>
+              <a href="club/{{ club.pk }}/delete/">{% trans 'Delete club' %}</a>
+              <a href="{% url 'my-events-future' %}">{% trans 'My published events' %}</a>
+              <a href="{% url 'my-products' %}">{% trans 'My products' %}</a>
               {% if perms.clubby.is_premium_owner %}
-              <a href = "{% url 'get-stats'%}">Statistics</a>
+              <a href = "{% url 'get-stats'%}">{% trans 'Statistics' %}</a>
               {% endif %}
             </div>
           </div>
@@ -154,9 +155,9 @@
     <br></br>
     <div class="card-action black">
     </br>
-      <a class="btn purple darken-4" href="export-data">Export personal data</a>
+      <a class="btn purple darken-4" href="export-data">{% trans 'Export personal data' %}</a>
     </br></br>
-      <a class="modal-trigger btn purple darken-4" href="#delete-modal">Delete your account</a>
+      <a class="modal-trigger btn purple darken-4" href="#delete-modal">{% trans 'Delete your account' %}</a>
       <br></br>
     
     </div>
@@ -167,11 +168,11 @@
           <!-- Modal -->
           <div id="delete-modal" class="modal modal-fixed-footer" style="max-height: 40%;">
             <div class="modal-content black">
-              <h4>Are you sure?</h4>
-              <p>Once you delete your account, there is no going back</p>
+              <h4>{% trans 'Are you sure?' %}</h4>
+              <p>{% trans 'Once you delete your account, there is no going back' %}</p>
             </div>
             <div class="modal-footer black">
-              <a href="delete-data" class="modal-action modal-close waves-effect waves-red btn red lighten-1">Delete account</a>
+              <a href="delete-data" class="modal-action modal-close waves-effect waves-red btn red lighten-1">{% trans 'Delete account' %}</a>
             </div>
           </div>
 

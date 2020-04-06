@@ -1,15 +1,16 @@
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
 
 {% block content %}
   <div class="card deep-purple darken-4">
-    <h1>Ticket List</h1>
+    <h1>{% trans 'Ticket List' %}</h1>
     <ul>
     
 
       {% for ticket, form in ticket_ammount.items %} 
       <li>
-      {{ticket.category}} - ({{ticket.price}}) - ({{ticket.event}}) 
-      <form action="" method="post">{% csrf_token %} {{form}}  <input class="btn purple darken-4" type="submit" value="Submit"></form> 
+      {{ticket.category}} - ({{ticket.price}}€) - ({{ticket.event}}) 
+      <form action="" method="post">{% csrf_token %} {{form}}  <input class="btn purple darken-4" type="submit" value="{% trans 'Submit' %}"></form> 
       </li>
       <br>
      

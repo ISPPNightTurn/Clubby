@@ -1,0 +1,1087 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-06 18:56+0200\n"
+"PO-Revision-Date: 2020-04-06 18:57+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
+"X-Generator: Poedit 2.3\n"
+
+#: .\clubby\forms\forms.py:36
+msgid "Invalid NIF - format is 8 numbers and a letter."
+msgstr "NIF no válido - El formato es de 8 números y una letra."
+
+#: .\clubby\templates\clubby\base_generic.html:22
+#: .\clubby\templates\clubby\base_generic.html:117
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: .\clubby\templates\clubby\base_generic.html:23
+#: .\clubby\templates\clubby\profile.html:7
+msgid "Profile"
+msgstr "Perfil"
+
+#: .\clubby\templates\clubby\base_generic.html:35
+#: .\clubby\templates\clubby\base_generic.html:106
+msgid "All clubs"
+msgstr "Todos los clubes"
+
+#: .\clubby\templates\clubby\base_generic.html:36
+#: .\clubby\templates\clubby\base_generic.html:107
+msgid "All events"
+msgstr "Todos los eventos"
+
+#: .\clubby\templates\clubby\base_generic.html:39
+#: .\clubby\templates\clubby\club\rating_list.html:75
+msgid "User:"
+msgstr "Usuario:"
+
+#: .\clubby\templates\clubby\base_generic.html:40
+#: .\clubby\templates\clubby\profile.html:14
+msgid "Funds:"
+msgstr "Fondos:"
+
+#: .\clubby\templates\clubby\base_generic.html:43
+msgid "My Events"
+msgstr "Mis eventos"
+
+#: .\clubby\templates\clubby\base_generic.html:44
+#: .\clubby\templates\clubby\purchase\list.html:5
+msgid "My Purchases"
+msgstr "Mis compras"
+
+#: .\clubby\templates\clubby\base_generic.html:45
+msgid "My History"
+msgstr "Mi historial"
+
+#: .\clubby\templates\clubby\base_generic.html:50
+msgid "Become Premium!"
+msgstr "¡Hazte premium!"
+
+#: .\clubby\templates\clubby\base_generic.html:58
+#: .\clubby\templates\clubby\base_generic.html:120
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: .\clubby\templates\clubby\base_generic.html:59
+#: .\clubby\templates\clubby\base_generic.html:121
+msgid "Sign Up!"
+msgstr "¡Regístrate!"
+
+#: .\clubby\templates\clubby\base_generic.html:98
+msgid "Not authenticated"
+msgstr "No autenticado"
+
+#: .\clubby\templates\clubby\base_generic.html:105
+msgid "Home"
+msgstr "Inicio"
+
+#: .\clubby\templates\clubby\base_generic.html:109
+msgid "My purchases"
+msgstr "Mis compras"
+
+#: .\clubby\templates\clubby\base_generic.html:110
+msgid "My history"
+msgstr "Mi historial"
+
+#: .\clubby\templates\clubby\base_generic.html:113
+msgid "Actions"
+msgstr "Acciones"
+
+#: .\clubby\templates\clubby\base_generic.html:116
+msgid "View your profile"
+msgstr "Ir a mi perfil"
+
+#: .\clubby\templates\clubby\cancel_premium.html:6
+msgid "Cancel your subscription?"
+msgstr "¿Quieres cancelar tu subscripción?"
+
+#: .\clubby\templates\clubby\cancel_premium.html:20
+msgid "Sorry to see you go :("
+msgstr "Te echaremos de menos :("
+
+#: .\clubby\templates\clubby\cancel_premium.html:24
+#: .\clubby\templates\clubby\premium.html:25
+msgid "You must accept the conditions"
+msgstr "Debes aceptar las condiciones"
+
+#: .\clubby\templates\clubby\charge.html:6
+msgid "Thanks, for believing in us!"
+msgstr "¡Gracias por confiar en nosotros!"
+
+#: .\clubby\templates\clubby\charge.html:8
+msgid "Continue"
+msgstr "Continuar"
+
+#: .\clubby\templates\clubby\charts\statistics.html:7
+#: .\clubby\templates\clubby\charts\statistics.html:19
+msgid "PRODUCT SALES"
+msgstr "VENTAS DE PRODUCTOS"
+
+#: .\clubby\templates\clubby\charts\statistics.html:7
+#: .\clubby\templates\clubby\charts\statistics.html:19
+msgid "Total amount of products sold in your club"
+msgstr "Total de productos vendidos en tu club"
+
+#: .\clubby\templates\clubby\charts\statistics.html:11
+#: .\clubby\templates\clubby\charts\statistics.html:23
+msgid "TICKET SALES"
+msgstr "VENTA DE ENTRADAS"
+
+#: .\clubby\templates\clubby\charts\statistics.html:11
+#: .\clubby\templates\clubby\charts\statistics.html:23
+msgid "Total amount of tickets sold for your events"
+msgstr "Total de entradas vendidas para tus eventos"
+
+#: .\clubby\templates\clubby\club\club_confirm_delete.html:7
+msgid "Delete Club"
+msgstr "Borrar club"
+
+#: .\clubby\templates\clubby\club\club_confirm_delete.html:10
+#, python-format
+msgid "Are you sure you want to delete the club: %(club)s?</p>"
+msgstr "¿Estás seguro de que quieres borrar el club: %(club)s?</p>"
+
+#: .\clubby\templates\clubby\club\club_confirm_delete.html:17
+#: .\clubby\templates\clubby\product\product_confirm_delete.html:14
+msgid "Yes, delete."
+msgstr "Sí, borrar."
+
+#: .\clubby\templates\clubby\club\club_form.html:12
+#: .\clubby\templates\clubby\event\event_form.html:25
+#: .\clubby\templates\clubby\product\product_form.html:18
+msgid "Name"
+msgstr "Nombre"
+
+#: .\clubby\templates\clubby\club\club_form.html:16
+msgid "Address"
+msgstr "Dirección"
+
+#: .\clubby\templates\clubby\club\club_form.html:20
+msgid "Max Capacity"
+msgstr "Aforo máximo"
+
+#: .\clubby\templates\clubby\club\club_form.html:24
+msgid "NIF"
+msgstr "NIF"
+
+#: .\clubby\templates\clubby\club\club_form.html:28
+#: .\clubby\templates\clubby\edit_profile.html:41
+#: .\clubby\templates\clubby\event\event_form.html:38
+msgid "Picture"
+msgstr "Foto"
+
+#: .\clubby\templates\clubby\club\club_form.html:33
+#: .\clubby\templates\clubby\club\rating_create.html:16
+#: .\clubby\templates\clubby\event\event_form.html:46
+#: .\clubby\templates\clubby\product\list.html:51
+#: .\clubby\templates\clubby\product\product_form.html:38
+#: .\clubby\templates\clubby\ticket\create.html:29
+#: .\clubby\templates\clubby\ticket\list.html:13
+msgid "Submit"
+msgstr "Continuar"
+
+#: .\clubby\templates\clubby\club\detail.html:15
+#: .\clubby\templates\clubby\club\list.html:35
+#: .\clubby\templates\clubby\profile.html:131
+msgid "Address:"
+msgstr "Dirección:"
+
+#: .\clubby\templates\clubby\club\detail.html:16
+msgid "Max Capacity:"
+msgstr "Aforo máximo:"
+
+#: .\clubby\templates\clubby\club\detail.html:37
+msgid "Purchase products."
+msgstr "Comprar productos."
+
+#: .\clubby\templates\clubby\club\list.html:5
+msgid "Club list"
+msgstr "Lista de clubes"
+
+#: .\clubby\templates\clubby\club\list.html:10
+#: .\clubby\templates\clubby\event\list.html:14
+msgid "Search"
+msgstr "Buscar"
+
+#: .\clubby\templates\clubby\club\list.html:32
+#: .\clubby\templates\clubby\profile.html:135
+msgid "Capacity:"
+msgstr "Aforo:"
+
+#: .\clubby\templates\clubby\club\list.html:39
+msgid "Navigate to the club"
+msgstr "Ir al club"
+
+#: .\clubby\templates\clubby\club\list.html:43
+msgid "View ratings"
+msgstr "Ver valoraciones"
+
+#: .\clubby\templates\clubby\club\list.html:52
+msgid "There are no clubs avaliable."
+msgstr "No hay clubes disponibles."
+
+#: .\clubby\templates\clubby\club\rating_create.html:6
+msgid "Add ratting"
+msgstr "Añadir valoración"
+
+#: .\clubby\templates\clubby\club\rating_create.html:13
+msgid "Stars"
+msgstr "Estrellas"
+
+#: .\clubby\templates\clubby\club\rating_create.html:14
+msgid "Text"
+msgstr "Texto"
+
+#: .\clubby\templates\clubby\club\rating_list.html:4
+msgid "Club Rating"
+msgstr "Valoración del club"
+
+#: .\clubby\templates\clubby\club\rating_list.html:14
+msgid "My opinion"
+msgstr "Mi opinión"
+
+#: .\clubby\templates\clubby\club\rating_list.html:16
+#: .\clubby\templates\clubby\club\rating_list.html:78
+msgid "Date:"
+msgstr "Fecha:"
+
+#: .\clubby\templates\clubby\club\rating_list.html:19
+#: .\clubby\templates\clubby\club\rating_list.html:81
+msgid "Rating:"
+msgstr "Valoración:"
+
+#: .\clubby\templates\clubby\club\rating_list.html:20
+msgid "stars"
+msgstr "estrellas"
+
+#: .\clubby\templates\clubby\club\rating_list.html:22
+#: .\clubby\templates\clubby\club\rating_list.html:84
+msgid "Opinion:"
+msgstr "Opinión:"
+
+#: .\clubby\templates\clubby\club\rating_list.html:27
+msgid "Update rating"
+msgstr "Actualizar valoración"
+
+#: .\clubby\templates\clubby\club\rating_list.html:39
+msgid "Add rating"
+msgstr "Añadir valoración"
+
+#: .\clubby\templates\clubby\club\rating_list.html:49
+msgid "Order by stars"
+msgstr "Ordenar por estrellas"
+
+#: .\clubby\templates\clubby\club\rating_list.html:55
+msgid "Order by date"
+msgstr "Ordenar por fecha"
+
+#: .\clubby\templates\clubby\club\rating_list.html:95
+msgid "There are no rating yet."
+msgstr "No hay ninguna valoración."
+
+#: .\clubby\templates\clubby\edit_profile.html:6
+msgid "Edit your data."
+msgstr "Editar tus datos."
+
+#: .\clubby\templates\clubby\edit_profile.html:18
+#: .\clubby\templates\clubby\signup.html:29
+msgid "First name"
+msgstr "Nombre"
+
+#: .\clubby\templates\clubby\edit_profile.html:22
+#: .\clubby\templates\clubby\signup.html:33
+msgid "Last name"
+msgstr "Apellidos"
+
+#: .\clubby\templates\clubby\edit_profile.html:34
+#: .\clubby\templates\clubby\signup.html:45
+msgid "Location"
+msgstr "Ubicación"
+
+#: .\clubby\templates\clubby\edit_profile.html:38
+#: .\clubby\templates\clubby\signup.html:49
+msgid "Birth date"
+msgstr "Fecha de nacimiento"
+
+#: .\clubby\templates\clubby\edit_profile.html:46
+msgid "Update"
+msgstr "Actualizar"
+
+#: .\clubby\templates\clubby\event\detail.html:16
+msgid "Starts:"
+msgstr "Empieza:"
+
+#: .\clubby\templates\clubby\event\detail.html:17
+#: .\clubby\templates\clubby\product\detail.html:32
+#: .\clubby\templates\clubby\product\detail.html:34
+#: .\clubby\templates\clubby\product\detail.html:36
+#: .\clubby\templates\clubby\product\detail.html:38
+#: .\clubby\templates\clubby\product\detail.html:40
+#: .\clubby\templates\clubby\product\detail.html:42
+#: .\clubby\templates\clubby\product\detail.html:44
+#: .\clubby\templates\clubby\product\detail.html:46
+#: .\clubby\templates\clubby\product\list.html:30
+#: .\clubby\templates\clubby\product\list.html:34
+#: .\clubby\templates\clubby\product\list.html:36
+#: .\clubby\templates\clubby\product\list.html:38
+#: .\clubby\templates\clubby\product\list.html:40
+#: .\clubby\templates\clubby\product\list.html:42
+#: .\clubby\templates\clubby\product\list.html:44
+#: .\clubby\templates\clubby\purchase\display.html:39
+#: .\clubby\templates\clubby\purchase\display.html:44
+#: .\clubby\templates\clubby\purchase\display.html:49
+#: .\clubby\templates\clubby\purchase\display.html:54
+#: .\clubby\templates\clubby\purchase\display.html:59
+#: .\clubby\templates\clubby\purchase\display.html:64
+#: .\clubby\templates\clubby\purchase\display.html:69
+#: .\clubby\templates\clubby\purchase\display.html:74
+msgid "Type:"
+msgstr "Tipo:"
+
+#: .\clubby\templates\clubby\event\detail.html:18
+msgid "Starts at:"
+msgstr "Empieza a las:"
+
+#: .\clubby\templates\clubby\event\detail.html:24
+msgid "We could not process"
+msgstr "No pudimos procesar"
+
+#: .\clubby\templates\clubby\event\detail.html:24
+msgid "tickets, they ran out... sorry :("
+msgstr "entradas, se han agotado... lo sentimos :("
+
+#: .\clubby\templates\clubby\event\detail.html:27
+msgid "You bought the max ammount of tickets, sorry... :("
+msgstr ""
+"Has comprado la máxima cantidad permitida de entradas, lo sentimos... :("
+
+#: .\clubby\templates\clubby\event\detail.html:30
+msgid "Man you broke!, add some cash in your profile page"
+msgstr "Colega, ¡estás tieso! Añade algo de dinero en tu perfil"
+
+#: .\clubby\templates\clubby\event\detail.html:34
+msgid "Atendee List:"
+msgstr "Lista de asistentes:"
+
+#: .\clubby\templates\clubby\event\detail.html:44
+msgid "There are no atendants yet."
+msgstr "Aún no hay asistentes."
+
+#: .\clubby\templates\clubby\event\detail.html:51
+msgid "Create ticket."
+msgstr "Crear entradas."
+
+#: .\clubby\templates\clubby\event\detail.html:58
+msgid "Purchase ticket."
+msgstr "Comprar entradas."
+
+#: .\clubby\templates\clubby\event\event_form.html:29
+msgid "Start date"
+msgstr "Fecha de inicio"
+
+#: .\clubby\templates\clubby\event\event_form.html:30
+msgid "Start time"
+msgstr "Hora de inicio"
+
+#: .\clubby\templates\clubby\event\event_form.html:34
+msgid "Duration"
+msgstr "Duración"
+
+#: .\clubby\templates\clubby\event\event_form.html:42
+msgid "Event type"
+msgstr "Tipo de evento"
+
+#: .\clubby\templates\clubby\event\future-list.html:6
+#: .\clubby\templates\clubby\event\list.html:6
+#: .\clubby\templates\clubby\event\user_list.html:6
+msgid "Event List"
+msgstr "Lista de eventos"
+
+#: .\clubby\templates\clubby\event\future-list.html:31
+#: .\clubby\templates\clubby\event\list.html:37
+#: .\clubby\templates\clubby\event\user_list.html:32
+#: .\clubby\templates\clubby\purchase\display-qr.html:13
+#: .\clubby\templates\clubby\purchase\display.html:79
+#: .\clubby\templates\clubby\purchase\display.html:105
+#: .\clubby\templates\clubby\purchase\list.html:16
+msgid "Club:"
+msgstr "Club:"
+
+#: .\clubby\templates\clubby\event\future-list.html:34
+#: .\clubby\templates\clubby\event\list.html:40
+#: .\clubby\templates\clubby\event\user_list.html:35
+msgid "Start Date:"
+msgstr "Fecha de inicio:"
+
+#: .\clubby\templates\clubby\event\future-list.html:37
+#: .\clubby\templates\clubby\event\list.html:43
+#: .\clubby\templates\clubby\event\user_list.html:38
+msgid "Start Time:"
+msgstr "Hora de inicio:"
+
+#: .\clubby\templates\clubby\event\future-list.html:40
+#: .\clubby\templates\clubby\event\list.html:46
+#: .\clubby\templates\clubby\event\user_list.html:41
+#: .\clubby\templates\clubby\purchase\history_list.html:27
+msgid "Duration:"
+msgstr "Duración:"
+
+#: .\clubby\templates\clubby\event\future-list.html:41
+#: .\clubby\templates\clubby\event\list.html:47
+#: .\clubby\templates\clubby\event\user_list.html:42
+msgid "hours"
+msgstr "horas"
+
+#: .\clubby\templates\clubby\event\future-list.html:44
+#: .\clubby\templates\clubby\event\list.html:50
+#: .\clubby\templates\clubby\event\user_list.html:45
+msgid "Navigate to the event"
+msgstr "Ir al evento"
+
+#: .\clubby\templates\clubby\event\future-list.html:53
+#: .\clubby\templates\clubby\event\list.html:59
+#: .\clubby\templates\clubby\event\user_list.html:54
+msgid "There are no events avaliable."
+msgstr "No hay eventos disponibles."
+
+#: .\clubby\templates\clubby\event\future-list.html:57
+#: .\clubby\templates\clubby\event\list.html:63
+#: .\clubby\templates\clubby\event\user_list.html:58
+msgid "Create new event"
+msgstr "Crear nuevo evento"
+
+#: .\clubby\templates\clubby\funds.html:7
+msgid "Adding"
+msgstr "Añadiendo"
+
+#: .\clubby\templates\clubby\funds.html:7
+msgid "€ to account"
+msgstr "€ a tu cuenta"
+
+#: .\clubby\templates\clubby\landing.html:13
+msgid "Security advice:"
+msgstr "Alerta de seguridad:"
+
+#: .\clubby\templates\clubby\landing.html:15
+msgid "Information:"
+msgstr "Información:"
+
+#: .\clubby\templates\clubby\landing.html:21
+msgid "Clubby Home!"
+msgstr "Clubby Home!"
+
+#: .\clubby\templates\clubby\landing.html:25
+msgid "Welcome to Clubby!"
+msgstr "¡Bienvenido a Clubby!"
+
+#: .\clubby\templates\clubby\landing.html:27
+msgid "Dynamic content"
+msgstr "Contenido dinámico"
+
+#: .\clubby\templates\clubby\landing.html:29
+msgid "Clubby has the following record counts:"
+msgstr "Clubby tiene los siguientes recuentos:"
+
+#: .\clubby\templates\clubby\landing.html:40
+#: .\clubby\templates\clubby\landing.html:82
+msgid "Total Clubs:"
+msgstr "Total de clubes:"
+
+#: .\clubby\templates\clubby\landing.html:43
+#: .\clubby\templates\clubby\landing.html:85
+msgid "The number of clubs we have registered"
+msgstr "Número de clubes que tenemos registrados"
+
+#: .\clubby\templates\clubby\landing.html:53
+#: .\clubby\templates\clubby\landing.html:95
+msgid "Total Users:"
+msgstr "Total de usuarios:"
+
+#: .\clubby\templates\clubby\landing.html:56
+#: .\clubby\templates\clubby\landing.html:98
+msgid "The number of users we have registered"
+msgstr "Número de usuarios registrados"
+
+#: .\clubby\templates\clubby\landing.html:64
+#: .\clubby\templates\clubby\landing.html:106
+msgid "Total Events:"
+msgstr "Total de eventos:"
+
+#: .\clubby\templates\clubby\landing.html:67
+#: .\clubby\templates\clubby\landing.html:109
+msgid "The number of events we have registered"
+msgstr "Número de eventos registrados"
+
+#: .\clubby\templates\clubby\landing.html:116
+msgid "You have visited this page"
+msgstr "Has visitado esta página"
+
+#: .\clubby\templates\clubby\landing.html:116
+msgid "time"
+msgstr "vez"
+
+#: .\clubby\templates\clubby\landing.html:116
+msgid "times"
+msgstr "veces"
+
+#: .\clubby\templates\clubby\landing.html:118
+#: .\clubby\templates\clubby\signup.html:64
+#: .\clubby\templates\registration\login.html:34
+msgid "terms and conditions"
+msgstr "términos y condiciones"
+
+#: .\clubby\templates\clubby\landing.html:120
+#: .\clubby\templates\clubby\signup.html:64
+#: .\clubby\templates\registration\login.html:34
+msgid "privacy policy"
+msgstr "política de privacidad"
+
+#: .\clubby\templates\clubby\premium.html:8
+msgid "Setup your monthly subscription."
+msgstr "Activa tu subscripción mensual."
+
+#: .\clubby\templates\clubby\premium.html:11
+msgid "15€ will be substracted from your account at the start of every month."
+msgstr "cobraremos 15€ de tu cuenta al inicio de cada mes."
+
+#: .\clubby\templates\clubby\premium.html:12
+msgid ""
+"if you dont have enough funds in your account the suscription will be "
+"cancelled automatically."
+msgstr ""
+"si no tienes suficientes fondos en tu cuenta, tu subscripción será cancelada "
+"de forma automática."
+
+#: .\clubby\templates\clubby\premium.html:19
+msgid "Accept"
+msgstr "Aceptar"
+
+#: .\clubby\templates\clubby\premium.html:22
+msgid "Activate a premium subscription!"
+msgstr "Activar subscripción premium!"
+
+#: .\clubby\templates\clubby\premium.html:29
+msgid "You dont have enough funds, add more on the profile page."
+msgstr "No tienes fondos suficientes, añade más en tu perfil."
+
+#: .\clubby\templates\clubby\product\detail.html:29
+#: .\clubby\templates\clubby\purchase\display-qr.html:49
+#: .\clubby\templates\clubby\purchase\display.html:34
+#: .\clubby\templates\clubby\purchase\display.html:101
+#: .\clubby\templates\clubby\purchase\history_list.html:15
+#: .\clubby\templates\clubby\purchase\history_list.html:28
+#: .\clubby\templates\clubby\purchase\list.html:54
+msgid "Price:"
+msgstr "Precio:"
+
+#: .\clubby\templates\clubby\product\detail.html:32
+#: .\clubby\templates\clubby\product\list.html:30
+#: .\clubby\templates\clubby\purchase\display-qr.html:31
+#: .\clubby\templates\clubby\purchase\display.html:40
+#: .\clubby\templates\clubby\purchase\list.html:34
+msgid "Hookah"
+msgstr "Cachimba"
+
+#: .\clubby\templates\clubby\product\detail.html:34
+#: .\clubby\templates\clubby\product\list.html:32
+#: .\clubby\templates\clubby\purchase\display-qr.html:25
+#: .\clubby\templates\clubby\purchase\display.html:45
+#: .\clubby\templates\clubby\purchase\list.html:28
+msgid "Beer"
+msgstr "Cerveza"
+
+#: .\clubby\templates\clubby\product\detail.html:36
+#: .\clubby\templates\clubby\product\list.html:34
+#: .\clubby\templates\clubby\purchase\display-qr.html:27
+#: .\clubby\templates\clubby\purchase\display.html:50
+#: .\clubby\templates\clubby\purchase\list.html:30
+msgid "Wine"
+msgstr "Vino"
+
+#: .\clubby\templates\clubby\product\detail.html:38
+#: .\clubby\templates\clubby\product\list.html:36
+#: .\clubby\templates\clubby\purchase\display-qr.html:29
+#: .\clubby\templates\clubby\purchase\display.html:55
+#: .\clubby\templates\clubby\purchase\list.html:32
+msgid "Snack"
+msgstr "Aperitivos"
+
+#: .\clubby\templates\clubby\product\detail.html:40
+#: .\clubby\templates\clubby\product\list.html:38
+#: .\clubby\templates\clubby\purchase\display-qr.html:19
+#: .\clubby\templates\clubby\purchase\list.html:22
+msgid "Refreshment"
+msgstr "Refresco"
+
+#: .\clubby\templates\clubby\product\detail.html:42
+#: .\clubby\templates\clubby\product\list.html:40
+#: .\clubby\templates\clubby\purchase\display-qr.html:21
+#: .\clubby\templates\clubby\purchase\display.html:65
+#: .\clubby\templates\clubby\purchase\list.html:24
+msgid "Cocktail"
+msgstr "Cocktail"
+
+#: .\clubby\templates\clubby\product\detail.html:44
+#: .\clubby\templates\clubby\product\list.html:42
+#: .\clubby\templates\clubby\purchase\display-qr.html:23
+#: .\clubby\templates\clubby\purchase\display.html:70
+#: .\clubby\templates\clubby\purchase\list.html:26
+msgid "Shot"
+msgstr "Chupito"
+
+#: .\clubby\templates\clubby\product\detail.html:46
+msgid "Misc"
+msgstr "Otros"
+
+#: .\clubby\templates\clubby\product\detail.html:50
+msgid "This product is exclusive for reservations"
+msgstr "Este producto es exclusivo para reservados"
+
+#: .\clubby\templates\clubby\product\detail.html:56
+msgid "edit product"
+msgstr "editar producto"
+
+#: .\clubby\templates\clubby\product\detail.html:57
+msgid "delete product"
+msgstr "borrar producto"
+
+#: .\clubby\templates\clubby\product\list.html:5
+msgid "Product List"
+msgstr "Lista de productos"
+
+#: .\clubby\templates\clubby\product\list.html:32
+msgid "Type"
+msgstr "Tipo"
+
+#: .\clubby\templates\clubby\product\list.html:44
+#: .\clubby\templates\clubby\purchase\display-qr.html:33
+#: .\clubby\templates\clubby\purchase\display.html:75
+#: .\clubby\templates\clubby\purchase\list.html:36
+msgid "Misc."
+msgstr "Etc."
+
+#: .\clubby\templates\clubby\product\list.html:48
+msgid "(\"This product is exclusive for reservations\")"
+msgstr "(\"Este producto es exclusivo para reservados\")"
+
+#: .\clubby\templates\clubby\product\list.html:86
+msgid "There are no products avaliable."
+msgstr "No hay productos disponibles."
+
+#: .\clubby\templates\clubby\product\list.html:90
+#: .\clubby\templates\clubby\product\product_form.html:9
+msgid "Create new product"
+msgstr "Añadir producto"
+
+#: .\clubby\templates\clubby\product\product_confirm_delete.html:7
+msgid "Delete Product"
+msgstr "Borrar producto"
+
+#: .\clubby\templates\clubby\product\product_confirm_delete.html:9
+msgid "Are you sure you want to delete the Product:"
+msgstr "¿Estás seguro de que desaeas borrar el siguiente producto:"
+
+#: .\clubby\templates\clubby\product\product_form.html:22
+#: .\clubby\templates\clubby\ticket\create.html:12
+msgid "Price"
+msgstr "Precio"
+
+#: .\clubby\templates\clubby\product\product_form.html:26
+msgid "Product type"
+msgstr "Tipo de producto"
+
+#: .\clubby\templates\clubby\product\product_form.html:30
+#: .\clubby\templates\clubby\purchase\display-qr.html:37
+#: .\clubby\templates\clubby\purchase\list.html:40
+msgid "Reservation exclusive"
+msgstr "Exclusivo para reservados"
+
+#: .\clubby\templates\clubby\profile.html:19
+msgid "Premium status:"
+msgstr "Estado de subscripción premium:"
+
+#: .\clubby\templates\clubby\profile.html:20
+msgid "Active"
+msgstr "Activa"
+
+#: .\clubby\templates\clubby\profile.html:20
+msgid "CANCEL"
+msgstr "CANCELAR"
+
+#: .\clubby\templates\clubby\profile.html:20
+msgid "Inactive"
+msgstr "Inactiva"
+
+#: .\clubby\templates\clubby\profile.html:24
+msgid "Name:"
+msgstr "Nombre:"
+
+#: .\clubby\templates\clubby\profile.html:28
+msgid "Surname:"
+msgstr "Apellidos:"
+
+#: .\clubby\templates\clubby\profile.html:40
+msgid "Location:"
+msgstr "Ubicación:"
+
+#: .\clubby\templates\clubby\profile.html:44
+msgid "Birth Date:"
+msgstr "Fecha de nacimiento:"
+
+#: .\clubby\templates\clubby\profile.html:47
+msgid "Profile pic:"
+msgstr "Foto de perfil:"
+
+#: .\clubby\templates\clubby\profile.html:58
+msgid "Edit profile"
+msgstr "Editar perfil"
+
+#: .\clubby\templates\clubby\profile.html:63
+#: .\clubby\templates\clubby\profile.html:94
+msgid "Ammount to add"
+msgstr "Cantidad a añadir"
+
+#: .\clubby\templates\clubby\profile.html:66
+msgid "Add funds to your account!"
+msgstr "¡Añade fondos a tu cuenta!"
+
+#: .\clubby\templates\clubby\profile.html:76
+msgid ""
+"Here you can get funds to your bank account. To do it you need to setup a "
+"Stripe account:"
+msgstr ""
+"Aquí puedes sacar tus fondos a tu cuenta bancaria. Para esto necesitas "
+"configurar una cuenta de Stripe:"
+
+#: .\clubby\templates\clubby\profile.html:80
+msgid "Connect to stripe"
+msgstr "Conectar con Stripe"
+
+#: .\clubby\templates\clubby\profile.html:87
+msgid "YOU DO NOT HAVE THAT MUCH FUNDS... "
+msgstr "NO TIENES SUFICIENTES FONDOS... "
+
+#: .\clubby\templates\clubby\profile.html:90
+msgid "Get money to your bank:"
+msgstr "Sacar dinero a tu cuenta:"
+
+#: .\clubby\templates\clubby\profile.html:97
+msgid "Get your funds to you bank!"
+msgstr "¡Añade tus fondos a tu cuenta!"
+
+#: .\clubby\templates\clubby\profile.html:111
+msgid "No club registered: register one"
+msgstr "No hay ningún club registrado: añade uno"
+
+#: .\clubby\templates\clubby\profile.html:111
+msgid "HERE"
+msgstr "AQUÍ"
+
+#: .\clubby\templates\clubby\profile.html:136
+msgid "people"
+msgstr "personas"
+
+#: .\clubby\templates\clubby\profile.html:140
+msgid "Edit club"
+msgstr "Editar club"
+
+#: .\clubby\templates\clubby\profile.html:141
+msgid "Delete club"
+msgstr "Borrar club"
+
+#: .\clubby\templates\clubby\profile.html:142
+msgid "My published events"
+msgstr "Mis eventos publicados"
+
+#: .\clubby\templates\clubby\profile.html:143
+msgid "My products"
+msgstr "Mis productos"
+
+#: .\clubby\templates\clubby\profile.html:145
+msgid "Statistics"
+msgstr "Estadísticas"
+
+#: .\clubby\templates\clubby\profile.html:158
+msgid "Export personal data"
+msgstr "Exportar información personal"
+
+#: .\clubby\templates\clubby\profile.html:160
+msgid "Delete your account"
+msgstr "Borrar tu cuenta"
+
+#: .\clubby\templates\clubby\profile.html:171
+msgid "Are you sure?"
+msgstr "Estás seguro?"
+
+#: .\clubby\templates\clubby\profile.html:172
+msgid "Once you delete your account, there is no going back"
+msgstr "Una vez borres tu cuenta, no hay vuelta atrás"
+
+#: .\clubby\templates\clubby\profile.html:175
+msgid "Delete account"
+msgstr "Borrar cuenta"
+
+#: .\clubby\templates\clubby\purchase\display-qr.html:14
+#: .\clubby\templates\clubby\purchase\display.html:30
+#: .\clubby\templates\clubby\purchase\list.html:17
+msgid "Product:"
+msgstr "Producto:"
+
+#: .\clubby\templates\clubby\purchase\display-qr.html:17
+#: .\clubby\templates\clubby\purchase\list.html:20
+msgid "Product Type:"
+msgstr "Tipo de producto:"
+
+#: .\clubby\templates\clubby\purchase\display-qr.html:39
+#: .\clubby\templates\clubby\purchase\list.html:42
+msgid "Not exclusive"
+msgstr "No exclusivo"
+
+#: .\clubby\templates\clubby\purchase\display-qr.html:48
+#: .\clubby\templates\clubby\purchase\list.html:53
+msgid "Ticket:"
+msgstr "Entrada:"
+
+#: .\clubby\templates\clubby\purchase\display-qr.html:54
+msgid "Get back to my purchases"
+msgstr "Volver a mis compras"
+
+#: .\clubby\templates\clubby\purchase\display.html:60
+msgid "Refreshmen"
+msgstr "Refresco"
+
+#: .\clubby\templates\clubby\purchase\display.html:83
+msgid "THE USER NEED TO HAVE A RESERVATION TO REDEEM THIS PRODUCT"
+msgstr "EL USUARIO NECESITA TENER UN RESERVADO PARA CANJEAR ESTE PRODUCTO"
+
+#: .\clubby\templates\clubby\purchase\display.html:97
+msgid "Event:"
+msgstr "Evento:"
+
+#: .\clubby\templates\clubby\purchase\display.html:109
+msgid "Category:"
+msgstr "Categoría:"
+
+#: .\clubby\templates\clubby\purchase\display.html:113
+msgid "Description:"
+msgstr "Descripción:"
+
+#: .\clubby\templates\clubby\purchase\display.html:123
+msgid "Are you sure you want to redeem the QR Code?"
+msgstr "¿Estás seguro de que quieres canjear este QR?"
+
+#: .\clubby\templates\clubby\purchase\display.html:125
+msgid "Redeem!"
+msgstr "¡Canjear!"
+
+#: .\clubby\templates\clubby\purchase\history_list.html:4
+msgid "My History Of Purchases"
+msgstr "Mi historial de compras"
+
+#: .\clubby\templates\clubby\purchase\history_list.html:13
+msgid "Type: Product"
+msgstr "Tipo: Producto"
+
+#: .\clubby\templates\clubby\purchase\history_list.html:14
+#: .\clubby\templates\clubby\purchase\history_list.html:27
+msgid "Details:"
+msgstr "Detalles:"
+
+#: .\clubby\templates\clubby\purchase\history_list.html:16
+#: .\clubby\templates\clubby\purchase\history_list.html:29
+msgid "Place:"
+msgstr "Lugar:"
+
+#: .\clubby\templates\clubby\purchase\history_list.html:17
+#: .\clubby\templates\clubby\purchase\history_list.html:30
+msgid "Purchase Date:"
+msgstr "Fecha de compra:"
+
+#: .\clubby\templates\clubby\purchase\history_list.html:18
+#: .\clubby\templates\clubby\purchase\history_list.html:31
+msgid "Expires After:"
+msgstr "Caduca después del:"
+
+#: .\clubby\templates\clubby\purchase\history_list.html:20
+#: .\clubby\templates\clubby\purchase\history_list.html:22
+#: .\clubby\templates\clubby\purchase\history_list.html:33
+#: .\clubby\templates\clubby\purchase\history_list.html:35
+msgid "Used:"
+msgstr "Usado:"
+
+#: .\clubby\templates\clubby\purchase\history_list.html:26
+msgid "Type: Ticket"
+msgstr "Tipo: Entrada"
+
+#: .\clubby\templates\clubby\purchase\history_list.html:27
+msgid "Start :"
+msgstr "Empieza :"
+
+#: .\clubby\templates\clubby\purchase\history_list.html:27
+msgid "Hours"
+msgstr "Horas"
+
+#: .\clubby\templates\clubby\purchase\history_list.html:42
+msgid "You have no purchases used"
+msgstr "No tienes compras usadas"
+
+#: .\clubby\templates\clubby\purchase\list.html:7
+msgid "You dont have enough to buy that, get some moolah in your profile page"
+msgstr ""
+"No tienes suficiente para comprar esto, añade unos pavos a tu cuenta en tu "
+"perfil"
+
+#: .\clubby\templates\clubby\purchase\list.html:47
+#: .\clubby\templates\clubby\purchase\list.html:56
+msgid "QR Code"
+msgstr "Código QR"
+
+#: .\clubby\templates\clubby\purchase\list.html:66
+msgid "You have no purchases"
+msgstr "No tienes compras"
+
+#: .\clubby\templates\clubby\signup.html:6
+msgid "Sign up as user"
+msgstr "Registrarse como usuario"
+
+#: .\clubby\templates\clubby\signup.html:8
+msgid "if you are a club owner sign up"
+msgstr "si eres un dueño de club regístrate"
+
+#: .\clubby\templates\clubby\signup.html:8
+msgid "here!"
+msgstr "aquí!"
+
+#: .\clubby\templates\clubby\signup.html:12
+msgid "Sign up as owner"
+msgstr "Registrarse como dueño de club"
+
+#: .\clubby\templates\clubby\signup.html:13
+msgid "back to user signup"
+msgstr "volver al registro de usuario"
+
+#: .\clubby\templates\clubby\signup.html:13
+msgid "here."
+msgstr "aquí."
+
+#: .\clubby\templates\clubby\signup.html:25
+#: .\clubby\templates\registration\login.html:26
+msgid "Username"
+msgstr "Usuario"
+
+#: .\clubby\templates\clubby\signup.html:52
+#: .\clubby\templates\registration\login.html:30
+msgid "Password"
+msgstr "Contraseña"
+
+#: .\clubby\templates\clubby\signup.html:56
+msgid "Password confirmation"
+msgstr "Confirmar contraseña"
+
+#: .\clubby\templates\clubby\signup.html:63
+msgid "*Sign up and agree"
+msgstr "*Registrarse y aceptar"
+
+#: .\clubby\templates\clubby\signup.html:64
+msgid "*By clicking in the \"Sign up and agree\" button you agree with our"
+msgstr ""
+"*Clickando en el botón \"Registrarse y aceptar\" muestras tu conformidad con "
+"nuestros"
+
+#: .\clubby\templates\clubby\signup.html:64
+#: .\clubby\templates\registration\login.html:34
+msgid "and"
+msgstr "y"
+
+#: .\clubby\templates\clubby\success.html:5
+msgid "You have successfully deleted your Clubby account"
+msgstr "Has borrado completamente tu cuenta de Clubby"
+
+#: .\clubby\templates\clubby\success.html:7
+msgid ""
+"Sometimes things just do not flow. But anyway we woud love to hear the "
+"reasons you deleted your account"
+msgstr ""
+"Algunas veces las cosas simplemente no fluyen. De todas formas nos "
+"encantaría oír qué te ha llevado a borrar tu cuenta"
+
+#: .\clubby\templates\clubby\success.html:9
+msgid "If you have something to share please write us at clubbyispp@gmail.com"
+msgstr ""
+"Si tienes algo que compartir con nosotros escríbemos a clubbyispp@gmail.com"
+
+#: .\clubby\templates\clubby\ticket\create.html:6
+msgid "Create tickets"
+msgstr "Crear entradas"
+
+#: .\clubby\templates\clubby\ticket\create.html:16
+msgid "Category"
+msgstr "Categoría"
+
+#: .\clubby\templates\clubby\ticket\create.html:20
+msgid "Description"
+msgstr "Descripción"
+
+#: .\clubby\templates\clubby\ticket\create.html:24
+msgid "Size"
+msgstr "Cantidad"
+
+#: .\clubby\templates\clubby\ticket\list.html:6
+msgid "Ticket List"
+msgstr "Lista de entradas"
+
+#: .\clubby\templates\registration\login.html:15
+msgid "Your username and password did not match. Please try again."
+msgstr "Tu usuario y contraseña no concuerdan. Inténtalo de nuevo."
+
+#: .\clubby\templates\registration\login.html:23
+msgid "Please login to see this page."
+msgstr "Por favor, inicia sesión para ver esta página."
+
+#: .\clubby\templates\registration\login.html:34
+msgid "By logging in with Google you agree with our"
+msgstr "Iniciando sesión con Google estás aceptando nuestros"
+
+#: .\clubby\templates\registration\login.html:41
+msgid "Login with Google"
+msgstr "Iniciar sesión con Google"
+
+#: .\clubby\templates\registration\login.html:47
+msgid "login"
+msgstr "iniciar sesión"
+
+#: .\clubby\templates\registration\login.html:51
+msgid "Lost password?"
+msgstr "¿No recuerdas tu contraseña?"
+
+#: .\project\settings.py:58
+msgid "Español"
+msgstr "Español"
+
+#: .\project\settings.py:59
+msgid "English"
+msgstr "Inglés"
+
+#~ msgid "You"
+#~ msgstr "Tú"
+
+#~ msgid "Sometimes things just don"
+#~ msgstr "Algunas veces las cosas"
+
+#~ msgid "*By clicking in the "
+#~ msgstr "*Haciendo click en el "
+
+#~ msgid "\"This product is exclusive for reservations\""
+#~ msgstr "\"Este producto es exclusivo para reservados\""

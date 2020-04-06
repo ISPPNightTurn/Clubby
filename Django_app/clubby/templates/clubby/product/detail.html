@@ -1,4 +1,5 @@
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
 
 {% block content %}
 <div style="max-width: 700px;" class="card deep-purple darken-4">
@@ -25,35 +26,35 @@
   </div>
   <div class="card-content">
     <span class="card-title">{{ product.name }}</span>
-    <p><strong style="font-size: larger;">Price:</strong> {{ product.price }}</p>
+    <p><strong style="font-size: larger;">{% trans 'Price:' %}</strong> {{ product.price }}</p>
   
   {% if product.product_type == 'h'  %}
-    <p><strong style="font-size: larger;">Type:</strong> Hookah</p>
+    <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Hookah' %}</p>
   {% elif product.product_type == 'b'  %}
-    <p><strong style="font-size: larger;">Type:</strong> Beer</p>
+    <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Beer' %}</p>
   {% elif product.product_type == 'w'  %}
-    <p><strong style="font-size: larger;">Type:</strong> Wine</p>
+    <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Wine' %}</p>
   {% elif product.product_type == 'k'  %}
-    <p><strong style="font-size: larger;">Type:</strong> Snack</p>
+    <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Snack' %}</p>
   {% elif product.product_type == 'r'  %}
-    <p><strong style="font-size: larger;">Type:</strong> Refreshment</p>
+    <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Refreshment' %}</p>
   {% elif product.product_type == 'c'  %}
-    <p><strong style="font-size: larger;">Type:</strong> Cocktail</p>
+    <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Cocktail' %}</p>
   {% elif product.product_type == 's'  %}
-    <p><strong style="font-size: larger;">Type:</strong> Shot</p>
+    <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Shot' %}</p>
   {% elif product.product_type == 'm'  %}
-    <p><strong style="font-size: larger;">Type:</strong> Misc.</p>
+    <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {% trans 'Misc' %}.</p>
   {%endif%}
   {% if product.reservation_exclusive %}
     </br>
-    <strong>This product is exclusive for reservations</strong>
+    <strong>{% trans 'This product is exclusive for reservations' %}</strong>
   {% endif %}
 </div>
   
   <!-- this should appear only if its the owner. -->
   {% if product.club.owner == user%}
-  <a href="{{ product.pk }}/update/" class="btn-large purple darken-4">edit product</a><br>
-  <a href="{{ product.pk }}/delete/" class="btn-large materialize-red darken-3">delete product</a>
+  <a href="{{ product.pk }}/update/" class="btn-large purple darken-4">{% trans 'edit product' %}</a><br>
+  <a href="{{ product.pk }}/delete/" class="btn-large materialize-red darken-3">{% trans 'delete product' %}</a>
   {%endif%}
 </div>
 {% endblock %}

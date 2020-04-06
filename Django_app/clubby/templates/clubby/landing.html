@@ -1,4 +1,5 @@
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
 
 {% block content %}
 
@@ -9,23 +10,23 @@
     <img class="responsive-img" style="width: 8%; float: left" src="../../../static/clubby/images/warning.png" alt= "">
     <img class="responsive-img" style="width: 8%; float: right" src="../../../static/clubby/images/warning.png" alt= "">
     <h5 style="text-decoration: underline;">
-      <strong style="font-size: larger;">Security advice: </strong>{{item.title}}
+      <strong style="font-size: larger;">{% trans 'Security advice:' %} </strong>{{item.title}}
     </h5>
-    <h6><strong style="font-size: larger;">Information: </strong>{{item.text}}</h6>
+    <h6><strong style="font-size: larger;">{% trans 'Information:' %} </strong>{{item.text}}</h6>
     <p>Date: {{item.date}}</p>
     <br>
   </div>
   {%endif%}
 
-<h1 class="header center white-text">Clubby Home!</h1>
+<h1 class="header center white-text">{% trans 'Clubby Home!' %}</h1>
 
 {%endfor%}
   <div class="row center">
-    <h5 class="header col s12 light">Welcome to Clubby, a website developed by <em>Me</em>!</h5>
+    <h1 class="header col s12 light">{% trans 'Welcome to Clubby!' %}</h1>
   </div>
-  <h2 class="header center white-text">Dynamic content</h2>
+  <h2 class="header center white-text">{% trans 'Dynamic content' %}</h2>
   <div class="row center">
-    <h5 class="header col s12 light">Clubby has the following record counts:</h5>
+    <h5 class="header col s12 light">{% trans 'Clubby has the following record counts:' %}</h5>
   </div>
   <div class="container statistics hide-on-med-and-down">
     <div class="section">
@@ -36,10 +37,10 @@
                 <div class="card-image">
                   <img src="../../../static/clubby/images/background.jpg" alt= "">
 
-                  <span class="card-title">Total Clubs: {{ num_clubs }}</span>
+                  <span class="card-title">{% trans 'Total Clubs:' %} {{ num_clubs }}</span>
                 </div>
                 <div class="black card-content">
-                  <p>The number of clubs we have registered</p>
+                  <p>{% trans 'The number of clubs we have registered' %}</p>
                 </div>
           </div>
         </div>
@@ -49,10 +50,10 @@
           <div class="card">
                 <div class="card-image">
                   <img src="../../../static/clubby/images/user_img.jpg" alt ="">
-                  <span class="card-title">Total Users: {{ num_users }}</span>
+                  <span class="card-title">{% trans 'Total Users:' %} {{ num_users }}</span>
                 </div>
                 <div class="black card-content">
-                  <p>The number of users we have registered</p>
+                  <p>{% trans 'The number of users we have registered' %}</p>
                 </div>
           </div>
         </div><div class="col s12 m4">
@@ -60,10 +61,10 @@
           <div class="card">
                 <div class="card-image">
                   <img src="../../../static/clubby/images/event_image.jpeg" alt="">
-                  <span class="card-title">Total Events: {{ num_events }}</span>
+                  <span class="card-title">{% trans 'Total Events:' %} {{ num_events }}</span>
                 </div>
                 <div class="black card-content">
-                  <p>The number of events we have registered</p>
+                  <p>{% trans 'The number of events we have registered' %}</p>
                 </div>
           </div>
         </div>
@@ -78,10 +79,10 @@
           <div class="card">
                 <div class="card-image">
                   <img src="../../../static/clubby/images/background.jpg" alt="">
-                  <span class="card-title center">Total Clubs: {{ num_clubs }}</span>
+                  <span class="card-title center">{% trans 'Total Clubs:' %} {{ num_clubs }}</span>
                 </div>
                 <div class="black card-content">
-                  <p>The number of clubs we have registered</p>
+                  <p>{% trans 'The number of clubs we have registered' %}</p>
                 </div>
           </div>
         </div>
@@ -91,10 +92,10 @@
           <div class="card">
                 <div class="card-image">
                   <img src="../../../static/clubby/images/user_img.jpg" alt="">
-                  <span class="card-title center">Total Users: {{ num_users }}</span>
+                  <span class="card-title center">{% trans 'Total Users:' %} {{ num_users }}</span>
                 </div>
                 <div class="black card-content">
-                  <p>The number of users we have registered</p>
+                  <p>{% trans 'The number of users we have registered' %}</p>
                 </div>
           </div>
         </div><div class="col s12 m12">
@@ -102,21 +103,21 @@
           <div class="card">
                 <div class="card-image">
                   <img src="../../../static/clubby/images/event_image.jpeg" alt="">
-                  <span class="card-title center">Total Events: {{ num_events }}</span>
+                  <span class="card-title center">{% trans 'Total Events:' %} {{ num_events }}</span>
                 </div>
                 <div class="black card-content">
-                  <p>The number of events we have registered</p>
+                  <p>{% trans 'The number of events we have registered' %}</p>
                 </div>
           </div>
         </div>
       </div>
   </div>
 <br/>
-<h5 class="center header col s12 light">You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</h5>
+<h5 class="center header col s12 light">{% trans 'You have visited this page' %} {{ num_visits }}{% if num_visits == 1 %} {% trans 'time' %}{% else %} {% trans 'times' %}{% endif %}.</h5>
 <footer class="center">
-  <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">terms and conditions</a>
+  <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">{% trans 'terms and conditions' %}</a>
 </br>
-  <a class="white-text" style="text-decoration: underline white" href="{% url 'privacy-policy' %}">privacy policy</a>
+  <a class="white-text" style="text-decoration: underline white" href="{% url 'privacy-policy' %}">{% trans 'privacy policy' %}</a>
 </footer>
 {% endblock %}
 

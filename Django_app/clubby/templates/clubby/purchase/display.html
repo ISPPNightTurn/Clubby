@@ -1,5 +1,5 @@
 {% extends "clubby/base_generic.html" %}
-
+{% load i18n %}
 {% block content %}
   {% if qr_item.product != blank %}
 <div class="center">
@@ -27,60 +27,60 @@
             <br>
             <br>
             <em class="small material-icons white-text">redeem</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Product: </strong>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Product:' %} </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.name }}</span>
             <br/>
             <em class="small material-icons white-text">attach_money</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Price: </strong>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.price }}</span>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Price:' %} </strong>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.price }}€</span>
             <br/>
             {% if qr_item.product.product_type == 'h'  %}
             <em class="small material-icons white-text">category</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Hookah</span>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Type:' %} </strong>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{% trans 'Hookah' %}</span>
             <br/>
             {%elif qr_item.product.product_type == 'b'  %}
             <em class="small material-icons white-text">category</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Beer</span>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Type:' %} </strong>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{% trans 'Beer' %}</span>
             <br/>
             {%elif qr_item.product.product_type == 'w'  %}
             <em class="small material-icons white-text">category</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Wine</span>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Type:' %} </strong>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{% trans 'Wine' %}</span>
             <br/>
             {%elif qr_item.product.product_type == 'k'  %}
             <em class="small material-icons white-text">category</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Snack</span>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Type:' %} </strong>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{% trans 'Snack' %}</span>
             <br/>
             {%elif qr_item.product.product_type == 'r'  %}
             <em class="small material-icons white-text">category</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Refreshment</span>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Type:' %}</strong>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{% trans 'Refreshmen' %}t</span>
             <br/>
             {%elif qr_item.product.product_type == 'c'  %}
             <em class="small material-icons white-text">category</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Cocktail</span>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Type:' %} </strong>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{% trans 'Cocktail' %}</span>
             <br/>
             {%elif qr_item.product.product_type == 's'  %}
             <em class="small material-icons white-text">category</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Shot</span>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Type:' %} </strong>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{% trans 'Shot' %}</span>
             <br/>
             {%elif qr_item.product.product_type == 'm'  %}
             <em class="small material-icons white-text">category</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Type: </strong>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">Misc.</span>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Type:' %} </strong>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{% trans 'Misc.' %}</span>
             <br/>
             {%endif%}
             <em class="small material-icons white-text">domain</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Club: </strong>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Club:' %} </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.product.club.name }}</span>
             <br/>
             {% if qr_item.product.reservation_exclusive %}
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">THE USER NEED TO HAVE A RESERVATION TO REDEEM THIS PRODUCT</span>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{% trans 'THE USER NEED TO HAVE A RESERVATION TO REDEEM THIS PRODUCT' %}</span>
             <br/>
             {% endif %}
           
@@ -94,23 +94,23 @@
                           <br>
                     {% endif %}
             <em class="small material-icons white-text">group</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Event: </strong>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Event:' %} </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.event.name }}</span>
             <br/>
             <em class="small material-icons white-text">attach_money</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Price: </strong>
-            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.price }}</span>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Price:' %} </strong>
+            <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.price }}€</span>
             <br/>
             <em class="small material-icons white-text">domain</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Club: </strong>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Club:' %} </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.event.club.name }}</span>
             <br/>
             <em class="small material-icons white-text">category</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Category: </strong>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Category:' %} </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.category }}</span>
             <br/>
             <em class="small material-icons white-text">description</em>
-            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Description: </strong>
+            <strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Description:' %} </strong>
             <span class="light white-text" style="display: inline-block; vertical-align:top;">{{ qr_item.ticket.description }}</span>
             <br/>
         
@@ -120,9 +120,9 @@
               {% else %}
                 <form action="" method="post">
                 {% csrf_token %} 
-                {{form}} Are you sure you want to redeem the QR Code?
+                {{form}} {% trans 'Are you sure you want to redeem the QR Code?' %}
                 </br>
-                <input type="submit" class="btn purple darken-4" value="Redeem!">
+                <input type="submit" class="btn purple darken-4" value="{% trans 'Redeem!' %}">
                 </form> 
               {% endif %}
         </div>

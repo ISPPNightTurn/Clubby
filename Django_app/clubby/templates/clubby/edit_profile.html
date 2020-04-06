@@ -1,8 +1,9 @@
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
 {% load static %}
 {% block content %}
   
-  <h2 class="header center white-text">Edit your data.</h2>
+  <h2 class="header center white-text">{% trans 'Edit your data.' %}</h2>
 
   <div class="deep-purple darken-4 toast rounded">
    
@@ -14,11 +15,11 @@
         <strong class="card-title">{{form.non_field_errors}}</strong>
       </div>
       {%endif%}
-      <p><strong style="font-size: larger;">First name </strong>{{form.first_name}}</p>
+      <p><strong style="font-size: larger;">{% trans 'First name' %} </strong>{{form.first_name}}</p>
       <span class="helptext">{{form.first_name.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Last name </strong>{{form.last_name}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Last name' %} </strong>{{form.last_name}}</p>
       <span class="helptext">{{form.last_name.help_text}}</span>
       <br>
       <br>
@@ -30,19 +31,19 @@
       <span class="helptext">{{form.bio.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Location </strong>{{form.location}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Location' %} </strong>{{form.location}}</p>
       <span class="helptext">{{form.location.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Birth date </strong>{{form.birth_date}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Birth date' %} </strong>{{form.birth_date}}</p>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Picture </strong>{{form.picture}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Picture' %} </strong>{{form.picture}}</p>
       <span class="helptext">{{form.picture.help_text}}</span>
       <br>
       <br>
       
-    <button type="submit" class="btn">Update</button>
+    <button type="submit" class="btn">{% trans 'Update' %}</button>
   </div>
   </form>
   </div>

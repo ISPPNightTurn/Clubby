@@ -1,32 +1,32 @@
 {% extends "clubby/base_generic.html" %}
-
+{% load i18n %}
 {% block content %}
 <div class="card deep-purple darken-4">
 
-<span class="center card-title">Create tickets</span>
+<span class="center card-title">{% trans 'Create tickets' %}</span>
 <div class="card-content">  
 <form action="" method="post">
     {% csrf_token %}
 
       <strong>{{form.non_field_errors}}</strong>
-      <p><strong style="font-size: larger;">Price </strong>{{form.price}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Price' %} </strong>{{form.price}}</p>
       <span class="helptext">{{form.price.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Category </strong>{{form.category}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Category' %} </strong>{{form.category}}</p>
       <span class="helptext">{{form.category.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Description </strong>{{form.description}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Description' %} </strong>{{form.description}}</p>
       <span class="helptext">{{form.description.help_text}}</span>
       <br>
       <br>
-      <p><strong style="font-size: larger;">Size </strong>{{form.size}}</p>
+      <p><strong style="font-size: larger;">{% trans 'Size' %} </strong>{{form.size}}</p>
       <span class="helptext">{{form.size.help_text}}</span>
       <br>
       <br>
       
-    <input class="btn purple darken-4" type="submit" value="Submit">
+    <input class="btn purple darken-4" type="submit" value="{% trans 'Submit' %}">
   </form>
 </div>
   </div

@@ -1,16 +1,20 @@
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="card deep-purple darken-4 ">
   <div class="card-content">
-    <span class="card-title">Delete Club</span>
+    <span class="card-title">{% trans 'Delete Club' %}</span>
 
-    <p>Are you sure you want to delete the club: {{ club }}?</p>
+    <p>
+      {% blocktrans trimmed %}
+        Are you sure you want to delete the club: {{ club }}?</p>
+      {% endblocktrans %}
   </div>
   <div class="card-action">
     <form action="" method="POST">
       {% csrf_token %}
-      <input type="submit" value="Yes, delete." class="btn-large materialize-red darken-3">
+      <input type="submit" value="{% trans 'Yes, delete.' %}" class="btn-large materialize-red darken-3">
     </form>
   </div>
 </div>

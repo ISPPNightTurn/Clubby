@@ -1,12 +1,13 @@
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
 
 {% block content %}
-<h1 class="header center white-text" onload="getLocation()">Club list</h1>
+<h1 class="header center white-text" onload="getLocation()">{% trans 'Club list' %}</h1>
 
 <form action="" method="post">
   {% csrf_token %}
   {{form}}
-  <input type="submit" value="Search" class="btn-large purple darken-4">
+  <input type="submit" value="{% trans 'Search' %}" class="btn-large purple darken-4">
 </form>
 
 
@@ -28,18 +29,18 @@
               
               <div class="card-content black">
                 <span class="card-title">{{ club.name }}</span>
-                <em class="small material-icons white-text">people</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Capacity: </strong>
+                <em class="small material-icons white-text">people</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Capacity:' %} </strong>
                 <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.max_capacity}} people  </span>
                 <br/>
-                <em class="small material-icons white-text">map</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;"> Address: </strong>
+                <em class="small material-icons white-text">map</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;"> {% trans 'Address:' %} </strong>
                 <span class="light white-text" style="display: inline-block; vertical-align:top;">{{club.address}}</span>
               </div>
               <div class="card-action black">
-                <a href="{{ club.get_absolute_url }}">Navigate to the club</a>
+                <a href="{{ club.get_absolute_url }}">{% trans 'Navigate to the club' %}</a>
               </div>
               {% if user.is_authenticated %}
                 <div class="card-action black">
-                  <a href="{% url 'list-rating' club_id=club.pk %}" class="btn-large purple darken-4 ">View ratings</a>         
+                  <a href="{% url 'list-rating' club_id=club.pk %}" class="btn-large purple darken-4 ">{% trans 'View ratings' %}</a>         
                 </div>
               {% endif %}
             </div>
@@ -48,7 +49,7 @@
     {% endfor %}
   </div>
   {% else %}
-    <p>There are no clubs avaliable.</p>
+    <p>{% trans 'There are no clubs avaliable.' %}</p>
   {% endif %} 
 </div>
 </div>

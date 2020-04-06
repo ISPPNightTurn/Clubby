@@ -1,7 +1,9 @@
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
+
 
 {% block content %}
-<h1 class="header center white-text">Event List</h1>
+<h1 class="header center white-text">{% trans 'Event List' %}</h1>
 
 <div class="center">
   <div class="deep-purple darken-4 rounded grid-container">
@@ -26,20 +28,20 @@
         </div>
         <div class="card-content black">
           <span class="card-title">{{ event.name }}</span>
-          <em class="small material-icons white-text">domain</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Club: </strong>
+          <em class="small material-icons white-text">domain</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Club:' %} </strong>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.club}}</span>
           <br/>
-          <em class="small material-icons white-text">calendar_today</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;"> Start Date: </strong>
+          <em class="small material-icons white-text">calendar_today</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;"> {% trans 'Start Date:' %} </strong>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.start_date}}</span>
           </br>
-          <em class="small material-icons white-text">access_time</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Start Time: </strong>
+          <em class="small material-icons white-text">access_time</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Start Time:' %} </strong>
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.start_time}}h</span>
           <br/>
-          <em class="small material-icons white-text">av_timer</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">Duration: </strong>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.duration}} hours</span>
+          <em class="small material-icons white-text">av_timer</em><strong class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Duration:' %} </strong>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.duration}} {% trans 'hours' %}</span>
         </div>
         <div class="card-action black">
-          <a href="{{ event.get_absolute_url }}">Navigate to the event</a>
+          <a href="{{ event.get_absolute_url }}">{% trans 'Navigate to the event' %}</a>
         </div>
       </div>
     </div>
@@ -48,11 +50,11 @@
 
   </div>
   {% else %}
-    <p>There are no events avaliable.</p>
+    <p>{% trans 'There are no events avaliable.' %}</p>
   {% endif %}
   {% if perms.clubby.is_owner %}
   {% if request.user.club != ''%}
-      <a href="{% url 'event-create' %}" class="btn-large purple darken-4 ">Create new event</a>  
+      <a href="{% url 'event-create' %}" class="btn-large purple darken-4 ">{% trans 'Create new event' %}</a>  
   {%endif%}   
   {%endif%}
 </div>

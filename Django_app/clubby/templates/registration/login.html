@@ -1,5 +1,6 @@
 
 {% extends "clubby/base_generic.html" %}
+{% load i18n %}
 
 {% block content %}
 <h2 class="header center white-text">Login</h2>
@@ -11,43 +12,43 @@
 
 <div>
   {% if form.errors %}
-    <div class="card red center"><p class="card-title">Your username and password didn't match. Please try again.</p></div>
+    <div class="card red center"><p class="card-title">{% trans 'Your username and password did not match. Please try again.' %}</p></div>
   {% endif %}
 
   {% if next %}
     {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-          please login with an account that has access.</p>
+      <p>{% trans 'Your account doesn't have access to this page. To proceed,
+          please login with an account that has access.' %}</p>
     {% else %}
-      <p>Please login to see this page.</p>
+      <p>{% trans 'Please login to see this page.' %}</p>
     {% endif %}
   {% endif %}
-  <strong>Username</strong>
+  <strong>{% trans 'Username' %}</strong>
   <td>{{ form.username }}</td>
 </div>
 <div>
-  <strong>Password</strong>
+  <strong>{% trans 'Password' %}</strong>
   <td>{{ form.password }}</td>
 </div>
 
-<p><small>By logging in with Google you agree with our <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">terms and conditions</a> and <a class="white-text" style="text-decoration: underline white" href="{% url 'privacy-policy' %}">privacy policy</a></small></p>
+<p><small>{% trans 'By logging in with Google you agree with our' %} <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">{% trans 'terms and conditions' %}</a> {% trans 'and' %} <a class="white-text" style="text-decoration: underline white" href="{% url 'privacy-policy' %}">{% trans 'privacy policy' %} </a></small></p>
 <div>
   <a class="oauth-container btn purple darken-4 white-text" href="{% url 'social:begin' 'google-oauth2' %}" style="text-transform:none">
       <div class="left">
           <img width="20px" style="margin-right:8px" alt="Google Login" 
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
       </div>
-      Login with Google
+      {% trans 'Login with Google' %}
   </a>
 </div>
 <br/>
 
 <div>
-  <input type="submit" class="btn purple darken-4" value="login" ></input>
+  <input type="submit" class="btn purple darken-4" value="{% trans 'login' %}" ></input>
   <input type="hidden" name="next" value="{{ next }}" />
   <br/>
   <br/>
-  <a class="btn purple darken-4" href="{% url 'password_reset' %}">Lost password?</a>
+  <a class="btn purple darken-4" href="{% url 'password_reset' %}">{% trans 'Lost password?' %}</a>
 
 </div>
 </form>
