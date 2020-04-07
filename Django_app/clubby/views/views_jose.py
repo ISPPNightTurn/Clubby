@@ -162,6 +162,11 @@ def terms(request):
 def privacy(request):
     return render(request, 'clubby/privacy.html')
 
+def privacidad(request):
+    return render(request, 'clubby/privacidad.html')
+
+def terminos(request):
+    return render(request, 'clubby/terminos.html')
 
 
 @login_required

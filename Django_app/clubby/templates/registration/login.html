@@ -31,7 +31,14 @@
   <td>{{ form.password }}</td>
 </div>
 
-<p><small>{% trans 'By logging in with Google you agree with our' %} <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">{% trans 'terms and conditions' %}</a> {% trans 'and' %} <a class="white-text" style="text-decoration: underline white" href="{% url 'privacy-policy' %}">{% trans 'privacy policy' %} </a></small></p>
+<p><small>{% trans 'By logging in with Google you agree with our' %} {% trans 'terms and conditions' %}
+  <a class="white-text" style="text-decoration: underline white"
+    href="{% url 'terms-and-conditions' %}">eng/</a><a class="white-text" style="text-decoration: underline white"
+    href="{% url 'terminos-condiciones' %}">esp</a> {% trans 'and' %} {% trans 'privacy policy' %}
+    <a class="white-text" style="text-decoration: underline white"
+    href="{% url 'privacy-policy' %}">eng/</a><a class="white-text" style="text-decoration: underline white"
+    href="{% url 'politica-privacidad' %}">esp</a> 
+</form></small></p>
 <div>
   <a class="oauth-container btn purple darken-4 white-text" href="{% url 'social:begin' 'google-oauth2' %}" style="text-transform:none">
       <div class="left">

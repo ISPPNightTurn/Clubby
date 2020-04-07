@@ -115,9 +115,16 @@
 <br/>
 <h5 class="center header col s12 light">{% trans 'You have visited this page' %} {{ num_visits }}{% if num_visits == 1 %} {% trans 'time' %}{% else %} {% trans 'times' %}{% endif %}.</h5>
 <footer class="center">
-  <a class="white-text" style="text-decoration: underline white" href="{% url 'terms-and-conditions' %}">{% trans 'terms and conditions' %}</a>
+  {% trans 'terms and conditions' %}
+  <a class="white-text" style="text-decoration: underline white"
+    href="{% url 'terms-and-conditions' %}">eng/</a><a class="white-text" style="text-decoration: underline white"
+    href="{% url 'terminos-condiciones' %}">esp</a> 
 </br>
-  <a class="white-text" style="text-decoration: underline white" href="{% url 'privacy-policy' %}">{% trans 'privacy policy' %}</a>
+    {% trans 'privacy policy' %}
+    <a class="white-text" style="text-decoration: underline white"
+    href="{% url 'privacy-policy' %}">eng/</a><a class="white-text" style="text-decoration: underline white"
+    href="{% url 'politica-privacidad' %}">esp</a> 
+</form>
 </footer>
 {% endblock %}
 

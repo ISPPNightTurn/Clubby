@@ -81,6 +81,8 @@ urlpatterns += [
     path('cancelPremium', views.cancel_premium, name='cancel-premium'),
     path('terms-and-conditions', views.terms, name='terms-and-conditions'),
     path('privacy-policy', views.privacy, name='privacy-policy'),
+    path('politica-privacidad', views.privacidad, name='politica-privacidad'),
+    path('terminos-condiciones', views.terminos, name='terminos-condiciones'),
     path('export-data',views.export,name='export-data'),
     path('delete-data', views.delete,name='delete-data')
 ]

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 20:20+0200\n"
+"POT-Creation-Date: 2020-04-07 12:59+0200\n"
 "PO-Revision-Date: 2020-04-06 20:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -492,22 +492,22 @@ msgid "Edit your data."
 msgstr "Editar tus datos."
 
 #: .\clubby\templates\clubby\edit_profile.html:18
-#: .\clubby\templates\clubby\signup.html:29
+#: .\clubby\templates\clubby\signup.html:31
 msgid "First name"
 msgstr "Nombre"
 
 #: .\clubby\templates\clubby\edit_profile.html:22
-#: .\clubby\templates\clubby\signup.html:33
+#: .\clubby\templates\clubby\signup.html:35
 msgid "Last name"
 msgstr "Apellidos"
 
 #: .\clubby\templates\clubby\edit_profile.html:34
-#: .\clubby\templates\clubby\signup.html:45
+#: .\clubby\templates\clubby\signup.html:47
 msgid "Location"
 msgstr "Ubicación"
 
 #: .\clubby\templates\clubby\edit_profile.html:38
-#: .\clubby\templates\clubby\signup.html:49
+#: .\clubby\templates\clubby\signup.html:51
 msgid "Birth date"
 msgstr "Fecha de nacimiento"
 
@@ -733,14 +733,14 @@ msgid "times"
 msgstr "veces"
 
 #: .\clubby\templates\clubby\landing.html:118
-#: .\clubby\templates\clubby\signup.html:64
+#: .\clubby\templates\clubby\signup.html:67
 #: .\clubby\templates\registration\login.html:34
 msgid "terms and conditions"
 msgstr "términos y condiciones"
 
-#: .\clubby\templates\clubby\landing.html:120
-#: .\clubby\templates\clubby\signup.html:64
-#: .\clubby\templates\registration\login.html:34
+#: .\clubby\templates\clubby\landing.html:123
+#: .\clubby\templates\clubby\signup.html:70
+#: .\clubby\templates\registration\login.html:37
 msgid "privacy policy"
 msgstr "política de privacidad"
 
@@ -1156,48 +1156,48 @@ msgstr "Registrarse como usuario"
 msgid "if you are a club owner sign up"
 msgstr "si eres un dueño de club regístrate"
 
-#: .\clubby\templates\clubby\signup.html:8
+#: .\clubby\templates\clubby\signup.html:9
 msgid "here!"
 msgstr "aquí!"
 
-#: .\clubby\templates\clubby\signup.html:12
+#: .\clubby\templates\clubby\signup.html:13
 msgid "Sign up as owner"
 msgstr "Registrarse como dueño de club"
 
-#: .\clubby\templates\clubby\signup.html:13
+#: .\clubby\templates\clubby\signup.html:14
 msgid "back to user signup"
 msgstr "volver al registro de usuario"
 
-#: .\clubby\templates\clubby\signup.html:13
+#: .\clubby\templates\clubby\signup.html:14
 msgid "here."
 msgstr "aquí."
 
-#: .\clubby\templates\clubby\signup.html:25
+#: .\clubby\templates\clubby\signup.html:27
 #: .\clubby\templates\registration\login.html:26
 msgid "Username"
 msgstr "Usuario"
 
-#: .\clubby\templates\clubby\signup.html:52
+#: .\clubby\templates\clubby\signup.html:54
 #: .\clubby\templates\registration\login.html:30
 msgid "Password"
 msgstr "Contraseña"
 
-#: .\clubby\templates\clubby\signup.html:56
+#: .\clubby\templates\clubby\signup.html:58
 msgid "Password confirmation"
 msgstr "Confirmar contraseña"
 
-#: .\clubby\templates\clubby\signup.html:63
+#: .\clubby\templates\clubby\signup.html:65
 msgid "*Sign up and agree"
 msgstr "*Registrarse y aceptar"
 
-#: .\clubby\templates\clubby\signup.html:64
+#: .\clubby\templates\clubby\signup.html:67
 msgid "*By clicking in the \"Sign up and agree\" button you agree with our"
 msgstr ""
 "*Clickando en el botón \"Registrarse y aceptar\" muestras tu conformidad con "
 "nuestros"
 
-#: .\clubby\templates\clubby\signup.html:64
-#: .\clubby\templates\registration\login.html:34
+#: .\clubby\templates\clubby\signup.html:70
+#: .\clubby\templates\registration\login.html:37
 msgid "and"
 msgstr "y"
 
@@ -1250,15 +1250,15 @@ msgstr "Por favor, inicia sesión para ver esta página."
 msgid "By logging in with Google you agree with our"
 msgstr "Iniciando sesión con Google estás aceptando nuestros"
 
-#: .\clubby\templates\registration\login.html:41
+#: .\clubby\templates\registration\login.html:48
 msgid "Login with Google"
 msgstr "Iniciar sesión con Google"
 
-#: .\clubby\templates\registration\login.html:47
+#: .\clubby\templates\registration\login.html:54
 msgid "login"
 msgstr "iniciar sesión"
 
-#: .\clubby\templates\registration\login.html:51
+#: .\clubby\templates\registration\login.html:58
 msgid "Lost password?"
 msgstr "¿No recuerdas tu contraseña?"
 
@@ -1269,7 +1269,7 @@ msgstr ""
 "la clave de seguridad no encaja,  ¿intentas fastidiar a alguien? Persona "
 "horrible >:("
 
-#: .\clubby\views\views_jose.py:182
+#: .\clubby\views\views_jose.py:187
 msgid "Something went wrong"
 msgstr "Algo salió mal"
 
