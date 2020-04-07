@@ -116,14 +116,21 @@
 <h5 class="center header col s12 light">{% trans 'You have visited this page' %} {{ num_visits }}{% if num_visits == 1 %} {% trans 'time' %}{% else %} {% trans 'times' %}{% endif %}.</h5>
 <footer class="center">
   {% trans 'terms and conditions' %}
-  <a class="white-text" style="text-decoration: underline white"
-    href="{% url 'terms-and-conditions' %}">eng/</a><a class="white-text" style="text-decoration: underline white"
-    href="{% url 'terminos-condiciones' %}">esp</a> 
+  <a href="{% url 'terms-and-conditions' %}">
+    <img class="responsive-img" style="width: 5%;" src="/static/clubby/images/eng.png" alt="english"/>
+  </a>
+  <a href="{% url 'terminos-condiciones' %}">
+    <img class="responsive-img" style="width: 5%;" src="/static/clubby/images/esp.png" alt="español"/>
+  </a> 
 </br>
-    {% trans 'privacy policy' %}
-    <a class="white-text" style="text-decoration: underline white"
-    href="{% url 'privacy-policy' %}">eng/</a><a class="white-text" style="text-decoration: underline white"
-    href="{% url 'politica-privacidad' %}">esp</a> 
+</br>
+  {% trans 'privacy policy' %}
+  <a href="{% url 'privacy-policy' %}">
+    <img class="responsive-img" style="width: 5%;" src="/static/clubby/images/eng.png" alt="english"/>
+  </a>
+  <a href="{% url 'politica-privacidad' %}">
+    <img class="responsive-img" style="width: 5%;" src="/static/clubby/images/esp.png" alt="español"/>
+  </a> 
 </form>
 </footer>
 {% endblock %}

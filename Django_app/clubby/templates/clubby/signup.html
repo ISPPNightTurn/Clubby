@@ -65,12 +65,19 @@
       <button type="submit" class="btn">{% trans '*Sign up and agree' %}</button>
     </div>
     <p><small>{% trans '*By clicking in the "Sign up and agree" button you agree with our' %}{% trans 'terms and conditions' %}
-        <a class="white-text" style="text-decoration: underline white"
-          href="{% url 'terms-and-conditions' %}">eng/</a><a class="white-text" style="text-decoration: underline white"
-          href="{% url 'terminos-condiciones' %}">esp</a> {% trans 'and' %} {% trans 'privacy policy' %}
-          <a class="white-text" style="text-decoration: underline white"
-          href="{% url 'privacy-policy' %}">eng/</a><a class="white-text" style="text-decoration: underline white"
-          href="{% url 'politica-privacidad' %}">esp</a> 
+      <a href="{% url 'terms-and-conditions' %}">
+        <img class="responsive-img" style="width: 3%;" src="/static/clubby/images/eng.png" alt="english"/>
+      </a>
+      <a href="{% url 'terminos-condiciones' %}">
+        <img class="responsive-img" style="width: 3%;" src="/static/clubby/images/esp.png" alt="español"/>
+      </a>
+       {% trans 'and' %} {% trans 'privacy policy' %}
+       <a href="{% url 'privacy-policy' %}">
+        <img class="responsive-img" style="width: 3%;" src="/static/clubby/images/eng.png" alt="english"/>
+      </a>
+      <a href="{% url 'politica-privacidad' %}">
+        <img class="responsive-img" style="width: 3%;" src="/static/clubby/images/esp.png" alt="español"/>
+      </a>
   </form>
 </div>
 <br />
