@@ -112,9 +112,7 @@
     {%else%}
 
     <h2 class="header center white-text">Club</h2>
-    Location:
-    (if it isn't showing properly on this map you might want to replace the address you gave us.)
-    <img src={{google_url|safe}} alt="club location"/>
+
     <div class="center">
       <div class="deep-purple darken-4 toast rounded grid-container">
         <div class="col s12 m7">
@@ -152,11 +150,20 @@
       </div>
     </div>
 
-    
-
     {%endif%}
     {%endif%}
     <br></br>
+
+    <p><strong style="font-size: larger;">Location:</strong></p><br/>
+    <div class="container">
+
+              <img class="responsive-img materialboxed" style="display: inline;" width="500" src={{google_url|safe}} alt="club location"/><br/>
+
+  </div> 
+  <span class="light white-text" style="vertical-align:middle;">(if it isn't showing properly on this map you might want to replace the address you gave us.)</span>
+
+
+
     <div class="card-action black">
     </br>
       <a class="btn purple darken-4" href="export-data">{% trans 'Export personal data' %}</a>
@@ -165,6 +172,7 @@
       <br></br>
     
     </div>
+
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script src="{% static 'clubby/js/materialize.js' %}"></script>
@@ -183,6 +191,7 @@
         <script>
         $(document).ready(function(){
             $('.modal').modal();
+            $('.materialboxed').materialbox();
           })
         </script>
 
