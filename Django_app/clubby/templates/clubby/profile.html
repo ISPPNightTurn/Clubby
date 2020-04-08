@@ -112,7 +112,9 @@
     {%else%}
 
     <h2 class="header center white-text">Club</h2>
-
+    Location:
+    (if it isn't showing properly on this map you might want to replace the address you gave us.)
+    <img src={{google_url|safe}} alt="club location"/>
     <div class="center">
       <div class="deep-purple darken-4 toast rounded grid-container">
         <div class="col s12 m7">
@@ -149,6 +151,8 @@
         </div>
       </div>
     </div>
+
+    
 
     {%endif%}
     {%endif%}

@@ -10,7 +10,9 @@
         {% endif %}
         
       </div>
-    <div class="card-content">
+      <iframe width="600" height="450" frameborder="0" style="border:0" src={{google_url|safe}} allowfullscreen></iframe>
+    
+      <div class="card-content">
       <span class="card-title"> {{ club.name }}</span>
       <p><strong style="font-size: larger;">{% trans 'Address:' %}</strong> {{ club.address }}</p> <!-- author detail link not yet defined -->
       <p><strong style="font-size: larger;">{% trans 'Max Capacity:' %}</strong> {{ club.max_capacity }}</p>

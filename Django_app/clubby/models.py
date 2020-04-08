@@ -78,6 +78,8 @@ class Club(models.Model):
     picture = models.URLField(help_text = ugettext_lazy('URL to a picture of your club'),null=True,blank=True)
     # This represents the owners user.
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
+    latitude = models.FloatField(null=True,blank=True)
+    longitude = models.FloatField(null=True,blank=True)
 
     def __str__(self):
         """String for representing the Model object."""

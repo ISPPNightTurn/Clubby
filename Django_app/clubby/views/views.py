@@ -23,11 +23,13 @@ from ..models import Club, Event, Profile, Product, Ticket, SecurityAdvice
 from datetime import datetime, timedelta
 from django.utils.translation import gettext
 
+import urllib.parse
 import datetime
 import calendar
+import json
 import requests as rq
 
-GOOGLE_API_KEY = 'AIzaSyAnvPEPEZXuwP9zAxJERgTlnui2Bm5KCus'
+GOOGLE_API_KEY = 'AIzaSyDLS2DKjJkCSPc0x_2BXcxDfr8mgByTPEo'
 
 # Create your views here.
 
@@ -84,7 +86,7 @@ def profile(request):
         else:
             return redirect('profile')
     else:
-
+        google_url = ""
         me = request.user  # this is the current user.
         try:
             profile = Profile.objects.filter(user=me)[0]
@@ -92,12 +94,13 @@ def profile(request):
             profile = ''
         try:
             club = Club.objects.filter(owner=me)[0]
+            google_url = "https://maps.googleapis.com/maps/api/staticmap?center="+str(club.latitude)+","+str(club.longitude)+"&markers=color:red%7Clabel:C%7C"+str(club.latitude)+","+str(club.longitude)+"&zoom=13&size=600x300&maptype=roadmap&key="+ GOOGLE_API_KEY
         except:
             club = ''
             
         form = FundsForm()
         context = {'logged_user': me, 'user_profile': profile,
-                   'club': club, 'form': form}
+                   'club': club, 'form': form, 'google_url': google_url}
         return render(request, 'clubby/profile.html', context)
 
 # we not only register the user but also authenticate them.
@@ -168,20 +171,14 @@ class ClubListView(generic.ListView):
         try:
             latitude = self.request.GET.get("latitude")
             longitude = self.request.GET.get("longitude")
+            items = Club.objects.all()
+            return items
+
         except:
             print('no geolocation information recieved.')
+            items = Club.objects.all()
+            return items
         
-        items = Club.objects.all()
-        club_address = items[2].address
-        club_address = club_address.replace(" ","+")
-        club_address = club_address.replace(",",",+")
-
-        #'1600+Amphitheatre+Parkway,+Mountain+,View,+CA'
-        response = rq.request('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+club_address+'&key='+GOOGLE_API_KEY)
-        print(response.content)
-        # items = Club.objects.filter(club = self.request.user.club) #this will be touched when the maps API is here.
-        return items
-
     def get_context_data(self, **kwargs):
         context = super(ClubListView, self).get_context_data(**kwargs)
         form = SearchForm()
@@ -220,13 +217,12 @@ class ClubDetailView(generic.DetailView):
     model = Club
     # Specify your own template name/location
     template_name = 'clubby/club/detail.html'
-    # investigate how to add a list of all events that belong to the club.
-
-# Generic views are the same as list vies but for editing the models:
-# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms
-# see more here
-
-
+    
+    def get_context_data(self, **kwargs):
+        context = super(ClubDetailView, self).get_context_data(**kwargs)
+        context['google_url'] = 'https://www.google.com/maps/embed/v1/search?q='+urllib.parse.quote(self.object.address)+'&key='+GOOGLE_API_KEY
+        return context
+    
 class ClubCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'clubby.is_owner'
     model = Club
@@ -240,6 +236,19 @@ class ClubCreate(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.owner = self.request.user
+
+        club_address = form.cleaned_data.get('address')
+        club_address = club_address.replace(" ","+")
+        club_address = club_address.replace(",",",+")
+
+        #'1600+Amphitheatre+Parkway,+Mountain+,View,+CA'
+        response = rq.request('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+club_address+'&key='+GOOGLE_API_KEY)
+        json_data = json.loads(response.text)
+
+        dictionary = json_data['results'][0]['geometry']['location']
+        obj.latitude = dictionary['lat']
+        obj.longitude = dictionary['lng']
+                
         # this is neccesary as the url is pulled from self.object.
         self.object = obj
         obj.save()
@@ -258,10 +267,32 @@ class ClubUpdate(PermissionRequiredMixin, UpdateView):
             raise PermissionDenied("You don't own that >:(")
         else:
             return super(ClubUpdate, self).get(request, *args, **kwargs)
+
     def form_valid(self, form):
+        old_address = self.object.address 
+        old_longitude = self.object.longitude
+        old_latitude = self.object.latitude
+
         obj = form.save(commit=False)
         # this is neccesary as the url is pulled from self.object.
         self.object = obj
+
+        club_address = form.cleaned_data.get('address')
+        if(old_address != obj.address):
+            club_address = club_address.replace(" ","+")
+            club_address = club_address.replace(",",",+")
+
+            #'1600+Amphitheatre+Parkway,+Mountain+,View,+CA'
+            response = rq.request('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+club_address+'&key='+GOOGLE_API_KEY)
+            json_data = json.loads(response.text)
+
+            dictionary = json_data['results'][0]['geometry']['location']
+            obj.latitude = dictionary['lat']
+            obj.longitude = dictionary['lng']
+        else:
+            print(obj.latitude)
+            print(obj.longitude)
+
         if(obj.owner == self.request.user):
             obj.save()
             return HttpResponseRedirect(self.get_success_url())
