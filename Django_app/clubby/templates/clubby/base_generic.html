@@ -23,6 +23,12 @@
   <li><a href="{% url 'profile' %}"><p class="white-text light">{% trans 'Profile' %}</p></a></li>
 </ul>
 
+<!--Dropdown for clubs-->
+<ul id="dropdownClubs" class="dropdown-content purple darken-4">
+  <li><a href="{% url 'clubs' %}"><p class="white-text">{% trans 'All clubs' %}</p></a></li>   
+  <li><a href="{% url 'clubs-near' %}"><p class="white-text light">{% trans 'Clubs nearby' %}</p></a></li>
+</ul>
+
   <div class="navbar-fixed hide-on-med-and-down" role="navigation">
     <nav>
       <div class=" purple darken-4 nav-wrapper">
@@ -32,8 +38,7 @@
           </a>
         </div>
         <ul class="right hide-on-med-and-down">
-          <li><a href="{% url 'clubs' %}"><p class="light">{% trans 'All clubs' %}</p></a></li>
-          <li><a href="{% url 'clubs-near' %}"><p class="light">{% trans 'Clubs nearby' %}</p></a></li>
+          <li><a class="dropdown-trigger" href="#!" data-target="dropdownClubs">{% trans 'Clubs' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
           <li><a href="{% url 'events' %}"><p class="light">{% trans 'All events' %}</p></a></li>
 
           {% if user.is_authenticated %}
@@ -105,6 +110,7 @@
 
     <li><a class="waves-effect" href="{% url 'landing' %}"><span class="white-text link">{% trans 'Home' %}</span></a></li>
     <li><a class="waves-effect" href="{% url 'clubs' %}"><span class="white-text link">{% trans 'All clubs' %}</span></a></li>
+    <li><a class="waves-effect" href="{% url 'clubs-near' %}"><span class="white-text link">{% trans 'Clubs nearby' %}</span></a></li>
     <li><a class="waves-effect" href="{% url 'events' %}"><span class="white-text link">{% trans 'All events' %}</span></a></li>
     {% if perms.clubby.is_user %}
     <li><a class="waves-effect" href="{% url 'my-purchases' %}"><span class="white-text link">{% trans 'My purchases' %}</span></a></li>
