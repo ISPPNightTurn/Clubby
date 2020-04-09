@@ -184,7 +184,7 @@ class ClubListView(generic.ListView):
                 clubs.append(club)
 
         return render(request, 'clubby/club/list.html', {'object_list': clubs, 'form': form})
-        
+
 
 class ClubListCloseByView(generic.ListView):
     paginate_by = 5  # add pagination to the view
@@ -278,8 +278,9 @@ class ClubCreate(PermissionRequiredMixin, CreateView):
 class ClubUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'clubby.is_owner'
     model = Club
+    form_class = ClubModelForm
     template_name = 'clubby/club/club_form.html'
-    fields = ['name', 'address', 'max_capacity', 'NIF', 'picture']
+    
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()

@@ -31,7 +31,6 @@ class ClubModelForm(ModelForm):
         #you can add validation the same way as in a custom form: by adding def clean_field_name(): and raising ValidationError.
         data = self.cleaned_data.get('NIF')
         z = re.match("^[0-9]{8,8}[A-Za-z]$", data)
-        print(z == None)
         #check if 8 numbers and a letter with re package
         if(z == None):
             raise ValidationError(_('Invalid NIF - format is 8 numbers and a letter.'))

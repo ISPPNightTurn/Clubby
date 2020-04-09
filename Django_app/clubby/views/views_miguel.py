@@ -22,6 +22,7 @@ from django.utils.crypto import get_random_string
 from ..forms import TicketPurchaseForm, FundsForm, PremiumForm, SearchForm, EditProfileForm, ProductModelForm
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
+from django.utils.translation import ugettext_lazy as _
 from background_task.models import Task
 
 from ..tasks import check_premium
@@ -377,7 +378,7 @@ def cancel_premium(request):
 def edit_profile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST, request=request)
-        if form.is_valid():
+        if (form.is_valid()):
             user = request.user
             profile = user.profile
             user.first_name = form.cleaned_data.get('first_name')

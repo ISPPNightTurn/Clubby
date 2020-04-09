@@ -49,10 +49,8 @@ class SearchForm(forms.Form):
 
 class SearchEventForm(forms.Form):
     # query = forms.CharField(help_text="Looking for something?",required=False)
-    start_date = forms.DateField(widget=AdminDateWidget(
-        attrs={'class': 'datepicker inicio'}), help_text=_("We will start looking here."))
-    end_date = forms.DateField(widget=AdminDateWidget(
-        attrs={'class': 'datepicker fin'}), help_text=_("We stop looking here."))
+    start_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker inicio'}), help_text=_("We will start looking here."))
+    end_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker fin'}), help_text=_("We stop looking here."))
 
     def clean(self):
         current_date = datetime.datetime.now().date()
@@ -76,36 +74,28 @@ class EditProfileForm(forms.Form):
         self.request = kwargs.pop('request', None)
         super(EditProfileForm, self).__init__(*args, **kwargs)
 
-    first_name = forms.CharField(
-        max_length=30, required=True, help_text=_('Required. 30 character max'))
-    last_name = forms.CharField(
-        max_length=30, required=True, help_text=_('Required. 30 character max'))
-    email = forms.EmailField(
-        max_length=254, help_text=_('Required. Inform a valid email address.'))
-
-    bio = forms.CharField(max_length=500, required=False,
-                          help_text=_("Optional, tell us something about you."))
-    location = forms.CharField(
-        max_length=30, required=False, help_text=_("Optional, where are you form?."))
-
-    birth_date = forms.DateField(
-        widget=DateInput(attrs={'class': 'datepicker'}))
-
-    picture = forms.URLField(
-        help_text=_("URL to a picture of your pretty face"), required=False)
+    first_name = forms.CharField(max_length=30, required=True, help_text=_('Required. 30 character max'))
+    last_name = forms.CharField(max_length=30, required=True, help_text=_('Required. 30 character max'))
+    email = forms.EmailField(max_length=254, help_text=_('Required. Inform a valid email address.'))
+    bio = forms.CharField(max_length=500, required=False, help_text=_("Optional, tell us something about you."))
+    location = forms.CharField(max_length=30, required=False, help_text=_("Optional, where are you form?."))    
+    birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}))
+    picture = forms.URLField(help_text=_("URL to a picture of your pretty face"), required=False)
 
     def clean(self):
         email = self.cleaned_data.get('email')
 
         birth_date = self.cleaned_data.get('birth_date')
 
-        user_with_mail = User.objects.filter(email=email)[0]
+        try:
+            user_with_mail = User.objects.filter(email=email)[0]
+        except:
+            user_with_mail = None
 
-        if user_with_mail != self.request.user:
+        if user_with_mail != None:
             raise ValidationError(_("Email exists"))
 
         if(birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
-            raise ValidationError(
-                _("You're too young. You must be 18 or older to use this app."))
+            raise ValidationError(_("You're too young. You must be 18 or older to use this app."))
 
         return self.cleaned_data
