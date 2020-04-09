@@ -108,7 +108,9 @@
     {% endif %}
 
     {%if club == ''%}
+
     {% trans 'No club registered: register one' %} <a href="{% url 'club-create' %}" class="btn purple darken-4">{% trans 'HERE' %}</a>
+
     {%else%}
 
     <h2 class="header center white-text">Club</h2>
@@ -150,18 +152,18 @@
       </div>
     </div>
 
-    {%endif%}
-    {%endif%}
     <br></br>
 
     <p><strong style="font-size: larger;">Location:</strong></p><br/>
     <div class="container">
 
-              <img class="responsive-img materialboxed" style="display: inline;" width="500" src={{google_url|safe}} alt="club location"/><br/>
+    <img class="responsive-img materialboxed" style="display: inline;" width="500" src={{google_url|safe}} alt="club location"/><br/>
 
-  </div> 
-  <span class="light white-text" style="vertical-align:middle;">(if it isn't showing properly on this map you might want to replace the address you gave us.)</span>
-
+    </div> 
+    <span class="light white-text" style="vertical-align:middle;">(if it isn't showing properly on this map you might want to replace the address you gave us.)</span>
+    
+    {%endif%}
+    {%endif%}
 
 
     <div class="card-action black">

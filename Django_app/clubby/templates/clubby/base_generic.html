@@ -33,6 +33,7 @@
         </div>
         <ul class="right hide-on-med-and-down">
           <li><a href="{% url 'clubs' %}"><p class="light">{% trans 'All clubs' %}</p></a></li>
+          <li><a href="{% url 'clubs-near' %}"><p class="light">{% trans 'Clubs nearby' %}</p></a></li>
           <li><a href="{% url 'events' %}"><p class="light">{% trans 'All events' %}</p></a></li>
 
           {% if user.is_authenticated %}

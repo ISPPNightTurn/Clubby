@@ -165,24 +165,57 @@ class ClubListView(generic.ListView):
     model = Club
     # Specify your own template name/location
     template_name = 'clubby/club/list.html'
+        
+    def get_context_data(self, **kwargs):
+        context = super(ClubListView, self).get_context_data(**kwargs)
+        form = SearchForm()
+        context['form'] = form
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = SearchForm(self.request.POST)
+        query = form['query'].value()
+        items = Club.objects.all()
+
+        clubs = []
+        for club in items:
+            if((query.lower() in club.name.lower()) or (query.lower() in club.address.lower())):
+                clubs.append(club)
+
+        return render(request, 'clubby/club/list.html', {'object_list': clubs, 'form': form})
+        
+
+class ClubListCloseByView(generic.ListView):
+    paginate_by = 5  # add pagination to the view
+    model = Club
+    # Specify your own template name/location
+    template_name = 'clubby/club/list_nearby.html'
 
     def get_queryset(self):
         latitude, longitude = None, None
         try:
             latitude = self.request.GET.get("latitude")
             longitude = self.request.GET.get("longitude")
-            items = Club.objects.all()
-            return items
 
+            #1 degree is 111KM
+
+            min_lat = float(latitude)-0.1
+            max_lat = float(latitude)+0.1
+
+            min_lng = float(longitude)-0.1
+            max_lng = float(longitude)+0.1
+
+            items = Club.objects.filter(latitude__gte = min_lat).filter(latitude__lte = max_lat).filter(longitude__gte = min_lng).filter(longitude__lte = max_lng)
+
+            return items
         except:
             print('no geolocation information recieved.')
             items = Club.objects.all()
             return items
         
     def get_context_data(self, **kwargs):
-        context = super(ClubListView, self).get_context_data(**kwargs)
-        form = SearchForm()
-        context['form'] = form
+        context = super(ClubListCloseByView, self).get_context_data(**kwargs)
 
         latitude, longitude = None, None
         try:
@@ -198,19 +231,6 @@ class ClubListView(generic.ListView):
 
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = SearchForm(self.request.POST)
-        query = form['query'].value()
-        # items = Club.objects.filter(club = self.request.user.club) #this will be touched when the maps API is here.
-        items = Club.objects.all()
-
-        clubs = []
-        for club in items:
-            if((query.lower() in club.name.lower()) or (query.lower() in club.address.lower())):
-                clubs.append(club)
-
-        return render(request, 'clubby/club/list.html', {'object_list': clubs, 'form': form})
-        # return StatusFormView.as_view()(request)
 
 
 class ClubDetailView(generic.DetailView):
@@ -269,29 +289,21 @@ class ClubUpdate(PermissionRequiredMixin, UpdateView):
             return super(ClubUpdate, self).get(request, *args, **kwargs)
 
     def form_valid(self, form):
-        old_address = self.object.address 
-        old_longitude = self.object.longitude
-        old_latitude = self.object.latitude
-
         obj = form.save(commit=False)
         # this is neccesary as the url is pulled from self.object.
         self.object = obj
 
         club_address = form.cleaned_data.get('address')
-        if(old_address != obj.address):
-            club_address = club_address.replace(" ","+")
-            club_address = club_address.replace(",",",+")
+        club_address = club_address.replace(" ","+")
+        club_address = club_address.replace(",",",+")
 
-            #'1600+Amphitheatre+Parkway,+Mountain+,View,+CA'
-            response = rq.request('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+club_address+'&key='+GOOGLE_API_KEY)
-            json_data = json.loads(response.text)
+        #'1600+Amphitheatre+Parkway,+Mountain+,View,+CA'
+        response = rq.request('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+club_address+'&key='+GOOGLE_API_KEY)
+        json_data = json.loads(response.text)
 
-            dictionary = json_data['results'][0]['geometry']['location']
-            obj.latitude = dictionary['lat']
-            obj.longitude = dictionary['lng']
-        else:
-            print(obj.latitude)
-            print(obj.longitude)
+        dictionary = json_data['results'][0]['geometry']['location']
+        obj.latitude = dictionary['lat']
+        obj.longitude = dictionary['lng']
 
         if(obj.owner == self.request.user):
             obj.save()
