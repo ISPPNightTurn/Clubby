@@ -17,7 +17,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 # from clubby.forms import EventAddForm
-from ..forms import ClubModelForm, SignupForm, ProductModelForm, EventModelForm, FundsForm, SearchForm, SearchEventForm
+from ..forms import ClubModelForm, SignupForm, ProductModelForm, EventModelForm, FundsForm, SearchForm, SearchEventForm, SpotifyForm
 from ..models import Club, Event, Profile, Product, Ticket, SecurityAdvice
 
 from datetime import datetime, timedelta
@@ -99,8 +99,10 @@ def profile(request):
             club = ''
             
         form = FundsForm()
+        spotify_form = SpotifyForm(initial={'spotify_username':me.profile.spotify_username})
+
         context = {'logged_user': me, 'user_profile': profile,
-                   'club': club, 'form': form, 'google_url': google_url}
+                   'club': club, 'form': form, 'google_url': google_url,'spotify_form':spotify_form}
         return render(request, 'clubby/profile.html', context)
 
 # we not only register the user but also authenticate them.

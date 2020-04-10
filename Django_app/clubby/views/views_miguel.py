@@ -19,7 +19,7 @@ from django import forms
 
 from django.utils.crypto import get_random_string
 
-from ..forms import TicketPurchaseForm, FundsForm, PremiumForm, SearchForm, EditProfileForm, ProductModelForm
+from ..forms import TicketPurchaseForm, FundsForm, PremiumForm, SearchForm, EditProfileForm, ProductModelForm, SpotifyForm
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
 from django.utils.translation import ugettext_lazy as _
@@ -34,6 +34,10 @@ import datetime
 import random
 import json
 import stripe # new
+import spotipy.util as spoti
+import requests
+import urllib
+import pytz
 
 stripe.api_key = settings.STRIPE_SECRET_KEY # new
 
@@ -407,9 +411,8 @@ def edit_profile(request):
 #   STATISTICS   #
 ##################
 
-
+@permission_required('clubby.is_premium_owner')
 def get_stats(request):
-
     # PRODUCTOS VENDIDOS TOTAL
     products_by_club = Product.objects.filter(club=request.user.club)
     product_ammounts = []
@@ -475,3 +478,118 @@ def get_stats(request):
     context['sales_month_products'] = sales_month_products
     context['sales_month_events'] = sales_month_events
     return render(request, 'clubby/charts/statistics.html', context)
+
+
+###############
+#   SPOTIFY   #
+###############
+@permission_required('clubby.is_user')
+def connect_spotify(request):
+    if request.method == 'POST':
+        form = SpotifyForm(request.POST)
+        if (form.is_valid()):
+            username = form.cleaned_data.get('spotify_username')
+            client_id ='7af4e7e36a454ec09746fa13559947d9'
+            client_secret = '77803dff87ba476fb8ccdaf0750d695a'
+            redirect_uri = 'http://localhost:8000/clubby/spotify/authorize/'
+            scope = 'user-top-read'
+
+            user = request.user
+            profile = user.profile
+            profile.spotify_username = username
+
+            profile.save()
+
+            token = spoti.prompt_for_user_token(username=username, scope=scope, 
+            client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, show_dialog=True)
+
+            print('\n\n\n this is the auth token \n')
+            print(token)
+            print('\n\n\n')
+           
+            return redirect('profile')
+        else:
+            return redirect('profile')
+    else:
+        code, error = None, None
+        
+        try:
+            code = request.GET.get("code")
+            print('code: '+ code)
+        except:
+            print('no code found')
+
+        try:
+            error = request.GET.get("error")
+            print('error: '+ error)
+        except:
+            print('no error found')
+
+        if(code != None):
+            token_uri = 'https://accounts.spotify.com/api/token'
+
+            redirect_uri = 'http://localhost:8000/clubby/spotify/authorize/'
+            client_id ='7af4e7e36a454ec09746fa13559947d9'
+            client_secret = '77803dff87ba476fb8ccdaf0750d695a'
+
+            data = {'grant_type':'authorization_code',
+            'code':code, 
+            'redirect_uri':redirect_uri,
+            'client_id':client_id,
+            'client_secret':client_secret} 
+
+            response = requests.post(url=token_uri,data=data)
+            data = json.loads(response.text)  
+
+            spotify_expiration_date = datetime.datetime.now() + datetime.timedelta(seconds=data['expires_in'])
+
+            spotify_access_token = data['access_token']
+            spotify_refresh_token = data['refresh_token']
+            profile = request.user.profile
+            profile.spotify_access_token = spotify_access_token
+            profile.spotify_refresh_token = spotify_refresh_token
+            profile.spotify_expiration_date = spotify_expiration_date
+            profile.save()
+        else:
+            print(error)
+
+        return redirect('profile')
+
+@permission_required('clubby.is_user')
+def view_recommended_events(request):
+    profile = request.user.profile
+    now_date = pytz.utc.localize(datetime.datetime.now())
+    if(profile.spotify_expiration_date > now_date):
+        token_uri = 'https://accounts.spotify.com/api/token'
+
+        client_id ='7af4e7e36a454ec09746fa13559947d9'
+        client_secret = '77803dff87ba476fb8ccdaf0750d695a'
+
+        data = {'grant_type':'refresh_token',
+        'refresh_token':profile.spotify_refresh_token,
+        'client_id':client_id,
+        'client_secret':client_secret} 
+
+        response = requests.post(url=token_uri,data=data)
+        data = json.loads(response.text)
+
+        spotify_expiration_date = datetime.datetime.now() + datetime.timedelta(seconds=data['expires_in'])
+        spotify_access_token = data['access_token']
+
+        profile.spotify_access_token = spotify_access_token
+        profile.spotify_expiration_date = spotify_expiration_date
+        profile.save()
+    else:
+        spotify_access_token = profile.spotify_access_token
+
+    headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': f'Bearer ' + spotify_access_token,
+    }
+
+    response = requests.get('https://api.spotify.com/v1/me/top/artists', headers = headers, timeout = 5)
+
+    print(response.json())
+
+    return redirect('landing')

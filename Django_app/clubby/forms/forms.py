@@ -130,3 +130,6 @@ class EventModelForm(ModelForm):
         model = Event
         fields = '__all__'
         exclude = ['atendees','club'] 
+
+class SpotifyForm(forms.Form):
+    spotify_username = forms.CharField(max_length=60, help_text=_("your spotify username, you will be prompted for authorization"))

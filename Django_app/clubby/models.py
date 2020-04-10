@@ -36,6 +36,10 @@ class Profile(models.Model):
     picture = models.URLField(help_text=ugettext_lazy('Post a picture of your pretty face, dude'),null=True,blank=True)
     renew_premium = models.BooleanField(default=False)
     stripe_account_id = models.CharField(max_length=40, blank=True)
+    spotify_username = models.CharField(max_length=40, blank=True)
+    spotify_access_token = models.CharField(max_length=800, blank=True)
+    spotify_refresh_token = models.CharField(max_length=800, blank=True)
+    spotify_expiration_date = models.DateTimeField(blank=True, null=True)
 
     @receiver(post_save, sender=User)
     def update_user_profile(sender, instance, created, **kwargs):
