@@ -485,75 +485,49 @@ def get_stats(request):
 ###############
 @permission_required('clubby.is_user')
 def connect_spotify(request):
-    if request.method == 'POST':
-        form = SpotifyForm(request.POST)
-        if (form.is_valid()):
-            username = form.cleaned_data.get('spotify_username')
-            client_id ='7af4e7e36a454ec09746fa13559947d9'
-            client_secret = '77803dff87ba476fb8ccdaf0750d695a'
-            redirect_uri = 'http://localhost:8000/clubby/spotify/authorize/'
-            scope = 'user-top-read'
+    code, error = None, None
+    
+    try:
+        code = request.GET.get("code")
+        print('code: '+ code)
+    except:
+        print('no code found')
 
-            user = request.user
-            profile = user.profile
-            profile.spotify_username = username
+    try:
+        error = request.GET.get("error")
+        print('error: '+ error)
+    except:
+        print('no error found')
 
-            profile.save()
+    if(code != None):
+        token_uri = 'https://accounts.spotify.com/api/token'
 
-            token = spoti.prompt_for_user_token(username=username, scope=scope, 
-            client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, show_dialog=True)
+        redirect_uri = 'http://localhost:8000/clubby/spotify/authorize/'
+        client_id ='7af4e7e36a454ec09746fa13559947d9'
+        client_secret = '77803dff87ba476fb8ccdaf0750d695a'
 
-            print('\n\n\n this is the auth token \n')
-            print(token)
-            print('\n\n\n')
-           
-            return redirect('profile')
-        else:
-            return redirect('profile')
+        data = {'grant_type':'authorization_code',
+        'code':code, 
+        'redirect_uri':redirect_uri,
+        'client_id':client_id,
+        'client_secret':client_secret} 
+
+        response = requests.post(url=token_uri,data=data)
+        data = json.loads(response.text)  
+
+        spotify_expiration_date = datetime.datetime.now() + datetime.timedelta(seconds=data['expires_in'])
+
+        spotify_access_token = data['access_token']
+        spotify_refresh_token = data['refresh_token']
+        profile = request.user.profile
+        profile.spotify_access_token = spotify_access_token
+        profile.spotify_refresh_token = spotify_refresh_token
+        profile.spotify_expiration_date = spotify_expiration_date
+        profile.save()
     else:
-        code, error = None, None
-        
-        try:
-            code = request.GET.get("code")
-            print('code: '+ code)
-        except:
-            print('no code found')
+        print(error)
 
-        try:
-            error = request.GET.get("error")
-            print('error: '+ error)
-        except:
-            print('no error found')
-
-        if(code != None):
-            token_uri = 'https://accounts.spotify.com/api/token'
-
-            redirect_uri = 'http://localhost:8000/clubby/spotify/authorize/'
-            client_id ='7af4e7e36a454ec09746fa13559947d9'
-            client_secret = '77803dff87ba476fb8ccdaf0750d695a'
-
-            data = {'grant_type':'authorization_code',
-            'code':code, 
-            'redirect_uri':redirect_uri,
-            'client_id':client_id,
-            'client_secret':client_secret} 
-
-            response = requests.post(url=token_uri,data=data)
-            data = json.loads(response.text)  
-
-            spotify_expiration_date = datetime.datetime.now() + datetime.timedelta(seconds=data['expires_in'])
-
-            spotify_access_token = data['access_token']
-            spotify_refresh_token = data['refresh_token']
-            profile = request.user.profile
-            profile.spotify_access_token = spotify_access_token
-            profile.spotify_refresh_token = spotify_refresh_token
-            profile.spotify_expiration_date = spotify_expiration_date
-            profile.save()
-        else:
-            print(error)
-
-        return redirect('profile')
+    return redirect('profile')
 
 @permission_required('clubby.is_user')
 def view_recommended_events(request):
@@ -592,10 +566,12 @@ def view_recommended_events(request):
     response = requests.get('https://api.spotify.com/v1/me/top/artists', headers = headers, timeout = 5)
 
     data = json.loads(response.text)  
-
-    for d in data['items']:
-        print(d['name'])
-        print(d['genres'])
-        print()
+    try:
+        for d in data['items']:
+            print(d['name'])
+            print(d['genres'])
+            print()
+    except:
+        print('no artist found for this person.')
 
     return redirect('landing')

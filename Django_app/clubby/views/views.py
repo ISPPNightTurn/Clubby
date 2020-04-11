@@ -99,10 +99,15 @@ def profile(request):
             club = ''
             
         form = FundsForm()
-        spotify_form = SpotifyForm(initial={'spotify_username':me.profile.spotify_username})
+
+        client_id ='7af4e7e36a454ec09746fa13559947d9'
+        redirect_uri = 'http://localhost:8000/clubby/spotify/authorize/'
+        scope = 'user-top-read'
+
+        spotify_link_url = 'https://accounts.spotify.com/authorize?client_id='+client_id+'&response_type=code&redirect_uri='+redirect_uri+'&scope=user-top-read&show_dialog=true'
 
         context = {'logged_user': me, 'user_profile': profile,
-                   'club': club, 'form': form, 'google_url': google_url,'spotify_form':spotify_form}
+                   'club': club, 'form': form, 'google_url': google_url, 'spotify_url':spotify_link_url}
         return render(request, 'clubby/profile.html', context)
 
 # we not only register the user but also authenticate them.

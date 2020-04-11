@@ -165,6 +165,18 @@
     {%endif%}
     {%endif%}
 
+    <!-- USER SPECIFIC -->
+    {% if perms.clubby.is_user%}
+  
+    {%if logged_user.profile.spotify_access_token == '' %}
+      We can recommend events to you if you link your account with spotify you can do so:<br>
+    {%else%}
+      Your spotify account is currently linked, if you wish to change the linked spotify account you can do it:<br>
+    {%endif%}
+      <a href= "{{spotify_url}}"> HERE </a><br>
+
+      
+    {%endif%}
 
     <div class="card-action black">
     </br>
@@ -198,23 +210,5 @@
         </script>
 
   <!-- add assisted events if the user is an user and has been to at least 1 event.-->
-  {% if perms.clubby.is_user%}
   
-  {%if logged_user.profile.spotify_access_token == '' %}
-    We can recommend events to you if you link your account with spotify you can do so by putting you username in the form below:<br>
-    If you dont know you username you can check it out:<br>
-  {%else%}
-    If you wish to change the vinculated spotify account you can do it by specifying the new username below:<br>
-    you can check it out: <br>
-  {%endif%}
-    <a href= "https://www.spotify.com/account/overview/"> HERE </a><br>
-
-    <form method="post" action="{% url 'spotify-auth' %}">
-      {% csrf_token %}
-      <br>
-      {{ spotify_form }}
-      <button class="btn purple darken-4" type="submit">{% trans 'link spotify' %}</button>
-    </form>
-    
-  {%endif%}
 {% endblock %}
