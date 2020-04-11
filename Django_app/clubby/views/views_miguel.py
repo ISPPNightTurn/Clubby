@@ -560,6 +560,7 @@ def view_recommended_events(request):
     profile = request.user.profile
     now_date = pytz.utc.localize(datetime.datetime.now())
     if(profile.spotify_expiration_date > now_date):
+        print('pedimos un nuevo token')
         token_uri = 'https://accounts.spotify.com/api/token'
 
         client_id ='7af4e7e36a454ec09746fa13559947d9'
@@ -590,6 +591,11 @@ def view_recommended_events(request):
 
     response = requests.get('https://api.spotify.com/v1/me/top/artists', headers = headers, timeout = 5)
 
-    print(response.json())
+    data = json.loads(response.text)  
+
+    for d in data['items']:
+        print(d['name'])
+        print(d['genres'])
+        print()
 
     return redirect('landing')
