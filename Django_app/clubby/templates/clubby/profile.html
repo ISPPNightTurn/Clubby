@@ -166,6 +166,7 @@
     {%endif%}
 
     <!-- USER SPECIFIC -->
+    <br>
     {% if perms.clubby.is_user%}
   
     {%if logged_user.profile.spotify_access_token == '' %}
@@ -177,7 +178,7 @@
 
       
     {%endif%}
-
+    <br>
     <div class="card-action black">
     </br>
       <a class="btn purple darken-4" href="export-data">{% trans 'Export personal data' %}</a>

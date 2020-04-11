@@ -486,7 +486,6 @@ def get_stats(request):
 @permission_required('clubby.is_user')
 def connect_spotify(request):
     code, error = None, None
-    
     try:
         code = request.GET.get("code")
         print('code: '+ code)
