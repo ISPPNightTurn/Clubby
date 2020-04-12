@@ -19,6 +19,8 @@ from django import forms
 
 from django.utils.crypto import get_random_string
 
+from django.db.models import Q
+
 from ..forms import TicketPurchaseForm, FundsForm, PremiumForm, SearchForm, EditProfileForm, ProductModelForm, SpotifyForm
 from ..models import Club, Event, Profile, Product, Ticket, QR_Item
 
@@ -565,12 +567,40 @@ def view_recommended_events(request):
     response = requests.get('https://api.spotify.com/v1/me/top/artists', headers = headers, timeout = 5)
 
     data = json.loads(response.text)  
+
+    genres = ['rock', 'pop','techno','electro','hip hop', 'trap','reggaeton','indie','metal', 'latin',
+        'edm','cumbia','rap','house','r&b','latino','dance','k-pop','funk','folk','disco','emo','flamenco',
+        'country','trance','reggae','salsa','soul','jazz','ska','dubstep','rumba','punk','ranchera','grunge']
+
+    genres_count = {'rock':0, 'pop':0,'techno':0,'electro':0,'hip hop':0, 'trap':0,'reggaeton':0,'indie':0,'metal':0, 'latin':0,
+        'edm':0,'cumbia':0,'rap':0,'house':0,'r&b':0,'latino':0,'dance':0,'k-pop':0,'funk':0,'folk':0,'disco':0,'emo':0,'flamenco':0,
+        'country':0,'trance':0,'reggae':0,'salsa':0,'soul':0,'jazz':0,'ska':0,'dubstep':0,'rumba':0,'punk':0,'ranchera':0,'grunge':0}
+
     try:
         for d in data['items']:
-            print(d['name'])
-            print(d['genres'])
-            print()
+            for g in d['genres']:
+                for genre in genres:
+                    if(genre in g):
+                        genres_count[genre] = 1
     except:
-        print('no artist found for this person.')
+        print('no artists found for this spotify account.')
+        redirect('events')
+    
+    user_genres = []
+    for g in genres:
+        if(genres_count[g] == 1):
+            user_genres.append(g)
 
-    return redirect('landing')
+    print(user_genres)
+
+    query = Q()
+    for g in user_genres:
+        query = query | Q(event_type=g)
+
+    start = datetime.datetime.now().date()
+    end = (datetime.datetime.now()+datetime.timedelta(days = 30))
+    events = Event.objects.filter(start_date__gte=start).filter(start_date__lte=end).filter(query).order_by('start_date', 'start_time')
+    
+    context = {'object_list':events}
+
+    return render(request,'clubby\event\list.html', context)

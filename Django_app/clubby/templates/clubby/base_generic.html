@@ -23,10 +23,22 @@
   <li><a href="{% url 'profile' %}"><p class="white-text light">{% trans 'Profile' %}</p></a></li>
 </ul>
 
-<!--Dropdown for clubs-->
 <ul id="dropdownClubs" class="dropdown-content purple darken-4">
   <li><a href="{% url 'clubs' %}"><p class="white-text">{% trans 'All clubs' %}</p></a></li>   
   <li><a href="{% url 'clubs-near' %}"><p class="white-text light">{% trans 'Clubs nearby' %}</p></a></li>
+</ul>
+
+<ul id="dropdownEvents" class="dropdown-content purple darken-4">
+  {%if request.user.profile.spotify_access_token != ''%}
+  <li><a href="{% url 'events-recommended' %}"><p class="light">{% trans 'Recommended events' %}</p></a></li>
+  {%endif%}
+  <li><a href="{% url 'events' %}"><p class="light">{% trans 'All events' %}</p></a></li>
+  <li><a href="{% url 'my-events' %}">{% trans 'My Events' %}</a></li>
+</ul>
+
+<ul id="dropdownPurchases" class="dropdown-content purple darken-4">
+  <li><a href="{% url 'my-purchases' %}">{% trans 'My Purchases' %}</a></li>
+  <li><a href="{% url 'my-history' %}">{% trans 'My History' %}</a></li>
 </ul>
 
   <div class="navbar-fixed hide-on-med-and-down" role="navigation">
@@ -38,17 +50,17 @@
           </a>
         </div>
         <ul class="right hide-on-med-and-down">
-          <li><a class="dropdown-trigger" href="#!" data-target="dropdownClubs">{% trans 'Clubs' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
-          <li><a href="{% url 'events' %}"><p class="light">{% trans 'All events' %}</p></a></li>
-
+          
           {% if user.is_authenticated %}
-          <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">{% trans 'User:' %} {{ user.get_username }}<em class="material-icons right">arrow_drop_down</em></a></li>
           <li><a href="{% url 'profile' %}"><p class="light">{% trans 'Funds:' %} {{  user.profile.funds  }}€</p></a></li>
+          <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">{% trans 'User:' %} {{ user.get_username }}<em class="material-icons right">arrow_drop_down</em></a></li>
+          
           {% if perms.clubby.is_user %}
-          <!-- We can list our events only if we are a user.  -->
-          <li><a href="{% url 'my-events' %}">{% trans 'My Events' %}</a></li>
-          <li><a href="{% url 'my-purchases' %}">{% trans 'My Purchases' %}</a></li>
-          <li><a href="{% url 'my-history' %}">{% trans 'My History' %}</a></li>
+          <!--Dropdowns-->
+          <li><a class="dropdown-trigger" href="#!" data-target="dropdownClubs">{% trans 'Clubs' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
+          <li><a class="dropdown-trigger" href="#!" data-target="dropdownEvents">{% trans 'Events' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
+          <li><a class="dropdown-trigger" href="#!" data-target="dropdownPurchases">{% trans 'Purchases' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
+          
           {%endif%}
           {% if perms.clubby.is_owner %}
           <!-- We can add owner specific actions here (they need to not require a club.)--> 

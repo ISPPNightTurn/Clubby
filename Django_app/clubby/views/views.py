@@ -397,8 +397,7 @@ class EventListView(generic.ListView):
         # gt = greater than
         # lte = lesser than or equal
         # lt = lesser than
-        items = Event.objects.filter(start_date__gte=datetime.datetime.now(
-        ).date()).order_by('start_date', 'start_time')
+        items = Event.objects.filter(start_date__gte=datetime.datetime.now().date()).order_by('start_date', 'start_time')
         return items
 
     def get_context_data(self, **kwargs):
