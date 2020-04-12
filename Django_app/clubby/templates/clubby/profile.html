@@ -168,13 +168,15 @@
     <!-- USER SPECIFIC -->
     <br>
     {% if perms.clubby.is_user%}
-  
+    <br>
     {%if logged_user.profile.spotify_access_token == '' %}
-      We can recommend events to you if you link your account with spotify you can do so:<br>
+    <span class="light white-text" style="vertical-align:middle;">
+      We can recommend events to you if you link your account with spotify you can do so here:</span><br></br>
     {%else%}
-      Your spotify account is currently linked, if you wish to change the linked spotify account you can do it:<br>
+    <span class="light white-text" style="vertical-align:middle;">
+      Your spotify account is currently linked, if you wish to change the linked spotify account you can do it here:</span><br></br>
     {%endif%}
-      <a href= "{{spotify_url}}"> HERE </a><br>
+      <a href= "{{spotify_url}}" class="waves-effect green waves-light btn-large"><i class="material-icons left">link</i>Link your Spotify account</a><br>
 
       
     {%endif%}
