@@ -30,15 +30,15 @@
 
 <ul id="dropdownEvents" class="dropdown-content purple darken-4">
   {%if request.user.profile.spotify_access_token != ''%}
-  <li><a href="{% url 'events-recommended' %}"><p class="light">{% trans 'Recommended events' %}</p></a></li>
+  <li><a class="white-text" href="{% url 'events-recommended' %}"><p class="light">{% trans 'Recommended events' %}</p></a></li>
   {%endif%}
-  <li><a href="{% url 'events' %}"><p class="light">{% trans 'All events' %}</p></a></li>
-  <li><a href="{% url 'my-events' %}">{% trans 'My Events' %}</a></li>
+  <li><a class="white-text" href="{% url 'events' %}"><p class="light">{% trans 'All events' %}</p></a></li>
+  <li><a class="white-text" href="{% url 'my-events' %}">{% trans 'My Events' %}</a></li>
 </ul>
 
 <ul id="dropdownPurchases" class="dropdown-content purple darken-4">
-  <li><a href="{% url 'my-purchases' %}">{% trans 'My Purchases' %}</a></li>
-  <li><a href="{% url 'my-history' %}">{% trans 'My History' %}</a></li>
+  <li><a class="white-text" href="{% url 'my-purchases' %}">{% trans 'My Purchases' %}</a></li>
+  <li><a class="white-text" href="{% url 'my-history' %}">{% trans 'My History' %}</a></li>
 </ul>
 
   <div class="navbar-fixed hide-on-med-and-down" role="navigation">
@@ -53,13 +53,13 @@
           
           {% if user.is_authenticated %}
           <li><a href="{% url 'profile' %}"><p class="light">{% trans 'Funds:' %} {{  user.profile.funds  }}€</p></a></li>
-          <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">{% trans 'User:' %} {{ user.get_username }}<em class="material-icons right">arrow_drop_down</em></a></li>
+          <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdown1">{% trans 'User:' %} {{ user.get_username }}<em class="material-icons right">arrow_drop_down</em></a></li>
           
           {% if perms.clubby.is_user %}
           <!--Dropdowns-->
-          <li><a class="dropdown-trigger" href="#!" data-target="dropdownClubs">{% trans 'Clubs' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
-          <li><a class="dropdown-trigger" href="#!" data-target="dropdownEvents">{% trans 'Events' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
-          <li><a class="dropdown-trigger" href="#!" data-target="dropdownPurchases">{% trans 'Purchases' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
+          <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdownClubs">{% trans 'Clubs' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
+          <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdownEvents">{% trans 'Events' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
+          <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdownPurchases">{% trans 'Purchases' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
           
           {%endif%}
           {% if perms.clubby.is_owner %}
@@ -118,13 +118,26 @@
       {% endif %} 
     <li><div class="divider"></div></li>
 
-    <a class="subheader">Explore</a>
-
     <li><a class="waves-effect" href="{% url 'landing' %}"><span class="white-text link">{% trans 'Home' %}</span></a></li>
+    
+    <li><div class="divider"></div></li>
+    
+    <a class="subheader">Clubs</a>
     <li><a class="waves-effect" href="{% url 'clubs' %}"><span class="white-text link">{% trans 'All clubs' %}</span></a></li>
     <li><a class="waves-effect" href="{% url 'clubs-near' %}"><span class="white-text link">{% trans 'Clubs nearby' %}</span></a></li>
+
+    <li><div class="divider"></div></li>
+
+    <a class="subheader">Events</a>
+    {%if request.user.profile.spotify_access_token != ''%}
+      <li><a class="waves-effect" href="{% url 'events-recommended' %}"><span class="white-text link">{% trans 'Recommended events' %}</span></a></li>
+    {%endif%}
     <li><a class="waves-effect" href="{% url 'events' %}"><span class="white-text link">{% trans 'All events' %}</span></a></li>
+    <li><a class="waves-effect" href="{% url 'my-events' %}"><span class="white-text link">{% trans 'My Events' %}</span></a></li>
+    
     {% if perms.clubby.is_user %}
+    <li><div class="divider"></div></li>
+    <a class="subheader">Purchases</a>
     <li><a class="waves-effect" href="{% url 'my-purchases' %}"><span class="white-text link">{% trans 'My purchases' %}</span></a></li>
     <li><a class="waves-effect" href="{% url 'my-history' %}"><span class="white-text link">{% trans 'My history' %}</span></a></li>
     {%endif%}
