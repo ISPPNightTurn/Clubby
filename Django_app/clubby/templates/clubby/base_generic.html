@@ -128,7 +128,7 @@
 
     <li><div class="divider"></div></li>
 
-    <a class="subheader">Events</a>
+    <a class="subheader">{% trans 'Events' %}</a>
     {%if request.user.profile.spotify_access_token != ''%}
       <li><a class="waves-effect" href="{% url 'events-recommended' %}"><span class="white-text link">{% trans 'Recommended events' %}</span></a></li>
     {%endif%}
@@ -137,7 +137,7 @@
     
     {% if perms.clubby.is_user %}
     <li><div class="divider"></div></li>
-    <a class="subheader">Purchases</a>
+    <a class="subheader">{% trans 'Purchases' %}</a>
     <li><a class="waves-effect" href="{% url 'my-purchases' %}"><span class="white-text link">{% trans 'My purchases' %}</span></a></li>
     <li><a class="waves-effect" href="{% url 'my-history' %}"><span class="white-text link">{% trans 'My history' %}</span></a></li>
     {%endif%}

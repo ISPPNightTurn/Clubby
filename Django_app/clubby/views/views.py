@@ -406,8 +406,10 @@ class EventListView(generic.ListView):
         end_date = datetime.datetime.now()+datetime.timedelta(days=7)
         start_date = datetime.datetime.now()
 
+        
+
         form = SearchEventForm(
-            initial={'end_date': end_date.date(), 'start_date': start_date.date()})
+            initial={'end_date': end_date.date().strftime("%Y-%m-%d"), 'start_date': start_date.date().strftime("%Y-%m-%d")})
         context['form'] = form
         return context
 
@@ -420,6 +422,7 @@ class EventListView(generic.ListView):
         items = Event.objects.filter(start_date__gte=start_date)
         items = items.filter(start_date__lte=end_date).order_by(
             'start_date', 'start_time')
+        items = items.filter(start_date__gte=datetime.datetime.now())
 
         return render(request, 'clubby/event/list.html', {'object_list': items, 'form': form})
         # return StatusFormView.as_view()(request)

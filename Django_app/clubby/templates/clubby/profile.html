@@ -160,7 +160,7 @@
     <img class="responsive-img materialboxed" style="display: inline;" width="500" src={{google_url|safe}} alt="club location"/><br/>
 
     </div> 
-    <span class="light white-text" style="vertical-align:middle;">(if it isn't showing properly on this map you might want to replace the address you gave us.)</span>
+    <span class="light white-text" style="vertical-align:middle;">{% trans '(if it is not showing properly on this map you might want to replace the address you gave us.)' %}</span>
     
     {%endif%}
     {%endif%}
@@ -171,12 +171,12 @@
     <br>
     {%if logged_user.profile.spotify_access_token == '' %}
     <span class="light white-text" style="vertical-align:middle;">
-      We can recommend events to you if you link your account with spotify you can do so here:</span><br></br>
+     {% trans 'We can recommend events to you if you link your account with spotify you can do so here:' %}</span><br></br>
     {%else%}
     <span class="light white-text" style="vertical-align:middle;">
-      Your spotify account is currently linked, if you wish to change the linked spotify account you can do it here:</span><br></br>
+      {% trans 'Your spotify account is currently linked, if you wish to change the linked spotify account you can do it here:' %}</span><br></br>
     {%endif%}
-      <a href= "{{spotify_url}}" class="waves-effect green waves-light btn-large"><i class="material-icons left">link</i>Link your Spotify account</a><br>
+      <a href= "{{spotify_url}}" class="waves-effect green waves-light btn-large"><i class="material-icons left">link</i>{% trans 'Link your Spotify account' %}</a><br>
 
       
     {%endif%}
