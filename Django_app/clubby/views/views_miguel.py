@@ -446,8 +446,7 @@ def get_stats(request):
     cont = 0
     now = datetime.datetime.now().date()
 
-    context['month_labels'] = json.dumps(
-        ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+    context['month_labels'] = json.dumps(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
     sales_month_products = []
     sales_month_events = []
     cumsum_products = 0
@@ -461,21 +460,21 @@ def get_stats(request):
         products_by_club = Product.objects.filter(club=request.user.club)
 
         for product in products_by_club:
-            cumsum_products += QR_Item.objects.filter(product=product).filter(
-                fecha__gte=first).filter(fecha__lte=last).count()*product.price
+            cumsum_products += QR_Item.objects.filter(product=product).filter(fecha__gte=first).filter(fecha__lte=last).count()*product.price
 
-        events_by_club = Event.objects.filter(club=request.user.club).filter(
-            start_date__gte=first).filter(start_date__lte=last)
+        events_by_club = Event.objects.filter(club=request.user.club).filter(start_date__gte=first).filter(start_date__lte=last)
 
         for event in events_by_club:
             tickets_for_event = Ticket.objects.filter(event=event)
 
             for ticket in tickets_for_event:
-                cumsum_events += QR_Item.objects.filter(
-                    ticket=ticket).count()*ticket.price
+                cumsum_events += QR_Item.objects.filter(ticket=ticket).count()*ticket.price
 
         sales_month_products.append(str(cumsum_products))
         sales_month_events.append(str(cumsum_events))
+
+    print(sales_month_products)
+    print(sales_month_events)
 
     context['sales_month_products'] = sales_month_products
     context['sales_month_events'] = sales_month_events

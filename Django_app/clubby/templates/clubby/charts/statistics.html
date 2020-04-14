@@ -9,20 +9,27 @@
 </div>
 <div class="hide-on-med-and-down" style="width:50.0%;float:right; position: relative">
     <p class="white-text center">{% trans 'TICKET SALES' %}<br/>{% trans 'Total amount of tickets sold for your events' %}</p>
-
-  <canvas id="event_sales"></canvas>
+    <canvas id="event_sales"></canvas>
+</div>
+<div class="hide-on-med-and-down">
+    <p class="white-text center">{% trans 'MONEY EARNED' %}<br/>{% trans 'Cumulative sum of money earned' %}</p>
+    <canvas id="money"></canvas>
 </div>
 
-<h3> More statistics coming soon! </h3>
 
 <div class="hide-on-large-only">
     <p class="white-text center">{% trans 'PRODUCT SALES' %}<br/>{% trans 'Total amount of products sold in your club' %}</p>
     <canvas id="products_sales_small"></canvas>
 </div>
+
 <div class="hide-on-large-only">
     <p class="white-text center">{% trans 'TICKET SALES' %}<br/>{% trans 'Total amount of tickets sold for your events' %}</p>
+    <canvas id="event_sales_small"></canvas>
+</div>
 
-  <canvas id="event_sales_small"></canvas>
+<div class="hide-on-large-only">
+    <p class="white-text center">{% trans 'MONEY EARNED' %}<br/>{% trans 'Cumulative sum of money earned' %}</p>
+    <canvas id="money_small"></canvas>
 </div>
 
 <h3> More statistics coming soon! </h3>
@@ -68,7 +75,7 @@ var myChart = new Chart(ctx, {
 });
 
 var ctx_small = document.getElementById('products_sales_small').getContext('2d');
-var myChart = new Chart(ctx_small, {
+var myChart_small = new Chart(ctx_small, {
     type: 'bar',
     data: {
         labels: product_labels_from_view,
@@ -93,7 +100,7 @@ var myChart = new Chart(ctx_small, {
 });
 
 var ctx2 = document.getElementById('event_sales').getContext('2d');
-var myChar2_small = new Chart(ctx2, {
+var myChar2 = new Chart(ctx2, {
     type: 'bar',
     data: {
         labels: event_labels_from_view,
