@@ -11,9 +11,14 @@
     <p class="white-text center">{% trans 'TICKET SALES' %}<br/>{% trans 'Total amount of tickets sold for your events' %}</p>
     <canvas id="event_sales"></canvas>
 </div>
-<div class="hide-on-med-and-down">
+
+<div class="hide-on-med-and-down" style="width:50.0%;float:right; position: relative">
     <p class="white-text center">{% trans 'MONEY EARNED' %}<br/>{% trans 'Cumulative sum of money earned' %}</p>
     <canvas id="money"></canvas>
+</div>
+<div class="hide-on-med-and-down" style="width:50.0%;float:right; position: relative">
+    <p class="white-text center">{% trans 'MONTHLY RATINGS' %}<br/>{% trans 'Monthly rating average of your club' %}</p>
+    <canvas id="rating"></canvas>
 </div>
 
 
@@ -31,6 +36,10 @@
     <p class="white-text center">{% trans 'MONEY EARNED' %}<br/>{% trans 'Cumulative sum of money earned' %}</p>
     <canvas id="money_small"></canvas>
 </div>
+<div class="hide-on-large-only">
+    <p class="white-text center">{% trans 'MONTHLY RATINGS' %}<br/>{% trans 'Monthly rating average of your club' %}</p>
+    <canvas id="rating_small"></canvas>
+</div>
 
 <h3> More statistics coming soon! </h3>
 
@@ -45,6 +54,8 @@ var event_labels_from_view = {{event_labels|safe}};
 
 var monthly_sales_products = {{sales_month_products|safe}};
 var monthly_sales_events = {{sales_month_events|safe}};
+
+var monthly_ratings = {{rating_average|safe}};
 
 /*Because of the responsive design we are using, it's necesary to create 2 charts for each one: one for the
 large size and another for the medium and low size.*/
@@ -154,7 +165,7 @@ var myChar3 = new Chart(ctx3, {
     data: {
         labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
         datasets: [{
-            label: '# of product purchases',
+            label: 'Money earned by product sales',
             borderColor: 'rgb(255, 160, 160)',
             pointBackgroundColor: 'rgb(255, 160, 160)',
             pointHoverBackgroundColor: 'rgb(255, 120, 120)',
@@ -165,7 +176,7 @@ var myChar3 = new Chart(ctx3, {
             
         },
         {
-            label: '# of event ticket purchases',
+            label: 'Money earned by ticket sales',
             borderColor: 'rgb(160, 160, 255)',
             pointBackgroundColor: 'rgb(160, 160, 255)',
             pointHoverBackgroundColor: 'rgb(120, 120, 255)',
@@ -193,7 +204,7 @@ var myChar3_small = new Chart(ctx3_small, {
     data: {
         labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
         datasets: [{
-            label: '# of product purchases',
+            label: 'Money earned by product sales',
             borderColor: 'rgb(255, 160, 160)',
             pointBackgroundColor: 'rgb(255, 160, 160)',
             pointHoverBackgroundColor: 'rgb(255, 120, 120)',
@@ -204,7 +215,7 @@ var myChar3_small = new Chart(ctx3_small, {
             
         },
         {
-            label: '# of event ticket purchases',
+            label: 'Money earned by ticket sales',
             borderColor: 'rgb(160, 160, 255)',
             pointBackgroundColor: 'rgb(160, 160, 255)',
             pointHoverBackgroundColor: 'rgb(120, 120, 255)',
@@ -224,6 +235,56 @@ var myChar3_small = new Chart(ctx3_small, {
         }
     }
 });
+
+var ctx4 = document.getElementById('rating').getContext('2d');
+var myChar4 = new Chart(ctx4, {
+    type: 'bar',
+    data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+        datasets: [{
+            label: 'Average stars of all ratings',
+            backgroundColor: 'rgb(160, 160, 255)',
+            borderColor: 'rgb(120, 120, 255)',
+            data: monthly_ratings,
+            borderWidth: 5
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var ctx4_small = document.getElementById('rating_small').getContext('2d');
+var myChar4_small = new Chart(ctx4_small, {
+    type: 'bar',
+    data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+        datasets: [{
+            label: 'Average stars of all ratings',
+            backgroundColor: 'rgb(160, 160, 255)',
+            borderColor: 'rgb(120, 120, 255)',
+            data: monthly_ratings,
+            borderWidth: 5
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
 </script>
 {% endblock %}
 

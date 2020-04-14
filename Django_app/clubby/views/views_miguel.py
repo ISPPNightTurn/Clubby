@@ -22,7 +22,7 @@ from django.utils.crypto import get_random_string
 from django.db.models import Q
 
 from ..forms import TicketPurchaseForm, FundsForm, PremiumForm, SearchForm, EditProfileForm, ProductModelForm, SpotifyForm
-from ..models import Club, Event, Profile, Product, Ticket, QR_Item
+from ..models import Club, Event, Profile, Product, Ticket, QR_Item, Rating
 
 from django.utils.translation import ugettext_lazy as _
 from background_task.models import Task
@@ -473,12 +473,33 @@ def get_stats(request):
         sales_month_products.append(str(cumsum_products))
         sales_month_events.append(str(cumsum_events))
 
-    print(sales_month_products)
-    print(sales_month_events)
-
     context['sales_month_products'] = sales_month_products
     context['sales_month_events'] = sales_month_events
+
+    #MEDIA DE LAS VALORACIONES DEL CLUB POR MES.
+    
+    rating_average = []
+
+    for month in range(1, 13):
+        first = now.replace(month=month, day=1)
+        last = now.replace(month=month, day=monthrange(now.year, month)[1])
+        ratings_by_club_date = Rating.objects.filter(club=request.user.club).filter(fecha__gte=first).filter(fecha__lte=last)
+        starcount = 0
+        cumsum = 0
+        for r in ratings_by_club_date:
+            cumsum += r.stars
+            starcount += 1
+
+        if(starcount != 0):
+            rating_average.append(cumsum/starcount)
+        else:
+            rating_average.append(0.0)
+
+    context['rating_average'] = json.dumps(rating_average)
+
     return render(request, 'clubby/charts/statistics.html', context)
+
+
 
 
 ###############
