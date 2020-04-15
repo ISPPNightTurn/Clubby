@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-13 17:52+0200\n"
-"PO-Revision-Date: 2020-04-13 17:56+0200\n"
+"POT-Creation-Date: 2020-04-15 10:56+0200\n"
+"PO-Revision-Date: 2020-04-15 11:00+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -347,24 +347,44 @@ msgid "Continue"
 msgstr "Continuar"
 
 #: .\clubby\templates\clubby\charts\statistics.html:7
-#: .\clubby\templates\clubby\charts\statistics.html:19
+#: .\clubby\templates\clubby\charts\statistics.html:26
 msgid "PRODUCT SALES"
 msgstr "VENTAS DE PRODUCTOS"
 
 #: .\clubby\templates\clubby\charts\statistics.html:7
-#: .\clubby\templates\clubby\charts\statistics.html:19
+#: .\clubby\templates\clubby\charts\statistics.html:26
 msgid "Total amount of products sold in your club"
 msgstr "Total de productos vendidos en tu club"
 
 #: .\clubby\templates\clubby\charts\statistics.html:11
-#: .\clubby\templates\clubby\charts\statistics.html:23
+#: .\clubby\templates\clubby\charts\statistics.html:31
 msgid "TICKET SALES"
 msgstr "VENTA DE ENTRADAS"
 
 #: .\clubby\templates\clubby\charts\statistics.html:11
-#: .\clubby\templates\clubby\charts\statistics.html:23
+#: .\clubby\templates\clubby\charts\statistics.html:31
 msgid "Total amount of tickets sold for your events"
 msgstr "Total de entradas vendidas para tus eventos"
+
+#: .\clubby\templates\clubby\charts\statistics.html:16
+#: .\clubby\templates\clubby\charts\statistics.html:36
+msgid "MONEY EARNED"
+msgstr "DINERO GANADO"
+
+#: .\clubby\templates\clubby\charts\statistics.html:16
+#: .\clubby\templates\clubby\charts\statistics.html:36
+msgid "Cumulative sum of money earned"
+msgstr "Suma acumulativa de dinero ganado"
+
+#: .\clubby\templates\clubby\charts\statistics.html:20
+#: .\clubby\templates\clubby\charts\statistics.html:40
+msgid "MONTHLY RATINGS"
+msgstr "PUNTUACIONES MENSUALES"
+
+#: .\clubby\templates\clubby\charts\statistics.html:20
+#: .\clubby\templates\clubby\charts\statistics.html:40
+msgid "Monthly rating average of your club"
+msgstr "Media mensual de puntuaciones de su club"
 
 #: .\clubby\templates\clubby\club\club_confirm_delete.html:7
 msgid "Delete Club"
