@@ -2,6 +2,7 @@
 {% extends "clubby/base_generic.html" %}
 {% load i18n %}
 
+{% load static %}
 {% block content %}
 <h2 class="header center white-text">Login</h2>
 
@@ -47,7 +48,7 @@
   </a>
 </small></p>
 <div>
-  <a class="oauth-container btn purple darken-4 white-text" href="{% url 'social:begin' 'google-oauth2' %}" style="text-transform:none">
+  <a class="modal-trigger btn purple darken-4 white-text" href="#terms-modal" style="text-transform:none">
       <div class="left">
           <img width="20px" style="margin-right:8px" alt="Google Login" 
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
@@ -71,4 +72,41 @@
 <div>
 </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+ <script src="{% static 'clubby/js/materialize.js' %}"></script>
+
+<script>
+  $(document).ready(function(){
+      $('.modal').modal({dismissible: false});
+      $('.materialboxed').materialbox();
+    })
+  </script>
+
+<!-- Modal -->
+<div id="terms-modal" class="modal fade modal-fixed-footer" style="max-height: 70%;">
+  <div class="modal-content black">
+    <h4>{% trans 'Login with Google' %}</h4>
+    <h6>{% trans 'By clicking in the "Login with Google" button you agree with our' %} {% trans 'terms and conditions' %}
+    <a href="{% url 'terms-and-conditions' %}">
+      <img class="responsive-img" style="width: 5%;" src="/static/clubby/images/eng.png" alt="english"/>
+    </a>
+    <a href="{% url 'terminos-condiciones' %}">
+      <img class="responsive-img" style="width: 5%;" src="/static/clubby/images/esp.png" alt="español"/>
+    </a>
+     {% trans 'and' %} {% trans 'privacy policy' %}
+     <a href="{% url 'privacy-policy' %}">
+      <img class="responsive-img" style="width: 5%;" src="/static/clubby/images/eng.png" alt="english"/>
+    </a>
+    <a href="{% url 'politica-privacidad' %}">
+      <img class="responsive-img" style="width: 5%;" src="/static/clubby/images/esp.png" alt="español"/>
+    </a>
+  </h6>
+  </div>
+  <div class="modal-footer black">
+    <a href="#!" class="btn modal-action modal-close red darken-4 white-text">Cancel</a>
+    <a class="oauth-container btn purple darken-4 white-text" href="{% url 'social:begin' 'google-oauth2' %}">{% trans 'Login with Google' %}</a>
+  </div>
+</div>
+
 {% endblock %}
