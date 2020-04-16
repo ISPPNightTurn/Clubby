@@ -189,8 +189,31 @@ class ClubListView(generic.ListView):
         for club in items:
             if((query.lower() in club.name.lower()) or (query.lower() in club.address.lower())):
                 clubs.append(club)
+        
+        premium_clubs = []
+        common_clubs = []
+        for c in clubs:
+            if(c.owner.profile.renew_premium):
+                premium_clubs.append(c)
+            else:
+                common_clubs.append(c)
+
+        clubs = [*premium_clubs,*common_clubs]
 
         return render(request, 'clubby/club/list.html', {'object_list': clubs, 'form': form})
+
+    def get_queryset(self):
+        items = Club.objects.all()
+
+        premium_clubs = []
+        common_clubs = []
+        for c in items:
+            if(c.owner.profile.renew_premium):
+                premium_clubs.append(c)
+            else:
+                common_clubs.append(c)
+
+        return [*premium_clubs,*common_clubs]
 
 
 class ClubListCloseByView(generic.ListView):
@@ -214,12 +237,27 @@ class ClubListCloseByView(generic.ListView):
             max_lng = float(longitude)+0.1
 
             items = Club.objects.filter(latitude__gte = min_lat).filter(latitude__lte = max_lat).filter(longitude__gte = min_lng).filter(longitude__lte = max_lng)
+            premium_clubs = []
+            common_clubs = []
+            for c in items:
+                if(c.owner.profile.renew_premium):
+                    premium_clubs.append(c)
+                else:
+                    common_clubs.append(c)
 
-            return items
+            return [*premium_clubs,*common_clubs]
         except:
             print('no geolocation information recieved.')
             items = Club.objects.all()
-            return items
+            premium_clubs = []
+            common_clubs = []
+            for c in items:
+                if(c.owner.profile.renew_premium):
+                    premium_clubs.append(c)
+                else:
+                    common_clubs.append(c)
+
+            return [*premium_clubs,*common_clubs]
         
     def get_context_data(self, **kwargs):
         context = super(ClubListCloseByView, self).get_context_data(**kwargs)
