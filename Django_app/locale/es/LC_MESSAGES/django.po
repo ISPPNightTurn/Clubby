@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 10:56+0200\n"
-"PO-Revision-Date: 2020-04-15 11:00+0200\n"
+"POT-Creation-Date: 2020-04-16 19:04+0200\n"
+"PO-Revision-Date: 2020-04-16 19:07+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -433,6 +433,7 @@ msgstr "Foto"
 #: .\clubby\templates\clubby\event\event_form.html:46
 #: .\clubby\templates\clubby\product\list.html:51
 #: .\clubby\templates\clubby\product\product_form.html:38
+#: .\clubby\templates\clubby\signup.html:127
 #: .\clubby\templates\clubby\ticket\create.html:29
 #: .\clubby\templates\clubby\ticket\list.html:13
 msgid "Submit"
@@ -791,13 +792,17 @@ msgstr "veces"
 
 #: .\clubby\templates\clubby\landing.html:121
 #: .\clubby\templates\clubby\signup.html:67
-#: .\clubby\templates\registration\login.html:34
+#: .\clubby\templates\clubby\signup.html:109
+#: .\clubby\templates\registration\login.html:35
+#: .\clubby\templates\registration\login.html:90
 msgid "terms and conditions"
 msgstr "términos y condiciones"
 
 #: .\clubby\templates\clubby\landing.html:130
 #: .\clubby\templates\clubby\signup.html:74
-#: .\clubby\templates\registration\login.html:41
+#: .\clubby\templates\clubby\signup.html:116
+#: .\clubby\templates\registration\login.html:42
+#: .\clubby\templates\registration\login.html:97
 msgid "privacy policy"
 msgstr "política de privacidad"
 
@@ -1258,12 +1263,12 @@ msgid "here."
 msgstr "aquí."
 
 #: .\clubby\templates\clubby\signup.html:27
-#: .\clubby\templates\registration\login.html:26
+#: .\clubby\templates\registration\login.html:27
 msgid "Username"
 msgstr "Usuario"
 
 #: .\clubby\templates\clubby\signup.html:54
-#: .\clubby\templates\registration\login.html:30
+#: .\clubby\templates\registration\login.html:31
 msgid "Password"
 msgstr "Contraseña"
 
@@ -1276,15 +1281,22 @@ msgid "*Sign up and agree"
 msgstr "*Registrarse y aceptar"
 
 #: .\clubby\templates\clubby\signup.html:67
+#: .\clubby\templates\clubby\signup.html:109
 msgid "*By clicking in the \"Sign up and agree\" button you agree with our"
 msgstr ""
 "*Clickando en el botón \"Registrarse y aceptar\" muestras tu conformidad con "
 "nuestros"
 
 #: .\clubby\templates\clubby\signup.html:74
-#: .\clubby\templates\registration\login.html:41
+#: .\clubby\templates\clubby\signup.html:116
+#: .\clubby\templates\registration\login.html:42
+#: .\clubby\templates\registration\login.html:97
 msgid "and"
 msgstr "y"
+
+#: .\clubby\templates\clubby\signup.html:108
+msgid "Confirm signup?"
+msgstr "¿Confirmar registro?"
 
 #: .\clubby\templates\clubby\success.html:5
 msgid "You have successfully deleted your Clubby account"
@@ -1323,29 +1335,37 @@ msgstr "Cantidad"
 msgid "Ticket List"
 msgstr "Lista de entradas"
 
-#: .\clubby\templates\registration\login.html:15
+#: .\clubby\templates\registration\login.html:16
 msgid "Your username and password did not match. Please try again."
 msgstr "Tu usuario y contraseña no concuerdan. Inténtalo de nuevo."
 
-#: .\clubby\templates\registration\login.html:23
+#: .\clubby\templates\registration\login.html:24
 msgid "Please login to see this page."
 msgstr "Por favor, inicia sesión para ver esta página."
 
-#: .\clubby\templates\registration\login.html:34
+#: .\clubby\templates\registration\login.html:35
 msgid "By logging in with Google you agree with our"
 msgstr "Iniciando sesión con Google estás aceptando nuestros"
 
-#: .\clubby\templates\registration\login.html:55
+#: .\clubby\templates\registration\login.html:56
+#: .\clubby\templates\registration\login.html:89
+#: .\clubby\templates\registration\login.html:108
 msgid "Login with Google"
 msgstr "Iniciar sesión con Google"
 
-#: .\clubby\templates\registration\login.html:61
+#: .\clubby\templates\registration\login.html:62
 msgid "login"
 msgstr "iniciar sesión"
 
-#: .\clubby\templates\registration\login.html:65
+#: .\clubby\templates\registration\login.html:66
 msgid "Lost password?"
 msgstr "¿No recuerdas tu contraseña?"
+
+#: .\clubby\templates\registration\login.html:90
+msgid "By clicking in the \"Login with Google\" button you agree with our"
+msgstr ""
+"*Clickando en el botón \"Inicio de sesión con Google\" muestras tu "
+"conformidad con nuestros"
 
 #: .\clubby\views\views_jose.py:123 .\clubby\views\views_jose.py:148
 msgid ""
