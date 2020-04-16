@@ -36,7 +36,6 @@ import datetime
 import random
 import json
 import stripe # new
-import spotipy.util as spoti
 import requests
 import urllib
 import pytz
