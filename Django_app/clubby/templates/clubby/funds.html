@@ -4,7 +4,15 @@
 {% block content %}
 <div class="col s12 m7">
 <div class="card center deep-purple darken-4">
-<div>  <span class="card-title">{% trans 'Adding' %}</span> <span id=convert></span> {% trans '€ to account' %}</span></div>
+<div>  
+  <p style="padding-top: 15px;" class="card-title">
+  <span>
+    {% trans 'Adding' %}
+  </span>
+  <span id=convert></span>
+  <span> {% trans '€ to account' %}</span>
+</p>
+</div>
 
   <div class="card-content">
   <form action="{% url 'charge' ammount=ammount%}" method="post">
