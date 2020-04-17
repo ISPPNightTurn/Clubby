@@ -290,8 +290,8 @@ def payout(request): # new
                 'destination': profile.stripe_account_id,
                 },
             },
-            success_url='http://localhost:8000/clubby',
-            cancel_url='http://localhost:8000/clubby/profile',
+            success_url='http://localhost:8000/',
+            cancel_url='http://localhost:8000/profile',
             )
             
             profile = request.user.profile
