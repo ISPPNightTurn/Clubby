@@ -27,6 +27,8 @@ class DateInput(forms.DateInput):
 #Model forms: these forms use the models to create themselves basically: (only a single model can't combine multiple.)
 
 class ClubModelForm(ModelForm):
+    max_capacity = forms.IntegerField(min_value=1, max_value=99999)
+
     def clean(self):
         #you can add validation the same way as in a custom form: by adding def clean_field_name(): and raising ValidationError.
         data = self.cleaned_data.get('NIF')
@@ -73,7 +75,7 @@ class SignupForm(UserCreationForm):
 
 class ProductModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text=_('Required. 50 character max' ))
-    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, min_value=Decimal('0.00'), help_text=_('Required. 5 digits max') )
+    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, min_value=Decimal('0.00'), max_value=Decimal('999.99'), help_text=_('Required. 5 digits max') )
 
     TYPE_OF_PRODUCT = (
         ('r', _('refreshment')),
