@@ -1,6 +1,21 @@
 {% extends "clubby/base_generic.html" %}
 {% load i18n %}
 {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  [class*="row"] {
+    width: 50%;
+  }
+  @media only screen and (max-width: 768px) {
+  [class*="row"] {
+    width: 100%;
+  }
+  [class*="center-align"] {
+    width: 100%;
+  }
+}
+</style>
+
   {% load qr_code %}
   <h1 style="text-align: center;">{% trans 'My Purchases' %}</h1>
   {% if user_is_broke%}

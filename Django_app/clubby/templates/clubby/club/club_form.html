@@ -2,8 +2,20 @@
 {% load i18n %}
 
 {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  [class*="toast"] {
+    width: 50%;
+  }
+  @media only screen and (max-width: 768px) {
+  [class*="toast"] {
+    width: 100%;
+  }
+}
+</style>
+
 <h2 class="header center white-text">{% trans 'Create Club' %}</h2>
-<div class="deep-purple darken-4 toast rounded">
+<div class="deep-purple darken-4 toast rounded center" style="margin: auto;">
   <form action="" method="post">
     {% csrf_token %}
     <div class="card red center">

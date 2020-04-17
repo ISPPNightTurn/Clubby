@@ -4,9 +4,20 @@
 
 {% load static %}
 {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  [class*="toast"] {
+    width: 50%;
+  }
+  @media only screen and (max-width: 768px) {
+  [class*="toast"] {
+    width: 100%;
+  }
+}
+</style>
 <h2 class="header center white-text">Login</h2>
 
-<div class="deep-purple darken-4 toast rounded">
+<div class="deep-purple darken-4 toast rounded center" style="margin: auto;">
 
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
@@ -72,6 +83,8 @@
 <div>
 </div>
 </div>
+<br />
+<br />
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
  <script src="{% static 'clubby/js/materialize.js' %}"></script>

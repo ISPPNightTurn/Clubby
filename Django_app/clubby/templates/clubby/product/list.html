@@ -2,12 +2,27 @@
 {% load i18n %}
 
 {% block content %}
-  <h1>{% trans 'Product List' %}</h1>
-  <ul class="collection deep-purple darken-4">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  [class*="collection"] {
+    width: 50%;
+  }
+  [class*="collection-item"] {
+    width: 100%;
+  }
+  @media only screen and (max-width: 768px) {
+  [class*="collection"] {
+    width: 100%;
+  }
+}
+</style>
+
+  <h1 class="center">{% trans 'Product List' %}</h1>
+  <ul class="collection deep-purple darken-4 center" style="margin: auto;">
 
   {% if perms.clubby.is_user %}
     {% for product, form in product_ammount.items %} 
-    <li class="collection-item purple darken-4 avatar">
+    <li class="collection-item purple darken-4 avatar" style="margin: auto;">
       {% if product.product_type == 'h' %}
     <img class="circle" src="../../../static/clubby/images/hookah.jpg"  alt="">
     {% elif product.product_type == 'b' %}
@@ -48,7 +63,9 @@
         {% trans '("This product is exclusive for reservations")' %}'
       {% endif %}
         
-    <form action="" method="post">{% csrf_token %} {{form}} <input class="btn purple darken-2" type="submit" value="{% trans 'Submit' %}"></form> 
+    <form action="" method="post">{% csrf_token %} {{form}}
+      <br>
+      <input class="btn purple darken-2" type="submit" value="{% trans 'Submit' %}"></form> 
     </li>
     <br>
     {% endfor %}

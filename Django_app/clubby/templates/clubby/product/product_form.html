@@ -1,15 +1,27 @@
 {% extends "clubby/base_generic.html" %}
 {% load i18n %}
 {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  [class*="toast"] {
+    width: 50%;
+  }
+  @media only screen and (max-width: 768px) {
+  [class*="toast"] {
+    width: 100%;
+  }
+}
+</style>
+
 <script type="text/javascript">
   $(document).ready(function() {
     $('select').material_select();
 });
 </script>
 <h2 class="header center white-text">{% trans 'Create new product' %}</h2>
-<div class="deep-purple darken-4 toast rounded">
+<div class="deep-purple darken-4 toast rounded center" style="margin: auto;">
   
-  <form action="" method="post">
+  <form action="" method="post" style="margin: auto;">
     {% csrf_token %}
     <div class="input-field">
       <div class="card red center">

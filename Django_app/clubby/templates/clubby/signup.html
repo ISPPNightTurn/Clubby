@@ -2,6 +2,17 @@
 {% load i18n %}
 {% load static %}
 {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  [class*="toast"] {
+    width: 50%;
+  }
+  @media only screen and (max-width: 768px) {
+  [class*="toast"] {
+    width: 100%;
+  }
+}
+</style>
 {% if user %}
 <h2 class="header center white-text">{% trans 'Sign up as user' %}</h2>
 
@@ -14,7 +25,7 @@
 <p class="center white-text">{% trans 'back to user signup' %} <a href="{% url 'signup-user' %}">{% trans 'here.' %}</a>
 </p>
 {% endif %}
-<div class="deep-purple darken-4 toast rounded">
+<div class="deep-purple darken-4 toast rounded center" style="margin: auto;">
 
   <form method="post" id="form">
     <div class="formSignUp">

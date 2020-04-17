@@ -2,7 +2,19 @@
 {% load i18n %}
 
 {% block content %}
-  <div class="card deep-purple darken-4">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  [class*="card"] {
+    width: 50%;
+  }
+  @media only screen and (max-width: 768px) {
+  [class*="card"] {
+    width: 100%;
+  }
+}
+</style>
+
+  <div class="card deep-purple darken-4 center" style="margin: auto;">
     <h1>{% trans 'Ticket List' %}</h1>
     <ul>
     
@@ -10,7 +22,9 @@
       {% for ticket, form in ticket_ammount.items %} 
       <li>
       {{ticket.category}} - ({{ticket.price}}€) - ({{ticket.event}}) 
-      <form action="" method="post">{% csrf_token %} {{form}}  <input class="btn purple darken-4" type="submit" value="{% trans 'Submit' %}"></form> 
+      <form action="" method="post">{% csrf_token %} {{form}} 
+      <br>
+      <input class="btn purple darken-4" type="submit" value="{% trans 'Submit' %}"></form> 
       </li>
       <br>
      

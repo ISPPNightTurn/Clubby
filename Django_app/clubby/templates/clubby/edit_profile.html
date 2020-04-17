@@ -2,12 +2,23 @@
 {% load i18n %}
 {% load static %}
 {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  [class*="toast"] {
+    width: 50%;
+  }
+  @media only screen and (max-width: 768px) {
+  [class*="toast"] {
+    width: 100%;
+  }
+}
+</style>
   
   <h2 class="header center white-text">{% trans 'Edit your data.' %}</h2>
 
-  <div class="deep-purple darken-4 toast rounded">
+  <div class="deep-purple darken-4 toast rounded center"  style="margin: auto;">
    
-  <form method="post">
+  <form method="post" style="margin: auto;">
     <div class="formSignUp">
     {% csrf_token %}
     {% if form.non_field_errors %}

@@ -3,6 +3,17 @@
 
 {% load static %}
 {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  [id*="payout"] {
+    width: 50%;
+  }
+  @media only screen and (max-width: 768px) {
+  [id*="payout"] {
+    width: 100%;
+  }
+}
+</style>
 
 <h1 class="header center white-text">{% trans 'Profile' %}</h1>
 <div class="center">
@@ -88,7 +99,7 @@
     </p><br>
     {%endif%}
     {% trans 'Get money to your bank:' %}<br>
-    <form method="post" action="/clubby/payout/">
+    <form method="post" action="/clubby/payout/" id="payout" style="margin: auto;" >
       {% csrf_token %}
       <br>
       <p><strong style="font-size: larger;">{% trans 'Ammount to add' %} </strong>{{form.ammount}}</p>
