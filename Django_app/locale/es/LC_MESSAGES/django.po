@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-16 19:04+0200\n"
-"PO-Revision-Date: 2020-04-16 19:07+0200\n"
+"POT-Creation-Date: 2020-04-17 13:21+0200\n"
+"PO-Revision-Date: 2020-04-17 13:21+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -161,12 +161,12 @@ msgid "Date must be bigger or equal to the starting date."
 msgstr "La fecha debe ser posterior o igual a la fecha de inicio."
 
 #: .\clubby\forms\forms_miguel.py:83
-msgid "URL to a picture of your pretty face"
-msgstr "URL a una foto de tu cara bonita"
+msgid "URL to a picture of your pretty face (200 characters max)"
+msgstr "URL a una foto de tu cara bonita, colega (200 caracteres máximo)"
 
 #: .\clubby\models.py:36
-msgid "Post a picture of your pretty face, dude"
-msgstr "Pon una foto de tu cara bonita, colega"
+msgid "Post a picture of your pretty face, dude (200 characters max)"
+msgstr "Pon una foto de tu cara bonita, colega (200 caracteres máximo)"
 
 #: .\clubby\models.py:78
 msgid "Enter the name of your club."
@@ -188,12 +188,12 @@ msgid "Company number for the club"
 msgstr "Identificación fiscal de tu club"
 
 #: .\clubby\models.py:82
-msgid "URL to a picture of your club"
-msgstr "URL a una foto de tu club"
+msgid "URL to a picture of your club (200 characters max)"
+msgstr "URL a una foto de tu club (200 caracteres máximo)"
 
 #: .\clubby\models.py:111
-msgid "URL to the poster for the event"
-msgstr "URL a un cartel del evento"
+msgid "URL to the poster for the event (200 characters max.)"
+msgstr "URL a un cartel del evento (200 caracteres máximo)"
 
 #: .\clubby\models.py:120
 msgid "event start time 24h format."
@@ -1367,23 +1367,23 @@ msgstr ""
 "*Clickando en el botón \"Inicio de sesión con Google\" muestras tu "
 "conformidad con nuestros"
 
-#: .\clubby\views\views_jose.py:123 .\clubby\views\views_jose.py:148
+#: .\clubby\views\views_jose.py:124 .\clubby\views\views_jose.py:149
 msgid ""
 "the security key did not match, trying to screw people over huh? Naughty >:("
 msgstr ""
 "la clave de seguridad no encaja,  ¿intentas fastidiar a alguien? Persona "
 "horrible >:("
 
-#: .\clubby\views\views_jose.py:187
+#: .\clubby\views\views_jose.py:193
 msgid "Something went wrong"
 msgstr "Algo salió mal"
 
-#: .\clubby\views\views_miguel.py:68 .\clubby\views\views_miguel.py:82
-#: .\clubby\views\views_miguel.py:94
+#: .\clubby\views\views_miguel.py:67 .\clubby\views\views_miguel.py:81
+#: .\clubby\views\views_miguel.py:93
 msgid "You don't own that >:("
 msgstr "Eso no te pertenece >:("
 
-#: .\clubby\views\views_miguel.py:304
+#: .\clubby\views\views_miguel.py:303
 msgid "Incorrect accesing to resource."
 msgstr "Acceso incorrecto al recurso."
 
@@ -1394,6 +1394,9 @@ msgstr "Español"
 #: .\project\settings.py:59
 msgid "English"
 msgstr "Inglés"
+
+#~ msgid "URL to a picture of your pretty face"
+#~ msgstr "URL a una foto de tu cara bonita"
 
 #~ msgid "You"
 #~ msgstr "Tú"

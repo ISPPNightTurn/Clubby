@@ -80,7 +80,7 @@ class EditProfileForm(forms.Form):
     bio = forms.CharField(max_length=500, required=False, help_text=_("Optional, tell us something about you."))
     location = forms.CharField(max_length=30, required=False, help_text=_("Optional, where are you form?."))    
     birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}))
-    picture = forms.URLField(help_text=_("URL to a picture of your pretty face"), required=False)
+    picture = forms.URLField(help_text=_("URL to a picture of your pretty face (200 characters max)"), required=False)
 
     def clean(self):
         email = self.cleaned_data.get('email')

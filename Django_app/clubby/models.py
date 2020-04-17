@@ -33,7 +33,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     funds = models.DecimalField(decimal_places=2, max_digits=5,default=0.0)
-    picture = models.URLField(help_text=ugettext_lazy('Post a picture of your pretty face, dude'),null=True,blank=True)
+    picture = models.URLField(help_text=ugettext_lazy('Post a picture of your pretty face, dude (200 characters max)'),null=True,blank=True)
     renew_premium = models.BooleanField(default=False)
     stripe_account_id = models.CharField(max_length=40, blank=True)
     spotify_username = models.CharField(max_length=40, blank=True)
@@ -79,7 +79,7 @@ class Club(models.Model):
     address = models.CharField(max_length=200, help_text=ugettext_lazy('Enter the full address so google maps can find it.'))
     max_capacity = models.PositiveIntegerField(help_text = ugettext_lazy('The capacity of your club, you\'re responsible for the enforcement of this number.'))
     NIF = models.CharField(max_length=10, help_text = ugettext_lazy('Company number for the club'))
-    picture = models.URLField(help_text = ugettext_lazy('URL to a picture of your club'),null=True,blank=True)
+    picture = models.URLField(help_text = ugettext_lazy('URL to a picture of your club (200 characters max)'),null=True,blank=True)
     # This represents the owners user.
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
     latitude = models.FloatField(null=True,blank=True)
@@ -108,7 +108,7 @@ class Event(models.Model):
     # start_time = models.PositiveIntegerField(max_length=2,help_text='event start time 24h format.', default=12)
     # duration = models.PositiveIntegerField(max_length=2,help_text='event duration in hours, max is 12 hours',default=12)
     atendees = models.ManyToManyField(User)
-    picture = models.URLField(help_text=ugettext_lazy("URL to the poster for the event"),null=True,blank=True)
+    picture = models.URLField(help_text=ugettext_lazy("URL to the poster for the event (200 characters max.)"),null=True,blank=True)
     
     START_TIMES =((0,0),(23,23),(22,22),(21,21),(20,20),(19,19),(18,18),(17,17),(16,16),(15,15),(14,14),(13,13),
     (12,12),(11,11),(10,10),(9,9),(8,8),(7,7),(6,6),(5,5),(4,4),(3,3),(2,2),(1,1))
