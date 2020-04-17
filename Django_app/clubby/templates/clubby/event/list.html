@@ -9,7 +9,12 @@
   <div class="deep-purple darken-4 rounded grid-container">
     <form action="" method="post">
       {% csrf_token %}
-      {{form.as_p}}
+      <p><strong style="font-size: larger;">{%trans 'Start date' %} </strong>{{form.start_date}}</p>
+      <span class="helptext">{{form.start_date.help_text}}</span>
+      <br>
+      <br>
+      <p><strong style="font-size: larger;">{%trans 'End date' %} </strong>{{form.end_date}}</p>
+      <span class="helptext">{{form.end_date.help_text}}</span>
       <br>
       <input type="submit" value="{% trans 'Search' %}" class="btn-large purple darken-4">
     </form>
