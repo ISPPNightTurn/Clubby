@@ -150,8 +150,8 @@
               <br/>
             </div>
             <div class="card-action black">
-              <a href="club/{{ club.pk }}/update/">{% trans 'Edit club' %}</a>
-              <a href="club/{{ club.pk }}/delete/">{% trans 'Delete club' %}</a>
+              <a href="{% url 'club-update' club.pk %}">{% trans 'Edit club' %}</a>
+              <a href="{% url 'club-delete' club.pk %}">{% trans 'Delete club' %}</a>
               <a href="{% url 'my-events-future' %}">{% trans 'My published events' %}</a>
               <a href="{% url 'my-products' %}">{% trans 'My products' %}</a>
               {% if perms.clubby.is_premium_owner %}
@@ -194,7 +194,7 @@
     <br>
     <div class="card-action black">
     </br>
-      <a class="btn purple darken-4" href="export-data">{% trans 'Export personal data' %}</a>
+      <a class="btn purple darken-4" href="{%url 'export-data' %}">{% trans 'Export personal data' %}</a>
     </br></br>
       <a class="modal-trigger btn purple darken-4" href="#delete-modal">{% trans 'Delete your account' %}</a>
       <br></br>
@@ -212,7 +212,7 @@
               <p>{% trans 'Once you delete your account, there is no going back' %}</p>
             </div>
             <div class="modal-footer black">
-              <a href="delete-data" class="modal-action modal-close waves-effect waves-red btn red lighten-1">{% trans 'Delete account' %}</a>
+              <a href={% url 'delete-data' %} class="modal-action modal-close waves-effect waves-red btn red lighten-1">{% trans 'Delete account' %}</a>
             </div>
           </div>
 
