@@ -27,6 +27,7 @@ from django.utils.translation import gettext
 
 from decimal import Decimal
 import qr_code
+import csv
 
 import datetime
 
@@ -172,11 +173,16 @@ def terminos(request):
 @login_required
 def export(request):
     me = request.user  # this is the current user.
-    tickets = QR_Item.objects.filter(user = me).filter(product__isnull = True)
-    products = QR_Item.objects.filter(user = me).filter(ticket__isnull = True)
-    ratings = Rating.objects.filter(user = me)
-    context = {'user':me,'tickets':tickets,'products':products, 'ratings':ratings}
-    return render(request, 'clubby/export.html', context)
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['Bio','Location','Birth Date','Picture','Username','Email','First name','Last name'])
+    writer.writerow([me.profile.bio,me.profile.location,me.profile.birth_date,me.profile.picture,me.username,me.email, me.first_name,me.last_name])
+    
+
+    response['Content-Disposition'] = 'attachment;filename="member.csv"'
+   
+    
+    return response
 
 @login_required
 def delete(request):
