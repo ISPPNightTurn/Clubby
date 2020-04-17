@@ -1,7 +1,25 @@
 {% extends "clubby/base_generic.html" %}
 {% load i18n %}
 {% block content %}
-<div class="card deep-purple darken-4">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  [class*="card"] {
+    width: 50%;
+  }
+  [class*="card-title"] {
+    width: 100%;
+  }
+  [class*="card-content"] {
+    width: 100%;
+  }
+  @media only screen and (max-width: 768px) {
+  [class*="card"] {
+    width: 100%;
+  }
+}
+</style>
+
+<div class="card deep-purple darken-4 center" style="margin: auto;">
 
 <span class="center card-title">{% trans 'Create tickets' %}</span>
 <div class="card-content">  

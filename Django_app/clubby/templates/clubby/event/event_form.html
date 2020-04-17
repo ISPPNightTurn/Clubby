@@ -3,13 +3,25 @@
 {% load static %}
 {% load i18n %}
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  [class*="toast"] {
+    width: 50%;
+  }
+  @media only screen and (max-width: 768px) {
+  [class*="toast"] {
+    width: 100%;
+  }
+}
+</style>
+
 
 <h2 class="header center white-text">Create new event</h2>
-<div class="deep-purple darken-4 toast rounded">
+<div class="deep-purple darken-4 toast rounded center" style="margin: auto;">
 
 
 
-  <form action="" method="post">
+  <form action="" method="post" style="margin: auto;">
     {% csrf_token %}
     <div class="input-field">
       {% for e in errors %}
