@@ -55,15 +55,11 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('product/<int:pk>', views.ProductDetailView.as_view(),
-         name='product-detail'),
+    path('product/<int:pk>', views.ProductDetailView.as_view(),name='product-detail'),
     path('product/create/', views.ProductCreate.as_view(), name='product-create'),
-    path('product/<int:product_id>/update/',
-         views.ProductUpdate, name='product-update'),
-    path('product/<int:pk>/delete/',
-         views.ProductDelete.as_view(), name='product-delete'),
-    path('product/list/<int:club_id>',
-         views.ProductsByClubList, name='product-list'),
+    path('product/<int:product_id>/update/',views.ProductUpdate, name='product-update'),
+    path('product/<int:pk>/delete/',views.ProductDelete.as_view(), name='product-delete'),
+    path('product/list/<int:club_id>',views.ProductsByClubList, name='product-list'),
     path('myproducts', views.ProductsByClubListView.as_view(), name='my-products'),
 ]
 

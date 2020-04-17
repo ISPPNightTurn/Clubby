@@ -4,7 +4,7 @@
 {% block content %}
 <div class="col s12 m7">
 <div class="card center deep-purple darken-4">
-  <span class="card-title">{% trans 'Adding' %} {% widthratio ammount 100 1 %} {% trans '€ to account' %}</span>
+<div>  <span class="card-title">{% trans 'Adding' %}</span> <span id=convert></span> {% trans '€ to account' %}</span></div>
 
   <div class="card-content">
   <form action="{% url 'charge' ammount=ammount%}" method="post">
@@ -21,5 +21,14 @@
   </div>
 </div>
 </div>
+
+<script>
+  var ammount = "{{ammount}}";
+  var l = ammount.length;
+  end = ammount.substring(l-2,l);
+  start = ammount.substring(0,l-2);
+
+  document.getElementById("convert").innerHTML = start+"."+end;
+</script>
 {% endblock %}
 

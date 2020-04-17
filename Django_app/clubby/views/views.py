@@ -11,6 +11,8 @@ from django.core.exceptions import PermissionDenied, ValidationError
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
+
 
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -22,6 +24,9 @@ from ..models import Club, Event, Profile, Product, Ticket, SecurityAdvice
 
 from datetime import datetime, timedelta
 from django.utils.translation import gettext
+from django.conf import settings
+
+import decimal
 
 import urllib.parse
 import datetime
@@ -81,8 +86,13 @@ def profile(request):
         form = FundsForm(request.POST)
 
         if form.is_valid():
-            to_recharge = form.cleaned_data.get('ammount')
-            return redirect('add-funds', ammount=to_recharge)
+            ammount = form.cleaned_data.get('ammount')
+            ammount = float(ammount) * 100.0
+            ammount = str(int(ammount))
+            form = FundsForm()
+            form.initial['ammount'] = ammount
+            form.fields['ammount'].widget = forms.HiddenInput()
+            return render(request, 'clubby/funds.html', {'form': form, 'key': settings.STRIPE_PUBLISHABLE_KEY, 'ammount': ammount})
         else:
             return redirect('profile')
     else:

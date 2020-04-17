@@ -187,9 +187,9 @@ def TicketsByEventList(request, event_id):
 @login_required
 def add_funds(request, ammount):
     form = FundsForm()
-    form.initial['ammount'] = int(ammount * 100)
+    form.initial['ammount'] = float(ammount) * 100.0
     form.fields['ammount'].widget = forms.HiddenInput()
-    return render(request, 'clubby/funds.html', {'form': form, 'key': settings.STRIPE_PUBLISHABLE_KEY, 'ammount': int(ammount * 100)})
+    return render(request, 'clubby/funds.html', {'form': form, 'key': settings.STRIPE_PUBLISHABLE_KEY, 'ammount': ammount})
 
 
 @login_required
@@ -205,13 +205,13 @@ def charge(request, ammount):  # new
 
         charge = stripe.Charge.create(
         amount=int(quantity),
-        currency='usd',
+        currency='eur',
         description='Money spent at Clubby',
         source=request.POST['stripeToken']
     )
 
         profile = request.user.profile
-        profile.funds += Decimal(str(int(quantity)/100))
+        profile.funds += Decimal(str(float(quantity)/100))
         profile.save()
 
         return render(request,'clubby/charge.html')
