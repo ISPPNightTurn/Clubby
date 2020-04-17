@@ -290,8 +290,8 @@ def payout(request): # new
                 'destination': profile.stripe_account_id,
                 },
             },
-            success_url='https://clubby-sprint3.herokuapp.com/',
-            cancel_url='https://clubby-sprint3.herokuapp.com/clubby/profile',
+            success_url='http://localhost:8000/clubby',
+            cancel_url='http://localhost:8000/clubby/profile',
             )
             
             profile = request.user.profile
@@ -522,7 +522,7 @@ def connect_spotify(request):
     if(code != None):
         token_uri = 'https://accounts.spotify.com/api/token'
 
-        redirect_uri = 'https://clubby-sprint3.herokuapp.com/clubby/spotify/authorize/'
+        redirect_uri = 'http://localhost:8000/clubby/spotify/authorize/'
         client_id ='7af4e7e36a454ec09746fa13559947d9'
         client_secret = '77803dff87ba476fb8ccdaf0750d695a'
 
