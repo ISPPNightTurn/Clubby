@@ -444,9 +444,16 @@ class EventListView(generic.ListView):
         start_date = form['start_date'].value()
         end_date = form['end_date'].value()
         # check if these were used.
+        print(start_date)
+        print(end_date)
+        try:
+            datetime.datetime.strptime(start_date, '%Y-%m-%d')
+            datetime.datetime.strptime(start_date, '%Y-%m-%d')
+        except:
+            raise PermissionDenied("Illegal datetime format.")
+
         items = Event.objects.filter(start_date__gte=start_date)
-        items = items.filter(start_date__lte=end_date).order_by(
-            'start_date', 'start_time')
+        items = items.filter(start_date__lte=end_date).order_by('start_date', 'start_time')
         items = items.filter(start_date__gte=datetime.datetime.now())
 
         return render(request, 'clubby/event/list.html', {'object_list': items, 'form': form})
@@ -471,8 +478,7 @@ class EventsByUserListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
 
-        list = Event.objects.filter(atendees=self.request.user).order_by(
-            '-start_date', '-start_time')
+        list = Event.objects.filter(atendees=self.request.user).order_by('-start_date', '-start_time')
         return list
 
 

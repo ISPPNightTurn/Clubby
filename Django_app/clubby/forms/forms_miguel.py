@@ -27,8 +27,7 @@ class DateInput(forms.DateInput):
 
 
 class TicketPurchaseForm(forms.Form):
-    quantity = forms.IntegerField(
-        max_value=4, min_value=1, help_text=_("tickets you want to buy, max 4."))
+    quantity = forms.IntegerField(max_value=4, min_value=1, help_text=_("tickets you want to buy, max 4."))
     event = forms.IntegerField(widget=forms.HiddenInput())
     category = forms.CharField(max_length=50, widget=forms.HiddenInput())
 
@@ -36,6 +35,7 @@ class TicketPurchaseForm(forms.Form):
 class FundsForm(forms.Form):
     ammount = forms.DecimalField(decimal_places=2,max_value=500, min_value=10, help_text=_("how much of your currency you want to add, max 500€, min 10€"))
     ammount.widget.attrs.update({'placeholder': '0.00'})
+
 class PremiumForm(forms.Form):
     accept = forms.BooleanField(help_text=_("if you agree with these terms we welcome you to the clubby team!"))
 
@@ -55,15 +55,23 @@ class SearchEventForm(forms.Form):
         start_date = self.cleaned_data.get('start_date')
         end_date = self.cleaned_data.get('end_date')
 
-        if (start_date < current_date):
-            raise ValidationError(_("Date must be further than today."))
+        print(type(start_date))
 
-        if (end_date < start_date):
-            raise ValidationError(
-                _("Date must be bigger or equal to the starting date."))
+
+        if(start_date != None):
+            if (start_date < current_date):
+                raise ValidationError(_("Date must be further than today."))
+        else:
+            raise ValidationError(_("Please dont edit the date manually use the datepicker provided by clicking on the field."))
+
+        if(start_date != None):
+            if (end_date < start_date):
+                raise ValidationError(_("Date must be bigger or equal to the starting date."))
+        else:
+            raise ValidationError(_("Please dont edit the date manually use the datepicker provided by clicking on the field."))
 
         return self.cleaned_data
-
+        
 
 class EditProfileForm(forms.Form):
     # we override the init object to allow the request to get here.
@@ -89,8 +97,10 @@ class EditProfileForm(forms.Form):
             user_with_mail = None
         if ((user_with_mail != None) and (user_with_mail != self.request.user)):
             raise ValidationError(_("Email exists"))
-
-        if(birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
-            raise ValidationError(_("You're too young. You must be 18 or older to use this app."))
+        if(birth_date != None):
+            if(birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
+                raise ValidationError(_("You're too young. You must be 18 or older to use this app."))
+        else:
+            raise ValidationError(_("Please dont edit the date manually use the datepicker provided by clicking on the field."))
 
         return self.cleaned_data
