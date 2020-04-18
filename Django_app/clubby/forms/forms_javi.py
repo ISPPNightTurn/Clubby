@@ -36,6 +36,7 @@ class TicketCreateModelForm(forms.Form):
         self.fields['size'] = forms.IntegerField(max_value=max,min_value=1)
 
     price = forms.DecimalField(decimal_places=2,max_digits=5)#999,99 es el maximo
+    price.widget.attrs.update({'max': '999.99', 'min': '0'})
     category = forms.CharField(max_length = 40, help_text=_('The name of the type of ticket you are trying to sell.'))
     description = forms.CharField(max_length = 40, help_text=_('Decribe what this ticket entices.'), widget=forms.Textarea)
     size = forms.IntegerField(max_value=99999,min_value=1,help_text=_("'Number of tickets. (Max)"))
