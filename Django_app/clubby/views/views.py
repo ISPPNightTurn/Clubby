@@ -312,18 +312,6 @@ class ClubCreate(PermissionRequiredMixin, CreateView):
         obj = form.save(commit=False)
         obj.owner = self.request.user
 
-        club_address = form.cleaned_data.get('address')
-        club_address = club_address.replace(" ","+")
-        club_address = club_address.replace(",",",+")
-
-        #'1600+Amphitheatre+Parkway,+Mountain+,View,+CA'
-        response = rq.request('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+club_address+'&key='+GOOGLE_API_KEY)
-        json_data = json.loads(response.text)
-
-        dictionary = json_data['results'][0]['geometry']['location']
-        obj.latitude = dictionary['lat']
-        obj.longitude = dictionary['lng']
-                
         # this is neccesary as the url is pulled from self.object.
         self.object = obj
         obj.save()
@@ -348,18 +336,6 @@ class ClubUpdate(PermissionRequiredMixin, UpdateView):
         obj = form.save(commit=False)
         # this is neccesary as the url is pulled from self.object.
         self.object = obj
-
-        club_address = form.cleaned_data.get('address')
-        club_address = club_address.replace(" ","+")
-        club_address = club_address.replace(",",",+")
-
-        #'1600+Amphitheatre+Parkway,+Mountain+,View,+CA'
-        response = rq.request('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+club_address+'&key='+GOOGLE_API_KEY)
-        json_data = json.loads(response.text)
-
-        dictionary = json_data['results'][0]['geometry']['location']
-        obj.latitude = dictionary['lat']
-        obj.longitude = dictionary['lng']
 
         if(obj.owner == self.request.user):
             obj.save()

@@ -17,6 +17,10 @@ from decimal import Decimal
 from django.utils.translation import gettext
 
 import re
+import json
+import requests as rq
+
+GOOGLE_API_KEY = 'AIzaSyDLS2DKjJkCSPc0x_2BXcxDfr8mgByTPEo'
 
 class DateInput(forms.DateInput):
     def __init__(self, *args, **kwargs):
@@ -30,12 +34,31 @@ class ClubModelForm(ModelForm):
     max_capacity = forms.IntegerField(min_value=1, max_value=99999)
 
     def clean(self):
+        obj = self.save(commit=False)
         #you can add validation the same way as in a custom form: by adding def clean_field_name(): and raising ValidationError.
         data = self.cleaned_data.get('NIF')
+
+        club_address = self.cleaned_data.get('address')
+        club_address = club_address.replace(" ","+")
+        club_address = club_address.replace(",",",+")
+
+
         z = re.match("^[0-9]{8,8}[A-Za-z]$", data)
         #check if 8 numbers and a letter with re package
         if(z == None):
             raise ValidationError(_('Invalid NIF - format is 8 numbers and a letter.'))
+        
+        response = rq.request('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+club_address+'&key='+GOOGLE_API_KEY)
+        json_data = json.loads(response.text)
+
+        if(json_data['status'] == 'ZERO_RESULTS'):
+            raise ValidationError(_('No address found with information provided.'))
+        else:
+            dictionary = json_data['results'][0]['geometry']['location']
+            obj.latitude = dictionary['lat']
+            obj.longitude = dictionary['lng']
+        
+        
         return self.cleaned_data
     
     class Meta:

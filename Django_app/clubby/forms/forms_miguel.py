@@ -87,7 +87,6 @@ class EditProfileForm(forms.Form):
             user_with_mail = User.objects.filter(email=email)[0]
         except:
             user_with_mail = None
-            
         if ((user_with_mail != None) and (user_with_mail != self.request.user)):
             raise ValidationError(_("Email exists"))
 
