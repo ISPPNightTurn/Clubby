@@ -62,6 +62,10 @@
         </br>
         {% trans '("This product is exclusive for reservations")' %}'
       {% endif %}
+
+      {% if product.owned > 0 %}
+      <p><strong style="font-size: small;">You own: {{ product.owned }}</strong></p>
+      {% endif %}
         
     <form action="" method="post">{% csrf_token %} {{form}}
       <br>

@@ -1,0 +1,10 @@
+{% extends "clubby/base_generic.html" %}
+{% load i18n %}
+
+{% block content %}
+  <div class="card deep-purple darken-4 center">
+  <h2>{% trans 'Thanks, for believing in us!' %}' </h2>
+  <em class="material-icons medium">favorite</em>
+  <a class="btn deep-purple darken-4" href="{% url 'my-purchases' %}">{% trans 'Continue' %}</a>
+</div>
+{% endblock %}

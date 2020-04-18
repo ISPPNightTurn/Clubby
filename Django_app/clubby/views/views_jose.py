@@ -57,6 +57,9 @@ def ProductsByClubList(request, club_id):
             user_is_broke = False
             if(product_selected.price * quantity > request.user.profile.funds):
                 user_is_broke = True
+                
+                item = QR_Item.objects.filter(user = request.user).filter(is_used=False).filter(expiration_date__gte=datetime.datetime.now()).order_by('-fecha')
+                return render(request,'clubby/purchase/list.html',{'user_is_broke':user_is_broke,'object_list':item,'now':datetime.datetime.now()})
             else:
                 total_cost = product_selected.price * quantity
                 request.user.profile.funds -= total_cost 
@@ -70,16 +73,20 @@ def ProductsByClubList(request, club_id):
                     qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user,
                         fecha=datetime.datetime.now(), expiration_date=datetime.datetime.now() + timedelta(hours=6))
                     qr.save()
-                                 
-        item = QR_Item.objects.filter(user = request.user).filter(is_used=False).filter(expiration_date__gte=datetime.datetime.now()).order_by('-fecha')
-            
-        return render(request,'clubby/purchase/list.html',{'user_is_broke':user_is_broke,'object_list':item,'now':datetime.datetime.now()})
+
+                return HttpResponseRedirect(reverse('purchase-confirm'))
+
     else:
         club = Club.objects.filter(pk=club_id)[0]
         products = Product.objects.filter(club = club)
 
         product_ammount=dict()
         for t in range(len(products)):
+
+            # collect number of owned items
+            products[t].owned = QR_Item.objects.filter(product_id = products[t].id).filter(
+                user_id = request.user.id).filter(is_used = 0).filter(expiration_date__gt = datetime.datetime.now()).count
+
             #returns the ammount of unsold tickets for an event and category
             form = ProductPurchaseForm(initial={'product':products[t].pk})
             product_ammount[products[t]] = form
@@ -208,3 +215,7 @@ def delete(request):
     except:
         messages.error(request, _("Something went wrong")) 
     return render(request, 'clubby/success.html')
+
+@login_required
+def purchase_confirm(request):
+    return render(request,'clubby/purchaseConfirm.html')

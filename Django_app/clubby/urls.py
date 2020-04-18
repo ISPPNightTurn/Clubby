@@ -72,6 +72,7 @@ urlpatterns += [
     path('addFunds/<int:ammount>', views.add_funds, name='add-funds'),
     path('charge/<int:ammount>', views.charge, name='charge'),
     path('charge', views.clean_charge, name='clean-charge'),
+    path('purchaseConfirm', views.purchase_confirm, name='purchase-confirm'),
     url(r'^link-stripe/$', views.register_stripe_account, name='link-stripe'),
     path('payout/', views.payout, name='payout'),
     path('getPremium', views.get_premium, name='get-premium'),

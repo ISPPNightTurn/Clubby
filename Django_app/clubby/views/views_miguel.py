@@ -135,6 +135,7 @@ def TicketsByEventList(request, event_id):
                 total_cost = tickets_from_db[0].price * to_buy
                 if (total_cost > logged.profile.funds):
                     user_is_broke = True
+
                 else:
                     logged.profile.funds -= total_cost
                     logged.profile.save()
@@ -157,12 +158,15 @@ def TicketsByEventList(request, event_id):
 
                     event.atendees.add(request.user)
                     # event.save() no need to save as add saves it for us.
+                    return HttpResponseRedirect(reverse('purchase-confirm'))
 
             context = {'event': event, 'missing_tickets': missing_tickets,
-                       'miss': miss, 'max_tickets': max_tickets, 'user_is_broke': user_is_broke}
+                'miss': miss, 'max_tickets': max_tickets, 'user_is_broke': user_is_broke}
             return render(request, 'clubby/event/detail.html', context)
+
     else:
         event = Event.objects.filter(pk=event_id)[0]
+        tickets_from_db = Ticket.objects.filter(event=event).filter(user=None)
         tickets_from_db = Ticket.objects.filter(event=event).filter(user=None)
 
         categories = []
@@ -174,6 +178,10 @@ def TicketsByEventList(request, event_id):
 
         ticket_ammount = dict()
         for t in range(len(tickets)):
+
+            # collect number of owned items
+            tickets[t].owned = Ticket.objects.filter(event=event).filter(user=request.user).count()
+
             # returns the ammount of unsold tickets for an event and category
             form = TicketPurchaseForm(
                 initial={'event': event.pk, 'category': categories[t]})
