@@ -57,7 +57,7 @@ class ClubModelForm(ModelForm):
             dictionary = json_data['results'][0]['geometry']['location']
             obj.latitude = dictionary['lat']
             obj.longitude = dictionary['lng']
-        
+            obj.save()
         
         return self.cleaned_data
     
