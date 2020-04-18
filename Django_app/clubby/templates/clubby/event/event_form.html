@@ -18,6 +18,7 @@
 
 <h2 class="header center white-text">Create new event</h2>
 
+
 {% if form.errors %}
 <div class="red darken-4 toast rounded center" style="margin: auto;">
 	<!-- Error messaging -->
@@ -38,6 +39,12 @@
 {% endif %}
 
 <div class="deep-purple darken-4 toast rounded center" style="margin: auto;">
+  Careful, events can't be created for the current date, they also can't be modified.
+</div>
+
+<div class="deep-purple darken-4 toast rounded center" style="margin: auto;">
+
+  
 
   <form action="" method="post" style="margin: auto;">
     {% csrf_token %}

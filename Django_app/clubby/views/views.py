@@ -493,8 +493,7 @@ class EventsByClubAndFutureListView(PermissionRequiredMixin, generic.ListView):
     def get_queryset(self):
         # the gte and lte indicate greater than and lesser than for filtering by dates.
         club = Club.objects.filter(owner=self.request.user)[0]
-        list = Event.objects.filter(start_date__gte=datetime.datetime.now(
-        ).date()).filter(club=club).order_by('-start_date', '-start_time')
+        list = Event.objects.filter(start_date__gte=datetime.datetime.now().date()).filter(club=club).order_by('-start_date', '-start_time')
         return list
 
 
@@ -511,14 +510,14 @@ class EventCreateView(PermissionRequiredMixin, CreateView):
         start_time = form.cleaned_data.get('start_time')
         start_date = form.cleaned_data.get('start_date')
 
-        now = datetime.datetime.now().date()
+        now = (datetime.datetime.now()+timedelta(hours=24)).date()
         errors = []
 
         if(start_date < now):
-            errors.append('date cant be in the past.')
+            errors.append('You can\'t create events for the current day')
 
         if(start_time > 24 or start_time < 0):
-            errors.append('start time is invalid')
+            errors.append('Start time is invalid')
 
         if(duration > 12 or duration < 0):
             errors.append('Duration is invalid')
@@ -533,8 +532,7 @@ class EventCreateView(PermissionRequiredMixin, CreateView):
         first = datetime.datetime(now.year, now.month, 1)
         last = datetime.datetime(now.year, now.month, lastday)
 
-        events_in_month = Event.objects.filter(club=owner.club).filter(
-            start_date__gte=first).filter(start_date__lte=last).count()
+        events_in_month = Event.objects.filter(club=owner.club).filter(start_date__gte=first).filter(start_date__lte=last).count()
         # commit false avoids the object being saved to the database directly:
         obj = form.save(commit=False)
         obj.owner = owner
@@ -548,8 +546,7 @@ class EventCreateView(PermissionRequiredMixin, CreateView):
                 obj.save()
             else:
                 form = FundsForm()
-                context = {'logged_user': owner, 'user_profile': owner.profile,
-                           'club': owner.club, 'form': form, 'over_event_limit': True}
+                context = {'logged_user': owner, 'user_profile': owner.profile,'club': owner.club, 'form': form, 'over_event_limit': True}
                 return render(self.request, 'clubby/profile.html', context)
 
         return HttpResponseRedirect(self.object.get_create_tickets_url())

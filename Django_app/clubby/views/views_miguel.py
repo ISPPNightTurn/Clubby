@@ -407,9 +407,8 @@ def edit_profile(request):
             return render(request, 'clubby/edit_profile.html', {'form': form})
     else:
         user = request.user
-        form = EditProfileForm(initial={'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email,
-                                        'bio': user.profile.bio, 'location': user.profile.location, 'picture': user.profile.picture,
-                                        'birth_date': user.profile.birth_date})
+        form = EditProfileForm(initial={'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email,'bio': user.profile.bio,
+                                'location': user.profile.location, 'picture': user.profile.picture,'birth_date': user.profile.birth_date})
         return render(request, 'clubby/edit_profile.html', {'form': form})
 
 ##################

@@ -31,7 +31,7 @@ class DateInput(forms.DateInput):
 #Model forms: these forms use the models to create themselves basically: (only a single model can't combine multiple.)
 
 class ClubModelForm(ModelForm):
-    max_capacity = forms.IntegerField(min_value=1, max_value=99999)
+    max_capacity = forms.IntegerField(min_value=1, max_value=999)
 
     def clean(self):
         obj = self.save(commit=False)
