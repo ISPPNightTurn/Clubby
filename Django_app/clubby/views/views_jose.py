@@ -32,6 +32,7 @@ import csv
 import datetime
 import pytz
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 
 
@@ -127,6 +128,7 @@ def QRItemView(request, qr_item_id, priv_key):
     else:
         raise PermissionDenied(_('the security key did not match, trying to screw people over huh? Naughty >:('))
 
+@permission_required('clubby.is_owner')
 def DisplayQRItemView(request, qr_item_id, priv_key):
     if (request.method == 'POST'):
         form = RedeemQRCodeForm(request.POST)
@@ -141,8 +143,11 @@ def DisplayQRItemView(request, qr_item_id, priv_key):
             return render(request,'clubby/landing.html')
     else:
             qr = QR_Item.objects.filter(pk=qr_item_id)[0]
-
-            if(priv_key == qr.priv_key):
+            if(qr.ticket!=None):
+                club = qr.ticket.event.club
+            else:
+                club = qr.product.club
+            if(priv_key == qr.priv_key and request.user.club == club):
 
                 form = RedeemQRCodeForm()
                 form.initial['qr_item_id'] = qr.pk

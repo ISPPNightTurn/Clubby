@@ -16,6 +16,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django import forms
+from django.utils.translation import gettext as _
 
 from django.utils.crypto import get_random_string
 
