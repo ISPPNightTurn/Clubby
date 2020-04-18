@@ -142,3 +142,6 @@ input, select, textArea{
     }
 }
 
+.flex input{
+    max-width: 50%;
+}

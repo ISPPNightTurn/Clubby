@@ -35,8 +35,7 @@ class TicketPurchaseForm(forms.Form):
 
 class FundsForm(forms.Form):
     ammount = forms.DecimalField(decimal_places=2,max_value=500, min_value=10, help_text=_("how much of your currency you want to add, max 500€, min 10€"))
-
-
+    ammount.widget.attrs.update({'placeholder': '0.00'})
 class PremiumForm(forms.Form):
     accept = forms.BooleanField(help_text=_("if you agree with these terms we welcome you to the clubby team!"))
 
