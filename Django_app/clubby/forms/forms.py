@@ -81,8 +81,11 @@ class SignupForm(UserCreationForm):
         username = self.cleaned_data.get('username')
         birth_date = self.cleaned_data.get('birth_date')
 
-        if(birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
-            raise ValidationError(_("You're too young. You must be 18 or older to use this app."))
+        if(birth_date != None):
+            if(birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
+                raise ValidationError(_("You're too young. You must be 18 or older to use this app."))
+        else:
+            raise ValidationError(_("Please dont edit the date manually use the datepicker provided by clicking on the field."))
         
         if User.objects.filter(email=email).exists():
             raise ValidationError(_("Email exists"))
