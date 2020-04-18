@@ -35,8 +35,15 @@
       <br>
       <br>
       
-      <p><strong style="font-size: larger;">{% trans 'Price' %} </strong><div class="flex">{{form.price}}<em class="material-icons">euro_symbol</em></div></p>
-      <span class="helptext">{{form.price.help_text}}</span>
+      <p>
+        <strong style="font-size: larger;">{% trans 'Price' %} </strong>
+        <div class="flex">
+          {{form.price}}
+          <label for="price">€</label>
+          <p class="helptext">{{form.price.help_text}}</p>
+        </div>
+      </p>
+      
       <br>
       <br>
       <p><strong style="font-size: larger;">{% trans 'Product type' %} </strong>{{form.product_type}} {{form.product_select}}</p>
