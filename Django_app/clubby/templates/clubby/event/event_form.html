@@ -17,23 +17,27 @@
 
 
 <h2 class="header center white-text">Create new event</h2>
-<div class="deep-purple darken-4 toast rounded center" style="margin: auto;">
+
 {% if form.errors %}
+<div class="red darken-4 toast rounded center" style="margin: auto;">
 	<!-- Error messaging -->
-	<div id="errors">
+	<div id="errors" class="center">
 		<div class="inner">
 			<p>There were some errors in the information you entered. Please correct the following:</p>
 			{{ form.non_field_errors }}
 			<ul>
 				{% for field in form %}
-					{% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+					{% if field.errors %}<li><strong style="font-size: larger;">{{ field.label }}:</strong> {{ field.errors|striptags }}</li>{% endif %}
 				{% endfor %}
 			</ul>
 		</div>
-	</div>
-	<!-- /Error messaging -->
+  </div>
+  <br>
+  <!-- /Error messaging -->
+</div>
 {% endif %}
 
+<div class="deep-purple darken-4 toast rounded center" style="margin: auto;">
 
   <form action="" method="post" style="margin: auto;">
     {% csrf_token %}

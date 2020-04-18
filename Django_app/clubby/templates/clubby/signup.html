@@ -25,23 +25,27 @@
 <p class="center white-text">{% trans 'back to user signup' %} <a href="{% url 'signup-user' %}">{% trans 'here.' %}</a>
 </p>
 {% endif %}
-<div class="deep-purple darken-4 toast rounded center" style="margin: auto;">
 
 {% if form.errors %}
+<div class="red darken-4 toast rounded center" style="margin: auto;">
 	<!-- Error messaging -->
-	<div id="errors">
+	<div id="errors" class="center">
 		<div class="inner">
 			<p>There were some errors in the information you entered. Please correct the following:</p>
 			{{ form.non_field_errors }}
 			<ul>
 				{% for field in form %}
-					{% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+					{% if field.errors %}<li><strong style="font-size: larger;">{{ field.label }}:</strong> {{ field.errors|striptags }}</li>{% endif %}
 				{% endfor %}
 			</ul>
 		</div>
-	</div>
-	<!-- /Error messaging -->
+  </div>
+  <br>
+  <!-- /Error messaging -->
+</div>
 {% endif %}
+
+<div class="deep-purple darken-4 toast rounded center" style="margin: auto;">
 
   <form method="post" id="form">
     <div class="formSignUp">
