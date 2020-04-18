@@ -25,10 +25,13 @@
 <div class="card-content">  
 <form action="" method="post">
     {% csrf_token %}
+      
 
       <strong>{{form.non_field_errors}}</strong>
-      <p><strong style="font-size: larger;">{% trans 'Price' %} </strong>{{form.price}}</p>
+      
+      <p><strong style="font-size: larger;">{% trans 'Price' %} </strong><div class="flex">{{form.price}}<label for="price">€</label></div></p>
       <span class="helptext">{{form.price.help_text}}</span>
+    
       <br>
       <br>
       <p><strong style="font-size: larger;">{% trans 'Category' %} </strong>{{form.category}}</p>
@@ -45,6 +48,7 @@
       <br>
       
     <input class="btn purple darken-4" type="submit" value="{% trans 'Submit' %}">
+  
   </form>
 </div>
   </div

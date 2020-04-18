@@ -71,8 +71,16 @@
           <form method="post" action="/clubby/profile">
             {% csrf_token %}
             <br>
-            <p><strong style="font-size: larger;">{% trans 'Ammount to add' %}</strong>{{form.ammount}}</p>
-         
+            <div class="flex">
+              <p>
+                <strong style="font-size: larger;">
+                  {% trans 'Ammount to add' %}
+                </strong>
+                
+                <p>{{form.ammount}}<label for="ammount">€</label></p>
+              </p>
+            </div>
+            
             {{ form.funds }}
             <button class="btn purple darken-4" type="submit">{% trans 'Add funds to your account!' %}</button>
           </form>
@@ -98,16 +106,25 @@
       {% trans 'YOU DO NOT HAVE THAT MUCH FUNDS... ' %}
     </p><br>
     {%endif%}
+
+    <div style="margin: 50px 0 100px 0" class="card rounded ">
+      <div class="card-content black">
     {% trans 'Get money to your bank:' %}<br>
     <form method="post" action="/clubby/payout/" id="payout" style="margin: auto;" >
       {% csrf_token %}
       <br>
-      <p><strong style="font-size: larger;">{% trans 'Ammount to add' %} </strong>{{form.ammount}}</p>
-   
-      {{ form.funds }}
-      <button class="btn purple darken-4" type="submit">{% trans 'Get your funds to you bank!' %}</button>
-      <br></br>
-    </form>
+      
+        <p><strong style="font-size: larger;">{% trans 'Ammount to add' %} </strong>
+          <div class="flex">
+          {{form.ammount}}<label for="ammount">€</label></p>
+          </div>
+        {{ form.funds }}
+        <button class="btn purple darken-4" type="submit">{% trans 'Get your funds to you bank!' %}</button>
+        <br></br>
+      </form>
+    </div>
+    </div>
+
     {%endif%}
     </div>
     {% if over_event_limit%}
