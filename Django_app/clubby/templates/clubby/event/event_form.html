@@ -88,12 +88,15 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="{% static 'clubby/js/materialize.js' %}"></script>
 <script type="text/javascript">
+currDate = new Date()
+tomorrow = new Date(currDate)
+tomorrow.setDate(tomorrow.getDate() + 1)
   $(document).ready(function() {
     $(".datepicker").datepicker({
       setDefaultDate: true,
       yearRange: [(new Date()).getFullYear(), (new Date()).getFullYear() + 10],
-     defaultDate: new Date(),
-     minDate: new Date(),
+     defaultDate: tomorrow,
+     minDate: tomorrow,
     maxDate: new Date((new Date).getFullYear() + 10, 1, 1),
      format: "yyyy-mm-dd"
    });
