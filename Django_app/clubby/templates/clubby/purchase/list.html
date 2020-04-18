@@ -6,11 +6,18 @@
   [class*="row"] {
     width: 50%;
   }
+
+  [id*="message"] {
+    width: 50%;
+  }
   @media only screen and (max-width: 768px) {
   [class*="row"] {
     width: 100%;
   }
   [class*="center-align"] {
+    width: 100%;
+  }
+  [id*="message"] {
     width: 100%;
   }
 }
@@ -19,7 +26,12 @@
   {% load qr_code %}
   <h1 style="text-align: center;">{% trans 'My Purchases' %}</h1>
   {% if user_is_broke%}
-  {% trans 'You dont have enough to buy that, get some moolah in your profile page' %}
+  <div class="card red darken-4 center" id="message" style="margin: auto;">
+    <br>
+    {% trans 'You dont have enough to buy that, get some moolah in your profile page' %}
+    <br>
+    <br>
+  </div>
   {% endif %}
   {% if object_list %}
   <div class="row">
@@ -77,8 +89,11 @@
   </div>
 
   {% else %}
-  <div class="card deep-purple darken-4">
-    <p>{% trans 'You have no purchases' %}</p>
+  <div class="card deep-purple darken-4 center" id="message" style="margin: auto;">
+    <br>
+    {% trans 'You have no purchases' %}
+    <br>
+    <br>
   </div>
 
   {% endif %}
