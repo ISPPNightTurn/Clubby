@@ -269,19 +269,22 @@ def payout(request): # new
     if request.method == 'POST':
         form = FundsForm(request.POST)
         quantity = form['ammount'].value()
+        quantity = float(quantity)
+        funds = float(profile.funds)
+        print(quantity) #<-- actual number
 
-        if(int(quantity) > int(profile.funds)):
+        if(quantity > funds):
             context = {'logged_user': user,'user_profile': profile, 'club':club, 'form':form, 'limited_funds':True}
             return render(request,'clubby/profile.html',context)
         else:
-            quantity = int(quantity) * 100
+            quantity = int(quantity*100)
 
             session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[{
                 'name': "Clubby",
-                'amount': quantity,
-                'currency': 'usd',
+                'amount': str(quantity),
+                'currency': 'eur',
                 'quantity': 1,
             }],
             payment_intent_data={
@@ -295,7 +298,7 @@ def payout(request): # new
             )
             
             profile = request.user.profile
-            profile.funds -= Decimal(str(int(quantity)/100))
+            profile.funds -= Decimal(str(float(quantity/100)))
             profile.save()
 
             return render(request,'clubby/charge.html')

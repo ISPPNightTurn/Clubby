@@ -197,8 +197,15 @@ def ClubCreateRating(request, club_id):
             else:
                 Rating.objects.filter(club_id = club_id,user_id=request.user.id).update(stars=stars, text=text,fecha=datetime.datetime.now())
 
-            return HttpResponseRedirect(reverse('clubs'))
+            return HttpResponseRedirect(reverse('list-rating', args=[club_id]))
 
     else:
-        form = RatingCreateModelForm(initial={'stars':10,'text':''})
-        return render(request, 'clubby/club/rating_create.html', {'form': form})
+        try:
+            listU = Rating.objects.filter(club_id = club_id,user_id=request.user.id)
+
+            form = RatingCreateModelForm(initial={'stars':listU[0].stars,'text':listU[0].text})
+            return render(request, 'clubby/club/rating_create.html', {'form': form})
+
+        except:
+            form = RatingCreateModelForm(initial={'stars':10,'text':''})
+            return render(request, 'clubby/club/rating_create.html', {'form': form})

@@ -30,6 +30,10 @@ import qr_code
 import csv
 
 import datetime
+import pytz
+from django.utils import timezone
+
+
 
 #################
 #    PRODUCTS    #
@@ -142,7 +146,14 @@ def DisplayQRItemView(request, qr_item_id, priv_key):
 
                 form = RedeemQRCodeForm()
                 form.initial['qr_item_id'] = qr.pk
-                context = {'qr_item':qr,'form':form,'now':datetime.datetime.now()}
+                is_expired = qr.expiration_date < timezone.now()
+                if(qr.ticket!=None):
+                    is_same_day =  qr.ticket.event.start_date == datetime.datetime.today().date()
+                    print(qr.ticket.event.start_date)
+                    print(datetime.datetime.today())
+                else:
+                    is_same_day=True
+                context = {'qr_item':qr,'form':form,'now':datetime.datetime.now(),'is_same_day':is_same_day,'is_expired':is_expired}
 
                 return render(request,'clubby/purchase/display.html',context)
             else:

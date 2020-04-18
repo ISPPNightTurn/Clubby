@@ -115,6 +115,10 @@
             <br/>
         
           {% endif %}
+
+          {% if not is_same_day %}
+            <h2>{%trans 'NOT FOR TODAY' %}</h2>
+          {% endif %}
               {% if qr_item.is_used %}
               <span class="light white-text" style="display: inline-block; vertical-align:top;">The QR has already been used</span>
               {% else %}

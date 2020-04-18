@@ -81,15 +81,14 @@ class EditProfileForm(forms.Form):
 
     def clean(self):
         email = self.cleaned_data.get('email')
-
         birth_date = self.cleaned_data.get('birth_date')
 
         try:
             user_with_mail = User.objects.filter(email=email)[0]
         except:
             user_with_mail = None
-
-        if user_with_mail != None:
+            
+        if ((user_with_mail != None) and (user_with_mail != self.request.user)):
             raise ValidationError(_("Email exists"))
 
         if(birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
