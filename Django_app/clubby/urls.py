@@ -113,5 +113,3 @@ urlpatterns += [
     path('social/success/', views.socialsuccess, name="social-sucess"),
     url(r'spotify/authorize/$', views.connect_spotify, name="spotify-auth")
 ]
-
-
