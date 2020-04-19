@@ -24,6 +24,9 @@ from ..models import Club, Event, Profile, Product, Ticket, QR_Item, Rating
 
 import datetime
 
+from django.utils.translation import gettext as _
+
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 #################

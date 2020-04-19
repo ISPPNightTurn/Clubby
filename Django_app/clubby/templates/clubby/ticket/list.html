@@ -24,7 +24,7 @@
       {{ticket.category}} - ({{ticket.price}}€) - ({{ticket.event}}) 
 
       {% if ticket.owned > 0 %}
-      <p><strong style="font-size: small;">You own: {{ ticket.owned }}</strong></p>
+      <p><strong style="font-size: small;">{% trans 'You own:' %} {{ ticket.owned }}</strong></p>
       {% endif %}
 
       <form action="" method="post">{% csrf_token %} {{form}} 

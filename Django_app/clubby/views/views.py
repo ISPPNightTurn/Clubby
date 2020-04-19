@@ -14,6 +14,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
+from django.utils.translation import gettext as _
+
 
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -329,7 +331,7 @@ class ClubUpdate(PermissionRequiredMixin, UpdateView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if(self.object.owner != request.user):
-            raise PermissionDenied("You don't own that >:(")
+            raise PermissionDenied(_("You don't own that >:("))
         else:
             return super(ClubUpdate, self).get(request, *args, **kwargs)
 
@@ -353,7 +355,7 @@ class ClubDelete(PermissionRequiredMixin, DeleteView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if(self.object.owner != request.user):
-            raise PermissionDenied("You don't own that >:(")
+            raise PermissionDenied(_("You don't own that >:("))
         else:
             return super(ClubDelete, self).get(request, *args, **kwargs)
 
@@ -365,7 +367,7 @@ class ClubDelete(PermissionRequiredMixin, DeleteView):
         if can_delete:
             return super(ClubDelete, self).delete(request, *args, **kwargs)
         else:
-            raise PermissionDenied("You don't own that >:(")
+            raise PermissionDenied(_("You don't own that >:("))
 
 #################
 #    PRODUCT    #
@@ -514,13 +516,13 @@ class EventCreateView(PermissionRequiredMixin, CreateView):
         errors = []
 
         if(start_date < now):
-            errors.append('You can\'t create events for the current day')
+            errors.append(_('You cannot create events for the current day'))
 
         if(start_time > 24 or start_time < 0):
-            errors.append('Start time is invalid')
+            errors.append(_('Start time is invalid'))
 
         if(duration > 12 or duration < 0):
-            errors.append('Duration is invalid')
+            errors.append(_('Duration is invalid'))
 
         if(len(errors) != 0):
             return render(self.request, 'clubby/event/event_form.html', {'form': form, 'errors': errors})
