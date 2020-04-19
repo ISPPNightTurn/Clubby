@@ -633,4 +633,4 @@ def view_recommended_events(request):
     
     context = {'object_list':events}
 
-    return render(request,'clubby\event\list.html', context)
+    return render(request,'clubby/event/list.html', context)
