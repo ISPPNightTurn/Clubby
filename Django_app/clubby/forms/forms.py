@@ -55,13 +55,14 @@ class ClubModelForm(ModelForm):
             raise ValidationError(_('No address found with information provided.'))
         else:
             dictionary = json_data['results'][0]['geometry']['location']
+            print(str(dictionary['lat']) + " , " + str(dictionary['lng']))
             self.latitude = dictionary['lat']
             self.longitude = dictionary['lng']
             self.NIF = self.cleaned_data.get('NIF')
             self.name = self.cleaned_data.get('name')
             self.max_capacity = self.cleaned_data.get('max_capacity')
             self.picture = self.cleaned_data.get('picture')
-            self.save
+            # self.save
         
         return self.cleaned_data
     
