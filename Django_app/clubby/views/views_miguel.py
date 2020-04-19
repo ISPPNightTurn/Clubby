@@ -239,16 +239,18 @@ def register_stripe_account(request):
     except:
         error = request.GET['error']
         error_description = request.GET['error_description']
+        print(error)
+        print(error_description)
 
     if(error != None):
-        return json.dumps({"error": "Incorrect state parameter: " + state}), 403
-
+        return render(request,'clubby/error.html',{'error':str(error) + ", "+str(error_description)})
+        
     try:
         response = stripe.OAuth.token(grant_type="authorization_code", code=code,)
     except stripe.oauth_error.OAuthError as e:
-        return json.dumps({"error": "Invalid authorization code: " + code}), 400
+        return render(request,'clubby/error.html',{"error": "Invalid authorization code: " + code})
     except Exception as e:
-        return json.dumps({"error": "An unknown error occurred."}), 500
+        return render(request,'clubby/error.html',{"error": "An unknown error occurred."})
 
     connected_account_id = response["stripe_user_id"]
 
