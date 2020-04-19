@@ -8,8 +8,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from qr_code.qrcode import constants    
+from qr_code.qrcode import constants
 from django.utils.translation import ugettext_lazy as _
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,9 +25,7 @@ SECRET_KEY = ')4xu%pi!cpx52^&8g!vbgbvjuo1d3u(w8(k!wr!im(*u_m9^!!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-LOGIN_REDIRECT_URL = '/clubby/'
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -42,6 +41,16 @@ INSTALLED_APPS = [
     'background_task',
     'social_django',
 ]
+
+MODULES = [
+    # 'clubby',
+]
+
+BASEURL = 'https://clubby-sprint3.herokuapp.com'
+
+APIS = {
+    'clubby': BASEURL,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,19 +91,19 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-#clubby(db admin) password:
-#I$PP-C1ubby
+# clubby(db admin) password:
+# I$PP-C1ubby
 
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME': 'djangodatabase',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': 'clubby',
         'USER': 'clubby',
-        'PASSWORD': 'I$PP-C1ubby',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PASSWORD': 'clubby',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -131,10 +140,14 @@ CACHES = {
 QR_CODE_CACHE_ALIAS = 'qr-code'
 
 QR_CODE_URL_PROTECTION = {
-    constants.TOKEN_LENGTH: 30,                         # Optional random token length for URL protection. Defaults to 20.
-    constants.SIGNING_KEY: 'my-secret-signing-key',     # Optional signing key for URL token. Uses SECRET_KEY if not defined.
-    constants.SIGNING_SALT: 'my-signing-salt',          # Optional signing salt for URL token.
-    constants.ALLOWS_EXTERNAL_REQUESTS_FOR_REGISTERED_USER: True  # Tells whether a registered user can request the QR code URLs from outside a site that uses this app. It can be a boolean value used for any user or a callable that takes a user as parameter. Defaults to False (nobody can access the URL without the signature token).
+    # Optional random token length for URL protection. Defaults to 20.
+    constants.TOKEN_LENGTH: 30,
+    # Optional signing key for URL token. Uses SECRET_KEY if not defined.
+    constants.SIGNING_KEY: 'my-secret-signing-key',
+    # Optional signing salt for URL token.
+    constants.SIGNING_SALT: 'my-signing-salt',
+    # Tells whether a registered user can request the QR code URLs from outside a site that uses this app. It can be a boolean value used for any user or a callable that takes a user as parameter. Defaults to False (nobody can access the URL without the signature token).
+    constants.ALLOWS_EXTERNAL_REQUESTS_FOR_REGISTERED_USER: True
 }
 
 
@@ -157,6 +170,21 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = ''
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+try:
+    from local_settings import *
+except ImportError:
+    print("local_settings.py not found")
+
+INSTALLED_APPS = INSTALLED_APPS + MODULES
+django_heroku.settings(locals())
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 
 STRIPE_SECRET_KEY = 'sk_test_9IhxLsCMrm68wEsLukTks8o600GjKW4X7v'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_O3189kQJ1kig0wQ6NGrgQACW00Zy8MA8xI'
