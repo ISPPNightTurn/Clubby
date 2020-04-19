@@ -305,7 +305,7 @@ def payout(request): # new
                 },
             },
             success_url='https://clubby-sprint3.herokuapp.com/',
-            cancel_url='https://clubby-sprint3.herokuapp.com/profile',
+            cancel_url='https://clubby-sprint3.herokuapp.com/clubby/profile',
             )
             
             profile = request.user.profile
