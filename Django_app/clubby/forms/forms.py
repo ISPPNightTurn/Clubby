@@ -34,7 +34,7 @@ class ClubModelForm(ModelForm):
     max_capacity = forms.IntegerField(min_value=1, max_value=999)
 
     def clean(self):
-        obj = self.save(commit=False)
+       
         #you can add validation the same way as in a custom form: by adding def clean_field_name(): and raising ValidationError.
         data = self.cleaned_data.get('NIF')
 
@@ -55,9 +55,13 @@ class ClubModelForm(ModelForm):
             raise ValidationError(_('No address found with information provided.'))
         else:
             dictionary = json_data['results'][0]['geometry']['location']
-            obj.latitude = dictionary['lat']
-            obj.longitude = dictionary['lng']
-            obj.save()
+            self.latitude = dictionary['lat']
+            self.longitude = dictionary['lng']
+            self.NIF = self.cleaned_data.get('NIF')
+            self.name = self.cleaned_data.get('name')
+            self.max_capacity = self.cleaned_data.get('max_capacity')
+            self.picture = self.cleaned_data.get('picture')
+            self.save
         
         return self.cleaned_data
     
