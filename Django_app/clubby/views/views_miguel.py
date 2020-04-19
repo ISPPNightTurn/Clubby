@@ -152,7 +152,7 @@ def TicketsByEventList(request, event_id):
                         tick.save()
                         tick.refresh_from_db()
 
-                        qr = QR_Item(is_used=False, priv_key=get_random_string(length=16), user=logged, ticket=tick,
+                        qr = QR_Item(is_used=False, priv_key=get_random_string(length=128), user=logged, ticket=tick,
                                      fecha=datetime.datetime.now(), expiration_date= tick.event.end_datetime)
                         qr.save()
 
@@ -239,16 +239,18 @@ def register_stripe_account(request):
     except:
         error = request.GET['error']
         error_description = request.GET['error_description']
+        print(error)
+        print(error_description)
 
     if(error != None):
-        return json.dumps({"error": "Incorrect state parameter: " + state}), 403
-
+        return render(request,'clubby/error.html',{'error':str(error) + ", "+str(error_description)})
+        
     try:
         response = stripe.OAuth.token(grant_type="authorization_code", code=code,)
     except stripe.oauth_error.OAuthError as e:
-        return json.dumps({"error": "Invalid authorization code: " + code}), 400
+        return render(request,'clubby/error.html',{"error": "Invalid authorization code: " + code})
     except Exception as e:
-        return json.dumps({"error": "An unknown error occurred."}), 500
+        return render(request,'clubby/error.html',{"error": "An unknown error occurred."})
 
     connected_account_id = response["stripe_user_id"]
 
@@ -302,8 +304,8 @@ def payout(request): # new
                 'destination': profile.stripe_account_id,
                 },
             },
-            success_url='https://clubby-sprint3.herokuapp.com/',
-            cancel_url='https://clubby-sprint3.herokuapp.com/profile',
+            success_url='http://localhost:8000/',
+            cancel_url='http://localhost:8000/profile',
             )
             
             profile = request.user.profile
@@ -533,7 +535,7 @@ def connect_spotify(request):
     if(code != None):
         token_uri = 'https://accounts.spotify.com/api/token'
 
-        redirect_uri = 'https://clubby-sprint3.herokuapp.com/clubby/spotify/authorize/'
+        redirect_uri = 'http://localhost:8000/clubby/spotify/authorize/'
         client_id ='7af4e7e36a454ec09746fa13559947d9'
         client_secret = '77803dff87ba476fb8ccdaf0750d695a'
 

@@ -153,6 +153,13 @@
     <li><a class="waves-effect" href="{% url 'signup-user' %}"><span class="white-text name">{% trans 'Sign Up!' %}</span></a></li>
     {% endif %}
 
+    {% if perms.clubby.is_owner %}
+      <!-- We can add owner specific actions here (they need to not require a club.)--> 
+    {% if not perms.clubby.is_premium_owner %}
+        <li><a href = "{% url 'get-premium'%}"><span class="white-text name">{% trans 'Become Premium!' %}</span></a></li>
+      {% endif %}
+    {%endif%}
+
   </ul>
    
 

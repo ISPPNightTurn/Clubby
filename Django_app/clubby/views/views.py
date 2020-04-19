@@ -114,7 +114,7 @@ def profile(request):
         form = FundsForm()
 
         client_id ='7af4e7e36a454ec09746fa13559947d9'
-        redirect_uri = 'https://clubby-sprint3.herokuapp.com/clubby/spotify/authorize/'
+        redirect_uri = 'http://localhost:8000/clubby/spotify/authorize/'
         scope = 'user-top-read'
 
         spotify_link_url = 'https://accounts.spotify.com/authorize?client_id='+client_id+'&response_type=code&redirect_uri='+redirect_uri+'&scope=user-top-read&show_dialog=true'
@@ -315,6 +315,19 @@ class ClubCreate(PermissionRequiredMixin, CreateView):
         obj = form.save(commit=False)
         obj.owner = self.request.user
 
+        club_address = form.cleaned_data.get('address')
+        club_address = club_address.replace(" ","+")
+        club_address = club_address.replace(",",",+")
+
+        response = rq.request('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+club_address+'&key='+GOOGLE_API_KEY)
+        json_data = json.loads(response.text)
+
+        dictionary = json_data['results'][0]['geometry']['location']
+        print(str(dictionary['lat']) + " , " + str(dictionary['lng']))
+
+        obj.latitude = dictionary['lat']
+        obj.longitude = dictionary['lng']
+
         # this is neccesary as the url is pulled from self.object.
         self.object = obj
         obj.save()
@@ -339,6 +352,19 @@ class ClubUpdate(PermissionRequiredMixin, UpdateView):
         obj = form.save(commit=False)
         # this is neccesary as the url is pulled from self.object.
         self.object = obj
+
+        club_address = form.cleaned_data.get('address')
+        club_address = club_address.replace(" ","+")
+        club_address = club_address.replace(",",",+")
+
+        response = rq.request('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+club_address+'&key='+GOOGLE_API_KEY)
+        json_data = json.loads(response.text)
+
+        dictionary = json_data['results'][0]['geometry']['location']
+        print(str(dictionary['lat']) + " , " + str(dictionary['lng']))
+
+        obj.latitude = dictionary['lat']
+        obj.longitude = dictionary['lng']
 
         if(obj.owner == self.request.user):
             obj.save()
