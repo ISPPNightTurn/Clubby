@@ -48,18 +48,7 @@ class ClubModelFormTests(TestCase):
         form_data = {'address': 'address', 'max_capacity': 10, 'NIF': '12345678x'}
         form = ClubModelForm(data=form_data)
         self.assertFalse(form.is_valid())
-
-    def test_form_address_too_big(self):
-        form_data = {'name': 'name','address': 'addressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddressaddress',
-        'max_capacity': 10, 'NIF': '12345678x'}
-        form = ClubModelForm(data=form_data)
-        self.assertFalse(form.is_valid())
-
-    def test_form_address_null(self):
-        form_data = {'name': 'name', 'max_capacity': 10, 'NIF': '12345678x'}
-        form = ClubModelForm(data=form_data)
-        self.assertFalse(form.is_valid())
-
+        
     def test_form_max_capacity_neg(self):
         form_data = {'name': 'name', 'address': 'address', 'max_capacity': -1, 'NIF': '12345678x'}
         form = ClubModelForm(data=form_data)
@@ -86,12 +75,6 @@ class ClubModelFormTests(TestCase):
         self.assertFalse(form.is_valid())
 
 class SignupFormTests(TestCase):
-    def test_form_complete(self):
-        form_data = {'username': 'username', 'first_name': 'fname', 'last_name': 'lname',
-        'email': 'a@gamil.com', 'birth_day': 1, 'birth_year': 1997, 'birth_month': 1, 
-        'bio': 'bio', 'location': 'location', 'password1': 'contrasenia', 'password2': 'contrasenia'}
-        form = SignupForm(data=form_data)
-        self.assertTrue(form.is_valid())
 
     def test_form_user_null(self):
         form_data = {'first_name': 'fname', 'last_name': 'lname',
@@ -149,13 +132,6 @@ class SignupFormTests(TestCase):
         form = SignupForm(data=form_data)
         self.assertFalse(form.is_valid())
 
-    def test_form_bio_null(self):
-        form_data = {'username': 'username', 'first_name': 'fname', 'last_name': 'lname',
-        'email': 'a@gamil.com', 'birth_day': 1, 'birth_year': 1997, 'birth_month': 1, 
-        'location': 'location', 'password1': 'contrasenia', 'password2': 'contrasenia'}
-        form = SignupForm(data=form_data)
-        self.assertTrue(form.is_valid())
-
     def test_form_bio_too_long(self):
         form_data = {'username': 'username', 'first_name': 'fname', 'last_name': 'lname', 'bio' : 'toooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo long',
         'email': 'a@gamil.com', 'birth_day': 1, 'birth_year': 1997, 'birth_month': 1, 
@@ -183,13 +159,6 @@ class SignupFormTests(TestCase):
         'bio': 'bio', 'location': 'location', 'password1': 'contrasenia', 'password2': 'contrasenia'}
         form = SignupForm(data=form_data)
         self.assertFalse(form.is_valid())
-
-    def test_form_location_null(self):
-        form_data = {'username': 'username', 'first_name': 'fname', 'last_name': 'lname',
-        'email': 'a@gamil.com', 'birth_day': 1, 'birth_year': 1997, 'birth_month': 1, 
-        'bio': 'bio', 'password1': 'contrasenia', 'password2': 'contrasenia'}
-        form = SignupForm(data=form_data)
-        self.assertTrue(form.is_valid())
 
     def test_form_location_too_long(self):
         form_data = {'username': 'username', 'first_name': 'fname', 'last_name': 'lname',
@@ -282,17 +251,6 @@ class ProductModelFormTests(TestCase):
         self.assertTrue(form.is_valid())
 
 class EventModelFormTests(TestCase):
-    def test_form_complete(self):
-        form_data = {'name': 'name', 'start_date': datetime.strptime("2020/04/04", "%Y/%m/%d"),
-        'start_time': 10, 'duration': 10, 'picture': 'https://picture.com', 'event_type': 'c'}
-        form = EventModelForm(data=form_data)
-        self.assertTrue(form.is_valid())
-
-    def test_form_picture_null(self):
-        form_data = {'name': 'name', 'start_date': datetime.strptime("2020/04/04", "%Y/%m/%d"),
-        'start_time': 10, 'duration': 10, 'event_type': 'c'}
-        form = EventModelForm(data=form_data)
-        self.assertTrue(form.is_valid())
 
     def test_form_name_null(self):
         form_data = {'start_date': datetime.strptime("2020/04/04", "%Y/%m/%d"),
@@ -514,21 +472,6 @@ class ProductPurchaseFormTest(TestCase):
         form_data = {'quantity': 1, 'product': 'string'}
         form = ProductPurchaseForm(data=form_data)
         self.assertFalse(form.is_valid())
-
-class RedeemQRCodeFormTest(TestCase):
-    #Test 9 - Yassin
-    def test_form_complete(self):
-        self.user = User()
-        self.user.save()
-        club = Club.objects.create(name = "Clubby", address = "Callesita", max_capacity = 120, NIF = '12345678X',
-            picture = "https://picture.com", owner = self.user)
-        product = Product.objects.create(name = "Cerveza", price = 1.5, club = club, product_type = 'm',
-            reservation_exclusive = False) 
-        qr_item = QR_Item(is_used = False, product = product, ticket = None,
-            user = self.user, fecha = datetime.strptime("2021/01/01", "%Y/%m/%d"), priv_key = '12345', timed_out = False)
-        form_data = {'qr_item_id': qr_item}
-        form = RedeemQRCodeForm(data=form_data)
-        self.assertTrue(form.is_valid())
 
     #Test 10 - Yassin
     def test_form_qr_item_null(self):
