@@ -26,8 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_REDIRECT_URL = '/clubby/'
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -171,7 +169,7 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1092054840257-qu6hcm8bftj0pl0ja4guk2gvk1b0vkcr.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'TONwYSQfiWit-y8S6Z9E7RP5'
 
-LOGIN_URL = 'accounts/login/'
+LOGIN_URL = '/clubby/accounts/login/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
