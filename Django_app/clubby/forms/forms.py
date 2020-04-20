@@ -76,7 +76,7 @@ class SignupForm(UserCreationForm):
     last_name = forms.CharField(max_length=30, required=True, help_text=_('Required. 30 character max' ))
     email = forms.EmailField(max_length=254, required=True, help_text=_('Required. Inform a valid email address.'))
 
-    birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}), initial= (datetime.datetime.now()-datetime.timedelta(days=365*18)).date())
+    birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker white-text','readonly':'readonly'}), initial= (datetime.datetime.now()-datetime.timedelta(days=365*18)).date())
     
     bio = forms.CharField(max_length=500, required=False, help_text=_("Optional, tell us something about you."))
     location = forms.CharField(max_length=30, required=False, help_text=_("Optional, where are you form?."))
@@ -134,7 +134,7 @@ class ProductModelForm(ModelForm):
 
 class EventModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text=_('Required. 50 character max' ))
-    start_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker'}), initial= datetime.date.today)
+    start_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker white-text', 'readonly':'readonly'}), initial= datetime.date.today)
     event_type = forms.CharField(
         max_length=100,
         widget=forms.Select(
