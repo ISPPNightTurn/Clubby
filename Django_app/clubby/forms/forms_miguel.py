@@ -46,8 +46,8 @@ class SearchForm(forms.Form):
 
 class SearchEventForm(forms.Form):
     # query = forms.CharField(help_text="Looking for something?",required=False)
-    start_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker inicio', 'readonly':'readonly'}), help_text=_("We will start looking here."))
-    end_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker fin', 'readonly':'readonly'}), help_text=_("We stop looking here."))
+    start_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker inicio white-text', 'style': 'color: white', 'readonly':'readonly'}), help_text=_("We will start looking here."))
+    end_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker fin white-text', 'style': 'color: white', 'readonly':'readonly'}), help_text=_("We stop looking here."))
 
     def clean(self):
         current_date = datetime.datetime.now().date()
@@ -84,7 +84,7 @@ class EditProfileForm(forms.Form):
     email = forms.EmailField(max_length=254, help_text=_('Required. Inform a valid email address.'))
     bio = forms.CharField(max_length=500, required=False, help_text=_("Optional, tell us something about you."))
     location = forms.CharField(max_length=30, required=False, help_text=_("Optional, where are you form?."))    
-    birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker','readonly':'readonly'}))
+    birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker white-text', 'style': 'color: white', 'readonly':'readonly'}))
     picture = forms.URLField(help_text=_("URL to a picture of your pretty face (200 characters max)"), required=False)
 
     def clean(self):
