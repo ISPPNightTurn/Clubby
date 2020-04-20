@@ -152,7 +152,7 @@ def TicketsByEventList(request, event_id):
                         tick.save()
                         tick.refresh_from_db()
 
-                        qr = QR_Item(is_used=False, priv_key=get_random_string(length=128), user=logged, ticket=tick,
+                        qr = QR_Item(is_used=False, priv_key=get_random_string(length=16), user=logged, ticket=tick,
                                      fecha=datetime.datetime.now(), expiration_date= tick.event.end_datetime)
                         qr.save()
 
