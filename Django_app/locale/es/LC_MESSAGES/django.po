@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-19 10:56+0200\n"
-"PO-Revision-Date: 2020-04-19 10:56+0200\n"
+"POT-Creation-Date: 2020-04-20 11:33+0200\n"
+"PO-Revision-Date: 2020-04-20 11:26+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -27,28 +27,28 @@ msgid "No address found with information provided."
 msgstr ""
 "No se ha encontrado ninguna dirección con la información proporcionada."
 
-#: .\clubby\forms\forms.py:70 .\clubby\forms\forms.py:71
+#: .\clubby\forms\forms.py:74 .\clubby\forms\forms.py:75
 #: .\clubby\forms\forms_miguel.py:82 .\clubby\forms\forms_miguel.py:83
 msgid "Required. 30 character max"
 msgstr "Obligatorio. 30 caracteres máximo"
 
-#: .\clubby\forms\forms.py:72 .\clubby\forms\forms_miguel.py:84
+#: .\clubby\forms\forms.py:76 .\clubby\forms\forms_miguel.py:84
 msgid "Required. Inform a valid email address."
 msgstr "Obligatorio. Debe ser un email válido."
 
-#: .\clubby\forms\forms.py:76 .\clubby\forms\forms_miguel.py:85
+#: .\clubby\forms\forms.py:80 .\clubby\forms\forms_miguel.py:85
 msgid "Optional, tell us something about you."
 msgstr "Opcional. Cuéntanos algo sobre ti."
 
-#: .\clubby\forms\forms.py:77 .\clubby\forms\forms_miguel.py:86
+#: .\clubby\forms\forms.py:81 .\clubby\forms\forms_miguel.py:86
 msgid "Optional, where are you form?."
 msgstr "Opcional. ¿De dónde eres?."
 
-#: .\clubby\forms\forms.py:86 .\clubby\forms\forms_miguel.py:102
+#: .\clubby\forms\forms.py:90 .\clubby\forms\forms_miguel.py:102
 msgid "You're too young. You must be 18 or older to use this app."
 msgstr "Eres demasiado joven. Debes tener 18 años o más para usar esta app."
 
-#: .\clubby\forms\forms.py:88 .\clubby\forms\forms_miguel.py:65
+#: .\clubby\forms\forms.py:92 .\clubby\forms\forms_miguel.py:65
 #: .\clubby\forms\forms_miguel.py:71 .\clubby\forms\forms_miguel.py:104
 msgid ""
 "Please dont edit the date manually use the datepicker provided by clicking "
@@ -57,59 +57,59 @@ msgstr ""
 "Por favor, no edites la fecha manualmente. Utiliza el calendario aportado al "
 "clickar en el campo."
 
-#: .\clubby\forms\forms.py:91 .\clubby\forms\forms_miguel.py:99
+#: .\clubby\forms\forms.py:95 .\clubby\forms\forms_miguel.py:99
 msgid "Email exists"
 msgstr "El email ya existe"
 
-#: .\clubby\forms\forms.py:94
+#: .\clubby\forms\forms.py:98
 msgid "Sorry that username is already taken :("
 msgstr "Lo sentimos, ese nombre de usuario ya está cogido :("
 
-#: .\clubby\forms\forms.py:103 .\clubby\forms\forms.py:131
+#: .\clubby\forms\forms.py:107 .\clubby\forms\forms.py:135
 msgid "Required. 50 character max"
 msgstr "Obligatorio. 50 caracteres máximo"
 
-#: .\clubby\forms\forms.py:104
+#: .\clubby\forms\forms.py:108
 msgid "Required. 5 digits max"
 msgstr "Obligatorio. 5 dígitos máximo"
 
-#: .\clubby\forms\forms.py:107 .\clubby\models.py:230
+#: .\clubby\forms\forms.py:111 .\clubby\models.py:230
 msgid "refreshment"
 msgstr "refresco"
 
-#: .\clubby\forms\forms.py:108 .\clubby\models.py:231
+#: .\clubby\forms\forms.py:112 .\clubby\models.py:231
 msgid "cocktail"
 msgstr "cocktail"
 
-#: .\clubby\forms\forms.py:109 .\clubby\models.py:232
+#: .\clubby\forms\forms.py:113 .\clubby\models.py:232
 msgid "shot"
 msgstr "chupito"
 
-#: .\clubby\forms\forms.py:110 .\clubby\models.py:233
+#: .\clubby\forms\forms.py:114 .\clubby\models.py:233
 msgid "beer"
 msgstr "cerveza"
 
-#: .\clubby\forms\forms.py:111 .\clubby\models.py:234
+#: .\clubby\forms\forms.py:115 .\clubby\models.py:234
 msgid "wine"
 msgstr "vino"
 
-#: .\clubby\forms\forms.py:112 .\clubby\models.py:235
+#: .\clubby\forms\forms.py:116 .\clubby\models.py:235
 msgid "snack"
 msgstr "aperitivos"
 
-#: .\clubby\forms\forms.py:113 .\clubby\models.py:236
+#: .\clubby\forms\forms.py:117 .\clubby\models.py:236
 msgid "hookah"
 msgstr "cachimba"
 
-#: .\clubby\forms\forms.py:114 .\clubby\models.py:237
+#: .\clubby\forms\forms.py:118 .\clubby\models.py:237
 msgid "misc."
 msgstr "etc."
 
-#: .\clubby\forms\forms.py:123
+#: .\clubby\forms\forms.py:127
 msgid "Is this product exclusive for clients with a reservation?"
 msgstr "¿Este producto es exclusivo para reservados?"
 
-#: .\clubby\forms\forms.py:162
+#: .\clubby\forms\forms.py:166
 msgid "your spotify username, you will be prompted for authorization"
 msgstr ""
 "tu nombre de usuario de Spotify, se te redirigirá para que lo actualices"
@@ -343,11 +343,28 @@ msgstr "Ir a mi perfil"
 msgid "Cancel your subscription?"
 msgstr "¿Quieres cancelar tu subscripción?"
 
-#: .\clubby\templates\clubby\cancel_premium.html:20
+#: .\clubby\templates\clubby\cancel_premium.html:9
+msgid ""
+"This will cancel your current premium subscription, if you decide to renew "
+"it again you will be charged for it."
+msgstr ""
+"Estás a punto de cancelas tu subscripción premium, si decides renovarla de "
+"nuevo se te cobrará."
+
+#: .\clubby\templates\clubby\cancel_premium.html:11
+msgid "if you are okay with this you please check the box below."
+msgstr "Si estás de acuerdo, por favor marca la checkbox."
+
+#: .\clubby\templates\clubby\cancel_premium.html:18
+#: .\clubby\templates\clubby\premium.html:19
+msgid "Accept"
+msgstr "Aceptar"
+
+#: .\clubby\templates\clubby\cancel_premium.html:21
 msgid "Sorry to see you go :("
 msgstr "Te echaremos de menos :("
 
-#: .\clubby\templates\clubby\cancel_premium.html:24
+#: .\clubby\templates\clubby\cancel_premium.html:25
 #: .\clubby\templates\clubby\premium.html:25
 msgid "You must accept the conditions"
 msgstr "Debes aceptar las condiciones"
@@ -851,10 +868,6 @@ msgid ""
 msgstr ""
 "si no tienes suficientes fondos en tu cuenta, tu subscripción será cancelada "
 "de forma automática."
-
-#: .\clubby\templates\clubby\premium.html:19
-msgid "Accept"
-msgstr "Aceptar"
 
 #: .\clubby\templates\clubby\premium.html:22
 msgid "Activate a premium subscription!"
