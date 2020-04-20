@@ -24,22 +24,7 @@
       <iframe width="600" height="450" title="googleMaps" style="border: none;" style="border:0" src={{google_url|safe}} allowfullscreen></iframe>
 </div>
     </div>
-  <!-- <div style="margin-left:20px;margin-top:20px">
-    <h4>Events</h4>
 
-    {% for copy in book.bookinstance_set.all %}
-      <hr>
-      <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
-        {{ copy.get_status_display }}
-      </p>
-      {% if copy.status != 'a' %}
-        <p><strong>Due to be returned:</strong> {{ copy.due_back }}</p>
-      {% endif %}
-      <p><strong>Imprint:</strong> {{ copy.imprint }}</p>
-      <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
-    {% endfor %}
-  </div> -->
-  
   {% if perms.clubby.is_user %}
     <div class="card-action">
       <a class="btn purple darken-4 white-text" href="{% url 'product-list' club_id=club.pk %}" style="margin-bottom: 50px;">{% trans 'Purchase products.' %}</a>
