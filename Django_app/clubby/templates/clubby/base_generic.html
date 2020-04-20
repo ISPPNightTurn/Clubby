@@ -55,13 +55,11 @@
           <li><a href="{% url 'profile' %}"><p class="light">{% trans 'Funds:' %} {{  user.profile.funds  }}€</p></a></li>
           <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdown1">{% trans 'User:' %} {{ user.get_username }}<em class="material-icons right">arrow_drop_down</em></a></li>
           
-          {% if perms.clubby.is_user %}
           <!--Dropdowns-->
           <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdownClubs">{% trans 'Clubs' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
           <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdownEvents">{% trans 'Events' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
           <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdownPurchases">{% trans 'Purchases' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
           
-          {%endif%}
           {% if perms.clubby.is_owner %}
           <!-- We can add owner specific actions here (they need to not require a club.)--> 
           {% if not perms.clubby.is_premium_owner %}
