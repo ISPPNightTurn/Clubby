@@ -18,6 +18,8 @@ from django.utils.translation import gettext
 
 import re
 
+error = "Please dont edit the date manually use the datepicker provided by clicking on the field."
+color = 'color: white'
 
 class DateInput(forms.DateInput):
     def __init__(self, *args, **kwargs):
@@ -46,8 +48,8 @@ class SearchForm(forms.Form):
 
 class SearchEventForm(forms.Form):
     # query = forms.CharField(help_text="Looking for something?",required=False)
-    start_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker inicio white-text', 'style': 'color: white', 'readonly':'readonly'}), help_text=_("We will start looking here."))
-    end_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker fin white-text', 'style': 'color: white', 'readonly':'readonly'}), help_text=_("We stop looking here."))
+    start_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker inicio white-text', 'style': color, 'readonly':'readonly'}), help_text=_("We will start looking here."))
+    end_date = forms.DateField(widget=AdminDateWidget(attrs={'class': 'datepicker fin white-text', 'style': color, 'readonly':'readonly'}), help_text=_("We stop looking here."))
 
     def clean(self):
         current_date = datetime.datetime.now().date()
@@ -62,13 +64,13 @@ class SearchEventForm(forms.Form):
             if (start_date < current_date):
                 raise ValidationError(_("Date must be further than today."))
         else:
-            raise ValidationError(_("Please dont edit the date manually use the datepicker provided by clicking on the field."))
+            raise ValidationError(_(error))
 
         if(start_date != None):
             if (end_date < start_date):
                 raise ValidationError(_("Date must be bigger or equal to the starting date."))
         else:
-            raise ValidationError(_("Please dont edit the date manually use the datepicker provided by clicking on the field."))
+            raise ValidationError(_(error))
 
         return self.cleaned_data
         
@@ -84,7 +86,7 @@ class EditProfileForm(forms.Form):
     email = forms.EmailField(max_length=254, help_text=_('Required. Inform a valid email address.'))
     bio = forms.CharField(max_length=500, required=False, help_text=_("Optional, tell us something about you."))
     location = forms.CharField(max_length=30, required=False, help_text=_("Optional, where are you form?."))    
-    birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker white-text', 'style': 'color: white', 'readonly':'readonly'}))
+    birth_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker white-text', 'style': color, 'readonly':'readonly'}))
     picture = forms.URLField(help_text=_("URL to a picture of your pretty face (200 characters max)"), required=False)
 
     def clean(self):
@@ -101,6 +103,6 @@ class EditProfileForm(forms.Form):
             if(birth_date > (datetime.datetime.now()-datetime.timedelta(days=365*18)).date()):
                 raise ValidationError(_("You're too young. You must be 18 or older to use this app."))
         else:
-            raise ValidationError(_("Please dont edit the date manually use the datepicker provided by clicking on the field."))
+            raise ValidationError(_(error))
 
         return self.cleaned_data
