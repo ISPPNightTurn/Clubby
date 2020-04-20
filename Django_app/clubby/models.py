@@ -74,7 +74,6 @@ class Club(models.Model):
     '''
     Model representing the clubs that the owners will register.
     '''
-    # picture = models.ImageField()
     name = models.CharField(max_length=50, help_text=ugettext_lazy('Enter the name of your club.'))
     address = models.CharField(max_length=200, help_text=ugettext_lazy('Enter the full address so google maps can find it.'))
     max_capacity = models.PositiveIntegerField(help_text = ugettext_lazy('The capacity of your club, you\'re responsible for the enforcement of this number.'))
@@ -200,7 +199,6 @@ class Ticket(models.Model):
     price = models.DecimalField(decimal_places=2,max_digits=5)#999,99 es el maximo
     category = models.CharField(max_length = 40, help_text=ugettext_lazy('The name of the type of ticket you are trying to sell.'),default = 'Basic')
     description = models.TextField(help_text=ugettext_lazy('Decribe what this ticket entices.'), default="this allows you to enter the party.")
-    # ticket_id = models.CharField()#<-- podemos usar a primary key para identificarlos, este tributo es redundante.
     event =  models.ForeignKey(Event, on_delete=models.CASCADE)
     user =  models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
