@@ -24,12 +24,6 @@ class IntegerRangeField(models.IntegerField):
         defaults.update(kwargs)
         return super(IntegerRangeField, self).formfield(**defaults)
 
-# class TicketCreateModelForm(ModelForm):
-#     class Meta:
-#         model = CreateTicket
-#         fields = '__all__'
-#         exclude = ['owner','event','user']
-
 class TicketCreateModelForm(forms.Form):
     def __init__(self, max, *args, **kwargs):
         super(TicketCreateModelForm, self).__init__(*args, **kwargs)
