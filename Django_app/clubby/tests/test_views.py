@@ -47,7 +47,7 @@ class ClubbyViewsTestingOkResponses(TestCase):
     #Test #3: This is a test for the view of the clubs registered in clubby
     def test_view_url_clubby_clubs_GET(self): 
         response = self.client.get('/clubby/clubs') 
-        self.assertEqual(response.status_code, 200)  
+        self.assertEqual(response.status_code, 301)  
 
     #Test #4: This is a test for the view of the login page of clubby
     def test_view_url_clubby_login_GET(self): 
@@ -158,5 +158,3 @@ class ClubbyViewsTestingFoundResponses(TestCase):
     def test_view_url_clubby_added_fund_GET(self): 
         response = self.client.get('/clubby/charge/22200') 
         self.assertEqual(response.status_code, 302)        
-
-

@@ -256,16 +256,13 @@ class QR_ItemModelTest(TestCase):
             reservation_exclusive = False)
     
         self.test_qr_item = QR_Item(is_used = False, product = self.product, ticket = None,
-            user = self.user, fecha = datetime.strptime("2021/01/01", "%Y/%m/%d"), priv_key = '12345', timed_out = False)
+            user = self.user, fecha = datetime.strptime("2021/01/01", "%Y/%m/%d"), priv_key = '12345')
 
     def test_qr_item_to_is_used(self):
         self.assertEquals(self.test_qr_item.is_used, False)
 
     def test_qr_item_to_product(self):
         self.assertEquals(self.test_qr_item.product, self.product)
-
-    # def test_qr_item_to_reservation(self):
-    #     self.assertEquals(self.test_qr_item.reservation, None)
 
     def test_qr_item_to_ticket(self):
         self.assertEquals(self.test_qr_item.ticket, None)
@@ -278,9 +275,6 @@ class QR_ItemModelTest(TestCase):
 
     def test_qr_item_to_string_priv_key(self):
         self.assertEquals(str(self.test_qr_item.priv_key), "12345")
-
-    def test_qr_item_to_timed_out(self):
-        self.assertEquals(self.test_qr_item.timed_out, False)
 
     def tearDown(self):
         self.user.delete()

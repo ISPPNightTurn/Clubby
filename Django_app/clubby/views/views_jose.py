@@ -70,7 +70,7 @@ def ProductsByClubList(request, club_id):
                 owner.save()
 
                 for x in range(quantity):
-                    qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=128),user=request.user,
+                    qr = QR_Item(is_used=False,product=product_selected,priv_key=get_random_string(length=16),user=request.user,
                         fecha=datetime.datetime.now(), expiration_date=datetime.datetime.now() + timedelta(hours=6))
                     qr.save()
 
