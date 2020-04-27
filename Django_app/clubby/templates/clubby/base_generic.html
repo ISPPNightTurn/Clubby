@@ -23,6 +23,7 @@
   <li><a href="{% url 'profile' %}"><p class="white-text light">{% trans 'Profile' %}</p></a></li>
 </ul>
 
+{% if perms.clubby.is_user %}
 <ul id="dropdownClubs" class="dropdown-content purple darken-4">
   <li><a href="{% url 'clubs' %}"><p class="white-text">{% trans 'All clubs' %}</p></a></li>   
   <li><a href="{% url 'clubs-near' %}"><p class="white-text light">{% trans 'Clubs nearby' %}</p></a></li>
@@ -40,6 +41,7 @@
   <li><a class="white-text" href="{% url 'my-purchases' %}">{% trans 'My Purchases' %}</a></li>
   <li><a class="white-text" href="{% url 'my-history' %}">{% trans 'My History' %}</a></li>
 </ul>
+{% endif %}
 
   <div class="navbar-fixed hide-on-med-and-down" role="navigation">
     <nav aria-label="barra">
@@ -55,11 +57,13 @@
           <li><a href="{% url 'profile' %}"><p class="light">{% trans 'Funds:' %} {{  user.profile.funds  }}€</p></a></li>
           <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdown1">{% trans 'User:' %} {{ user.get_username }}<em class="material-icons right">arrow_drop_down</em></a></li>
           
+          {% if perms.clubby.is_user %}
           <!--Dropdowns-->
           <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdownClubs">{% trans 'Clubs' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
           <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdownEvents">{% trans 'Events' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
           <li><a class="dropdown-trigger white-text" href="#!" data-target="dropdownPurchases">{% trans 'Purchases' %}<em class="material-icons right">arrow_drop_down</em></p></a></li>
-          
+          {% endif %}
+
           {% if perms.clubby.is_owner %}
           <!-- We can add owner specific actions here (they need to not require a club.)--> 
           {% if not perms.clubby.is_premium_owner %}
@@ -118,6 +122,7 @@
 
     <li><a class="waves-effect" href="{% url 'landing' %}"><span class="white-text link">{% trans 'Home' %}</span></a></li>
     
+    {% if perms.clubby.is_user %}
     <li><div class="divider"></div></li>
     
     <a class="subheader">Clubs</a>
@@ -133,7 +138,6 @@
     <li><a class="waves-effect" href="{% url 'events' %}"><span class="white-text link">{% trans 'All events' %}</span></a></li>
     <li><a class="waves-effect" href="{% url 'my-events' %}"><span class="white-text link">{% trans 'My Events' %}</span></a></li>
     
-    {% if perms.clubby.is_user %}
     <li><div class="divider"></div></li>
     <a class="subheader">{% trans 'Purchases' %}</a>
     <li><a class="waves-effect" href="{% url 'my-purchases' %}"><span class="white-text link">{% trans 'My purchases' %}</span></a></li>
