@@ -114,7 +114,8 @@ def TicketsByEventList(request, event_id):
             event = Event.objects.filter(pk=event_id)[0]
             num_tickets_user_event = Ticket.objects.filter(
                 event=event).filter(user=logged).count()
-
+            
+            
             max_purchasable = 4 - num_tickets_user_event
             max_tickets = False
             if(quantity > max_purchasable):
@@ -167,7 +168,6 @@ def TicketsByEventList(request, event_id):
     else:
         event = Event.objects.filter(pk=event_id)[0]
         tickets_from_db = Ticket.objects.filter(event=event).filter(user=None)
-        tickets_from_db = Ticket.objects.filter(event=event).filter(user=None)
 
         categories = []
         tickets = []
@@ -180,14 +180,18 @@ def TicketsByEventList(request, event_id):
         for t in range(len(tickets)):
 
             # collect number of owned items
-            tickets[t].owned = Ticket.objects.filter(event=event).filter(user=request.user).count()
+            tick=tickets[t]
+            tickets[t].owned = Ticket.objects.filter(event=event).filter(category=tick.category).filter(user=request.user).count()
+
+            # collect number of unsold tickets
+            tickets[t].unsold = Ticket.objects.filter(event=event).filter(category=tick.category).filter(user__isnull=True).count()
 
             # returns the ammount of unsold tickets for an event and category
             form = TicketPurchaseForm(
                 initial={'event': event.pk, 'category': categories[t]})
             ticket_ammount[tickets[t]] = form
 
-        context = {'ticket_ammount': ticket_ammount}
+        context = {'ticket_ammount': ticket_ammount,'ticket_ammount_size':len(ticket_ammount)}
         return render(request, 'clubby/ticket/list.html', context)
 
 ###############
