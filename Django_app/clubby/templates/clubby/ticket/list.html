@@ -23,6 +23,10 @@
       <li>
       {{ticket.category}} - ({{ticket.price}}€) - ({{ticket.event}}) 
 
+      {% if ticket.unsold > 0 %}
+      <p><strong style="font-size: small;">{% trans 'There are left: ' %} {{ ticket.unsold }}</strong></p>
+      {% endif %}
+
       {% if ticket.owned > 0 %}
       <p><strong style="font-size: small;">{% trans 'You own:' %} {{ ticket.owned }}</strong></p>
       {% endif %}
@@ -34,6 +38,11 @@
       <br>
      
       {% endfor %}
+
+      {% if ticket_ammount_size is 0 %}
+        <p>{% trans 'Sorry, this event is sold out.' %}</p>
+        <p>{% trans 'You can check out later in the case the club adds more!' %}</p>
+      {% endif %}
     </ul>
   </div>
 {% endblock %}

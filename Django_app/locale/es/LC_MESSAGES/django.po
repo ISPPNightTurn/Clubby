@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-20 11:33+0200\n"
-"PO-Revision-Date: 2020-04-20 11:26+0200\n"
+"POT-Creation-Date: 2020-04-27 14:43+0200\n"
+"PO-Revision-Date: 2020-04-27 14:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -27,29 +27,28 @@ msgid "No address found with information provided."
 msgstr ""
 "No se ha encontrado ninguna dirección con la información proporcionada."
 
-#: .\clubby\forms\forms.py:74 .\clubby\forms\forms.py:75
-#: .\clubby\forms\forms_miguel.py:82 .\clubby\forms\forms_miguel.py:83
+#: .\clubby\forms\forms.py:75 .\clubby\forms\forms.py:76
+#: .\clubby\forms\forms_miguel.py:84 .\clubby\forms\forms_miguel.py:85
 msgid "Required. 30 character max"
 msgstr "Obligatorio. 30 caracteres máximo"
 
-#: .\clubby\forms\forms.py:76 .\clubby\forms\forms_miguel.py:84
+#: .\clubby\forms\forms.py:77 .\clubby\forms\forms_miguel.py:86
 msgid "Required. Inform a valid email address."
 msgstr "Obligatorio. Debe ser un email válido."
 
-#: .\clubby\forms\forms.py:80 .\clubby\forms\forms_miguel.py:85
+#: .\clubby\forms\forms.py:81 .\clubby\forms\forms_miguel.py:87
 msgid "Optional, tell us something about you."
 msgstr "Opcional. Cuéntanos algo sobre ti."
 
-#: .\clubby\forms\forms.py:81 .\clubby\forms\forms_miguel.py:86
+#: .\clubby\forms\forms.py:82 .\clubby\forms\forms_miguel.py:88
 msgid "Optional, where are you form?."
 msgstr "Opcional. ¿De dónde eres?."
 
-#: .\clubby\forms\forms.py:90 .\clubby\forms\forms_miguel.py:102
+#: .\clubby\forms\forms.py:91 .\clubby\forms\forms_miguel.py:104
 msgid "You're too young. You must be 18 or older to use this app."
 msgstr "Eres demasiado joven. Debes tener 18 años o más para usar esta app."
 
-#: .\clubby\forms\forms.py:92 .\clubby\forms\forms_miguel.py:65
-#: .\clubby\forms\forms_miguel.py:71 .\clubby\forms\forms_miguel.py:104
+#: .\clubby\forms\forms.py:93
 msgid ""
 "Please dont edit the date manually use the datepicker provided by clicking "
 "on the field."
@@ -57,82 +56,82 @@ msgstr ""
 "Por favor, no edites la fecha manualmente. Utiliza el calendario aportado al "
 "clickar en el campo."
 
-#: .\clubby\forms\forms.py:95 .\clubby\forms\forms_miguel.py:99
+#: .\clubby\forms\forms.py:96 .\clubby\forms\forms_miguel.py:101
 msgid "Email exists"
 msgstr "El email ya existe"
 
-#: .\clubby\forms\forms.py:98
+#: .\clubby\forms\forms.py:99
 msgid "Sorry that username is already taken :("
 msgstr "Lo sentimos, ese nombre de usuario ya está cogido :("
 
-#: .\clubby\forms\forms.py:107 .\clubby\forms\forms.py:135
+#: .\clubby\forms\forms.py:108 .\clubby\forms\forms.py:136
 msgid "Required. 50 character max"
 msgstr "Obligatorio. 50 caracteres máximo"
 
-#: .\clubby\forms\forms.py:108
+#: .\clubby\forms\forms.py:109
 msgid "Required. 5 digits max"
 msgstr "Obligatorio. 5 dígitos máximo"
 
-#: .\clubby\forms\forms.py:111 .\clubby\models.py:230
+#: .\clubby\forms\forms.py:112 .\clubby\models.py:228
 msgid "refreshment"
 msgstr "refresco"
 
-#: .\clubby\forms\forms.py:112 .\clubby\models.py:231
+#: .\clubby\forms\forms.py:113 .\clubby\models.py:229
 msgid "cocktail"
 msgstr "cocktail"
 
-#: .\clubby\forms\forms.py:113 .\clubby\models.py:232
+#: .\clubby\forms\forms.py:114 .\clubby\models.py:230
 msgid "shot"
 msgstr "chupito"
 
-#: .\clubby\forms\forms.py:114 .\clubby\models.py:233
+#: .\clubby\forms\forms.py:115 .\clubby\models.py:231
 msgid "beer"
 msgstr "cerveza"
 
-#: .\clubby\forms\forms.py:115 .\clubby\models.py:234
+#: .\clubby\forms\forms.py:116 .\clubby\models.py:232
 msgid "wine"
 msgstr "vino"
 
-#: .\clubby\forms\forms.py:116 .\clubby\models.py:235
+#: .\clubby\forms\forms.py:117 .\clubby\models.py:233
 msgid "snack"
 msgstr "aperitivos"
 
-#: .\clubby\forms\forms.py:117 .\clubby\models.py:236
+#: .\clubby\forms\forms.py:118 .\clubby\models.py:234
 msgid "hookah"
 msgstr "cachimba"
 
-#: .\clubby\forms\forms.py:118 .\clubby\models.py:237
+#: .\clubby\forms\forms.py:119 .\clubby\models.py:235
 msgid "misc."
 msgstr "etc."
 
-#: .\clubby\forms\forms.py:127
+#: .\clubby\forms\forms.py:128
 msgid "Is this product exclusive for clients with a reservation?"
 msgstr "¿Este producto es exclusivo para reservados?"
 
-#: .\clubby\forms\forms.py:166
+#: .\clubby\forms\forms.py:167
 msgid "your spotify username, you will be prompted for authorization"
 msgstr ""
 "tu nombre de usuario de Spotify, se te redirigirá para que lo actualices"
 
-#: .\clubby\forms\forms_javi.py:40 .\clubby\models.py:201
-#: .\clubby\models.py:215
+#: .\clubby\forms\forms_javi.py:34 .\clubby\models.py:200
+#: .\clubby\models.py:213
 msgid "The name of the type of ticket you are trying to sell."
 msgstr "El tipo de entrada que quieres vender."
 
-#: .\clubby\forms\forms_javi.py:41 .\clubby\models.py:202
-#: .\clubby\models.py:216
+#: .\clubby\forms\forms_javi.py:35 .\clubby\models.py:201
+#: .\clubby\models.py:214
 msgid "Decribe what this ticket entices."
 msgstr "Describe qué te permite esta entrada."
 
-#: .\clubby\forms\forms_javi.py:42
+#: .\clubby\forms\forms_javi.py:36
 msgid "'Number of tickets. (Max)"
 msgstr "'Número de entradas. (Max)"
 
-#: .\clubby\forms\forms_javi.py:47
+#: .\clubby\forms\forms_javi.py:41
 msgid "Your rating."
 msgstr "Tu valoración."
 
-#: .\clubby\forms\forms_javi.py:48
+#: .\clubby\forms\forms_javi.py:42
 msgid "Your oppinion."
 msgstr "Tu opinión."
 
@@ -140,41 +139,41 @@ msgstr "Tu opinión."
 msgid "quantity of product you want to buy, max 4."
 msgstr "cantidad de productos que deseas comprar, máximo 4."
 
-#: .\clubby\forms\forms_miguel.py:30
+#: .\clubby\forms\forms_miguel.py:32
 msgid "tickets you want to buy, max 4."
 msgstr "cantidad de entradas que quieres comprar, máximo 4."
 
-#: .\clubby\forms\forms_miguel.py:36
+#: .\clubby\forms\forms_miguel.py:38
 msgid "how much of your currency you want to add, max 500€, min 10€"
 msgstr "cuánto dinero quieres cargar en tu cuenta, máximo 500€, mínimo 10€"
 
-#: .\clubby\forms\forms_miguel.py:40
+#: .\clubby\forms\forms_miguel.py:42
 msgid "if you agree with these terms we welcome you to the clubby team!"
 msgstr ""
 "si estás de acuerdo con estos términos te damos la bienvenida al equipo de "
 "Clubby!"
 
-#: .\clubby\forms\forms_miguel.py:44
+#: .\clubby\forms\forms_miguel.py:46
 msgid "Looking for something?"
 msgstr "¿Estás buscando algo?"
 
-#: .\clubby\forms\forms_miguel.py:49
+#: .\clubby\forms\forms_miguel.py:51
 msgid "We will start looking here."
 msgstr "Empezamos a buscar aquí."
 
-#: .\clubby\forms\forms_miguel.py:50
+#: .\clubby\forms\forms_miguel.py:52
 msgid "We stop looking here."
 msgstr "Acabamos de buscar aquí."
 
-#: .\clubby\forms\forms_miguel.py:63
+#: .\clubby\forms\forms_miguel.py:65
 msgid "Date must be further than today."
 msgstr "La fecha debe ser posterior a hoy."
 
-#: .\clubby\forms\forms_miguel.py:69
+#: .\clubby\forms\forms_miguel.py:71
 msgid "Date must be bigger or equal to the starting date."
 msgstr "La fecha debe ser posterior o igual a la fecha de inicio."
 
-#: .\clubby\forms\forms_miguel.py:88
+#: .\clubby\forms\forms_miguel.py:90
 msgid "URL to a picture of your pretty face (200 characters max)"
 msgstr "URL a una foto de tu cara bonita, colega (200 caracteres máximo)"
 
@@ -182,59 +181,59 @@ msgstr "URL a una foto de tu cara bonita, colega (200 caracteres máximo)"
 msgid "Post a picture of your pretty face, dude (200 characters max)"
 msgstr "Pon una foto de tu cara bonita, colega (200 caracteres máximo)"
 
-#: .\clubby\models.py:78
+#: .\clubby\models.py:77
 msgid "Enter the name of your club."
 msgstr "Introduce el nombre de tu club."
 
-#: .\clubby\models.py:79
+#: .\clubby\models.py:78
 msgid "Enter the full address so google maps can find it."
 msgstr ""
 "Introduce la dirección completa para que Google Maps pueda encontrarla."
 
-#: .\clubby\models.py:80
+#: .\clubby\models.py:79
 msgid ""
 "The capacity of your club, you're responsible for the enforcement of this "
 "number."
 msgstr "El aforo de tu club; eres responsable de respetarlo."
 
-#: .\clubby\models.py:81
+#: .\clubby\models.py:80
 msgid "Company number for the club"
 msgstr "Identificación fiscal de tu club"
 
-#: .\clubby\models.py:82
+#: .\clubby\models.py:81
 msgid "URL to a picture of your club (200 characters max)"
 msgstr "URL a una foto de tu club (200 caracteres máximo)"
 
-#: .\clubby\models.py:111
+#: .\clubby\models.py:110
 msgid "URL to the poster for the event (200 characters max.)"
 msgstr "URL a un cartel del evento (200 caracteres máximo)"
 
-#: .\clubby\models.py:120
+#: .\clubby\models.py:119
 msgid "event start time 24h format."
 msgstr "hora de inicio en formato 24 horas."
 
-#: .\clubby\models.py:128
+#: .\clubby\models.py:127
 msgid "event duration in hours, max is 12 hours."
 msgstr "duración del evento en horas, el máximo son 12 horas."
 
-#: .\clubby\models.py:174
+#: .\clubby\models.py:173
 msgid "event music type"
 msgstr "tipo de música del evento"
 
-#: .\clubby\models.py:217
+#: .\clubby\models.py:215
 msgid "Number of tickets. (Max)"
 msgstr "Número de entradas. (Max)"
 
-#: .\clubby\models.py:245
+#: .\clubby\models.py:243
 msgid "product type"
 msgstr "tipo de producto"
 
-#: .\clubby\models.py:264
+#: .\clubby\models.py:262
 msgid "star rating 1-10"
 msgstr "valoración en estrellas de 1 a 10"
 
 #: .\clubby\templates\clubby\base_generic.html:22
-#: .\clubby\templates\clubby\base_generic.html:149
+#: .\clubby\templates\clubby\base_generic.html:147
 msgid "Logout"
 msgstr "Cerrar sesión"
 
@@ -244,27 +243,27 @@ msgid "Profile"
 msgstr "Perfil"
 
 #: .\clubby\templates\clubby\base_generic.html:27
-#: .\clubby\templates\clubby\base_generic.html:126
+#: .\clubby\templates\clubby\base_generic.html:124
 msgid "All clubs"
 msgstr "Todos los clubes"
 
 #: .\clubby\templates\clubby\base_generic.html:28
-#: .\clubby\templates\clubby\base_generic.html:127
+#: .\clubby\templates\clubby\base_generic.html:125
 msgid "Clubs nearby"
 msgstr "Clubs cercanos"
 
 #: .\clubby\templates\clubby\base_generic.html:33
-#: .\clubby\templates\clubby\base_generic.html:133
+#: .\clubby\templates\clubby\base_generic.html:131
 msgid "Recommended events"
 msgstr "Eventos recomendados"
 
 #: .\clubby\templates\clubby\base_generic.html:35
-#: .\clubby\templates\clubby\base_generic.html:135
+#: .\clubby\templates\clubby\base_generic.html:133
 msgid "All events"
 msgstr "Todos los eventos"
 
 #: .\clubby\templates\clubby\base_generic.html:36
-#: .\clubby\templates\clubby\base_generic.html:136
+#: .\clubby\templates\clubby\base_generic.html:134
 msgid "My Events"
 msgstr "Mis eventos"
 
@@ -287,55 +286,57 @@ msgstr "Fondos:"
 msgid "User:"
 msgstr "Usuario:"
 
-#: .\clubby\templates\clubby\base_generic.html:60
+#: .\clubby\templates\clubby\base_generic.html:59
 msgid "Clubs"
 msgstr "Clubs"
 
-#: .\clubby\templates\clubby\base_generic.html:61
-#: .\clubby\templates\clubby\base_generic.html:131
+#: .\clubby\templates\clubby\base_generic.html:60
+#: .\clubby\templates\clubby\base_generic.html:129
 msgid "Events"
 msgstr "Eventos"
 
-#: .\clubby\templates\clubby\base_generic.html:62
-#: .\clubby\templates\clubby\base_generic.html:140
+#: .\clubby\templates\clubby\base_generic.html:61
+#: .\clubby\templates\clubby\base_generic.html:138
 msgid "Purchases"
 msgstr "Mis compras"
 
-#: .\clubby\templates\clubby\base_generic.html:68
+#: .\clubby\templates\clubby\base_generic.html:66
+#: .\clubby\templates\clubby\base_generic.html:157
 msgid "Become Premium!"
 msgstr "¡Hazte premium!"
 
-#: .\clubby\templates\clubby\base_generic.html:76
-#: .\clubby\templates\clubby\base_generic.html:152
+#: .\clubby\templates\clubby\base_generic.html:74
+#: .\clubby\templates\clubby\base_generic.html:150
+#: .\clubby\templates\registration\login.html:120
 msgid "Login"
 msgstr "Iniciar sesión"
 
-#: .\clubby\templates\clubby\base_generic.html:77
-#: .\clubby\templates\clubby\base_generic.html:153
+#: .\clubby\templates\clubby\base_generic.html:75
+#: .\clubby\templates\clubby\base_generic.html:151
 msgid "Sign Up!"
 msgstr "¡Regístrate!"
 
-#: .\clubby\templates\clubby\base_generic.html:116
+#: .\clubby\templates\clubby\base_generic.html:114
 msgid "Not authenticated"
 msgstr "No autenticado"
 
-#: .\clubby\templates\clubby\base_generic.html:121
+#: .\clubby\templates\clubby\base_generic.html:119
 msgid "Home"
 msgstr "Inicio"
 
-#: .\clubby\templates\clubby\base_generic.html:141
+#: .\clubby\templates\clubby\base_generic.html:139
 msgid "My purchases"
 msgstr "Mis compras"
 
-#: .\clubby\templates\clubby\base_generic.html:142
+#: .\clubby\templates\clubby\base_generic.html:140
 msgid "My history"
 msgstr "Mi historial"
 
-#: .\clubby\templates\clubby\base_generic.html:145
+#: .\clubby\templates\clubby\base_generic.html:143
 msgid "Actions"
 msgstr "Acciones"
 
-#: .\clubby\templates\clubby\base_generic.html:148
+#: .\clubby\templates\clubby\base_generic.html:146
 msgid "View your profile"
 msgstr "Ir a mi perfil"
 
@@ -456,7 +457,7 @@ msgid "NIF"
 msgstr "NIF"
 
 #: .\clubby\templates\clubby\club\club_form.html:61
-#: .\clubby\templates\clubby\edit_profile.html:77
+#: .\clubby\templates\clubby\edit_profile.html:69
 #: .\clubby\templates\clubby\event\event_form.html:75
 msgid "Picture"
 msgstr "Foto"
@@ -468,7 +469,7 @@ msgstr "Foto"
 #: .\clubby\templates\clubby\product\product_form.html:81
 #: .\clubby\templates\clubby\signup.html:158
 #: .\clubby\templates\clubby\ticket\create.html:50
-#: .\clubby\templates\clubby\ticket\list.html:32
+#: .\clubby\templates\clubby\ticket\list.html:36
 msgid "Submit"
 msgstr "Continuar"
 
@@ -489,7 +490,7 @@ msgstr "Aforo máximo:"
 msgid "Location"
 msgstr "Ubicación"
 
-#: .\clubby\templates\clubby\club\detail.html:45
+#: .\clubby\templates\clubby\club\detail.html:30
 msgid "Purchase products."
 msgstr "Comprar productos."
 
@@ -546,6 +547,7 @@ msgstr "Mi opinión"
 
 #: .\clubby\templates\clubby\club\rating_list.html:16
 #: .\clubby\templates\clubby\club\rating_list.html:78
+#: .\clubby\templates\clubby\landing.html:16
 msgid "Date:"
 msgstr "Fecha:"
 
@@ -598,12 +600,11 @@ msgid "Last name"
 msgstr "Apellidos"
 
 #: .\clubby\templates\clubby\edit_profile.html:68
-#: .\clubby\templates\clubby\edit_profile.html:70
 #: .\clubby\templates\clubby\signup.html:82
 msgid "Birth date"
 msgstr "Fecha de nacimiento"
 
-#: .\clubby\templates\clubby\edit_profile.html:82
+#: .\clubby\templates\clubby\edit_profile.html:74
 msgid "Update"
 msgstr "Actualizar"
 
@@ -978,7 +979,7 @@ msgid "(\"This product is exclusive for reservations\")"
 msgstr "(\"Este producto es exclusivo para reservados\")"
 
 #: .\clubby\templates\clubby\product\list.html:67
-#: .\clubby\templates\clubby\ticket\list.html:27
+#: .\clubby\templates\clubby\ticket\list.html:31
 msgid "You own:"
 msgstr "Posees:"
 
@@ -1039,6 +1040,7 @@ msgid "Surname:"
 msgstr "Apellidos:"
 
 #: .\clubby\templates\clubby\profile.html:51
+#: .\clubby\templates\clubby\profile.html:184
 msgid "Location:"
 msgstr "Ubicación:"
 
@@ -1395,6 +1397,18 @@ msgstr "Cantidad"
 msgid "Ticket List"
 msgstr "Lista de entradas"
 
+#: .\clubby\templates\clubby\ticket\list.html:27
+msgid "There are left: "
+msgstr "Entradas disponibles:"
+
+#: .\clubby\templates\clubby\ticket\list.html:43
+msgid "Sorry, this event is sold out."
+msgstr "Lo sentimos, no quedan entradas para este evento."
+
+#: .\clubby\templates\clubby\ticket\list.html:44
+msgid "You can check out later in the case the club adds more!"
+msgstr "¡Puedes volver a comprobarlo más tarde por si el club añade más!"
+
 #: .\clubby\templates\registration\login.html:27
 msgid "Your username and password did not match. Please try again."
 msgstr "Tu usuario y contraseña no concuerdan. Inténtalo de nuevo."
@@ -1417,7 +1431,6 @@ msgstr "Iniciando sesión con Google estás aceptando nuestros"
 
 #: .\clubby\templates\registration\login.html:66
 #: .\clubby\templates\registration\login.html:101
-#: .\clubby\templates\registration\login.html:120
 msgid "Login with Google"
 msgstr "Iniciar sesión con Google"
 
@@ -1435,21 +1448,21 @@ msgstr ""
 "*Clickando en el botón \"Inicio de sesión con Google\" muestras tu "
 "conformidad con nuestros"
 
-#: .\clubby\views\views.py:334 .\clubby\views\views.py:358
-#: .\clubby\views\views.py:370 .\clubby\views\views_miguel.py:68
+#: .\clubby\views\views.py:347 .\clubby\views\views.py:384
+#: .\clubby\views\views.py:396 .\clubby\views\views_miguel.py:68
 #: .\clubby\views\views_miguel.py:82 .\clubby\views\views_miguel.py:94
 msgid "You don't own that >:("
 msgstr "Eso no te pertenece >:("
 
-#: .\clubby\views\views.py:519
+#: .\clubby\views\views.py:545
 msgid "You cannot create events for the current day"
 msgstr "No puedes crear eventos para el día de hoy"
 
-#: .\clubby\views\views.py:522
+#: .\clubby\views\views.py:548
 msgid "Start time is invalid"
 msgstr "Hora de inicio no válida"
 
-#: .\clubby\views\views.py:525
+#: .\clubby\views\views.py:551
 msgid "Duration is invalid"
 msgstr "Duración no válida"
 
@@ -1464,15 +1477,15 @@ msgstr ""
 msgid "Something went wrong"
 msgstr "Algo salió mal"
 
-#: .\clubby\views\views_miguel.py:315
+#: .\clubby\views\views_miguel.py:321
 msgid "Incorrect accesing to resource."
 msgstr "Acceso incorrecto al recurso."
 
-#: .\project\settings.py:58
+#: .\project\settings.py:56
 msgid "Español"
 msgstr "Español"
 
-#: .\project\settings.py:59
+#: .\project\settings.py:57
 msgid "English"
 msgstr "Inglés"
 
