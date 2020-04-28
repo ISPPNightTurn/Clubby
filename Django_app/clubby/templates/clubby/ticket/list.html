@@ -40,8 +40,20 @@
       {% endfor %}
 
       {% if ticket_ammount_size is 0 %}
-        <p>{% trans 'Sorry, this event is sold out.' %}</p>
-        <p>{% trans 'You can check out later in the case the club adds more!' %}</p>
+        <ul class="collection deep-purple darken-4">
+          <li class="collection-item deep-purple darken-4">
+          {% if event.picture == blank%}
+            <img style="height: auto; width: 100%;" src="../../../static/clubby/images/event_image.jpeg" alt="event_image">
+          {% else %}
+            <img style="height: auto; width: max-content;" src={{event.picture}} alt="event_image">
+          {% endif %}
+          </li>
+
+          <img class="top-left" src="../../../static/clubby/images/Sold-Out.png" alt="Sold out">
+      
+          <li class="collection-item deep-purple darken-4"><p>{% trans 'Sorry, this event is sold out.' %}</p></li>
+          <li class="collection-item deep-purple darken-4"><p>{% trans 'You can check out later in the case the club adds more!' %}</p></li>
+        </ul>
       {% endif %}
     </ul>
   </div>

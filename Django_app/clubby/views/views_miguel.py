@@ -191,7 +191,7 @@ def TicketsByEventList(request, event_id):
                 initial={'event': event.pk, 'category': categories[t]})
             ticket_ammount[tickets[t]] = form
 
-        context = {'ticket_ammount': ticket_ammount,'ticket_ammount_size':len(ticket_ammount)}
+        context = {'ticket_ammount': ticket_ammount,'ticket_ammount_size':len(ticket_ammount), 'event': event}
         return render(request, 'clubby/ticket/list.html', context)
 
 ###############
