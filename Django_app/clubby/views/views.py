@@ -48,6 +48,8 @@ GOOGLE_API_KEY = 'AIzaSyDLS2DKjJkCSPc0x_2BXcxDfr8mgByTPEo'
 #   CLUBBY    #
 ###############
 
+from django.views.defaults import page_not_found
+
 def landing(request):
     """View function for home page of site."""
 
