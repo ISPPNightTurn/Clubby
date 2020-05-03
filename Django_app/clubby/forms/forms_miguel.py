@@ -60,13 +60,9 @@ class SearchEventForm(forms.Form):
         print(type(start_date))
 
 
-        if(start_date != None):
+        if(start_date != None and end_date != None):
             if (start_date < current_date):
                 raise ValidationError(_("Date must be further than today."))
-        else:
-            raise ValidationError(_(error))
-
-        if(start_date != None):
             if (end_date < start_date):
                 raise ValidationError(_("Date must be bigger or equal to the starting date."))
         else:

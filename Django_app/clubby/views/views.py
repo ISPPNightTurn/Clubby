@@ -476,7 +476,7 @@ class EventListView(generic.ListView):
         print(end_date)
         try:
             datetime.datetime.strptime(start_date, '%Y-%m-%d')
-            datetime.datetime.strptime(start_date, '%Y-%m-%d')
+            datetime.datetime.strptime(end_date, '%Y-%m-%d')
         except:
             raise PermissionDenied("Illegal datetime format.")
 
