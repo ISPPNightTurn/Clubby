@@ -48,11 +48,12 @@
   {% if perms.clubby.is_owner%}
     {% if request.user.club.id == event.club.id %}
 
-    <div class="card-action">
-      <a class="btn purple darken-4 white-text" href="{% url 'create-tickets' event_id=event.pk %}">{% trans 'Create ticket.' %}</a>
-    </div>
+      {% if tickets_remain %} 
+      <div class="card-action">
+        <a class="btn purple darken-4 white-text" href="{% url 'create-tickets' event_id=event.pk %}">{% trans 'Create ticket.' %}</a>
+      </div>
+      {% endif %}
     {% endif %}
-
   {%endif%}
   
   {% if perms.clubby.is_user%}

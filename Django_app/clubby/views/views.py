@@ -494,6 +494,15 @@ class EventDetailView(generic.DetailView):
     model = Event
     # Specify your own template name/location
     template_name = 'clubby/event/detail.html'
+        
+    def get_context_data(self, **kwargs):
+        context = super(EventDetailView, self).get_context_data(**kwargs)
+        event = self.get_object()
+        created_tickets = Ticket.objects.filter(event=event).count()
+        remaining_tickets = event.club.max_capacity - created_tickets
+
+        context['tickets_remain'] = remaining_tickets > 0
+        return context
 
 # we should make a new view for this due to pagination bugs, but the filtering works.
 # we can also call the required mixin to our own defined views but we need to declare them first, same as @login_required.
