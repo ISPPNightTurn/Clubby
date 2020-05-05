@@ -13,10 +13,10 @@
   </div>
 <div class="card-content">
   <span class="card-title">{{ event.name }} (<a href="{{ event.club.get_absolute_url }}">{{ event.club.name}}</a>)</span>
-  <p><strong style="font-size: larger;">{% trans 'Starts:' %}</strong> {{ event.start_date }}</p>
+  <p><strong style="font-size: larger;">{% trans 'Starts:' %}</strong> {{event.start_date}}</p>
   <p><strong style="font-size: larger;">{% trans 'Type:' %}</strong> {{event.event_type}}</p>
-  <p><strong style="font-size: larger;">{% trans 'Starts at:' %}</strong> {{event.start_time}}</p>
-
+  <p><strong style="font-size: larger;">{% trans 'Starts at:' %}</strong> {{event.start_time}}:{{event.start_time_minutes}}</p>
+  <p><strong style="font-size: larger;">{% trans 'Duration:' %}</strong> {{event.duration}} h, {{event.duration_minutes}} m</p>
 
     <!-- if the owner of the club is the one looking at this page give him the option to edit the event if no atendees are in yet.-->
 

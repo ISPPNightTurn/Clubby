@@ -134,7 +134,9 @@ class ProductModelForm(ModelForm):
 
 class EventModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text=_('Required. 50 character max' ))
+    
     start_date = forms.DateField(widget=DateInput(attrs={'class': 'datepicker', 'style': 'color: white', 'readonly':'readonly'}), initial= datetime.date.today)
+    
     event_type = forms.CharField(
         max_length=100,
         widget=forms.Select(
@@ -150,9 +152,22 @@ class EventModelForm(ModelForm):
         ),
     )
 
+    start_minutes = forms.IntegerField(widget=forms.Select(
+            choices=Event.MINUTES,
+            attrs={'class': 'browser-default deep-purple darken-4'}
+        ),
+    )
+
     duration = forms.IntegerField(
         widget=forms.Select(
-            choices=Event.DURATIONS,
+            choices=Event.HOUR_DURATIONS,
+            attrs={'class': 'browser-default deep-purple darken-4'}
+        ),
+    )
+
+    duration_minutes = forms.IntegerField(
+        widget=forms.Select(
+            choices=Event.MINUTES,
             attrs={'class': 'browser-default deep-purple darken-4'}
         ),
     )

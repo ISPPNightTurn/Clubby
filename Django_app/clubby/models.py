@@ -119,14 +119,37 @@ class Event(models.Model):
         help_text=ugettext_lazy('event start time 24h format.'),
     )
 
-    DURATIONS = ((12,12),(11,11),(10,10),(9,9),(8,8),(7,7),(6,6),(5,5),(4,4),(3,3),(2,2),(1,1))
+    HOUR_DURATIONS = ((11,11),(10,10),(9,9),(8,8),(7,7),(6,6),(5,5),(4,4),(3,3),(2,2),(1,1))
+
     duration = models.PositiveIntegerField(
-        choices=DURATIONS,
+        choices=HOUR_DURATIONS,
         blank=True,
         default=0,
-        help_text=ugettext_lazy('event duration in hours, max is 12 hours.'),
+        help_text=ugettext_lazy('event duration in hours, max is 11 hours.'),
     )
 
+    MINUTES = ((0,0),(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),
+    (11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),
+    (21,21),(22,22),(23,23),(24,24),(25,25),(26,26),(27,27),(28,28),(29,29),(30,30),
+    (31,31),(32,32),(33,33),(34,34),(35,35),(36,36),(37,37),(38,38),(39,39),(40,40),
+    (41,41),(42,42),(43,43),(44,44),(45,45),(46,46),(47,47),(48,48),(49,49),(50,50),
+    (51,51),(52,52),(53,53),(54,54),(55,55),(56,56),(57,57),(58,58),(59,59))
+
+    start_time_minutes = models.PositiveIntegerField(
+        choices=MINUTES,
+        blank = True,
+        default = 0,
+        help_text=ugettext_lazy('choose the start time minutes.')
+        )
+    
+    duration_minutes = models.PositiveIntegerField(
+        choices=MINUTES,
+        blank = True,
+        default = 0,
+        help_text=ugettext_lazy('choose the duration time minutes.')
+        )
+
+    
     TYPE_OF_MUSIC = (
         ('rock', 'rock'),
         ('pop', 'pop'),
@@ -163,6 +186,7 @@ class Event(models.Model):
         ('ranchera','ranchera'),
         ('grunge','grunge'),
         ('flamenco','flamenco'),
+        ('otro','otro')
     )
 
     event_type = models.CharField(
@@ -177,7 +201,7 @@ class Event(models.Model):
     @property
     def start_datetime(self):
         d = datetime.datetime(self.start_date.year, self.start_date.month, self.start_date.day)
-        return d + timedelta(hours=self.start_time)
+        return d + timedelta(hours=self.start_time, minutes=self.start)
 
     @property
     def end_datetime(self):
