@@ -24,7 +24,7 @@
             
             {% elif qr_item.ticket != blank %}
             <p>{% trans 'Type: Ticket' %}</p>
-            <p>{% trans 'Details:' %} {{qr_item.ticket.event.name}} <br/>{% trans 'Start :' %} {{qr_item.ticket.event.start_date}} {{qr_item.ticket.event.start_time}}:00h <br/> {% trans 'Duration:' %} {{qr_item.ticket.event.duration}} {% trans 'Hours' %}</p>
+            <p>{% trans 'Details:' %} {{qr_item.ticket.event.name}} <br/>{% trans 'Start :' %} {{qr_item.ticket.event.start_date}} {{qr_item.ticket.event.start_time}}:{{qr_item.ticket.event.start_time_minutes}}h <br/> {% trans 'Duration:' %} {{qr_item.ticket.event.duration}} {% trans 'Hours' %},{{qr_item.ticket.event.duration_minutes}}m</p>
             <p>{% trans 'Price:' %} {{qr_item.ticket.price}}€</p>
             <p>{% trans 'Place:' %} {{qr_item.ticket.event.club.name}} - {{qr_item.ticket.event.club.address}}</p>
             <p>{% trans 'Purchase Date:' %} {{qr_item.fecha}}</p>

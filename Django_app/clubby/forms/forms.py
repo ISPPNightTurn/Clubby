@@ -152,7 +152,7 @@ class EventModelForm(ModelForm):
         ),
     )
 
-    start_minutes = forms.IntegerField(widget=forms.Select(
+    start_time_minutes = forms.IntegerField(widget=forms.Select(
             choices=Event.MINUTES,
             attrs={'class': 'browser-default deep-purple darken-4'}
         ),

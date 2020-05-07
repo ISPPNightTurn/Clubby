@@ -36,10 +36,10 @@
           <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.start_date}}</span>
           </br>
           <em class="small material-icons white-text">access_time</em><strong  class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Start Time:' %} </strong>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.start_time}}h</span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.start_time}}:{{event.start_time_minutes}}h</span>
           <br/>
           <em class="small material-icons white-text">av_timer</em><strong  class="light white-text" style="display: inline-block; vertical-align:top; font-size: larger;">{% trans 'Duration:' %} </strong>
-          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.duration}} {% trans 'hours' %}</span>
+          <span class="light white-text" style="display: inline-block; vertical-align:top;">{{event.duration}} {% trans 'hours' %},{{event.duration_minutes}}m</span>
         </div>
         <div class="card-action black">
           <a href="{{ event.get_absolute_url }}">{% trans 'Navigate to the event' %}</a>

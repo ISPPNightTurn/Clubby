@@ -201,11 +201,11 @@ class Event(models.Model):
     @property
     def start_datetime(self):
         d = datetime.datetime(self.start_date.year, self.start_date.month, self.start_date.day)
-        return d + timedelta(hours=self.start_time, minutes=self.start)
+        return d + timedelta(hours=self.start_time, minutes=self.start_time_minutes)
 
     @property
     def end_datetime(self):
-        return self.start_datetime + timedelta(hours=self.duration)
+        return self.start_datetime + timedelta(hours=self.duration,minutes=self.duration_minutes)
 
     def __str__(self):
         """String for representing the Model object."""
