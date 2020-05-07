@@ -29,7 +29,10 @@ class DateInput(forms.DateInput):
 
 
 class TicketPurchaseForm(forms.Form):
-    quantity = forms.IntegerField(max_value=4, min_value=1, help_text=_("tickets you want to buy, max 4."))
+    def __init__(self, max_quantity, *args, **kwargs):
+        super(TicketPurchaseForm, self).__init__(*args, **kwargs)
+        self.fields['quantity'] = forms.IntegerField(max_value=max_quantity,min_value=1)
+    quantity = forms.IntegerField(max_value=4, min_value=1, help_text=_("tickets you want to buy, max 4 if available.."))
     event = forms.IntegerField(widget=forms.HiddenInput())
     category = forms.CharField(max_length=50, widget=forms.HiddenInput())
 

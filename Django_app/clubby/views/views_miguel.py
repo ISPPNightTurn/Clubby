@@ -101,17 +101,32 @@ class ProductDelete(PermissionRequiredMixin, DeleteView):
 @permission_required('clubby.is_user')
 def TicketsByEventList(request, event_id):
     # ha elegido la cantidad de tickets tipo que queria.
+
+    event = Event.objects.filter(pk=event_id)[0]
+    remaining_tickets = Ticket.objects.filter(event=event).filter(user_id = None).count()
+
+    max_quantity = 4  # max you can purchase
+    if (max_quantity > remaining_tickets):
+        max_quantity = remaining_tickets
+
     if (request.method == 'POST'):
-        form = TicketPurchaseForm(request.POST)
+        form = TicketPurchaseForm(data = request.POST, max_quantity = max_quantity)
         if form.is_valid():
             event_id = form.cleaned_data['event']
             category = form.cleaned_data['category']
             quantity = form.cleaned_data['quantity']
-            if (quantity > 4):
-                quantity = 4  # max you can purchase
+
+            event = Event.objects.filter(pk=event_id)[0]
+            remaining_tickets = Ticket.objects.filter(event=event).filter(user_id = None).count()
+
+            if(remaining_tickets > 4):
+                if (quantity > 4):
+                    quantity = 4  # max you can purchase
+            else:
+                if (quantity > remaining_tickets):
+                    quantity = remaining_tickets
 
             logged = request.user
-            event = Event.objects.filter(pk=event_id)[0]
             num_tickets_user_event = Ticket.objects.filter(
                 event=event).filter(user=logged).count()
             
@@ -188,7 +203,7 @@ def TicketsByEventList(request, event_id):
 
             # returns the ammount of unsold tickets for an event and category
             form = TicketPurchaseForm(
-                initial={'event': event.pk, 'category': categories[t]})
+                initial={'event': event.pk, 'category': categories[t]}, max_quantity = max_quantity)
             ticket_ammount[tickets[t]] = form
 
         context = {'ticket_ammount': ticket_ammount,'ticket_ammount_size':len(ticket_ammount), 'event': event}
