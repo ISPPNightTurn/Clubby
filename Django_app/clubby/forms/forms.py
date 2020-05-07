@@ -106,7 +106,7 @@ class SignupForm(UserCreationForm):
 
 class ProductModelForm(ModelForm):
     name = forms.CharField(max_length=50, required=True, help_text=_('Required. 50 character max' ))
-    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, min_value=Decimal('0.00'), max_value=Decimal('999.99'), help_text=_('Required. 5 digits max') )
+    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, min_value=Decimal('0.00'), max_value=Decimal('999.99'), help_text=_('Required. 999.99€ max') )
     price.widget.attrs.update({'id': 'price'})
     TYPE_OF_PRODUCT = (
         ('r', _('refreshment')),

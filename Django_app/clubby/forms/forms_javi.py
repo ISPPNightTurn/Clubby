@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from clubby.models import Club, Event, Profile, Product, Ticket
+from decimal import Decimal
 from django.utils.translation import gettext
 
 import re
@@ -29,7 +30,7 @@ class TicketCreateModelForm(forms.Form):
         super(TicketCreateModelForm, self).__init__(*args, **kwargs)
         self.fields['size'] = forms.IntegerField(max_value=max,min_value=1)
 
-    price = forms.DecimalField(decimal_places=2,max_digits=5)#999,99 es el maximo
+    price = forms.DecimalField(decimal_places=2,max_digits=5, required=True, min_value=Decimal('0.00'), max_value=Decimal('999.99'), help_text=_('Required. 999.99€ max') )
     price.widget.attrs.update({'max': '999.99', 'min': '0'})
     category = forms.CharField(max_length = 40, help_text=_('The name of the type of ticket you are trying to sell.'))
     description = forms.CharField(max_length = 40, help_text=_('Decribe what this ticket entices.'), widget=forms.Textarea)
