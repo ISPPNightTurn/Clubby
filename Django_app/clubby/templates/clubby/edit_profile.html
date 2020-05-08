@@ -25,7 +25,7 @@
 	<!-- Error messaging -->
 	<div id="errors" class="center">
 		<div class="inner">
-			<p>There were some errors in the information you entered. Please correct the following:</p>
+			<p>{% trans 'There were some errors in the information you entered. Please correct the following:' %}</p>
 			{{ form.non_field_errors }}
 			<ul>
 				{% for field in form %}
