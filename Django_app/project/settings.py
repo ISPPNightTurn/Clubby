@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from qr_code.qrcode import constants    
 from django.utils.translation import ugettext_lazy as _
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +25,7 @@ SECRET_KEY = ')4xu%pi!cpx52^&8g!vbgbvjuo1d3u(w8(k!wr!im(*u_m9^!!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -40,6 +41,16 @@ INSTALLED_APPS = [
     'background_task',
     'social_django',
 ]
+
+MODULES = [
+    # 'clubby',
+]
+
+BASEURL = 'https://clubby-party.herokuapp.com'
+
+APIS = {
+    'clubby': BASEURL,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -86,13 +97,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME': 'djangodatabase',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'clubby',
         'USER': 'clubby',
-        'PASSWORD': 'I$PP-C1ubby',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PASSWORD': 'clubby',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -155,6 +165,21 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = ''
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+try:
+    from local_settings import *
+except ImportError:
+    print("local_settings.py not found")
+
+INSTALLED_APPS = INSTALLED_APPS + MODULES
+django_heroku.settings(locals())
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 
 STRIPE_SECRET_KEY = 'sk_test_9IhxLsCMrm68wEsLukTks8o600GjKW4X7v'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_O3189kQJ1kig0wQ6NGrgQACW00Zy8MA8xI'
