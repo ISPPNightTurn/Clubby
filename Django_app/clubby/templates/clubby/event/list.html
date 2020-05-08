@@ -84,14 +84,15 @@
 <script type="text/javascript">
 currDate = new Date()
   $(document).ready(function() {
-   $(".datepicker").datepicker({
-    selectMonths: true, // Creates a dropdown to control month
-    closeOnSelect: true,
-    closeOnClear: true,
-    format: 'yyyy-mm-dd',
-    minDate: currDate
+    $(".datepicker").datepicker({
+      setDefaultDate: true,
+      yearRange: [(new Date()).getFullYear(), (new Date()).getFullYear() + 10],
+     defaultDate: currDate,
+     minDate: currDate,
+    maxDate: new Date((new Date).getFullYear() + 10, 1, 1),
+     format: "yyyy-mm-dd"
    });
-  });
+});
 </script>
 {% endblock %}
 </div>
