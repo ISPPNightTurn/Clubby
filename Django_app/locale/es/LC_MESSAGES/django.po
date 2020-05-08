@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-08 10:04+0200\n"
-"PO-Revision-Date: 2020-05-08 10:08+0200\n"
+"POT-Creation-Date: 2020-05-08 19:15+0200\n"
+"PO-Revision-Date: 2020-05-08 19:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1376,6 +1376,14 @@ msgstr "volver al registro de usuario"
 #: .\clubby\templates\clubby\signup.html:29
 msgid "here."
 msgstr "aquí."
+
+#: .\clubby\templates\clubby\signup.html:38
+msgid ""
+"There were some errors in the information you entered. Please correct the "
+"following:"
+msgstr ""
+"Ha ocurrido un error con la información que has introducido. Por favor "
+"corrige lo siguiente:"
 
 #: .\clubby\templates\clubby\signup.html:62
 #: .\clubby\templates\registration\login.html:37
