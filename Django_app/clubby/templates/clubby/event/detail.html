@@ -24,7 +24,7 @@
   <p class="strong materialize-red" style="font-size: 1.64rem">"{% trans 'We could not process'%} {{miss}} {% trans 'tickets, they ran out... sorry :('%}</p>
   {% endif %}
   {% if max_tickets%}
-  <p class="strong materialize-red" style="font-size: 1.64rem">{% trans 'You bought the max ammount of tickets, sorry... :(' %}</p>
+  <p class="strong materialize-red" style="font-size: 1.64rem">{% trans 'You are exceeding the ticket limit per person. Remember that  you can only hold 4 tickets of a kind in total.' %}</p>
   {%endif%}
   {% if user_is_broke %}
     <p class="strong materialize-red" style="font-size: 1.64rem">{% trans 'Man you broke!, add some cash in your profile page' %}</p>

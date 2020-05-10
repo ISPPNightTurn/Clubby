@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-08 19:15+0200\n"
-"PO-Revision-Date: 2020-05-08 19:16+0200\n"
+"POT-Creation-Date: 2020-05-10 10:31+0200\n"
+"PO-Revision-Date: 2020-05-10 10:33+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -629,12 +629,21 @@ msgid "Order by date"
 msgstr "Ordenar por fecha"
 
 #: .\clubby\templates\clubby\club\rating_list.html:95
-msgid "There are no rating yet."
-msgstr "No hay ninguna valoración."
+msgid "No other user has rated this club yet."
+msgstr "Ningún otro usuario ha valorado este club aún."
 
 #: .\clubby\templates\clubby\edit_profile.html:21
 msgid "Edit your data."
 msgstr "Editar tus datos."
+
+#: .\clubby\templates\clubby\edit_profile.html:28
+#: .\clubby\templates\clubby\signup.html:38
+msgid ""
+"There were some errors in the information you entered. Please correct the "
+"following:"
+msgstr ""
+"Ha ocurrido un error con la información que has introducido. Por favor "
+"corrige lo siguiente:"
 
 #: .\clubby\templates\clubby\edit_profile.html:52
 #: .\clubby\templates\clubby\signup.html:66
@@ -707,9 +716,12 @@ msgid "tickets, they ran out... sorry :("
 msgstr "entradas, se han agotado... lo sentimos :("
 
 #: .\clubby\templates\clubby\event\detail.html:27
-msgid "You bought the max ammount of tickets, sorry... :("
+msgid ""
+"You are exceeding the ticket limit per person. Remember that  you can only "
+"hold 4 tickets of a kind in total."
 msgstr ""
-"Has comprado la máxima cantidad permitida de entradas, lo sentimos... :("
+"Estás superando el límite de tickets por persona. Recuerda que solo puedes "
+"tener 4 tickets de un tipo en total."
 
 #: .\clubby\templates\clubby\event\detail.html:30
 msgid "Man you broke!, add some cash in your profile page"
@@ -1377,14 +1389,6 @@ msgstr "volver al registro de usuario"
 msgid "here."
 msgstr "aquí."
 
-#: .\clubby\templates\clubby\signup.html:38
-msgid ""
-"There were some errors in the information you entered. Please correct the "
-"following:"
-msgstr ""
-"Ha ocurrido un error con la información que has introducido. Por favor "
-"corrige lo siguiente:"
-
 #: .\clubby\templates\clubby\signup.html:62
 #: .\clubby\templates\registration\login.html:37
 msgid "Username"
@@ -1549,6 +1553,13 @@ msgstr "Español"
 #: .\project\settings.py:57
 msgid "English"
 msgstr "Inglés"
+
+#~ msgid "There are no rating yet."
+#~ msgstr "No hay ninguna valoración."
+
+#~ msgid "You bought the max ammount of tickets, sorry... :("
+#~ msgstr ""
+#~ "Has comprado la máxima cantidad permitida de entradas, lo sentimos... :("
 
 #~ msgid "URL to a picture of your pretty face"
 #~ msgstr "URL a una foto de tu cara bonita"
