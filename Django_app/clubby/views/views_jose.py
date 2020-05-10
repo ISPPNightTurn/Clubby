@@ -197,6 +197,7 @@ def terminos(request):
 def export(request):
     me = request.user  # this is the current user.
     response = HttpResponse(content_type='text/csv')
+    response.write(u'\ufeff'.encode('utf8'))
     writer = csv.writer(response)
     writer.writerow(['Bio','Location','Birth Date','Picture','Username','Email','First name','Last name'])
     writer.writerow([me.profile.bio,me.profile.location,me.profile.birth_date,me.profile.picture,me.username,me.email, me.first_name,me.last_name])
