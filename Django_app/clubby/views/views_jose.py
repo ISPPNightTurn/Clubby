@@ -177,6 +177,10 @@ def socialsuccess(request):
     defaultgroup = Group.objects.get(name = 'user')
     user = request.user
     user.groups.add(defaultgroup)
+    today = datetime.datetime.now()
+    currDate = datetime.date(today.year-18, today.month, today.day)
+    user.profile.birth_date = currDate
+    user.save()
 
     return render(request, 'clubby/landing.html') 
 
