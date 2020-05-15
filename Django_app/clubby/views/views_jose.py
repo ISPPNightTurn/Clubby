@@ -33,7 +33,9 @@ import datetime
 import pytz
 from django.utils import timezone
 from django.utils.translation import gettext as _
-
+from django.core.mail import send_mail
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 
 #################
@@ -224,3 +226,4 @@ def delete(request):
 @login_required
 def purchase_confirm(request):
     return render(request,'clubby/purchaseConfirm.html')
+

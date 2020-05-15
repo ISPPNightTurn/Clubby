@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-10 10:31+0200\n"
-"PO-Revision-Date: 2020-05-10 10:33+0200\n"
+"POT-Creation-Date: 2020-05-15 12:36+0200\n"
+"PO-Revision-Date: 2020-05-15 12:37+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1513,6 +1513,62 @@ msgstr ""
 "*Clickando en el botón \"Inicio de sesión con Google\" muestras tu "
 "conformidad con nuestros"
 
+#: .\clubby\templates\registration\password_reset_complete.html:4
+msgid "The password has been changed!"
+msgstr "¡Has cambiado tu contraseña!"
+
+#: .\clubby\templates\registration\password_reset_complete.html:5
+msgid "Redirect to login?"
+msgstr "¿Iniciar sesión?"
+
+#: .\clubby\templates\registration\password_reset_confirm.html:5
+msgid "Please enter (and confirm) your new password."
+msgstr "Por favor, introduce (y confirma) tu nueva contraseña."
+
+#: .\clubby\templates\registration\password_reset_confirm.html:11
+msgid "New password:"
+msgstr "Nueva contraseña:"
+
+#: .\clubby\templates\registration\password_reset_confirm.html:16
+msgid "Confirm password:"
+msgstr "Confirma tu contraseña:"
+
+#: .\clubby\templates\registration\password_reset_confirm.html:21
+msgid "Change my password"
+msgstr "Cambiar mi contraseña"
+
+#: .\clubby\templates\registration\password_reset_confirm.html:26
+msgid "Password reset failed"
+msgstr "La restauración de tu contraseña falló"
+
+#: .\clubby\templates\registration\password_reset_confirm.html:27
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+"El link para recuperar tu contraseña no es válido, quizás porque ya ha sido "
+"usado. Por favor, solicita de nuevo una restauración de contraseña."
+
+#: .\clubby\templates\registration\password_reset_done.html:4
+msgid ""
+"We have emailed you instructions for setting your password. If they have not "
+"arrived in a few minutes, check your spam folder."
+msgstr ""
+"Te hemos enviado un email con las instrucciones para restaurar tu "
+"contraseña. Si no lo recibes en unos minutos, comprueba tu carpeta de spam."
+
+#: .\clubby\templates\registration\password_reset_email.html:1
+msgid "Looks like you want to reset your password"
+msgstr "Parece que quieres restaurar tu contraseña"
+
+#: .\clubby\templates\registration\password_reset_email.html:1
+msgid "Follow the link below:"
+msgstr "Haz click en el siguiente link:"
+
+#: .\clubby\templates\registration\password_reset_form.html:31
+msgid "Reset password"
+msgstr "Recuperar contraseña"
+
 #: .\clubby\views\views.py:349 .\clubby\views\views.py:386
 #: .\clubby\views\views.py:398 .\clubby\views\views_miguel.py:68
 #: .\clubby\views\views_miguel.py:82 .\clubby\views\views_miguel.py:94
@@ -1531,14 +1587,14 @@ msgstr "Hora de inicio no válida"
 msgid "Duration is invalid"
 msgstr "Duración no válida"
 
-#: .\clubby\views\views_jose.py:136 .\clubby\views\views_jose.py:172
+#: .\clubby\views\views_jose.py:138 .\clubby\views\views_jose.py:174
 msgid ""
 "the security key did not match, trying to screw people over huh? Naughty >:("
 msgstr ""
 "la clave de seguridad no encaja,  ¿intentas fastidiar a alguien? Persona "
 "horrible >:("
 
-#: .\clubby\views\views_jose.py:216
+#: .\clubby\views\views_jose.py:223
 msgid "Something went wrong"
 msgstr "Algo salió mal"
 

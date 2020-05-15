@@ -149,7 +149,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SENDGRID_API_KEY = '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'
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL= 'clubbyispp@gmail.com'
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
