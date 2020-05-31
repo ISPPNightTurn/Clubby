@@ -63,3 +63,5 @@ stripe==2.44.0
 urllib3==1.25.8
 
 wincertstore==0.2
+
+django-sendgrid-v5
