@@ -116,7 +116,7 @@ def profile(request):
         form = FundsForm()
 
         client_id ='7af4e7e36a454ec09746fa13559947d9'
-        redirect_uri = 'http://localhost:8000/clubby/spotify/authorize/'
+        redirect_uri = 'https://thatsclubby.herokuapp.com/clubby/spotify/authorize/'
         scope = 'user-top-read'
 
         spotify_link_url = 'https://accounts.spotify.com/authorize?client_id='+client_id+'&response_type=code&redirect_uri='+redirect_uri+'&scope=user-top-read&show_dialog=true'
